@@ -7,7 +7,7 @@ to create a "feature" branch to keep it away from the main branch, which keeps t
 
 3. Coding.
 
-4. git pull upstream main (make regular updates to keep local copy up to date).
+4. git pull upstream main (make regular updates to keep local copy up to date) // git checkout main to switch to the main branch
 
     (After that you can also merge the changes from your local main branch into the feature branch:
     git checkout feature/xxx to make sure or switch to the feature branch
