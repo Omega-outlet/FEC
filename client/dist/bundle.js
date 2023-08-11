@@ -64,7 +64,7 @@ const ProductCard = function ({
 }) {
   // product state
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tbody", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
@@ -159,6 +159,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductCard_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductCard.jsx */ "./client/src/components/RelatedItems/ProductCard.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
+//import { useState } from 'react';
+
 
 
 const RelatedList = function ({
@@ -189,9 +191,9 @@ const RelatedList = function ({
   }];
   const prodList = products.map((prod, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
     product: prod,
-    ref: index
+    position: index
   }, prod.id));
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
     children: prodList
   });
 };

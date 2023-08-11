@@ -1,4 +1,6 @@
 import React from 'react';
+//import { useState } from 'react';
+
 import ProductCard from './ProductCard.jsx';
 
 const RelatedList = function({currentProductID, updateProduct}) {
@@ -29,14 +31,14 @@ const RelatedList = function({currentProductID, updateProduct}) {
     },
   ];
 
-  const prodList = products.map((prod, index) => <ProductCard product={prod} ref={index} key={prod.id} /> );
-
-
+  const prodList = products.map(
+    (prod, index) => <ProductCard product={prod} position={index} key={prod.id} />,
+  );
 
   return (
-    <div>
+    <ul>
       {prodList}
-    </div>
+    </ul>
   );
 };
 

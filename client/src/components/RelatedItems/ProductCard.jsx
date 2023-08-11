@@ -4,7 +4,7 @@ const ProductCard = function ({product}) {
   // product state
 
   return (
-    <div>
+    <li>
       <table>
         <tbody>
           <tr>
@@ -34,7 +34,7 @@ const ProductCard = function ({product}) {
           </tr>
         </tbody>
       </table>
-    </div>
+    </li>
   );
 };
 
