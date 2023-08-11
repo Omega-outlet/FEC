@@ -1,17 +1,21 @@
+/* eslint-disable import/extensions */
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect, useContext } from 'react';
+import ProductInformation from './ProductInformation.jsx';
+import ImageGallery from './ImageGallery.jsx';
 
-const Overview = () => {
-
-
-
+function Overview() {
   return (
-    <div>
-      <h1>Overview</h1>
+    <div className="container">
+      <div className="half">
+        <ImageGallery />
+      </div>
+      <div className="half">
+        <ProductInformation />
+      </div>
     </div>
-
-  )
+  );
 }
 
 export default Overview;
