@@ -19,12 +19,17 @@ const ProductCard = function ({product}) {
           </tr>
           <tr>
             <td>
-              <strong>{product.name}</strong><em>{product.slogan}</em>
+              <strong>{product.name}</strong>
             </td>
           </tr>
           <tr>
             <td>
-              ${product.price}
+              <em>{product.slogan}</em>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {'$' + product.price}
             </td>
           </tr>
           <tr>

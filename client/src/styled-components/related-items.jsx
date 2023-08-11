@@ -9,6 +9,7 @@ const Carousel = styled.ul`
   overflow: auto;
   -webkit-overflow-scrolling property;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  flex: 0 0 auto;
 `;
 
 export default Carousel;

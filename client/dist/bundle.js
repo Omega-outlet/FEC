@@ -80,16 +80,20 @@ const ProductCard = function ({
             children: product.category
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
               children: product.name
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
-              children: product.slogan
-            })]
+            })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-            children: ["$", product.price]
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
+              children: product.slogan
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+            children: '$' + product.price
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
@@ -192,6 +196,41 @@ const RelatedList = function ({
     description: 'Whether you\'re a morning person or not. Whether you\'re gym bound or not. Everyone looks good in joggers.',
     category: 'Pants',
     default_price: '40'
+  }, {
+    id: 4,
+    name: 'Onesie 2',
+    slogan: 'Blend in to your crowd',
+    description: 'The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.',
+    category: 'Jackets',
+    default_price: '140'
+  }, {
+    id: 5,
+    name: 'Future Sunglasses 2',
+    slogan: 'You\'ve got to wear shades',
+    description: 'Where you\'re going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.',
+    category: 'Accessories',
+    default_price: '69'
+  }, {
+    id: 6,
+    name: 'Joggers 2',
+    slogan: 'Make yourself a morning person',
+    description: 'Whether you\'re a morning person or not. Whether you\'re gym bound or not. Everyone looks good in joggers.',
+    category: 'Pants',
+    default_price: '40'
+  }, {
+    id: 7,
+    name: 'Future Sunglasses 3',
+    slogan: 'You\'ve got to wear shades',
+    description: 'Where you\'re going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.',
+    category: 'Accessories',
+    default_price: '69'
+  }, {
+    id: 8,
+    name: 'Joggers 3',
+    slogan: 'Make yourself a morning person',
+    description: 'Whether you\'re a morning person or not. Whether you\'re gym bound or not. Everyone looks good in joggers.',
+    category: 'Pants',
+    default_price: '40'
   }];
   const prodList = products.map((prod, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
     product: prod,
@@ -223,12 +262,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const YourOutfitList = function ({
   currentProductID,
   updateProduct
 }) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    children: "Here's your outfit!"
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+      children: "No outfit yet!"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+      type: "button",
+      value: "Add current item to your outfit"
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (YourOutfitList);
@@ -259,6 +304,7 @@ const Carousel = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].ul`
   overflow: auto;
   -webkit-overflow-scrolling property;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  flex: 0 0 auto;
 `;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Carousel);
 
