@@ -1,7 +1,7 @@
 import React from 'react';
 //import { useState } from 'react';
-
 import ProductCard from './ProductCard.jsx';
+import Carousel from '../../styled-components/related-items.jsx';
 
 const RelatedList = function({currentProductID, updateProduct}) {
   const products = [
@@ -36,9 +36,9 @@ const RelatedList = function({currentProductID, updateProduct}) {
   );
 
   return (
-    <ul>
+    <Carousel>
       {prodList}
-    </ul>
+    </Carousel>
   );
 };
 
