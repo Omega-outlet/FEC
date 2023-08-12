@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 
-function ProductInformation() {
+function ProductInformation({ currentProduct }) {
+  console.log("from product info", currentProduct);
+
   return (
     <div>
       <h1>Product Information</h1>

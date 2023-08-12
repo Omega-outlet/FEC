@@ -5,14 +5,14 @@ import { useState, useEffect, useContext } from 'react';
 import ProductInformation from './ProductInformation.jsx';
 import ImageGallery from './ImageGallery.jsx';
 
-function Overview() {
+function Overview({ currentProduct }) {
   return (
     <div className="container">
       <div className="half">
-        <ImageGallery />
+        <ImageGallery currentProduct={currentProduct}/>
       </div>
       <div className="half">
-        <ProductInformation />
+        <ProductInformation currentProduct={currentProduct}/>
       </div>
     </div>
   );
