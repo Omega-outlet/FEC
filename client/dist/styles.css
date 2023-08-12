@@ -1,15 +1,3 @@
-/* .ImageGallery {
-  width: 50%;
-  float:left;
-  background: green;
-}
-
-.ProductInformation {
-  margin-left:50%;
-  background: blue;
-}; */
-
-
 .container {
   display: flex;
   width: 100%;
@@ -19,6 +7,33 @@
 .half {
   height: inherit;
   width: 50%;
+}
+
+.styleEntryContainer {
+  display: flex;
+  font-size: 0;
+  flex-wrap:wrap;
+  margin:-10px 0 0 -10px;
+}
+
+.styleSelectorContainer {
+  width: 500px;
+}
+
+.styleEntryThumbnail {
+  display: block;
+  width:80px;
+  height:100px;
+  object-fit: cover;
+}
+
+/* https://stackoverflow.com/questions/29546550/flexbox-4-items-per-row */
+.styleEntry {
+  display: inline-block;
+  margin:10px 0 0 10px;
+  flex-grow: 1;
+  /* height:100px; */
+  width: 20%;
 }
 
 body {

@@ -8,25 +8,25 @@ import Overview from './Overview/Overview.jsx';
 // import RelatedItems from './RelatedItems/RelatedItems.jsx';
 
 const App = function () {
-  // const [currentProductID, setCurrentProductID] = useState(1);
+  const [currentProductID, setCurrentProductID] = useState(4);
 
   const [currentProduct, setCurrentProduct] = useState({});
   const loadData = () => {
     const options = {
       url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/',
-      products: 'products',
       headers: {
         Authorization: `${config.TOKEN}`,
       },
     };
     axios({
       method: 'get',
-      url: `${options.url}${options.products}`,
+      url: `${options.url}products`,
       headers: options.headers,
       responseType: 'json',
     })
       .then((response) => {
         setCurrentProduct(response.data[0]);
+        setCurrentProductID(response.data[0].id);
       })
       .catch((error) => console.log('Error', error.message));
   };
@@ -39,7 +39,7 @@ const App = function () {
   return (
     <div>
       <h1>Omega Outlet</h1>
-      <Overview currentProduct={currentProduct} />
+      <Overview currentProduct={currentProduct} currentProductID={currentProductID} />
      {/* <RelatedItems currentProductID={currentProductID} updateProduct={updateProduct} />
       <QuestionsAndAnswers currentProductID={currentProductID} />
       <RatingsAndReviews currentProductID={currentProductID} /> */}
