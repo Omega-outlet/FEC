@@ -8,7 +8,6 @@ function ProductInformation({ currentProduct, currentProductID, styles }) {
 
   const loadStyles = () => {
     setStylesArray(styles.results);
-    console.log(stylesArray);
     setIsLoading(false);
   };
   useEffect(loadStyles, [styles, stylesArray]);
@@ -22,7 +21,12 @@ function ProductInformation({ currentProduct, currentProductID, styles }) {
       <h3>{ currentProduct.description }</h3>
 
       <div className="styleSelectorContainer">
-        {stylesArray ? stylesArray.map((style, index) => <div className="styleEntry"><StyleEntry style={style} key={index} index={index}/> </div>) : null}
+        {stylesArray ? stylesArray.map((style, index) => (
+          <div className="styleEntry" data-testid="styleEntry">
+            <StyleEntry style={style} key={index} index={index} />
+            {' '}
+          </div>
+        )) : null}
       </div>
 
     </div>
