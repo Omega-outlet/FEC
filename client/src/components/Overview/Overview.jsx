@@ -8,6 +8,7 @@ import ImageGallery from './ImageGallery.jsx';
 
 function Overview({ currentProduct, currentProductID }) {
   const [styles, setStyles] = useState({});
+  // get the styles of the current product
   const loadProduct = () => {
     const options = {
       url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/',

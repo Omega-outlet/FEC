@@ -8,9 +8,9 @@ import Overview from './Overview/Overview.jsx';
 // import RelatedItems from './RelatedItems/RelatedItems.jsx';
 
 const App = function () {
-  const [currentProductID, setCurrentProductID] = useState(4);
-
+  const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
+  // get the first product in the array
   const loadData = () => {
     const options = {
       url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/',

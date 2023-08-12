@@ -5,7 +5,7 @@ import StyleEntry from './StyleEntry.jsx';
 function ProductInformation({ currentProduct, currentProductID, styles }) {
   const [stylesArray, setStylesArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  // load the stylesArray with styles
   const loadStyles = () => {
     setStylesArray(styles.results);
     setIsLoading(false);
@@ -24,7 +24,6 @@ function ProductInformation({ currentProduct, currentProductID, styles }) {
         {stylesArray ? stylesArray.map((style, index) => (
           <div className="styleEntry" data-testid="styleEntry">
             <StyleEntry style={style} key={index} index={index} />
-            {' '}
           </div>
         )) : null}
       </div>

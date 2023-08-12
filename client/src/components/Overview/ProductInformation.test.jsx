@@ -8,7 +8,6 @@ import ProductInformation from './ProductInformation.jsx';
 import StyleEntry from './StyleEntry.jsx';
 import Overview from './Overview.jsx';
 
-
 // 2 products in products array
 const products = [
   {
