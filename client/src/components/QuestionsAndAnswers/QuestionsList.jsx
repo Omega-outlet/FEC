@@ -15,7 +15,7 @@ function QuestionsList({ questions }) {
             <p>Who asked the question?</p>
             <p>{`Asked by ${question.asker_name}, ${reFormatDate(question.question_date)}` }</p>
             <h4>Q</h4>
-            <p>{question.question_body}</p>
+            <p data-testid="question-body">{question.question_body}</p>
             <p>Helpful?</p>
             <ul>
               {Object.values(question.answers).slice(0, 2).map((answer) => (
@@ -40,7 +40,7 @@ QuestionsList.propTypes = {
     asker_name: PropTypes.string.isRequired,
     answers: PropTypes.objectOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
-      data: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
       body: PropTypes.string.isRequired,
       answerer_name: PropTypes.string.isRequired,
     })).isRequired,
