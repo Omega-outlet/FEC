@@ -2,9 +2,12 @@ import React from 'react';
 //import { useState } from 'react';
 import ProductCard from './ProductCard.jsx';
 import Carousel from '../../styled-components/related-items.jsx';
-import { useRef } from 'react';
+import ScrollButton from './ScrollButton.jsx'
+import { useRef, useState } from 'react';
 
 const RelatedList = function({currentProductID, updateProduct}) {
+  const [focalItem, setFocalItem] = useState(0);
+
   const products = [
     {
       id: 1,
@@ -81,7 +84,9 @@ const RelatedList = function({currentProductID, updateProduct}) {
 
   return (
     <Carousel>
+      <ScrollButton dir="left" />
       {prodList}
+      <ScrollButton dir="right" />
     </Carousel>
   );
 };
