@@ -75,18 +75,19 @@ const RelatedList = function({currentProductID, updateProduct}) {
     },
   ];
 
-  const prodList = products.map(
-    (prod, index) => {
-      const myRef = useRef(index);
-      return <ProductCard product={prod} ref={myRef} key={prod.id} />;
-    },
-  );
+  const prodList = products.filter((item, index) => index >= focalItem && index < focalItem + 4)
+    .map(
+      (prod) => <ProductCard product={prod} key={prod.id} />,
+    );
+
+  const scrollLeft = () => setFocalItem(focalItem - 1);
+  const scrollRight = () => setFocalItem(focalItem + 1);
 
   return (
     <Carousel>
-      <ScrollButton dir="left" />
+      { focalItem > 0 && <ScrollButton scroll={scrollLeft} /> }
       {prodList}
-      <ScrollButton dir="right" />
+      { focalItem < products.length - 3 && <ScrollButton scroll={scrollRight} /> }
     </Carousel>
   );
 };
