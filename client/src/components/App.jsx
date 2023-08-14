@@ -16,7 +16,6 @@ const App = function () {
       .then((response) => {
         setCurrentProduct(response.data);
         setCurrentProductID(response.data.id);
-        console.log("Current product id", currentProductID);
       })
       .catch((error) => console.log('Error', error.message));
   };
