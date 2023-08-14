@@ -12,7 +12,7 @@ const App = function () {
   // get the first product in the array
   const loadFirstProduct = () => {
     axios
-      .get('/api/products')
+      .get('/api/product')
       .then((response) => {
         setCurrentProduct(response.data);
         setCurrentProductID(response.data.id);
