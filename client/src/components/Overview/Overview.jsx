@@ -1,7 +1,6 @@
 /* eslint-disable import/extensions */
 import React from 'react';
 import axios from 'axios';
-import config from '../../../../config.js';
 import { useState, useEffect, useContext } from 'react';
 import ProductInformation from './ProductInformation.jsx';
 import ImageGallery from './ImageGallery.jsx';
@@ -9,17 +8,17 @@ import ImageGallery from './ImageGallery.jsx';
 function Overview({ currentProduct, currentProductID }) {
   const [styles, setStyles] = useState({});
   // get the styles of the current product
-  const loadProduct = () => {
+  const loadProductStyles = () => {
     const options = {
-      url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/',
-      headers: {
-        Authorization: `${config.TOKEN}`,
+      url: '/api/product/styles',
+      params: {
+        currentProductID,
       },
     };
     axios({
       method: 'get',
-      url: `${options.url}products/${currentProductID}/styles`,
-      headers: options.headers,
+      url: options.url,
+      params: options.params,
       responseType: 'json',
     })
       .then((response) => {
@@ -27,7 +26,7 @@ function Overview({ currentProduct, currentProductID }) {
       })
       .catch((error) => console.log('Error', error.message));
   };
-  useEffect(loadProduct, [currentProductID]);
+  useEffect(loadProductStyles, [currentProductID]);
 
   return (
     <div className="container">

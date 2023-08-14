@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import config from '../../../config.js';
 import { useState, useEffect, useContext } from 'react';
 import Overview from './Overview/Overview.jsx';
 // import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
@@ -11,26 +10,17 @@ const App = function () {
   const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
   // get the first product in the array
-  const loadData = () => {
-    const options = {
-      url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/',
-      headers: {
-        Authorization: `${config.TOKEN}`,
-      },
-    };
-    axios({
-      method: 'get',
-      url: `${options.url}products`,
-      headers: options.headers,
-      responseType: 'json',
-    })
+  const loadFirstProduct = () => {
+    axios
+      .get('/api/products')
       .then((response) => {
-        setCurrentProduct(response.data[0]);
-        setCurrentProductID(response.data[0].id);
+        setCurrentProduct(response.data);
+        setCurrentProductID(response.data.id);
+        console.log("Current product id", currentProductID);
       })
       .catch((error) => console.log('Error', error.message));
   };
-  useEffect(loadData, []);
+  useEffect(loadFirstProduct, []);
 
   // const updateProduct = (prodID) => {
   //   setCurrentProductID(prodID);
