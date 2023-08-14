@@ -1,0 +1,9 @@
+.Stars {
+  &::before {
+    content: '★★★★★';
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, black var(--percent), lightgray var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
