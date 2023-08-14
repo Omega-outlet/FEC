@@ -29,7 +29,7 @@ const ProductCard = function ({product}) {
           </tr>
           <tr>
             <td>
-              {'$' + product.price}
+              ${product.default_price}
             </td>
           </tr>
           <tr>

@@ -8,6 +8,7 @@ const Carousel = styled.ul`
   flex-wrap: nowrap;
   overflow: auto;
   flex: 0 0 auto;
+  overflow: hidden;
 `;
 
 export default Carousel;
