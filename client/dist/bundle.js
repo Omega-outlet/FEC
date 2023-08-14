@@ -60,7 +60,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _styled_components_common_elements_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../styled-components/common-elements.jsx */ "./client/src/styled-components/common-elements.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _RatingsGraph_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RatingsGraph.jsx */ "./client/src/components/RatingsAndReviews/RatingsGraph.jsx");
+/* harmony import */ var _ReviewList_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ReviewList.jsx */ "./client/src/components/RatingsAndReviews/ReviewList.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
@@ -68,17 +72,152 @@ __webpack_require__.r(__webpack_exports__);
 function RatingsAndReviews() {
   // this is just example data, rating will come from request based on id passed as prop
   const rating = 2.5;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "ratingsComponent",
+    style: {
+      'padding': '0 20px'
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
       "data-testid": "text",
-      children: "Ratings And Reviews"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_styled_components_common_elements_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      rating: rating,
-      fontSize: 20
-    })]
+      style: {
+        'textAlign': 'center'
+      },
+      children: "Reviews"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      style: {
+        'display': 'flex',
+        'justifyContent': 'space-between',
+        'alignItems': 'center',
+        'border-bottom': '1px solid grey'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          children: "2.5 "
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_styled_components_common_elements_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          rating: rating,
+          fontSize: 20
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_RatingsGraph_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+          children: "Based on 150 reviews"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+          children: "% of users recommend this product"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+        type: "submit",
+        style: {
+          'height': '40px',
+          'border': 'none',
+          'color': 'white',
+          'background': 'black',
+          'cursor': 'pointer'
+        },
+        children: "Write Review"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ReviewList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
   });
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RatingsAndReviews);
+
+/***/ }),
+
+/***/ "./client/src/components/RatingsAndReviews/RatingsGraph.jsx":
+/*!******************************************************************!*\
+  !*** ./client/src/components/RatingsAndReviews/RatingsGraph.jsx ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function RatingsGraph() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
+    children: "Ratings Graph Here"
+  });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RatingsGraph);
+
+/***/ }),
+
+/***/ "./client/src/components/RatingsAndReviews/Review.jsx":
+/*!************************************************************!*\
+  !*** ./client/src/components/RatingsAndReviews/Review.jsx ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function Review() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+    children: "Review Here"
+  });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Review);
+
+/***/ }),
+
+/***/ "./client/src/components/RatingsAndReviews/ReviewList.jsx":
+/*!****************************************************************!*\
+  !*** ./client/src/components/RatingsAndReviews/ReviewList.jsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Review_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Review.jsx */ "./client/src/components/RatingsAndReviews/Review.jsx");
+/* harmony import */ var _exampleData_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./exampleData.json */ "./client/src/components/RatingsAndReviews/exampleData.json");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+function ReviewList() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+      style: {
+        'textAlign': 'center'
+      },
+      children: "Review List Component Here"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
+      htmlFor: "dropdown",
+      children: ["Sort By:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+        id: "dropdown",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+          value: "helpful",
+          children: "Helpful"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+          value: "newest",
+          children: "Newest"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+          value: "relevant",
+          children: "Relevant"
+        })]
+      })]
+    }), _exampleData_json__WEBPACK_IMPORTED_MODULE_2__.results.map(review => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Review_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      review: review
+    }, review.review_id))]
+  });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ReviewList);
 
 /***/ }),
 
@@ -13099,6 +13238,17 @@ function __disposeResources(env) {
   __disposeResources,
 });
 
+
+/***/ }),
+
+/***/ "./client/src/components/RatingsAndReviews/exampleData.json":
+/*!******************************************************************!*\
+  !*** ./client/src/components/RatingsAndReviews/exampleData.json ***!
+  \******************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"product":"2","page":0,"count":5,"results":[{"review_id":5,"rating":3,"summary":"I\'m enjoying wearing these shades","recommend":false,"response":null,"body":"Comfortable and practical.","date":"2019-04-14T00:00:00.000Z","reviewer_name":"shortandsweeet","helpfulness":5,"photos":[{"id":1,"url":"urlplaceholder/review_5_photo_number_1.jpg"},{"id":2,"url":"urlplaceholder/review_5_photo_number_2.jpg"}]},{"review_id":3,"rating":4,"summary":"I am liking these glasses","recommend":false,"response":"Glad you\'re enjoying the product!","body":"They are very dark. But that\'s good because I\'m in very sunny spots","date":"2019-06-23T00:00:00.000Z","reviewer_name":"bigbrotherbenjamin","helpfulness":5,"photos":[]}]}');
 
 /***/ })
 
