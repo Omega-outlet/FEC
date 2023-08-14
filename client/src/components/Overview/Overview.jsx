@@ -29,6 +29,7 @@ function Overview({ currentProduct, currentProductID }) {
   useEffect(loadProductStyles, [currentProductID]);
 
   return (
+    <div>
     <div className="container">
       <div className="half">
         <ImageGallery currentProduct={currentProduct} />
@@ -40,6 +41,7 @@ function Overview({ currentProduct, currentProductID }) {
           styles={styles}
         />
       </div>
+    </div>
     </div>
   );
 }
