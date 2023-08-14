@@ -85,9 +85,9 @@ const RelatedList = function({currentProductID, updateProduct}) {
 
   return (
     <Carousel>
-      { focalItem > 0 && <ScrollButton scroll={scrollLeft} /> }
+      { focalItem > 0 && <ScrollButton scroll={scrollLeft} dir="left" /> }
       {prodList}
-      { focalItem < products.length - 3 && <ScrollButton scroll={scrollRight} /> }
+      { focalItem < products.length - 4 && <ScrollButton scroll={scrollRight} dir="right" /> }
     </Carousel>
   );
 };
