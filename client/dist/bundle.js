@@ -46,6 +46,31 @@ const App = function () {
 
 /***/ }),
 
+/***/ "./client/src/components/RatingsAndReviews/CharacteristicsGraph.jsx":
+/*!**************************************************************************!*\
+  !*** ./client/src/components/RatingsAndReviews/CharacteristicsGraph.jsx ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function CharacteristicsGraph() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+    children: "Characteristics Graph Here"
+  });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CharacteristicsGraph);
+
+/***/ }),
+
 /***/ "./client/src/components/RatingsAndReviews/RatingsAndReviews.jsx":
 /*!***********************************************************************!*\
   !*** ./client/src/components/RatingsAndReviews/RatingsAndReviews.jsx ***!
@@ -88,7 +113,7 @@ function RatingsAndReviews() {
         'display': 'flex',
         'justifyContent': 'space-between',
         'alignItems': 'center',
-        'border-bottom': '1px solid grey'
+        'borderBottom': '1px solid grey'
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
@@ -157,14 +182,91 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _CharacteristicsGraph_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CharacteristicsGraph.jsx */ "./client/src/components/RatingsAndReviews/CharacteristicsGraph.jsx");
+/* harmony import */ var _styled_components_common_elements_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../styled-components/common-elements.jsx */ "./client/src/styled-components/common-elements.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
-function Review() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
-    children: "Review Here"
+
+
+
+
+function Review({
+  review
+}) {
+  const {
+    body,
+    date,
+    helpfulness,
+    photos,
+    rating,
+    recommend,
+    reviewer_name,
+    summary
+  } = review;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    style: {
+      'display': 'flex',
+      'justifyContent': 'space-between',
+      'borderTop': '1px solid grey',
+      'height': '200px',
+      'alignItems': 'center'
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "first-column",
+      style: {
+        'borderRight': '1px solid grey',
+        'paddingRight': '20px'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: reviewer_name
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_CharacteristicsGraph_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: recommend ? 'recommended' : 'not recommended'
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "second-column",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_styled_components_common_elements_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          rating: rating,
+          fontSize: 20
+        }), ":", summary]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: body
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "third-column",
+      style: {
+        'borderLeft': '1px solid grey',
+        'paddingLeft': '20px'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: "Images Module"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: date
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: "Upvote/Downvote"
+      })]
+    })]
   });
 }
+Review.propTypes = {
+  review: prop_types__WEBPACK_IMPORTED_MODULE_4___default().objectOf(prop_types__WEBPACK_IMPORTED_MODULE_4___default().shape({
+    body: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
+    date: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
+    helpfulness: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().number),
+    // photos: PropTypes.,
+    rating: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().number),
+    recommend: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),
+    review_id: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().number),
+    response: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
+    reviewer_name: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
+    summary: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string)
+  })).isRequired
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Review);
 
 /***/ }),
@@ -192,12 +294,10 @@ __webpack_require__.r(__webpack_exports__);
 
 function ReviewList() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-      style: {
-        'textAlign': 'center'
-      },
-      children: "Review List Component Here"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
+    style: {
+      'paddingTop': '20px'
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
       htmlFor: "dropdown",
       children: ["Sort By:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
         id: "dropdown",
@@ -212,9 +312,14 @@ function ReviewList() {
           children: "Relevant"
         })]
       })]
-    }), _exampleData_json__WEBPACK_IMPORTED_MODULE_2__.results.map(review => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Review_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      review: review
-    }, review.review_id))]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      style: {
+        'paddingTop': '20px'
+      },
+      children: _exampleData_json__WEBPACK_IMPORTED_MODULE_2__.results.map(review => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Review_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        review: review
+      }, review.review_id))
+    })]
   });
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ReviewList);

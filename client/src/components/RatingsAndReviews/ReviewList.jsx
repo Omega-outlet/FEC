@@ -4,8 +4,8 @@ import data from './exampleData.json';
 
 function ReviewList() {
   return (
-    <div>
-      <h1 style={{ 'textAlign': 'center' }}>Review List Component Here</h1>
+    <div style={{ 'paddingTop': '20px' }}>
+      {/* <h1 style={{ 'textAlign': 'center' }}>Review List Component Here</h1> */}
       <label htmlFor="dropdown">
         Sort By:
         <select id="dropdown">
@@ -14,7 +14,9 @@ function ReviewList() {
           <option value="relevant">Relevant</option>
         </select>
       </label>
-      {data.results.map((review) => <Review review={review} key={review.review_id} />)}
+      <div style={{ 'paddingTop': '20px' }}>
+        {data.results.map((review) => <Review review={review} key={review.review_id} />)}
+      </div>
     </div>
   );
 }

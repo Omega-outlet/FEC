@@ -14,7 +14,7 @@ function RatingsAndReviews() {
           'display': 'flex',
           'justifyContent': 'space-between',
           'alignItems': 'center',
-          'border-bottom': '1px solid grey',
+          'borderBottom': '1px solid grey',
         }
       }
       >
