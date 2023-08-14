@@ -21,9 +21,9 @@ const App = function () {
   };
   useEffect(loadFirstProduct, []);
 
-  // const updateProduct = (prodID) => {
-  //   setCurrentProductID(prodID);
-  // };
+  const updateProduct = (prodID) => {
+    setCurrentProductID(prodID);
+  };
 
   return (
     <div>
