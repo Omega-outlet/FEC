@@ -2,6 +2,7 @@ import React from 'react';
 //import { useState } from 'react';
 import ProductCard from './ProductCard.jsx';
 import Carousel from '../../styled-components/related-items.jsx';
+import { useRef } from 'react';
 
 const RelatedList = function({currentProductID, updateProduct}) {
   const products = [
@@ -72,7 +73,10 @@ const RelatedList = function({currentProductID, updateProduct}) {
   ];
 
   const prodList = products.map(
-    (prod, index) => <ProductCard product={prod} position={index} key={prod.id} />,
+    (prod, index) => {
+      const myRef = useRef(index);
+      return <ProductCard product={prod} ref={myRef} key={prod.id} />;
+    },
   );
 
   return (
