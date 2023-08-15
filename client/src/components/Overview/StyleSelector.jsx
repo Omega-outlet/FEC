@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Promise from 'bluebird';
 import StyleEntry from './StyleEntry.jsx';
+import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 
 function styleSelector({
   stylesArray, selectedStyle, setSelectedStyle,
@@ -54,7 +55,7 @@ function styleSelector({
   return (
     <div>
       {stylesArray ? stylesArray.map((style, index) => (
-        <div className="styleEntry" data-testid="styleEntry" key={index}>
+        <ProductInformationComponents.StyleEntry data-testid="styleEntry" key={index}>
           <StyleEntry
             style={style}
             index={index}
@@ -66,7 +67,7 @@ function styleSelector({
             selectedStyleSalePrice={selectedStyleSalePrice}
             setSelectedStyleSalePrice={setSelectedStyleSalePrice}
           />
-        </div>
+        </ProductInformationComponents.StyleEntry>
       )) : null}
     </div>
   );
