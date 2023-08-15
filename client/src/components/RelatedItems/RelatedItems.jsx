@@ -6,7 +6,6 @@ import RelatedList from './RelatedList.jsx';
 import YourOutfitList from './YourOutfitList.jsx';
 
 const RelatedItems = function ({currentProductID, updateProduct}) {
-
   return (
     <div>
       <RelatedList currentProductID={currentProductID} updateProduct={updateProduct} />

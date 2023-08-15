@@ -3,18 +3,29 @@
  */
 
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import RelatedItems from './RelatedItems.jsx'
+import { render, screen, fireEvent } from '@testing-library/react';
+import RelatedItems from './RelatedItems.jsx';
 
-
-describe("List item", () => {
-  const setToggle = jest.fn();
+describe('Related Items', () => {
   render(<RelatedItems />);
-  const item = screen.getByText("Camo Onesie");
 
-  // Test 1
-  test("item exists", () => {
-      expect(item).toBeTruthy();
-  })
+  test('item 1 exists', () => {
+    expect(screen.getByText('Camo Onesie')).toBeTruthy();
+  });
 
-})
+  test('left button does not exist on page render', () => {
+    expect(() => screen.getByText('<').toThrow());
+  });
+
+  const rightButton = screen.getByText('>');
+
+  test('right button exists on page render', () => {
+    expect(rightButton).toBeTruthy();
+  });
+
+  test('after scrolling right, first item disappears and left button appears', () => {
+    fireEvent.click(rightButton);
+    expect(() => screen.getByText('Camo Onesie').toThrow());
+    expect(() => screen.getByText('<').toBeTruthy());
+  });
+});

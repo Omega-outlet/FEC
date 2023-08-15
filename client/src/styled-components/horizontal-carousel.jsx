@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 const Carousel = styled.ul`
   list-style-type: none;
+  inline-size: min-content;
   display: flex;
   flex-wrap: nowrap;
   overflow: auto;
-  -webkit-overflow-scrolling property;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
   flex: 0 0 auto;
+  overflow: hidden;
 `;
 
 export default Carousel;
