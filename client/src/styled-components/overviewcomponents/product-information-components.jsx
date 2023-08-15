@@ -24,9 +24,22 @@ const SaleText = styled.span`
   color: red;
 `;
 
+const SocialMediaButton = styled.a`
+  display: block;
+  width: 50px;
+  height: 20px;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  line-height: 25px;
+`;
 export default {
   StyleSelectorContainer,
   StyleEntryThumbnail,
   StyleEntry,
   SaleText,
+  SocialMediaButton,
 };

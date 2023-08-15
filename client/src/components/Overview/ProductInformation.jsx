@@ -19,6 +19,9 @@ function ProductInformation({
     setSelectedIsLoading(false);
   };
   useEffect(loadStyles, [currentProduct, selectedStyle]);
+  const currentURL = window.location.href;
+  const message = `This%20${currentProduct.name}%20from%20Omega%20Mart%20is%20amazing!%20${currentURL}`;
+  const twitterLink = `https://twitter.com/intent/tweet?text=${message}`;
   return (
     <div>
       <h1>{ currentProduct.name }</h1>
@@ -40,6 +43,10 @@ function ProductInformation({
 
       <h3>{ currentProduct.category }</h3>
       <h3>{ currentProduct.description }</h3>
+      <span>share this product: </span>
+      <ProductInformationComponents.SocialMediaButton href={twitterLink}>
+        Tweet
+      </ProductInformationComponents.SocialMediaButton>
 
       <ProductInformationComponents.StyleSelectorContainer>
         <StyleSelector
