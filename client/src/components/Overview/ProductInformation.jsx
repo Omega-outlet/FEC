@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import StyleSelector from './StyleSelector.jsx';
 
 function ProductInformation({
-  currentProduct, currentProductID, styles, selectedStyle, setSelectedStyle,selectedStylePrice, setSelectedStylePrice
+  currentProduct, currentProductID, styles, selectedStyle, setSelectedStyle, selectedStylePrice, setSelectedStylePrice, selectedStyleSalePrice, setSelectedStyleSalePrice
 }) {
   const [stylesArray, setStylesArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,14 +14,27 @@ function ProductInformation({
     setSelectedIsLoading(true);
 
     setSelectedIsLoading(false);
-
   };
   useEffect(loadStyles, [currentProduct, selectedStyle]);
-
+  const salePrice = { color: 'red' };
+  const element = <span style={salePrice}>{selectedStyleSalePrice}</span>;
   return (
     <div>
       <h1>{ currentProduct.name }</h1>
-      <h3>{ selectedStylePrice }</h3>
+      {selectedStyleSalePrice ? (
+        <span>
+          <s>{ selectedStylePrice }</s>
+          {' '}
+          <span>
+            { element }
+          </span>
+        </span>
+      ) : (
+        <span>
+          { selectedStylePrice }
+        </span>
+      )}
+
       <h3>{ currentProduct.category }</h3>
       <h3>{ currentProduct.description }</h3>
 
@@ -32,6 +45,8 @@ function ProductInformation({
           setSelectedStyle={setSelectedStyle}
           selectedStylePrice={selectedStylePrice}
           setSelectedStylePrice={setSelectedStylePrice}
+          selectedStyleSalePrice={selectedStyleSalePrice}
+          setSelectedStyleSalePrice={setSelectedStyleSalePrice}
         />
       </div>
 

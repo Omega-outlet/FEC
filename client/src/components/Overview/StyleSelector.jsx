@@ -2,12 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import StyleEntry from './StyleEntry.jsx';
 import Promise from 'bluebird';
 
-function styleSelector({ stylesArray, selectedStyle, setSelectedStyle,  selectedStylePrice, setSelectedStylePrice}) {
+function styleSelector({
+  stylesArray, selectedStyle, setSelectedStyle,
+  selectedStylePrice, setSelectedStylePrice, selectedStyleSalePrice, setSelectedStyleSalePrice,
+}) {
   const [isLoading, setIsLoading] = useState(true);
   // load the stylesArray with styles
   const loadStyles = () => {
     setIsLoading(true);
-    function getPrice() {
+    function getOriginalPrice() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
         if (typeof stylesArray !== 'undefined') {
@@ -18,15 +21,37 @@ function styleSelector({ stylesArray, selectedStyle, setSelectedStyle,  selected
         if (didSucceed === true) {
           resolve(stylesArray[0].original_price);
         } else {
-          reject(new Error('Not done Loading'));
+          reject(new Error('Not done loading'));
         }
       });
     }
 
-    getPrice()
-      .then((data) => { setSelectedStylePrice(data)});
+    getOriginalPrice()
+      .then((data) => { setSelectedStylePrice(data); });
+
+    function getSalePrice() {
+      let didSucceed = false;
+      return new Promise((resolve, reject) => {
+        if (typeof stylesArray !== 'undefined') {
+          if (stylesArray.length > 0) {
+            didSucceed = true;
+          }
+        }
+        if (didSucceed === true) {
+          resolve(stylesArray[0].sale_price);
+        } else {
+          reject(new Error('Not done loading'));
+        }
+      });
+    }
+    getSalePrice()
+      .then((data) => { setSelectedStyleSalePrice(data); });
     setIsLoading(false);
   };
+
+
+
+
   useEffect(loadStyles, [stylesArray]);
   return (
     <div>
@@ -40,6 +65,8 @@ function styleSelector({ stylesArray, selectedStyle, setSelectedStyle,  selected
             setSelectedStyle={setSelectedStyle}
             selectedStylePrice={selectedStylePrice}
             setSelectedStylePrice={setSelectedStylePrice}
+            selectedStyleSalePrice={selectedStyleSalePrice}
+            setSelectedStyleSalePrice={setSelectedStyleSalePrice}
           />
         </div>
       )) : null}
