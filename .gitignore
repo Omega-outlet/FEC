@@ -2,6 +2,4 @@ node_modules
 .env
 client/dist/bundle.js
 client/dist/bundle.js.map
-.DS_STORE
-/coverage
-config.js
+coverage

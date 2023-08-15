@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import QuestionsList from './QuestionsList.jsx';
+import QuestionsList from './QuestionsList/QuestionsList.jsx';
 import dummyData from './dummyData.js';
 
 function QuestionsAndAnswers() {
