@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import StyleSelector from './StyleSelector.jsx';
 
 function ProductInformation({
-  currentProduct, currentProductID, styles, selectedStyle, setSelectedStyle, selectedStylePrice, setSelectedStylePrice, selectedStyleSalePrice, setSelectedStyleSalePrice
+  currentProduct, currentProductID, styles, selectedStyle,
+  setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
+  selectedStyleSalePrice, setSelectedStyleSalePrice,
 }) {
   const [stylesArray, setStylesArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

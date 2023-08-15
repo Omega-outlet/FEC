@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import StyleEntry from './StyleEntry.jsx';
 import Promise from 'bluebird';
+import StyleEntry from './StyleEntry.jsx';
 
 function styleSelector({
   stylesArray, selectedStyle, setSelectedStyle,
@@ -44,13 +44,11 @@ function styleSelector({
         }
       });
     }
+
     getSalePrice()
       .then((data) => { setSelectedStyleSalePrice(data); });
     setIsLoading(false);
   };
-
-
-
 
   useEffect(loadStyles, [stylesArray]);
   return (

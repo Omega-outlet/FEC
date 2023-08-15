@@ -43,19 +43,17 @@ function Overview({ currentProduct, currentProductID }) {
           <ImageGallery currentProduct={currentProduct} />
         </div>
         <div className="half">
-          { isLoading ? null : (
-            <ProductInformation
-              currentProduct={currentProduct}
-              currentProductID={currentProductID}
-              selectedStyle={selectedStyle}
-              setSelectedStyle={setSelectedStyle}
-              selectedStylePrice={selectedStylePrice}
-              setSelectedStylePrice={setSelectedStylePrice}
-              selectedStyleSalePrice={selectedStyleSalePrice}
-              setSelectedStyleSalePrice={setSelectedStyleSalePrice}
-              styles={styles}
-            />
-          )}
+          <ProductInformation
+            currentProduct={currentProduct}
+            currentProductID={currentProductID}
+            selectedStyle={selectedStyle}
+            setSelectedStyle={setSelectedStyle}
+            selectedStylePrice={selectedStylePrice}
+            setSelectedStylePrice={setSelectedStylePrice}
+            selectedStyleSalePrice={selectedStyleSalePrice}
+            setSelectedStyleSalePrice={setSelectedStyleSalePrice}
+            styles={styles}
+          />
         </div>
       </div>
     </div>

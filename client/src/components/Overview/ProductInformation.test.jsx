@@ -35,7 +35,7 @@ const styles = {
       'style_id': 1,
       'name': 'Forest Green & Black',
       'original_price': '140',
-      'sale_price': '0',
+      'sale_price': '100',
       'default?': true,
       'photos': [
         {
@@ -181,8 +181,8 @@ const styles2 = {
     }],
 };
 describe('Overview component', () => {
-  it('Overview component contains ImageGallery component', () => {
-    render(<Overview
+  it('Overview component contains ImageGallery component', async () => {
+    await render(<Overview
       currentProduct={products[0]}
       currentProductID={1}
     />);
@@ -272,5 +272,23 @@ describe('style thumbnails', () => {
 
     const element = screen.getAllByTestId('styleEntry');
     expect(element).toHaveLength(3);
+  });
+});
+describe('render price', (done) => {
+  it('renders the original price of the style', () => {
+    render(<Overview currentProduct={products[0]} currentProductID={1} />);
+    setTimeout(() => {
+      const originalPrice = screen.getByText('140');
+      expect(originalPrice).toBeTruthy();
+      done();
+    }, 500);
+  });
+  it('renders the sales price of the style', () => {
+    render(<Overview currentProduct={products[0]} currentProductID={1} />);
+    setTimeout(() => {
+      const salePrice = screen.getByText('100');
+      expect(salePrice).toBeTruthy();
+      done();
+    }, 500);
   });
 });
