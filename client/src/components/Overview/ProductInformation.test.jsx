@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { render, screen, wrapper } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ProductInformation from './ProductInformation.jsx';
 import StyleEntry from './StyleEntry.jsx';
 import Overview from './Overview.jsx';
@@ -32,12 +32,12 @@ const styles = {
   product_id: '1',
   results: [
     {
-      style_id: 1,
-      name: 'Forest Green & Black',
-      original_price: '140',
-      sale_price: '0',
+      'style_id': 1,
+      'name': 'Forest Green & Black',
+      'original_price': '140',
+      'sale_price': '100',
       'default?': true,
-      photos: [
+      'photos': [
         {
           thumbnail_url: 'urlplaceholder/style_1_photo_number_thumbnail.jpg',
           url: 'urlplaceholder/style_1_photo_number.jpg',
@@ -47,7 +47,7 @@ const styles = {
           url: 'urlplaceholder/style_1_photo_number.jpg',
         },
       ],
-      skus: {
+      'skus': {
         37: {
           quantity: 8,
           size: 'XS',
@@ -63,18 +63,18 @@ const styles = {
       },
     },
     {
-      style_id: 2,
-      name: 'Desert Brown & Tan',
-      original_price: '140',
-      sale_price: '0',
+      'style_id': 2,
+      'name': 'Desert Brown & Tan',
+      'original_price': '140',
+      'sale_price': '0',
       'default?': false,
-      photos: [
+      'photos': [
         {
           thumbnail_url: 'urlplaceholder/style_2_photo_number_thumbnail.jpg',
           url: 'urlplaceholder/style_2_photo_number.jpg',
         },
       ],
-      skus: {
+      'skus': {
         37: {
           quantity: 8,
           size: 'XS',
@@ -95,12 +95,12 @@ const styles2 = {
   product_id: '2',
   results: [
     {
-      style_id: 1,
-      name: 'Forest Green & Black',
-      original_price: '140',
-      sale_price: '0',
+      'style_id': 1,
+      'name': 'Forest Green & Black',
+      'original_price': '140',
+      'sale_price': '0',
       'default?': true,
-      photos: [
+      'photos': [
         {
           thumbnail_url: 'urlplaceholder/style_1_photo_number_thumbnail.jpg',
           url: 'urlplaceholder/style_1_photo_number.jpg',
@@ -110,7 +110,7 @@ const styles2 = {
           url: 'urlplaceholder/style_1_photo_number.jpg',
         },
       ],
-      skus: {
+      'skus': {
         37: {
           quantity: 8,
           size: 'XS',
@@ -126,18 +126,18 @@ const styles2 = {
       },
     },
     {
-      style_id: 2,
-      name: 'Desert Brown & Tan',
-      original_price: '140',
-      sale_price: '0',
+      'style_id': 2,
+      'name': 'Desert Brown & Tan',
+      'original_price': '140',
+      'sale_price': '0',
       'default?': false,
-      photos: [
+      'photos': [
         {
           thumbnail_url: 'urlplaceholder/style_2_photo_number_thumbnail.jpg',
           url: 'urlplaceholder/style_2_photo_number.jpg',
         },
       ],
-      skus: {
+      'skus': {
         37: {
           quantity: 8,
           size: 'XS',
@@ -153,18 +153,18 @@ const styles2 = {
       },
     },
     {
-      style_id: 3,
-      name: 'Ocean Blue & Gray',
-      original_price: '140',
-      sale_price: '0',
+      'style_id': 3,
+      'name': 'Ocean Blue & Gray',
+      'original_price': '140',
+      'sale_price': '0',
       'default?': false,
-      photos: [
+      'photos': [
         {
           thumbnail_url: 'urlplaceholder/style_3_photo_number_thumbnail.jpg',
           url: 'urlplaceholder/style_3_photo_number.jpg',
         },
       ],
-      skus: {
+      'skus': {
         37: {
           quantity: 8,
           size: 'XS',
@@ -181,8 +181,8 @@ const styles2 = {
     }],
 };
 describe('Overview component', () => {
-  it('Overview component contains ImageGallery component', () => {
-    render(<Overview
+  it('Overview component contains ImageGallery component', async () => {
+    await render(<Overview
       currentProduct={products[0]}
       currentProductID={1}
     />);
@@ -272,5 +272,30 @@ describe('style thumbnails', () => {
 
     const element = screen.getAllByTestId('styleEntry');
     expect(element).toHaveLength(3);
+  });
+});
+describe('render price', (done) => {
+  it('renders the original price of the style', () => {
+    render(<Overview currentProduct={products[0]} currentProductID={1} />);
+    setTimeout(() => {
+      const originalPrice = screen.getByText('140');
+      expect(originalPrice).toBeTruthy();
+      done();
+    }, 500);
+  });
+  it('renders the sales price of the style', () => {
+    render(<Overview currentProduct={products[0]} currentProductID={1} />);
+    setTimeout(() => {
+      const salePrice = screen.getByText('100');
+      expect(salePrice).toBeTruthy();
+      done();
+    }, 500);
+  });
+});
+describe('render category', () => {
+  it('renders the category of the product', () => {
+    render(<Overview currentProduct={products[0]} currentProductID={1} />);
+    const category = screen.getByText('Jackets');
+    expect(category).toBeTruthy();
   });
 });
