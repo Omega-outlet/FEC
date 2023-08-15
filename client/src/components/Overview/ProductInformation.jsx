@@ -1,5 +1,5 @@
-import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import StyleEntry from './StyleEntry.jsx';
 
 function ProductInformation({ currentProduct, currentProductID, styles }) {
@@ -22,8 +22,8 @@ function ProductInformation({ currentProduct, currentProductID, styles }) {
 
       <div className="styleSelectorContainer">
         {stylesArray ? stylesArray.map((style, index) => (
-          <div className="styleEntry" data-testid="styleEntry">
-            <StyleEntry style={style} key={index} index={index} />
+          <div className="styleEntry" data-testid="styleEntry" key={index}>
+            <StyleEntry style={style} index={index} />
           </div>
         )) : null}
       </div>
@@ -31,5 +31,46 @@ function ProductInformation({ currentProduct, currentProductID, styles }) {
     </div>
   );
 }
+
+ProductInformation.propTypes = {
+  currentProduct: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    slogan: PropTypes.string,
+    description: PropTypes.string,
+    category: PropTypes.string,
+    default_price: PropTypes.string,
+  }),
+  currentProductID: PropTypes.number,
+  styles: PropTypes.shape({
+    product_id: PropTypes.string,
+    results: PropTypes.arrayOf(
+      PropTypes.shape({
+        'style_id': PropTypes.number,
+        'name': PropTypes.string,
+        'original_price': PropTypes.string,
+        'sale_price': PropTypes.string,
+        'default?': PropTypes.bool,
+      }),
+    ),
+    skus: PropTypes.shape(PropTypes.shape({
+      'quantity': PropTypes.number,
+      'size': PropTypes.string,
+    })),
+  }),
+};
+
+ProductInformation.defaultProps = {
+  currentProduct: {
+    id: '',
+    name: '',
+    slogan: '',
+    description: '',
+    category: '',
+    default_price: '',
+  },
+  currentProductID: '',
+  styles: {},
+};
 
 export default ProductInformation;
