@@ -39,7 +39,7 @@ function styleSelector({
           }
         }
         if (didSucceed === true) {
-          resolve(stylesArray[2].sale_price);
+          resolve(stylesArray[0].sale_price);
         } else {
           reject(new Error('Not done loading'));
         }
