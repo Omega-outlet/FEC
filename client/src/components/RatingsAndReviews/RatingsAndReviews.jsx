@@ -2,9 +2,11 @@ import React from 'react';
 import StarView from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
+import data from './exampleData.json';
 
 function RatingsAndReviews() {
   // this is just example data, rating will come from request based on id passed as prop
+  const [reviews, setReviews] = React.useState(data.results);
   const rating = 2.5;
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 20px' }}>
@@ -40,7 +42,7 @@ function RatingsAndReviews() {
           Write Review
         </button>
       </div>
-      <ReviewList />
+      <ReviewList reviews={reviews} />
     </div>
   );
 }

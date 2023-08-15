@@ -1,11 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Review from './Review.jsx';
-import data from './exampleData.json';
 
-function ReviewList() {
+function ReviewList({ reviews }) {
   return (
-    <div style={{ 'paddingTop': '20px' }}>
-      {/* <h1 style={{ 'textAlign': 'center' }}>Review List Component Here</h1> */}
+    <div style={{ 'paddingTop': '20px' }} data-testid="reviewList-component">
       <label htmlFor="dropdown">
         Sort By:
         <select id="dropdown">
@@ -15,10 +14,17 @@ function ReviewList() {
         </select>
       </label>
       <div style={{ 'paddingTop': '20px' }}>
-        {data.results.map((review) => <Review review={review} key={review.review_id} />)}
+        {reviews.map((review) => <Review key={review.review_id} review={review} />)}
       </div>
+      <button type="submit">Show More Reviews</button>
     </div>
   );
 }
+
+ReviewList.propTypes = {
+  reviews: PropTypes.arrayOf(PropTypes.shape({
+    review_id: PropTypes.number.isRequired,
+  })).isRequired,
+};
 
 export default ReviewList;

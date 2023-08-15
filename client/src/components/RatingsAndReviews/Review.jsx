@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
 import CharacteristicsGraph from './CharacteristicsGraph.jsx';
@@ -15,7 +16,9 @@ function Review({ review }) {
     summary,
   } = review;
   return (
-    <div style={
+    <div
+      data-testid="review-component"
+      style={
       {
         'display': 'flex',
         'justifyContent': 'space-between',
@@ -30,17 +33,13 @@ function Review({ review }) {
         style={{ 'borderRight': '1px solid grey', 'paddingRight': '20px' }}
       >
         <p>{reviewer_name}</p>
-        <p>
-          <CharacteristicsGraph />
-        </p>
+        <CharacteristicsGraph />
         <p>{recommend ? 'recommended' : 'not recommended'}</p>
       </div>
       <div className="second-column">
-        <p>
-          <StarView rating={rating} fontSize={20} />
-          :
-          {summary}
-        </p>
+        <StarView rating={rating} fontSize={20} />
+        :
+        {summary}
         <p>
           {body}
         </p>
@@ -59,18 +58,21 @@ function Review({ review }) {
 }
 
 Review.propTypes = {
-  review: PropTypes.objectOf(PropTypes.shape({
+  review: PropTypes.shape({
     body: PropTypes.string,
     date: PropTypes.string,
     helpfulness: PropTypes.number,
-    // photos: PropTypes.,
+    photos: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      url: PropTypes.string,
+    })),
     rating: PropTypes.number,
     recommend: PropTypes.bool,
     review_id: PropTypes.number,
     response: PropTypes.string,
     reviewer_name: PropTypes.string,
     summary: PropTypes.string,
-  })).isRequired,
+  }).isRequired,
 };
 
 export default Review;
