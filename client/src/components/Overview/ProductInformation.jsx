@@ -1,32 +1,38 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import StyleEntry from './StyleEntry.jsx';
+import StyleSelector from './StyleSelector.jsx';
 
-function ProductInformation({ currentProduct, currentProductID, styles }) {
+function ProductInformation({
+  currentProduct, currentProductID, styles, selectedStyle, setSelectedStyle,selectedStylePrice, setSelectedStylePrice
+}) {
   const [stylesArray, setStylesArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedIsLoading, setSelectedIsLoading] = useState(true);
+
   // load the stylesArray with styles
   const loadStyles = () => {
-    setStylesArray(styles.results);
-    setIsLoading(false);
-  };
-  useEffect(loadStyles, [styles, stylesArray]);
+    setSelectedIsLoading(true);
 
-  if (isLoading) {
-    return null;
-  }
+    setSelectedIsLoading(false);
+
+  };
+  useEffect(loadStyles, [currentProduct, selectedStyle]);
+
   return (
     <div>
       <h1>{ currentProduct.name }</h1>
+      <h3>{ selectedStylePrice }</h3>
       <h3>{ currentProduct.category }</h3>
       <h3>{ currentProduct.description }</h3>
 
       <div className="styleSelectorContainer">
-        {stylesArray ? stylesArray.map((style, index) => (
-          <div className="styleEntry" data-testid="styleEntry" key={index}>
-            <StyleEntry style={style} index={index} />
-          </div>
-        )) : null}
+        <StyleSelector
+          stylesArray={styles.results}
+          selectedStyle={selectedStyle}
+          setSelectedStyle={setSelectedStyle}
+          selectedStylePrice={selectedStylePrice}
+          setSelectedStylePrice={setSelectedStylePrice}
+        />
       </div>
 
     </div>

@@ -7,8 +7,14 @@ import ImageGallery from './ImageGallery.jsx';
 
 function Overview({ currentProduct, currentProductID }) {
   const [styles, setStyles] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedStyle, setSelectedStyle] = useState({});
+  const [selectedStylePrice, setSelectedStylePrice] = useState('');
+
+
   // get the styles of the current product
   const loadProductStyles = () => {
+    setIsLoading(true);
     const options = {
       url: '/api/product/styles',
       params: {
@@ -23,11 +29,12 @@ function Overview({ currentProduct, currentProductID }) {
     })
       .then((response) => {
         setStyles(response.data);
+        setSelectedStyle(response.data[0]);
+        setIsLoading(false);
       })
       .catch((error) => console.log('Error', error.message));
   };
   useEffect(loadProductStyles, [currentProductID]);
-
   return (
     <div>
       <div className="container">
@@ -35,11 +42,17 @@ function Overview({ currentProduct, currentProductID }) {
           <ImageGallery currentProduct={currentProduct} />
         </div>
         <div className="half">
-          <ProductInformation
-            currentProduct={currentProduct}
-            currentProductID={currentProductID}
-            styles={styles}
-          />
+          { isLoading ? null : (
+            <ProductInformation
+              currentProduct={currentProduct}
+              currentProductID={currentProductID}
+              selectedStyle={selectedStyle}
+              setSelectedStyle={setSelectedStyle}
+              selectedStylePrice={selectedStylePrice}
+              setSelectedStylePrice={setSelectedStylePrice}
+              styles={styles}
+            />
+          )}
         </div>
       </div>
     </div>
