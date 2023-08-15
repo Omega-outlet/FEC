@@ -1,7 +1,7 @@
 import React from 'react';
 //import { useState } from 'react';
 import ProductCard from './ProductCard.jsx';
-import Carousel from '../../styled-components/related-items.jsx';
+import Carousel from '../../styled-components/horizontal-carousel.jsx';
 import ScrollButton from './ScrollButton.jsx'
 import { useRef, useState } from 'react';
 

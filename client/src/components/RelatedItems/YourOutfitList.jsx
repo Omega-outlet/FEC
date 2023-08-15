@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductCard from './ProductCard.jsx';
-import Carousel from '../../styled-components/related-items.jsx';
+import Carousel from '../../styled-components/horizontal-carousel.jsx';
 
 const YourOutfitList = function ({updateProduct}) {
   return (
