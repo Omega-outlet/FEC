@@ -18,6 +18,7 @@ function ProductInformation({ currentProduct, currentProductID, styles }) {
   return (
     <div>
       <h1>{ currentProduct.name }</h1>
+      <h3>{ currentProduct.category }</h3>
       <h3>{ currentProduct.description }</h3>
 
       <div className="styleSelectorContainer">
