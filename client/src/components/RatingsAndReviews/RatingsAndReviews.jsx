@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import StarView from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
@@ -7,6 +8,15 @@ import data from './exampleData.json';
 function RatingsAndReviews() {
   // this is just example data, rating will come from request based on id passed as prop
   const [reviews, setReviews] = React.useState(data.results);
+  const reviewId = 40344;
+  React.useEffect(() => {
+    axios.get('/reviews', {
+      params: {
+        product_id: reviewId,
+      },
+    })
+      .then(() => console.log('success'));
+  }, []);
   const rating = 2.5;
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 20px' }}>
