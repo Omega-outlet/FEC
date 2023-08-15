@@ -4,7 +4,7 @@ import { sortByHelp } from '../../../../utils/sortHelp.js'
 import Question from './Question.jsx';
 import LoadMoreQuestionsButton from '../Buttons/LoadMoreQuestionsButton.jsx';
 import AddNewQuestionButton from '../Buttons/AddNewQuestionButton.jsx';
-
+import { QuestionList } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function QuestionsList({ questions }) {
   const sortedQuestions = sortByHelp(questions);
@@ -24,7 +24,7 @@ function QuestionsList({ questions }) {
     <div>
       {questions.length === 0
        && <AddNewQuestionButton onClick={handleAddNewQuestion} />}
-      <ul>
+      <QuestionList>
         {sortedQuestions.slice(0, numQuestionsShowed).map((question) => (
           <Question key={question.question_id} question={question} />
         ))}
@@ -33,7 +33,7 @@ function QuestionsList({ questions }) {
           hasMoreQuestions={numQuestionsShowed < sortedQuestions.length}
         />
         <AddNewQuestionButton onClick={handleAddNewQuestion} />
-      </ul>
+      </QuestionList>
     </div>
   );
 }
