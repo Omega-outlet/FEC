@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import StyleSelector from './StyleSelector.jsx';
+import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 
 function ProductInformation({
   currentProduct, currentProductID, styles, selectedStyle,
@@ -18,8 +19,6 @@ function ProductInformation({
     setSelectedIsLoading(false);
   };
   useEffect(loadStyles, [currentProduct, selectedStyle]);
-  const salePrice = { color: 'red' };
-  const element = <span style={salePrice}>{selectedStyleSalePrice}</span>;
   return (
     <div>
       <h1>{ currentProduct.name }</h1>
@@ -28,7 +27,9 @@ function ProductInformation({
           <s>{ selectedStylePrice }</s>
           {' '}
           <span>
-            { element }
+            <ProductInformationComponents.SaleText>
+              {selectedStyleSalePrice}
+            </ProductInformationComponents.SaleText>
           </span>
         </span>
       ) : (
@@ -40,7 +41,7 @@ function ProductInformation({
       <h3>{ currentProduct.category }</h3>
       <h3>{ currentProduct.description }</h3>
 
-      <div className="styleSelectorContainer">
+      <ProductInformationComponents.StyleSelectorContainer>
         <StyleSelector
           stylesArray={styles.results}
           selectedStyle={selectedStyle}
@@ -50,7 +51,7 @@ function ProductInformation({
           selectedStyleSalePrice={selectedStyleSalePrice}
           setSelectedStyleSalePrice={setSelectedStyleSalePrice}
         />
-      </div>
+      </ProductInformationComponents.StyleSelectorContainer>
 
     </div>
   );
