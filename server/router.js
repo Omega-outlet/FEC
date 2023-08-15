@@ -5,5 +5,6 @@ const controller = require('./controllers');
 
 router.get('/api/product', controller.products.getProduct);
 router.get('/api/product/styles', controller.overView.getProductStyles);
+router.get('/api/product/related', controller.getRelatedProducts);
 
 module.exports = router;
