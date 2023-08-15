@@ -6,7 +6,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import QuestionsList from './QuestionsList';
 // Use this mock function for testing
-jest.mock('../../../utils/sortHelp.js', () => ({
+jest.mock('../../../../utils/sortHelp.js', () => ({
   sortByHelp: jest.fn((questions) => questions.sort((a, b) => b.helpfulness - a.helpfulness)),
 }));
 
@@ -61,5 +61,20 @@ describe('<QuestionsList />', () => {
     const qBody = getAllByTestId('question-body').map((item) => item.textContent);
     expect(qBody[0]).toBe('How do you feel?');
     expect(qBody[1]).toBe('Is this a spaceship?');
+  });
+
+  it('renders More Answered Questions button if there are more than 4 questions', () => {
+    // Change key to avoid errors
+    const sixQuestions = [...testQuestions, ...testQuestions, ...testQuestions]
+      .map((question, i) => ({
+        ...question,
+        question_id: i + 1,
+      }));
+    const { getByText } = render(<QuestionsList questions={sixQuestions} />);
+    expect(getByText('MORE ANSWERED QUESTIONS')).toBeTruthy();
+  });
+  it('does not render the More Answered Questions button if there are four or less questions', () => {
+    const { queryByText } = render(<QuestionsList questions={testQuestions} />);
+    expect(queryByText('MORE ANSWERED QUESTIONS')).toBeNull();
   });
 });
