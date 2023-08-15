@@ -15,7 +15,7 @@ function RatingsAndReviews() {
         product_id: reviewId,
       },
     })
-      .then(() => console.log('success'));
+      .then((response) => console.log(response.data));
   }, []);
   const rating = 2.5;
   return (
