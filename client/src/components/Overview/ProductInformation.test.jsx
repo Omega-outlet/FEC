@@ -292,3 +292,10 @@ describe('render price', (done) => {
     }, 500);
   });
 });
+describe('render category', () => {
+  it('renders the category of the product', () => {
+    render(<Overview currentProduct={products[0]} currentProductID={1} />);
+    const category = screen.getByText('Jackets');
+    expect(category).toBeTruthy();
+  });
+});
