@@ -1,8 +1,8 @@
 const axios = require('axios');
 
 module.exports = {
-  // gets the first product from the API host's product array
-  getRelatedProductIDs(req, res) {
+  // gets list of related product IDs, then gets list of products filtered by related IDs
+  getRelatedProducts(req, res) {
     const options = {
       url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/',
       headers: {
@@ -15,15 +15,17 @@ module.exports = {
       headers: options.headers,
       responseType: 'json',
     })
-      .then((response) => {
-        res.send(response.data);
+      // .catch((error) => console.log('Error', error.message)),
+      .then((response) => axios({
+        method: 'get',
+        url: `${options.url}products/`,
+        headers: options.headers,
+        responseType: 'json',
+        transformResponse: [(data) => data.filter((item) => response.indexOf(item.id !== -1))],
       })
+        .catch((error) => console.log('Error', error.message)))
+      .then((result) => res.send(result))
+      //update to send error code
       .catch((error) => console.log('Error', error.message));
   },
-
-  getRelatedProductIDs(req, res) {
-
-  },
-
-
 };
