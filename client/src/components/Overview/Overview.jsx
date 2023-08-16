@@ -4,6 +4,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import ProductInformation from './ProductInformation.jsx';
 import ImageGallery from './ImageGallery.jsx';
+import OverviewContainer from '../../styled-components/overviewcomponents/overview-components.jsx';
 
 function Overview({ currentProduct, currentProductID }) {
   const [styles, setStyles] = useState({});
@@ -38,11 +39,11 @@ function Overview({ currentProduct, currentProductID }) {
   useEffect(loadProductStyles, [currentProductID]);
   return (
     <div>
-      <div className="container">
-        <div className="half">
+      <OverviewContainer.StyledOverviewContainer>
+        <OverviewContainer.Half>
           <ImageGallery currentProduct={currentProduct} />
-        </div>
-        <div className="half">
+        </OverviewContainer.Half>
+        <OverviewContainer.Half>
           <ProductInformation
             currentProduct={currentProduct}
             currentProductID={currentProductID}
@@ -54,8 +55,8 @@ function Overview({ currentProduct, currentProductID }) {
             setSelectedStyleSalePrice={setSelectedStyleSalePrice}
             styles={styles}
           />
-        </div>
-      </div>
+        </OverviewContainer.Half>
+      </OverviewContainer.StyledOverviewContainer>
     </div>
   );
 }
