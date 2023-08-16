@@ -3,10 +3,12 @@ import StarView from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
 import data from './exampleData.json';
+import NewReview from './NewReview.jsx';
 
 function RatingsAndReviews() {
   // this is just example data, rating will come from request based on id passed as prop
   const [reviews, setReviews] = React.useState(data.results);
+  const [showForm, setShowForm] = React.useState(true);
   const rating = 2.5;
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 20px' }}>
@@ -28,7 +30,7 @@ function RatingsAndReviews() {
           <h5>% of users recommend this product</h5>
         </div>
         <button
-          type="submit"
+          type="button"
           style={
           {
             'height': '40px',
@@ -38,10 +40,12 @@ function RatingsAndReviews() {
             'cursor': 'pointer',
           }
           }
+          onClick={() => setShowForm((prev) => !prev)}
         >
           Write Review
         </button>
       </div>
+      {showForm && <NewReview />}
       <ReviewList reviews={reviews} />
     </div>
   );
