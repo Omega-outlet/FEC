@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import QuestionsList from './QuestionsList/QuestionsList.jsx';
 import dummyData from './dummyData.js';
 import SearchBar from './Buttons/SearchBar.jsx';
+import { QAContainer } from './styled-components/QuestionsAndAnswers.styles.jsx';
 
 function QuestionsAndAnswers() {
   const [questions, setQuestions] = useState(dummyData.results);
@@ -17,10 +18,10 @@ function QuestionsAndAnswers() {
     }
   };
   return (
-    <div>
+    <QAContainer>
       <SearchBar onSearch={handleSearch} />
       <QuestionsList questions={filteredQuestions} />
-    </div>
+    </QAContainer>
   );
 }
 
