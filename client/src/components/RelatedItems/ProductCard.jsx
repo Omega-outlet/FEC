@@ -1,7 +1,35 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const ProductCard = function ({product}) {
-  // product state
+  const [productData, setProductData] = useState({});
+
+  const getProductData = () => {
+    const options = {
+      url: `/api/product/relatedStyle`,
+      params: {
+        currentProductID: product.id,
+      },
+    };
+    axios({
+      method: 'get',
+      url: options.url,
+      params: options.params,
+      responseType: 'json',
+    })
+      .then((response) => {
+        const defaultStyle = response.data.results.find((style) => style['default?']);
+        return defaultStyle;
+      })
+      .then((response) => {
+        console.log('Response: ', response);
+        setProductData(response);
+      })
+      .catch((error) => console.log('Error', error.message));
+  };
+
+  useEffect(getProductData, []);
 
   return (
     <li>
@@ -9,7 +37,9 @@ const ProductCard = function ({product}) {
         <tbody>
           <tr>
             <td>
-              <img src="https://picsum.photos/200/250" alt="random sample pic" />
+              {productData?.photos && (
+                <img src={productData.photos[0].url} alt="default style 1" />
+              )}
             </td>
           </tr>
           <tr>
@@ -29,7 +59,18 @@ const ProductCard = function ({product}) {
           </tr>
           <tr>
             <td>
-              ${product.default_price}
+              {productData?.sale_price
+                ? (
+                  <>
+                    <em>
+                      ${productData.sale_price}
+                    </em>
+                    <s>
+                      ${product.default_price}
+                    </s>
+                  </>
+                )
+                : `$${product.default_price}`}
             </td>
           </tr>
           <tr>
