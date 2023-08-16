@@ -5,8 +5,10 @@ import { reFormatDate } from '../../../../utils/reFormatDate.js';
 function Answer({ answer }) {
   return (
     <li>
-      <h4>A</h4>
-      <p>{answer.body}</p>
+      <p>
+        <strong>A: </strong>
+        {answer.body}
+      </p>
       <p>{`Answered by ${answer.answerer_name}, ${reFormatDate(answer.date)}`}</p>
     </li>
   );

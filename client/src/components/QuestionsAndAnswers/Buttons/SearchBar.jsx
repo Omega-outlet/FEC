@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { SearchBarContainer, SearchInput } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function SearchBar({ onSearch }) {
   const SEARCH_FILTER_START_NUM = 3;
@@ -14,13 +15,13 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <div>
-      <input
+    <SearchBarContainer>
+      <SearchInput
         type="text"
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
         onChange={handleChange}
       />
-    </div>
+    </SearchBarContainer>
   );
 }
 
