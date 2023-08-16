@@ -2,7 +2,7 @@ const axios = require('axios');
 
 module.exports = {
   // gets the first product from the API host's product array
-  getRelatedProducts(req, res) {
+  getRelatedProductIDs(req, res) {
     const options = {
       url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/',
       headers: {
@@ -20,4 +20,10 @@ module.exports = {
       })
       .catch((error) => console.log('Error', error.message));
   },
+
+  getRelatedProductIDs(req, res) {
+
+  },
+
+
 };
