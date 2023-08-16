@@ -13,6 +13,7 @@ function Overview({ currentProduct, currentProductID }) {
   const [selectedStyle, setSelectedStyle] = useState({});
   const [selectedStylePrice, setSelectedStylePrice] = useState('');
   const [selectedStyleSalePrice, setSelectedStyleSalePrice] = useState('');
+  const [selectedStyleName, setSelectedStyleName] = useState('');
 
   // get the styles of the current product
   const loadProductStyles = () => {
@@ -55,6 +56,8 @@ function Overview({ currentProduct, currentProductID }) {
             setSelectedStylePrice={setSelectedStylePrice}
             selectedStyleSalePrice={selectedStyleSalePrice}
             setSelectedStyleSalePrice={setSelectedStyleSalePrice}
+            selectedStyleName={selectedStyleName}
+            setSelectedStyleName={setSelectedStyleName}
             styles={styles}
           />
         </OverviewContainer.Half>

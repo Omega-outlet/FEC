@@ -6,7 +6,8 @@ import ProductInformationComponents from '../../styled-components/overviewcompon
 function ProductInformation({
   currentProduct, currentProductID, styles, selectedStyle,
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
-  selectedStyleSalePrice, setSelectedStyleSalePrice,
+  selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
+  setSelectedStyleName
 }) {
   // const [stylesArray, setStylesArray] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
@@ -19,8 +20,6 @@ function ProductInformation({
     setSelectedIsLoading(false);
   };
   useEffect(loadStyles, [currentProduct, selectedStyle]);
-
-
 
   const currentURL = window.location.href;
   const message = `This%20${currentProduct.name}%20from%20Omega%20Mart%20is%20amazing!`;
@@ -54,7 +53,6 @@ function ProductInformation({
 
       <h3>{ currentProduct.category }</h3>
       <h3>{ currentProduct.description }</h3>
-
       <ProductInformationComponents.ShareButton>
         <span>share this product: </span>
         <ProductInformationComponents.TwitterButton href={twitterLink}>
@@ -77,6 +75,8 @@ function ProductInformation({
             setSelectedStylePrice={setSelectedStylePrice}
             selectedStyleSalePrice={selectedStyleSalePrice}
             setSelectedStyleSalePrice={setSelectedStyleSalePrice}
+            selectedStyleName={selectedStyleName}
+            setSelectedStyleName={setSelectedStyleName}
           />
         </ProductInformationComponents.StyleSelectorContainer>
       </div>

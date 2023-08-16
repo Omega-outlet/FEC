@@ -4,15 +4,16 @@ import ProductInformationComponents from '../../styled-components/overviewcompon
 
 function styleEntry({
   style, selectedStyle, setSelectedStyle,
-  selectedStyleSalePrice, setSelectedStyleSalePrice
+  selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName, setSelectedStyleName
 }) {
   return (
     <div>
+      {selectedStyleName === style.name ? style.name : null}
       <ProductInformationComponents.StyleEntryThumbnail
         src={style.photos[0].thumbnail_url}
         alt={style.name}
-        value={style}
-        onClick={() => { setSelectedStyle(style); }}
+        value={style.name}
+        onClick={() => {setSelectedStyle(style);}}
       />
     </div>
   );
