@@ -2,12 +2,12 @@
  * @jest-environment jsdom
  */
 
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ProductInformation from './ProductInformation.jsx';
 import StyleEntry from './StyleEntry.jsx';
 import Overview from './Overview.jsx';
-
 // 2 products in products array
 const products = [
   {
@@ -297,5 +297,34 @@ describe('render category', () => {
     render(<Overview currentProduct={products[0]} currentProductID={1} />);
     const category = screen.getByText('Jackets');
     expect(category).toBeTruthy();
+  });
+});
+describe('share anchor element "button" tests', () => {
+  it('should have link to Twitter', () => {
+    render(<ProductInformation
+      currentProduct={products[1]}
+      currentProductID={2}
+      styles={styles2}
+    />);
+    const anchorElement = screen.getAllByRole('link')[0];
+    expect(anchorElement.href).toContain('https://twitter.com/');
+  });
+  it('should have link to Facebook', () => {
+    render(<ProductInformation
+      currentProduct={products[1]}
+      currentProductID={2}
+      styles={styles2}
+    />);
+    const anchorElement = screen.getAllByRole('link')[1];
+    expect(anchorElement.href).toContain('http://www.facebook.com/');
+  });
+  it('should have link to Pinterest', () => {
+    render(<ProductInformation
+      currentProduct={products[1]}
+      currentProductID={2}
+      styles={styles2}
+    />);
+    const anchorElement = screen.getAllByRole('link')[2];
+    expect(anchorElement.href).toContain('https://pinterest.com/');
   });
 });
