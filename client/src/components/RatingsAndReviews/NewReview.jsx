@@ -1,6 +1,7 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
-function NewReview() {
+function NewReview({ renderForm }) {
   const [formData, setFormData] = React.useState({
     rating: '',
     recommend: true,
@@ -25,6 +26,7 @@ function NewReview() {
   }
   function handleSubmit(event) {
     event.preventDefault();
+    renderForm();
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -46,7 +48,7 @@ function NewReview() {
         <legend>Characteristics</legend>
         <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
           <legend style={{ 'width': '50px' }}>Size</legend>
-          <input type="radio" value="1" name="size" onChange={handleChange} />
+          <input type="radio" value="1" name="size" onChange={handleChange} required />
           <input type="radio" value="2" name="size" onChange={handleChange} />
           <input type="radio" value="3" name="size" onChange={handleChange} />
           <input type="radio" value="4" name="size" onChange={handleChange} />
@@ -54,7 +56,7 @@ function NewReview() {
         </div>
         <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
           <legend style={{ 'width': '50px' }}>Width</legend>
-          <input type="radio" value="1" name="width" onChange={handleChange} />
+          <input type="radio" value="1" name="width" onChange={handleChange} required />
           <input type="radio" value="2" name="width" onChange={handleChange} />
           <input type="radio" value="3" name="width" onChange={handleChange} />
           <input type="radio" value="4" name="width" onChange={handleChange} />
@@ -62,7 +64,7 @@ function NewReview() {
         </div>
         <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
           <legend style={{ 'width': '50px' }}>Comfort</legend>
-          <input type="radio" value="1" name="comfort" onChange={handleChange} />
+          <input type="radio" value="1" name="comfort" onChange={handleChange} required />
           <input type="radio" value="2" name="comfort" onChange={handleChange} />
           <input type="radio" value="3" name="comfort" onChange={handleChange} />
           <input type="radio" value="4" name="comfort" onChange={handleChange} />
@@ -70,7 +72,7 @@ function NewReview() {
         </div>
         <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
           <legend style={{ 'width': '50px' }}>Quality</legend>
-          <input type="radio" value="1" name="quality" onChange={handleChange} />
+          <input type="radio" value="1" name="quality" onChange={handleChange} required />
           <input type="radio" value="2" name="quality" onChange={handleChange} />
           <input type="radio" value="3" name="quality" onChange={handleChange} />
           <input type="radio" value="4" name="quality" onChange={handleChange} />
@@ -78,7 +80,7 @@ function NewReview() {
         </div>
         <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
           <legend style={{ 'width': '50px' }}>Length</legend>
-          <input type="radio" value="1" name="length" onChange={handleChange} />
+          <input type="radio" value="1" name="length" onChange={handleChange} required />
           <input type="radio" value="2" name="length" onChange={handleChange} />
           <input type="radio" value="3" name="length" onChange={handleChange} />
           <input type="radio" value="4" name="length" onChange={handleChange} />
@@ -86,7 +88,7 @@ function NewReview() {
         </div>
         <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
           <legend style={{ 'width': '50px' }}>Fit</legend>
-          <input type="radio" value="1" name="fit" onChange={handleChange} />
+          <input type="radio" value="1" name="fit" onChange={handleChange} required />
           <input type="radio" value="2" name="fit" onChange={handleChange} />
           <input type="radio" value="3" name="fit" onChange={handleChange} />
           <input type="radio" value="4" name="fit" onChange={handleChange} />
@@ -96,30 +98,34 @@ function NewReview() {
       <label htmlFor="summary">
         Review Summary:
         <br />
-        <input type="text" id="summary" maxLength="60" name="summary" onChange={handleChange} />
+        <input type="text" id="summary" maxLength="60" name="summary" onChange={handleChange} required />
       </label>
       <br />
       <label htmlFor="reviewBody">
         Review:
         <br />
-        <textarea id="reviewBody" name="body" onChange={handleChange} />
+        <textarea id="reviewBody" name="body" onChange={handleChange} required />
       </label>
       <br />
       <label htmlFor="username">
         Display Name:
         <br />
-        <input type="text" id="username" name="username" onChange={handleChange} />
+        <input type="text" id="username" name="username" onChange={handleChange} required />
       </label>
       <label htmlFor="email">
         <br />
         {'Email (we won\'t share it):'}
         <br />
-        <input type="email" id="email" name="email" onChange={handleChange} />
+        <input type="email" id="email" name="email" onChange={handleChange} required />
       </label>
       <br />
       <button type="submit">Submit Review</button>
     </form>
   );
 }
+
+NewReview.propTypes = {
+  renderForm: propTypes.func.isRequired,
+};
 
 export default NewReview;

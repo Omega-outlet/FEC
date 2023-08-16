@@ -10,6 +10,9 @@ function RatingsAndReviews() {
   const [reviews, setReviews] = React.useState(data.results);
   const [showForm, setShowForm] = React.useState(false);
   const rating = 2.5;
+  const renderForm = function() {
+    setShowForm((prevView) => !prevView);
+  };
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 20px' }}>
       <h1 data-testid="text" style={{ 'textAlign': 'center' }}>Reviews</h1>
@@ -45,7 +48,7 @@ function RatingsAndReviews() {
           Write Review
         </button>
       </div>
-      {showForm && <NewReview />}
+      {showForm && <NewReview renderForm={renderForm} />}
       <ReviewList reviews={reviews} />
     </div>
   );
