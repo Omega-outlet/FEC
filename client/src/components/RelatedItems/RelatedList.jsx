@@ -23,5 +23,3 @@ const RelatedList = function({products, updateProduct}) {
 };
 
 export default RelatedList;
-
-

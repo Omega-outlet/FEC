@@ -1,13 +1,16 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-const ProductCard = function ({product}) {
+const ProductCard = function ({ product }) {
   const [productData, setProductData] = useState({});
 
+  // {product} prop holds basic product info from /products api query
+  // productData holds additional info from /styles including default style and sale price
   const getProductData = () => {
     const options = {
-      url: `/api/product/relatedStyle`,
+      url: '/api/product/relatedStyle',
       params: {
         currentProductID: product.id,
       },
@@ -23,7 +26,6 @@ const ProductCard = function ({product}) {
         return defaultStyle;
       })
       .then((response) => {
-        console.log('Response: ', response);
         setProductData(response);
       })
       .catch((error) => console.log('Error', error.message));
@@ -63,10 +65,12 @@ const ProductCard = function ({product}) {
                 ? (
                   <>
                     <em>
-                      ${productData.sale_price}
+                      $
+                      {productData.sale_price}
                     </em>
                     <s>
-                      ${product.default_price}
+                      $
+                      {product.default_price}
                     </s>
                   </>
                 )
@@ -82,6 +86,16 @@ const ProductCard = function ({product}) {
       </table>
     </li>
   );
+};
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    default_price: PropTypes.string.isRequired,
+    slogan: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default ProductCard;
