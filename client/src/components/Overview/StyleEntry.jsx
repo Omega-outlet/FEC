@@ -11,6 +11,8 @@ function styleEntry({
       <ProductInformationComponents.StyleEntryThumbnail
         src={style.photos[0].thumbnail_url}
         alt={style.name}
+        value={style}
+        onClick={() => { setSelectedStyle(style); }}
       />
     </div>
   );

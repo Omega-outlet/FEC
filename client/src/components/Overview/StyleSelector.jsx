@@ -14,13 +14,11 @@ function styleSelector({
     function getOriginalPrice() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
-        if (typeof stylesArray !== 'undefined') {
-          if (stylesArray.length > 0) {
-            didSucceed = true;
-          }
+        if (typeof selectedStyle !== 'undefined') {
+          didSucceed = true;
         }
         if (didSucceed === true) {
-          resolve(stylesArray[0].original_price);
+          resolve(selectedStyle.original_price);
         } else {
           reject(new Error('Not done loading'));
         }
@@ -34,13 +32,11 @@ function styleSelector({
     function getSalePrice() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
-        if (typeof stylesArray !== 'undefined') {
-          if (stylesArray.length > 0) {
-            didSucceed = true;
-          }
+        if (typeof selectedStyle !== 'undefined') {
+          didSucceed = true;
         }
         if (didSucceed === true) {
-          resolve(stylesArray[0].sale_price);
+          resolve(selectedStyle.sale_price);
         } else {
           reject(new Error('Not done loading'));
         }
@@ -53,7 +49,7 @@ function styleSelector({
     setIsLoading(false);
   };
 
-  useEffect(loadStyles, [stylesArray]);
+  useEffect(loadStyles, [selectedStyle]);
   return (
     <div>
       {stylesArray ? stylesArray.map((style, index) => (

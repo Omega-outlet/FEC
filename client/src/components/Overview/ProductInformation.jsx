@@ -8,17 +8,20 @@ function ProductInformation({
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice,
 }) {
-  const [stylesArray, setStylesArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [stylesArray, setStylesArray] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
   const [selectedIsLoading, setSelectedIsLoading] = useState(true);
 
-  // load the stylesArray with styles
+
+  // finish for style to load
   const loadStyles = () => {
     setSelectedIsLoading(true);
-
     setSelectedIsLoading(false);
   };
   useEffect(loadStyles, [currentProduct, selectedStyle]);
+
+
+
   const currentURL = window.location.href;
   const message = `This%20${currentProduct.name}%20from%20Omega%20Mart%20is%20amazing!`;
   // hard coded image URL for now
