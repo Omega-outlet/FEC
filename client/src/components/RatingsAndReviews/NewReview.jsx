@@ -119,7 +119,7 @@ function NewReview({ renderForm }) {
         <input type="email" id="email" name="email" onChange={handleChange} required />
       </label>
       <br />
-      <button type="submit">Submit Review</button>
+      <button type="submit" data-testid="formSubmit">Submit Review</button>
     </form>
   );
 }
