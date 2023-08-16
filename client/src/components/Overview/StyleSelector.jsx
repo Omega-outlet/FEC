@@ -10,7 +10,6 @@ function styleSelector({
   const [isLoading, setIsLoading] = useState(true);
   // load the stylesArray with styles
   const loadStyles = () => {
-    setIsLoading(true);
     function getOriginalPrice() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
@@ -27,7 +26,7 @@ function styleSelector({
 
     getOriginalPrice()
       .then((data) => { setSelectedStylePrice(data); })
-      .catch(() => setIsLoading(true));
+      .catch(() => {});
 
     function getSalePrice() {
       let didSucceed = false;
@@ -45,8 +44,7 @@ function styleSelector({
 
     getSalePrice()
       .then((data) => { setSelectedStyleSalePrice(data); })
-      .catch(() => setIsLoading(true));
-    setIsLoading(false);
+      .catch(() => { });
   };
 
   useEffect(loadStyles, [selectedStyle]);
