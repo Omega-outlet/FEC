@@ -31,7 +31,7 @@ const RelatedItems = function ({currentProductID, updateProduct}) {
   return (
     <div>
       <h4>Related Items</h4>
-      <RelatedList currentProductID={currentProductID} updateProduct={updateProduct} />
+      <RelatedList products={relatedProducts} updateProduct={updateProduct} />
       <h4>Your Outfit</h4>
       <YourOutfitList currentProductID={currentProductID} updateProduct={updateProduct} />
     </div>

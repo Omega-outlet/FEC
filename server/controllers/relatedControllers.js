@@ -15,17 +15,26 @@ module.exports = {
       headers: options.headers,
       responseType: 'json',
     })
-      // .catch((error) => console.log('Error', error.message)),
-      .then((response) => axios({
-        method: 'get',
-        url: `${options.url}products/`,
-        headers: options.headers,
-        responseType: 'json',
-        transformResponse: [(data) => data.filter((item) => response.indexOf(item.id !== -1))],
+      .catch((error) => console.log('Error at first axios get', error.message))
+      .then((response) => {
+        const relatedIDs = response.data;
+        return axios({
+          method: 'get',
+          url: `${options.url}products/`,
+          headers: options.headers,
+          responseType: 'json',
+          transformResponse: [function (data) {
+            const allItems = JSON.parse(data);
+            const relatedItems = allItems.filter((item) => relatedIDs.indexOf(item.id) !== -1);
+            //console.log('Related Items: ', relatedItems);
+            return JSON.stringify(relatedItems);
+          }],
+          //TROUBLESHOOT TRANSFORM RESPONSE
+        })
+          .catch((error) => console.log('Error at second axios get', error.message));
       })
-        .catch((error) => console.log('Error', error.message)))
-      .then((result) => res.send(result))
+      .then((result) => res.send(result.data))
       //update to send error code
-      .catch((error) => console.log('Error', error.message));
+      .catch((error) => console.log('Error sending get results', error.message));
   },
 };
