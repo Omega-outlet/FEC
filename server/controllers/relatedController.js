@@ -26,15 +26,12 @@ module.exports = {
           transformResponse: [function (data) {
             const allItems = JSON.parse(data);
             const relatedItems = allItems.filter((item) => relatedIDs.indexOf(item.id) !== -1);
-            //console.log('Related Items: ', relatedItems);
             return JSON.stringify(relatedItems);
           }],
-          //TROUBLESHOOT TRANSFORM RESPONSE
         })
-          .catch((error) => console.log('Error at second axios get', error.message));
+          .catch(() => res.statusCode(500));
       })
       .then((result) => res.send(result.data))
-      //update to send error code
-      .catch((error) => console.log('Error sending get results', error.message));
+      .catch(() => res.statusCode(500));
   },
 };
