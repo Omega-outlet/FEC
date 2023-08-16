@@ -4,7 +4,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import SearchBar from './Buttons/SearchBar.jsx';
+import SearchBar from './SearchBar.jsx';
 
 describe('<QuestionsAndAnswers />', () => {
   it('filter questions based on search input', () => {
