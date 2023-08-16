@@ -8,7 +8,7 @@ import NewReview from './NewReview.jsx';
 function RatingsAndReviews() {
   // this is just example data, rating will come from request based on id passed as prop
   const [reviews, setReviews] = React.useState(data.results);
-  const [showForm, setShowForm] = React.useState(true);
+  const [showForm, setShowForm] = React.useState(false);
   const rating = 2.5;
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 20px' }}>
