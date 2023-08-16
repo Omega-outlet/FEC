@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import RelatedList from './RelatedList.jsx';
 import YourOutfitList from './YourOutfitList.jsx';
@@ -9,15 +9,24 @@ const RelatedItems = function ({currentProductID, updateProduct}) {
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   const getRelatedProducts = () => {
-    axios
-      .get('/api/product')
+    const options = {
+      url: '/api/product/related',
+      params: {
+        currentProductID,
+      },
+    };
+    axios({
+      method: 'get',
+      url: options.url,
+      params: options.params,
+      responseType: 'json',
+    })
       .then((response) => {
-        setCurrentProduct(response.data);
-        setCurrentProductID(response.data.id);
+        setRelatedProducts(response.data);
       })
       .catch((error) => console.log('Error', error.message));
   };
-  useEffect(loadFirstProduct, []);
+  useEffect(getRelatedProducts, []);
 
   return (
     <div>
