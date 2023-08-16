@@ -28,7 +28,8 @@ function styleSelector({
     }
 
     getOriginalPrice()
-      .then((data) => { setSelectedStylePrice(data); });
+      .then((data) => { setSelectedStylePrice(data); })
+      .catch(() => setIsLoading(true));
 
     function getSalePrice() {
       let didSucceed = false;
@@ -47,7 +48,8 @@ function styleSelector({
     }
 
     getSalePrice()
-      .then((data) => { setSelectedStyleSalePrice(data); });
+      .then((data) => { setSelectedStyleSalePrice(data); })
+      .catch(() => setIsLoading(true));
     setIsLoading(false);
   };
 
