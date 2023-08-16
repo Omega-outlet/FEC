@@ -15,7 +15,7 @@ function RatingsAndReviews() {
   };
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 20px' }}>
-      <h1 data-testid="text" style={{ 'textAlign': 'center' }}>Reviews</h1>
+      <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
       <div style={
         {
           'display': 'flex',
@@ -33,6 +33,7 @@ function RatingsAndReviews() {
           <h5>% of users recommend this product</h5>
         </div>
         <button
+          data-testid="newReviewBtn"
           type="button"
           style={
           {

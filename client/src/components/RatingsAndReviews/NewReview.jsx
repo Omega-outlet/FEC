@@ -29,7 +29,7 @@ function NewReview({ renderForm }) {
     renderForm();
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} data-testid="newReviewForm">
       <label htmlFor="rating">
         {'Rating: '}
         {'<SelectStars />'}
