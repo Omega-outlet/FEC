@@ -9,28 +9,18 @@ const RelatedItems = function ({currentProductID, updateProduct}) {
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   const getRelatedProducts = () => {
-    const options = {
-      url: '/api/product/related',
+    axios.get('/api/product/related', {
       params: {
         currentProductID,
       },
-    };
-    axios({
-      method: 'get',
-      url: options.url,
-      params: options.params,
       responseType: 'json',
     })
       .then((response) => {
         setRelatedProducts(response.data);
       })
-      .catch((error) => console.log('Error', error.message));
+      .catch((error) => error.message);
   };
   useEffect(getRelatedProducts, []);
-  useEffect(() => {
-    console.log('RelatedProducts: ', relatedProducts);
-    console.log('CurrentProdID:', currentProductID);
-  }, [relatedProducts]);
 
   return (
     <div>

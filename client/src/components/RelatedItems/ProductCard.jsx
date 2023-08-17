@@ -8,21 +8,15 @@ const ProductCard = function ({ product }) {
   const [productData, setProductData] = useState({});
   const [img1, setImg1] = useState('https://picsum.photos/700/900');
   const [img2, setImg2] = useState('https://picsum.photos/900/550'); //random generated imgs for defaults
-  const [salePrice, setSalePrice] = ('');
+  const [salePrice, setSalePrice] = useState('');
 
   // {product} prop holds basic product info from /products api query
   // productData holds additional info from /styles including default style and sale price
   const getProductData = () => {
-    const options = {
-      url: '/api/product/relatedStyle',
+    axios.get('/api/product/relatedStyle', {
       params: {
         currentProductID: product.id,
       },
-    };
-    axios({
-      method: 'get',
-      url: options.url,
-      params: options.params,
       responseType: 'json',
     })
       .then((response) => {
@@ -40,57 +34,55 @@ const ProductCard = function ({ product }) {
 
   return (
     <Item>
-      <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                {img1 && (
-                  <Image src={img1} alt="default style 1" />
-                )}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                {product.category}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>{product.name}</strong>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <em>{product.slogan}</em>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                {salePrice
-                  ? (
-                    <>
-                      <em>
-                        $
-                        {salePrice}
-                      </em>
-                      <s>
-                        $
-                        {product.default_price}
-                      </s>
-                    </>
-                  )
-                  : `$${product.default_price}`}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                *****
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              {img1 && (
+                <Image src={img1} alt="default style 1" />
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {product.category}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>{product.name}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <em>{product.slogan}</em>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {salePrice
+                ? (
+                  <>
+                    <em>
+                      $
+                      {salePrice}
+                    </em>
+                    <s>
+                      $
+                      {product.default_price}
+                    </s>
+                  </>
+                )
+                : `$${product.default_price}`}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              *****
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </Item>
   );
 };
