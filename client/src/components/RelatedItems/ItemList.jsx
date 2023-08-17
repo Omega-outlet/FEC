@@ -3,11 +3,12 @@ import ProductCard from './ProductCard.jsx';
 import { Carousel } from '../../styled-components/horizontal-carousel.jsx';
 import ScrollButton from './ScrollButton.jsx';
 
-const RelatedList = function({products, updateProduct}) {
+const ItemList = function({products, updateProduct, listType}) {
   const [focalItem, setFocalItem] = useState(0);
 
   const renderedList = products.filter((item, i) => i >= focalItem && i < focalItem + 4)
-    .map((item) => <ProductCard product={item} key={item.id} />);
+    .map((item) => <ProductCard product={item} key={item.id} updateProduct={updateProduct} listType={listType} />);
+    // decision for later: I either have to compromise on line length, have {return...} in my arrow function, or have a function(){} definition, and all give linter errors
 
   const scrollLeft = () => {
     const nextItem = focalItem - 1;
@@ -28,4 +29,4 @@ const RelatedList = function({products, updateProduct}) {
   );
 };
 
-export default RelatedList;
+export default ItemList;

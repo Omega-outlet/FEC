@@ -4,7 +4,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Item, Image } from '../../styled-components/horizontal-carousel.jsx';
 
-const ProductCard = function ({ product }) {
+const ProductCard = function ({ product, updateProduct, listType }) {
   const [productData, setProductData] = useState({});
   const [img1, setImg1] = useState('https://picsum.photos/700/900');
   const [img2, setImg2] = useState('https://picsum.photos/900/550'); //random generated imgs for defaults
