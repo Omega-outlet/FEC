@@ -14,7 +14,8 @@ function ReviewList({ reviews }) {
         </select>
       </label>
       <div style={{ 'paddingTop': '20px' }}>
-        {reviews.map((review) => <Review key={review.review_id} review={review} />)}
+        {reviews.length ? reviews.map((review) => <Review key={review.review_id} review={review} />)
+          : <h1>Loading...</h1>}
       </div>
       <button type="submit">Show More Reviews</button>
     </div>

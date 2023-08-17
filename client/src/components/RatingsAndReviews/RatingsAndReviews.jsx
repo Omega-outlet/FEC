@@ -1,29 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import StarView from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
-import data from './exampleData.json';
 import NewReview from './NewReview.jsx';
+import { calculateAverage, calculateTotal, calculateRecommended } from './arithmetic.js';
 
-function RatingsAndReviews() {
+function RatingsAndReviews({ currentProductID }) {
   // this is just example data, rating will come from request based on id passed as prop
-  const [reviews, setReviews] = React.useState(data.results);
-
+  const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
-
-  const reviewId = 40344;
+  const [metaData, setMetaData] = React.useState(
+    {
+      1: 0, 2: 0, 3: 0, 4: 0, 5: 0,
+    },
+  );
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
-        product_id: reviewId,
+        product_id: currentProductID,
       },
     })
-      .then((response) => console.log(response.data));
-  }, []);
+      .then((response) => setReviews(response.data.results));
+  }, [currentProductID]);
+  React.useEffect(() => {
+    axios.get('./reviews/meta', {
+      params: {
+        product_id: currentProductID,
+      },
+    })
+      .then((response) => setMetaData(response.data));
+  }, [currentProductID]);
+  console.log(metaData)
 
   const rating = 2.5;
-  const renderForm = function() {
+  const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };
   return (
@@ -42,7 +54,11 @@ function RatingsAndReviews() {
           <span>2.5 </span>
           <StarView rating={rating} fontSize={20} />
           <RatingsGraph />
-          <h3>Based on 150 reviews</h3>
+          <h3>
+            Based on
+            {/* {calculateTotal(metaData.ratings)} */}
+            reviews
+          </h3>
           <h5>% of users recommend this product</h5>
         </div>
         <button
@@ -63,9 +79,13 @@ function RatingsAndReviews() {
         </button>
       </div>
       {showForm && <NewReview renderForm={renderForm} />}
-      <ReviewList reviews={reviews} />
+      <ReviewList reviews={reviews} currentProductID={currentProductID} />
     </div>
   );
 }
+
+RatingsAndReviews.propTypes = {
+  currentProductID: PropTypes.number.isRequired,
+};
 
 export default RatingsAndReviews;
