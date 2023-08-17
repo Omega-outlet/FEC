@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 
 const ProductCard = function ({ product }) {
   const [productData, setProductData] = useState({});
+  const [img1, setImg1] = useState('https://picsum.photos/500/350');
+  const [img2, setImg2] = useState('https://picsum.photos/500/400'); //random generated imgs for defaults
+  const [salePrice, setSalePrice] = ('');
 
   // {product} prop holds basic product info from /products api query
   // productData holds additional info from /styles including default style and sale price
@@ -24,6 +27,10 @@ const ProductCard = function ({ product }) {
       .then((response) => {
         const defaultStyle = response.data.results.find((style) => style['default?']);
         setProductData(defaultStyle);
+        // check for data existing on the backend
+        if (defaultStyle.photos[0].url) { setImg1(defaultStyle.photos[0].url); }
+        if (defaultStyle.photos[1].url) { setImg2(defaultStyle.photos[1].url); }
+        if (defaultStyle.sale_price) { setSalePrice(defaultStyle.sale_price); }
       })
       .catch((error) => console.log('Error', error.message));
   };
@@ -36,8 +43,8 @@ const ProductCard = function ({ product }) {
         <tbody>
           <tr>
             <td>
-              {productData?.photos && (
-                <img src={productData.photos[0].url} alt="default style 1" />
+              {img1 && (
+                <img src={img1} alt="default style 1" />
               )}
             </td>
           </tr>
@@ -58,12 +65,12 @@ const ProductCard = function ({ product }) {
           </tr>
           <tr>
             <td>
-              {productData?.sale_price
+              {salePrice
                 ? (
                   <>
                     <em>
                       $
-                      {productData.sale_price}
+                      {salePrice}
                     </em>
                     <s>
                       $
