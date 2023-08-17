@@ -23,10 +23,7 @@ const ProductCard = function ({ product }) {
     })
       .then((response) => {
         const defaultStyle = response.data.results.find((style) => style['default?']);
-        return defaultStyle;
-      })
-      .then((response) => {
-        setProductData(response);
+        setProductData(defaultStyle);
       })
       .catch((error) => console.log('Error', error.message));
   };

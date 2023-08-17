@@ -27,11 +27,15 @@ const RelatedItems = function ({currentProductID, updateProduct}) {
       .catch((error) => console.log('Error', error.message));
   };
   useEffect(getRelatedProducts, []);
+  useEffect(() => {
+    console.log('RelatedProducts: ', relatedProducts);
+    console.log('CurrentProdID:', currentProductID);
+  }, [relatedProducts]);
 
   return (
     <div>
       <h4>Related Items</h4>
-      <RelatedList products={relatedProducts} updateProduct={updateProduct} />
+      { relatedProducts.length > 0 && <RelatedList products={relatedProducts} updateProduct={updateProduct} /> }
       <h4>Your Outfit</h4>
       <YourOutfitList currentProductID={currentProductID} updateProduct={updateProduct} />
     </div>

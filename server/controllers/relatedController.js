@@ -22,6 +22,7 @@ module.exports = {
           method: 'get',
           url: `${options.url}products/`,
           headers: options.headers,
+          params: { count: 2000 },
           responseType: 'json',
           transformResponse: [function (data) {
             const allItems = JSON.parse(data);
