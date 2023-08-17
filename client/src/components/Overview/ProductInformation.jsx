@@ -13,7 +13,6 @@ function ProductInformation({
   // const [isLoading, setIsLoading] = useState(true);
   const [selectedIsLoading, setSelectedIsLoading] = useState(true);
 
-
   // finish for style to load
   const loadStyles = () => {
     setSelectedIsLoading(true);
