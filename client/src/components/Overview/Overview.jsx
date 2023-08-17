@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ProductInformation from './ProductInformation.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import OverviewContainer from '../../styled-components/overviewcomponents/overview-components.jsx';
+import Promise from 'bluebird';
 
 function Overview({ currentProduct, currentProductID }) {
   const [styles, setStyles] = useState({});
@@ -12,7 +13,8 @@ function Overview({ currentProduct, currentProductID }) {
   const [selectedStyle, setSelectedStyle] = useState({});
   const [selectedStylePrice, setSelectedStylePrice] = useState('');
   const [selectedStyleSalePrice, setSelectedStyleSalePrice] = useState('');
-
+  const [selectedStyleName, setSelectedStyleName] = useState('');
+  const [selectedStylePhoto, setSelectedStylePhoto] = useState([]);
 
   // get the styles of the current product
   const loadProductStyles = () => {
@@ -31,17 +33,19 @@ function Overview({ currentProduct, currentProductID }) {
     })
       .then((response) => {
         setStyles(response.data);
-        setSelectedStyle(response.data[0]);
+        setSelectedStyle(response.data.results[0]);
         setIsLoading(false);
       })
       .catch((error) => console.log('Error', error.message));
   };
+
   useEffect(loadProductStyles, [currentProductID]);
+
   return (
     <div>
       <OverviewContainer.StyledOverviewContainer>
         <OverviewContainer.Half>
-          <ImageGallery currentProduct={currentProduct} />
+          <ImageGallery currentProduct={currentProduct} selectedStyle={selectedStyle} />
         </OverviewContainer.Half>
         <OverviewContainer.Half>
           <ProductInformation
@@ -53,6 +57,10 @@ function Overview({ currentProduct, currentProductID }) {
             setSelectedStylePrice={setSelectedStylePrice}
             selectedStyleSalePrice={selectedStyleSalePrice}
             setSelectedStyleSalePrice={setSelectedStyleSalePrice}
+            selectedStyleName={selectedStyleName}
+            setSelectedStyleName={setSelectedStyleName}
+            selectedStylePhoto={selectedStylePhoto}
+            setSelectedStylePhoto={setSelectedStylePhoto}
             styles={styles}
           />
         </OverviewContainer.Half>
