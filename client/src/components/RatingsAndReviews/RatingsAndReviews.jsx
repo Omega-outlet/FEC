@@ -29,7 +29,7 @@ function RatingsAndReviews({ currentProductID }) {
       .then((response) => setMetaData(response.data))
       .catch(() => {});
   }, [currentProductID]);
-  console.log(metaData)
+
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };
