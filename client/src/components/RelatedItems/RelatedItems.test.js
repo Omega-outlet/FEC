@@ -107,8 +107,13 @@ describe('Related Items', () => {
 
   test('after scrolling right, first item disappears and left button appears', async () => {
     await waitFor (() => render(<RelatedItems />));
+    // click right button to shift all items to the right
     await waitFor (() => fireEvent.click(screen.getByText('>')));
+    // test first product disappears
     await waitFor (() => expect(screen.queryByText('Product Name 1')).toBeNull());
+    // test left button appears
     await waitFor (() => expect(screen.queryByText('<')).toBeTruthy());
+    // test right button disappears for 5 element list
+    await waitFor (() => expect(screen.queryByText('>')).toBeNull());
   });
 });
