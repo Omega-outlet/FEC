@@ -2,12 +2,15 @@
  * @jest-environment jsdom
  */
 
-
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import React, {useState} from 'react';
+import { render, screen, waitFor, fireEvent, cleanup } from '@testing-library/react';
 import ProductInformation from './ProductInformation.jsx';
 import StyleEntry from './StyleEntry.jsx';
 import Overview from './Overview.jsx';
+import StyleSelector from './StyleSelector.jsx';
+
+afterEach(cleanup);
+
 // 2 products in products array
 const products = [
   {
@@ -96,7 +99,7 @@ const styles2 = {
   results: [
     {
       'style_id': 1,
-      'name': 'Forest Green & Black',
+      'name': 'Gray',
       'original_price': '140',
       'sale_price': '0',
       'default?': true,
@@ -127,7 +130,7 @@ const styles2 = {
     },
     {
       'style_id': 2,
-      'name': 'Desert Brown & Tan',
+      'name': 'Orange',
       'original_price': '140',
       'sale_price': '0',
       'default?': false,
@@ -293,26 +296,31 @@ describe('style thumbnails', () => {
     });
   });
 });
-describe('render price', (done) => {
-  it('renders the original price of the style', () => {
-    render(<Overview currentProduct={products[0]} currentProductID={1} />);
-    setTimeout(async () => {
-      await waitFor(() => {
-        const originalPrice = screen.getByText('140');
-        expect(originalPrice).toBeTruthy();
-      });
-      done();
-    }, 500);
+describe('render price', () => {
+  it('renders the original price of the style', async () => {
+    await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStylePrice={styles.results[0].original_price}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      selectedStyleName={styles.results[0].name}
+      styles={styles}
+    />));
+    expect(screen.getByText('140')).toBeTruthy();
   });
-  it('renders the sales price of the style', () => {
-    render(<Overview currentProduct={products[0]} currentProductID={1} />);
-    setTimeout(async () => {
-      await waitFor(() => {
-        const salePrice = screen.getByText('100');
-        expect(salePrice).toBeTruthy();
-      });
-      done();
-    }, 500);
+  it('renders the sales price of the style', async () => {
+    await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStylePrice={styles.results[0].original_price}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      selectedStyleName={styles.results[0].name}
+      styles={styles}
+    />));
+    const salePrice = screen.getByText('100');
+    expect(salePrice).toBeTruthy();
   });
 });
 describe('render category', () => {
@@ -357,5 +365,58 @@ describe('share anchor element "button" tests', () => {
       const anchorElement = screen.getAllByRole('link')[2];
       expect(anchorElement.href).toContain('https://pinterest.com/');
     });
+  });
+});
+
+describe('render style\s info', () => {
+  it('render the default style\'s name which is the first product\s first style', async () => {
+    await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStylePrice={styles.results[0].original_price}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      selectedStyleName={styles.results[0].name}
+      styles={styles}
+    />));
+    const style1 = screen.getByText('Forest Green & Black');
+    expect(style1).toBeTruthy();
+  });
+  it('renders only one checkmark over style thumbnails', async () => {
+    await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStylePrice={styles.results[0].original_price}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      selectedStyleName={styles.results[0].name}
+      styles={styles}
+    />));
+    const checkmark = screen.getByText('✔');
+    expect(checkmark).toBeTruthy();
+  });
+  it('should change style name after another style is clicked', async () => {
+    const mockGetStyle = jest.fn(() => styles.results[1]);
+    const {rerender} = await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStyleName={styles.results[0].name}
+      setSelectedStyle={mockGetStyle}
+      styles={styles}
+    />));
+    const image = screen.getByAltText('Desert Brown & Tan');
+    fireEvent.click(image);
+    expect(mockGetStyle).toHaveBeenCalled();
+    rerender(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={mockGetStyle()}
+      selectedStyleName={mockGetStyle().name}
+      setSelectedStyle={mockGetStyle}
+      styles={styles}
+    />)
+    const style = screen.getByText('Desert Brown & Tan');
+    expect(style).toBeTruthy();
   });
 });

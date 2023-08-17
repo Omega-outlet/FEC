@@ -10,17 +10,10 @@ function styleEntry({
 
     <div>
       <ProductInformationComponents.EntryContainer>
-
         {selectedStyleName === style.name ? (
           <ProductInformationComponents.ClickedStyleThumbnail>
             <span>✔</span>
           </ProductInformationComponents.ClickedStyleThumbnail>
-          // <ProductInformationComponents.StyleEntryThumbnail
-          //   src={style.photos[0].thumbnail_url}
-          //   alt={style.name}
-          //   value={style.name}
-          //   onClick={() => { setSelectedStyle(style); }}
-          // />
         ) : (null)}
         <ProductInformationComponents.StyleEntryThumbnail
           src={style.photos[0].thumbnail_url}
