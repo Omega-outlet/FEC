@@ -15,7 +15,7 @@ beforeEach(() => {
       return Promise.resolve({
         data: [
           {
-            name: "Product Name",
+            name: "Product Name 1",
             category: "Category",
             default_price: "$10",
             slogan: "Slogan",
@@ -78,41 +78,37 @@ beforeEach(() => {
 
 
 describe('Related Items', () => {
-  test('item 1 exists', async () => {
+  test('Related items render with first product and right button on page load', async () => {
     await waitFor(() => render(<RelatedItems currentProductID={1} />));
+    // test header and products render
     await waitFor(() => expect(screen.queryByText('Related Items')).toBeTruthy());
-    await waitFor(() => expect(screen.queryByText('Product Name')).toBeTruthy());
+    await waitFor(() => expect(screen.queryByText('Product Name 1')).toBeTruthy());
+    // test left button does not render
+    await waitFor(() => expect(screen.queryByText('<')).toBeNull());
+    // test right button renders
+    await waitFor(() => expect(screen.queryByText('>')).toBeTruthy());
+    // test first axios get request calls the related API
     expect(mockedAxios.get).nthCalledWith(1, '/api/product/related', {
       params: {
         currentProductID: 1,
       },
       responseType: "json",
-    })
+    });
+    // test second axios get request calls the relatedStyle API
     expect(mockedAxios.get).nthCalledWith(2, '/api/product/relatedStyle', {
       params: {
         currentProductID: 1,
       },
       responseType: "json",
     })
+    // test axios get request is called 5 times (1 list get + 4 product style gets)
     expect(mockedAxios.get).toHaveBeenCalledTimes(5);
   });
 
-  test('left button does not exist on page render', async () => {
-    render(<RelatedItems />);
-    expect(screen.querytByText('<')).toThrow();
-  });
-
-  test('right button exists on page render', () => {
-    render(<RelatedItems />);
-    const rightButton = screen.getByText('>');
-    expect(rightButton).toBeTruthy();
-  });
-
-  test('after scrolling right, first item disappears and left button appears', () => {
-    render(<RelatedItems />);
-    const rightButton = screen.getByText('>');
-    fireEvent.click(rightButton);
-    expect(screen.getByText('Camo Onesie')).toThrow();
-    expect(screen.getByText('<')).toBeTruthy();
+  test('after scrolling right, first item disappears and left button appears', async () => {
+    await waitFor (() => render(<RelatedItems />));
+    await waitFor (() => fireEvent.click(screen.getByText('>')));
+    await waitFor (() => expect(screen.queryByText('Product Name 1')).toBeNull());
+    await waitFor (() => expect(screen.queryByText('<')).toBeTruthy());
   });
 });

@@ -29,7 +29,7 @@ const App = function () {
     <div>
       <h1>Omega Outlet</h1>
       <Overview currentProduct={currentProduct} currentProductID={currentProductID} />
-      <RelatedItems currentProductID={currentProductID} updateProduct={updateProduct} />
+      <RelatedItems currentProductID={40352} updateProduct={updateProduct} />
       <QuestionsAndAnswers currentProductID={currentProductID} />
       <RatingsAndReviews currentProductID={currentProductID} />
     </div>
