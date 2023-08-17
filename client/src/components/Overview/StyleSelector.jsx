@@ -6,6 +6,7 @@ import ProductInformationComponents from '../../styled-components/overviewcompon
 function styleSelector({
   stylesArray, selectedStyle, setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName, setSelectedStyleName,
+  selectedStylePhoto, setSelectedStylePhoto,
 }) {
   const [isLoading, setIsLoading] = useState(true);
   // load the stylesArray with styles
@@ -61,7 +62,25 @@ function styleSelector({
     }
 
     getStyleName()
-      .then((data) => { setSelectedStyleName(data)})
+      .then((data) => { setSelectedStyleName(data); })
+      .catch(() => { });
+
+    function getStylePhoto() {
+      let didSucceed = false;
+      return new Promise((resolve, reject) => {
+        if (typeof selectedStyle !== 'undefined') {
+          didSucceed = true;
+        }
+        if (didSucceed === true) {
+          resolve(selectedStyle.photos[0].url);
+        } else {
+          reject(new Error('Not done loading'));
+        }
+      });
+    }
+
+    getStylePhoto()
+      .then((data) => { setSelectedStylePhoto(data); })
       .catch(() => { });
   };
 
@@ -87,6 +106,8 @@ function styleSelector({
             setSelectedStyleSalePrice={setSelectedStyleSalePrice}
             selectedStyleName={selectedStyleName}
             setSelectedStyleName={setSelectedStyleName}
+            selectedStylePhoto={selectedStylePhoto}
+            setSelectedStylePhoto={setSelectedStylePhoto}
           />
         </ProductInformationComponents.StyleEntry>
       )) : null}

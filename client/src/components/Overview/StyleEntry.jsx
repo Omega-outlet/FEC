@@ -4,7 +4,7 @@ import ProductInformationComponents from '../../styled-components/overviewcompon
 
 function styleEntry({
   style, selectedStyle, setSelectedStyle,
-  selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName, setSelectedStyleName
+  selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName, setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto
 }) {
   return (
 
