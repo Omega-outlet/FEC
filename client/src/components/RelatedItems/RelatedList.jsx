@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import ProductCard from './ProductCard.jsx';
-import Carousel from '../../styled-components/horizontal-carousel.jsx';
+import { Carousel } from '../../styled-components/horizontal-carousel.jsx';
 import ScrollButton from './ScrollButton.jsx';
 
 const RelatedList = function({products, updateProduct}) {

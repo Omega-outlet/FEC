@@ -2,11 +2,12 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { Item, Image } from '../../styled-components/horizontal-carousel.jsx';
 
 const ProductCard = function ({ product }) {
   const [productData, setProductData] = useState({});
-  const [img1, setImg1] = useState('https://picsum.photos/500/350');
-  const [img2, setImg2] = useState('https://picsum.photos/500/400'); //random generated imgs for defaults
+  const [img1, setImg1] = useState('https://picsum.photos/700/900');
+  const [img2, setImg2] = useState('https://picsum.photos/900/550'); //random generated imgs for defaults
   const [salePrice, setSalePrice] = ('');
 
   // {product} prop holds basic product info from /products api query
@@ -38,57 +39,59 @@ const ProductCard = function ({ product }) {
   useEffect(getProductData, []);
 
   return (
-    <li>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              {img1 && (
-                <img src={img1} alt="default style 1" />
-              )}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {product.category}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>{product.name}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <em>{product.slogan}</em>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {salePrice
-                ? (
-                  <>
-                    <em>
-                      $
-                      {salePrice}
-                    </em>
-                    <s>
-                      $
-                      {product.default_price}
-                    </s>
-                  </>
-                )
-                : `$${product.default_price}`}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              *****
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </li>
+    <Item>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                {img1 && (
+                  <Image src={img1} alt="default style 1" />
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {product.category}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>{product.name}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em>{product.slogan}</em>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {salePrice
+                  ? (
+                    <>
+                      <em>
+                        $
+                        {salePrice}
+                      </em>
+                      <s>
+                        $
+                        {product.default_price}
+                      </s>
+                    </>
+                  )
+                  : `$${product.default_price}`}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                *****
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </Item>
   );
 };
 

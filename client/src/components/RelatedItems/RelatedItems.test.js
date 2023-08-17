@@ -6,15 +6,16 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RelatedItems from './RelatedItems.jsx';
 
+//tests use hardcoded product ID: 40352 in App.jsx
 describe('Related Items', () => {
-  test('item 1 exists', () => {
-    render(<RelatedItems />);
-    expect(screen.getByText('Camo Onesie')).toBeTruthy();
+  test('item 1 exists', async () => {
+    await render(<RelatedItems />);
+    await expect(screen.queryByText('Camo Onesie')).toBeTruthy();
   });
 
   test('left button does not exist on page render', () => {
     render(<RelatedItems />);
-    expect(screen.getByText('<')).toThrow();
+    expect(screen.querytByText('<')).toThrow();
   });
 
   test('right button exists on page render', () => {
