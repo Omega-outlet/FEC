@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { reFormatDate } from '../../../../utils/reFormatDate.js';
 import Answer from './Answer.jsx';
 import LoadMoreAnswersButton from '../Buttons/LoadMoreAnswersButton.jsx';
-import { QuestionDetailsContainer, AskerDetailsContainer, QuestionAndAnswersContainer, QuestionBodyAndHelpfulContainer, AnswerListContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import { QuestionDetailsList, AskerDetailsContainer,
+  QuestionAndAnswersContainer, QuestionBodyAndHelpfulContainer, AnswerListContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function Question({ question }) {
   // On pageload, 2 answers show up per questions
@@ -14,7 +15,7 @@ function Question({ question }) {
     setNumAnswersShowed((prev) => prev + 2);
   };
   return (
-    <QuestionDetailsContainer>
+    <QuestionDetailsList>
       <AskerDetailsContainer>
         <p>Question asked by</p>
         <p>{`${question.asker_name}, ${reFormatDate(question.question_date)}`}</p>
@@ -41,7 +42,7 @@ function Question({ question }) {
           hasMoreAnswers={Object.values(question.answers).length > numAnswersShowed}
         />
       </QuestionAndAnswersContainer>
-    </QuestionDetailsContainer>
+    </QuestionDetailsList>
   );
 }
 
