@@ -51,16 +51,16 @@ describe('<QuestionsList />', () => {
 
     expect(queryByText('Non-existent Text')).toBeNull();
 
-    const texts = queryAllByText('Who asked the question?');
-    expect(texts).toHaveLength(2);
+    expect(getByText('Eric, December 31, 2022')).toBeTruthy();
+    expect(getByText('Kimberly, January 31, 2023')).toBeTruthy();
   });
 
   it('sorts questions by helpfulness in descending order', () => {
     const { getAllByTestId } = render(<QuestionsList questions={testQuestions} />);
 
     const qBody = getAllByTestId('question-body').map((item) => item.textContent);
-    expect(qBody[0]).toBe('How do you feel?');
-    expect(qBody[1]).toBe('Is this a spaceship?');
+    expect(qBody[0]).toBe('Q: How do you feel?');
+    expect(qBody[1]).toBe('Q: Is this a spaceship?');
   });
 
   it('renders More Answered Questions button if there are more than 4 questions', () => {

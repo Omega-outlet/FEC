@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { reFormatDate } from '../../../../utils/reFormatDate.js';
 import Answer from './Answer.jsx';
 import LoadMoreAnswersButton from '../Buttons/LoadMoreAnswersButton.jsx';
+import { QuestionDetailsList, AskerDetailsContainer,
+  QuestionAndAnswersContainer, QuestionBodyAndHelpfulContainer, AnswerListContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function Question({ question }) {
   // On pageload, 2 answers show up per questions
@@ -13,22 +15,34 @@ function Question({ question }) {
     setNumAnswersShowed((prev) => prev + 2);
   };
   return (
-    <li>
-      <p>Who asked the question?</p>
-      <p>{`Asked by ${question.asker_name}, ${reFormatDate(question.question_date)}`}</p>
-      <h4>Q</h4>
-      <p data-testid="question-body">{question.question_body}</p>
-      <p>Helpful?</p>
-      <ul>
-        {Object.values(question.answers).slice(0, numAnswersShowed).map((answer) => (
-          <Answer key={answer.id} answer={answer} />
-        ))}
-      </ul>
-      <LoadMoreAnswersButton
-        onClick={handleLoadMore}
-        hasMoreAnswers={Object.values(question.answers).length > numAnswersShowed}
-      />
-    </li>
+    <QuestionDetailsList>
+      <AskerDetailsContainer>
+        <p>Question asked by</p>
+        <p>{`${question.asker_name}, ${reFormatDate(question.question_date)}`}</p>
+      </AskerDetailsContainer>
+      <QuestionAndAnswersContainer>
+        <QuestionBodyAndHelpfulContainer>
+          <p data-testid="question-body">
+            <strong>
+              {`Q: ${question.question_body}`}
+            </strong>
+          </p>
+          <div>
+            <p>Helpful? Yes</p>
+            <span>Add Answer</span>
+          </div>
+        </QuestionBodyAndHelpfulContainer>
+        <AnswerListContainer>
+          {Object.values(question.answers).slice(0, numAnswersShowed).map((answer) => (
+            <Answer key={answer.id} answer={answer} />
+          ))}
+        </AnswerListContainer>
+        <LoadMoreAnswersButton
+          onClick={handleLoadMore}
+          hasMoreAnswers={Object.values(question.answers).length > numAnswersShowed}
+        />
+      </QuestionAndAnswersContainer>
+    </QuestionDetailsList>
   );
 }
 

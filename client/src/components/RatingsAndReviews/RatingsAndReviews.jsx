@@ -1,16 +1,34 @@
 import React from 'react';
+import axios from 'axios';
 import StarView from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
 import data from './exampleData.json';
+import NewReview from './NewReview.jsx';
 
 function RatingsAndReviews() {
   // this is just example data, rating will come from request based on id passed as prop
   const [reviews, setReviews] = React.useState(data.results);
+
+  const [showForm, setShowForm] = React.useState(false);
+
+  const reviewId = 40344;
+  React.useEffect(() => {
+    axios.get('/reviews', {
+      params: {
+        product_id: reviewId,
+      },
+    })
+      .then((response) => console.log(response.data));
+  }, []);
+
   const rating = 2.5;
+  const renderForm = function() {
+    setShowForm((prevView) => !prevView);
+  };
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 20px' }}>
-      <h1 data-testid="text" style={{ 'textAlign': 'center' }}>Reviews</h1>
+      <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
       <div style={
         {
           'display': 'flex',
@@ -28,7 +46,8 @@ function RatingsAndReviews() {
           <h5>% of users recommend this product</h5>
         </div>
         <button
-          type="submit"
+          data-testid="newReviewBtn"
+          type="button"
           style={
           {
             'height': '40px',
@@ -38,10 +57,12 @@ function RatingsAndReviews() {
             'cursor': 'pointer',
           }
           }
+          onClick={() => setShowForm((prev) => !prev)}
         >
           Write Review
         </button>
       </div>
+      {showForm && <NewReview renderForm={renderForm} />}
       <ReviewList reviews={reviews} />
     </div>
   );
