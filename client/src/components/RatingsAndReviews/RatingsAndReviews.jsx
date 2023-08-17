@@ -8,33 +8,28 @@ import NewReview from './NewReview.jsx';
 import { calculateAverage, calculateTotal, calculateRecommended } from './arithmetic.js';
 
 function RatingsAndReviews({ currentProductID }) {
-  // this is just example data, rating will come from request based on id passed as prop
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
-  const [metaData, setMetaData] = React.useState(
-    {
-      1: 0, 2: 0, 3: 0, 4: 0, 5: 0,
-    },
-  );
+  const [metaData, setMetaData] = React.useState({ recommended: { true: 1, false: 1 } });
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
         product_id: currentProductID,
       },
     })
-      .then((response) => setReviews(response.data.results));
+      .then((response) => setReviews(response.data.results))
+      .catch(() => {});
   }, [currentProductID]);
   React.useEffect(() => {
-    axios.get('./reviews/meta', {
+    axios.get('/reviews/meta', {
       params: {
         product_id: currentProductID,
       },
     })
-      .then((response) => setMetaData(response.data));
+      .then((response) => setMetaData(response.data))
+      .catch(() => {});
   }, [currentProductID]);
   console.log(metaData)
-
-  const rating = 2.5;
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };
@@ -51,15 +46,13 @@ function RatingsAndReviews({ currentProductID }) {
       }
       >
         <div>
-          <span>2.5 </span>
-          <StarView rating={rating} fontSize={20} />
+          <span>{`${calculateAverage(metaData.ratings)} `}</span>
+          <StarView rating={calculateAverage(metaData.ratings)} fontSize={25} />
           <RatingsGraph />
           <h3>
-            Based on
-            {/* {calculateTotal(metaData.ratings)} */}
-            reviews
+            {`Based on ${calculateTotal(metaData.recommended)} reviews`}
           </h3>
-          <h5>% of users recommend this product</h5>
+          <h5>{`${calculateRecommended(metaData.recommended)}% of users recommend this product`}</h5>
         </div>
         <button
           data-testid="newReviewBtn"

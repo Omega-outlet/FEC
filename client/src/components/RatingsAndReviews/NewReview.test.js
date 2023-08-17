@@ -6,11 +6,13 @@ import NewReview from './NewReview.jsx';
 
 describe('NewReview Component', () => {
   test('NewReview Component rendered', () => {
-    render(<NewReview />);
+    const renderForm = jest.fn();
+    render(<NewReview renderForm={renderForm} />);
     expect(screen.getByTestId('newReviewForm')).toBeTruthy();
   });
   test('handleChange changes values based on user input', () => {
-    render(<NewReview />);
+    const renderForm = jest.fn();
+    render(<NewReview renderForm={renderForm}/>);
     const summary = screen.getByLabelText('Review Summary:');
     const username = screen.getByLabelText('Display Name:');
 
