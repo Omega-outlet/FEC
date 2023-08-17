@@ -69,7 +69,7 @@ const styles = {
       'style_id': 2,
       'name': 'Desert Brown & Tan',
       'original_price': '140',
-      'sale_price': '0',
+      'sale_price': '70',
       'default?': false,
       'photos': [
         {
@@ -418,5 +418,33 @@ describe('render style\s info', () => {
     />)
     const style = screen.getByText('Desert Brown & Tan');
     expect(style).toBeTruthy();
+  });
+  it('should change style sale price after another style is clicked', async () => {
+    const mockGetStyle = jest.fn(() => styles.results[1]);
+    const {rerender} = await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStyleName={styles.results[0].name}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      setSelectedStyle={mockGetStyle}
+      styles={styles}
+    />));
+    const oldPrice = screen.getByText('100');
+    expect(oldPrice).toBeTruthy();
+    const image = screen.getByAltText('Desert Brown & Tan');
+    fireEvent.click(image);
+    expect(mockGetStyle).toHaveBeenCalled();
+    rerender(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={mockGetStyle()}
+      selectedStyleName={mockGetStyle().name}
+      selectedStyleSalePrice={mockGetStyle().sale_price}
+      setSelectedStyle={mockGetStyle}
+      styles={styles}
+    />)
+    const newPrice = screen.getByText('70');
+    expect(newPrice).toBeTruthy();
   });
 });
