@@ -13,7 +13,7 @@ export const QuestionList = styled.ul`
   list-style-type: none;
 `;
 
-export const QuestionDetailsContainer = styled.li`
+export const QuestionDetailsList = styled.li`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -45,7 +45,7 @@ export const QuestionBodyAndHelpfulContainer = styled.div`
     width: 100%;
 `;
 
-export const AnswerListContainer = styled.li`
+export const AnswerListContainer = styled.ul`
   list-style-type: none;
   padding-left: 0;
 `;
