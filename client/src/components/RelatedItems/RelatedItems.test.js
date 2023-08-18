@@ -181,7 +181,6 @@ describe('Your Outfit', () => {
     await waitFor (() => expect(localStorage.getItem('yourOutfit')).toEqual(dummyString));
 
     // test remove item button
-    await waitFor (() => console.log('HERES THE DOM AFTER ADDING TO OUTFIT', screen));
     await waitFor (() => fireEvent.click(screen.getByText('X')));
     await waitFor (() => expect(localStorage.getItem('yourOutfit')).toEqual('[]'));
   });
