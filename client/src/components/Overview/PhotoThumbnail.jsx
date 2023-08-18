@@ -6,20 +6,23 @@ function PhotoThumbnail({
   selectedStyle,
   focalItem,
   selectedStyleArray,
+  index
 }) {
+  let altName = '';
+  altName += `${selectedStyle.name} ${index}`;
   return (
     <div>
       {selectedStyleArray[focalItem].url === photoObj.url
         ? (
           <ImageGalleryComponents.CurrentThumbnail
             src={photoObj.thumbnail_url}
-            alt={selectedStyle.name}
+            alt={altName}
             value={selectedStyle.name}
           />
         ) : (
           <ImageGalleryComponents.DefaultThumbnail
             src={photoObj.thumbnail_url}
-            alt={selectedStyle.name}
+            alt={altName}
             value={selectedStyle.name}
           />
         )}
