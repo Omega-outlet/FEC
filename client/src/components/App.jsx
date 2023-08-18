@@ -10,16 +10,28 @@ const App = function () {
   const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
   // get the first product in the array
-  const loadFirstProduct = () => {
-    axios
-      .get('/api/product')
-      .then((response) => {
-        setCurrentProduct(response.data);
-        setCurrentProductID(response.data.id);
-      })
-      .catch((error) => console.log('Error', error.message));
-  };
-  useEffect(loadFirstProduct, []);
+  // const loadFirstProduct = () => {
+  //   axios
+  //     .get('/api/product')
+  //     .then((response) => {
+  //       setCurrentProduct(response.data);
+  //       setCurrentProductID(response.data.id);
+  //     })
+  //     .catch((error) => console.log('Error', error.message));
+  // };
+  // useEffect(loadFirstProduct, []);
+
+    // get a random product from the array
+    const loadRandomProduct = () => {
+      axios
+        .get('/api/randomproduct')
+        .then((response) => {
+          setCurrentProduct(response.data);
+          setCurrentProductID(response.data.id);
+        })
+        .catch((error) => console.log('Error', error.message));
+    };
+    useEffect(loadRandomProduct, []);
 
   const updateProduct = (prodID, prod) => {
     setCurrentProductID(prodID);
