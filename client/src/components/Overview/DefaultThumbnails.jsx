@@ -77,7 +77,7 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage }) {
   return (
     <div>
       <ImageGalleryComponents.DefaultThumbnails>
-        { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : <div>&nbsp;&nbsp;&nbsp;</div> }
+        { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> }
         {sevenStylesArray
           ? sevenStylesArray
             .map((photoObj, index) => (

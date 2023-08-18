@@ -20,7 +20,7 @@ width: 100%;
 height: 99%;
 position: absolute;
 top: 0;
-left: 15%;
+left: 125px;
 display: flex;
 flex-direction: row;
 flex-wrap: nowrap;
@@ -32,7 +32,8 @@ const DefaultThumbnail = styled.img`
 width:50px;
 height:60px;
 object-fit: cover;
-padding: 2px;
+// padding: 2px;
+opacity: 0.6;
 `;
 
 const CurrentThumbnail = styled.img`
@@ -40,8 +41,13 @@ const CurrentThumbnail = styled.img`
 width:50px;
 height:60px;
 object-fit: cover;
-padding: 2px;
-border: 5px solid #555;
+border: 1px solid white;
+`;
+
+const ScrollButton = styled.input`
+  height:64px;
+  width:27px;
+  color:black;
 `;
 
 export default {
@@ -50,4 +56,5 @@ export default {
   DefaultThumbnails,
   DefaultThumbnail,
   CurrentThumbnail,
+  ScrollButton,
 };
