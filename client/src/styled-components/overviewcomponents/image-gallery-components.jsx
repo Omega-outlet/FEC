@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 const MainPhoto = styled.img`
   // display: block;
-  width:660px;
+  width:700px;
   height:660px;
   object-fit: cover;
+  cursor: zoom-in;
 
 `;
 const DefaultContainer = styled.div`
@@ -16,11 +17,9 @@ position: relative;
 `;
 
 const DefaultThumbnails = styled.div`
-width: 100%;
-height: 99%;
 position: absolute;
-top: 0;
-left: 120px;
+top: 550px;
+left: 45px;
 display: flex;
 flex-direction: row;
 flex-wrap: nowrap;
@@ -29,24 +28,24 @@ align-items: flex-end;
 
 const DefaultThumbnail = styled.img`
 // display: block;
-width:50px;
-height:60px;
+width:90px;
+height:100px;
 object-fit: cover;
 // padding: 2px;
-opacity: 0.6;
+opacity: 0.5;
 `;
 
 const CurrentThumbnail = styled.img`
 // display: block;
-width:50px;
-height:60px;
+width:90px;
+height:100px;
 object-fit: cover;
 border: 1px solid white;
 `;
 
 const ScrollButton = styled.input`
-  height:64px;
-  width:27px;
+ height:100px;
+  width:30px;
   color:black;
 `;
 
