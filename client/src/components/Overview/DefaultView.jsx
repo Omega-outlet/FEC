@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Promise from 'bluebird';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 
-function DefaultView({ selectedStyle }) {
-  const [mainImage, setMainImage] = useState('');
+function DefaultView({ selectedStyle, mainImage, setMainImage }) {
   const [isLoading, setIsLoading] = useState(true);
   const getStyle = () => {
     function getMainImage() {
@@ -27,7 +26,7 @@ function DefaultView({ selectedStyle }) {
       .finally(setIsLoading(false));
   };
 
-  useEffect(getStyle, [selectedStyle, mainImage]);
+  useEffect(getStyle, [selectedStyle]);
 
   return (
     <div>

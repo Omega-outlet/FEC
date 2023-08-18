@@ -9,7 +9,7 @@ import StyleEntry from './StyleEntry.jsx';
 import Overview from './Overview.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
-afterEach(cleanup);
+// afterEach(cleanup);
 
 // 2 products in products array
 const products = [
