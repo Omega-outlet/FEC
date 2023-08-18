@@ -8,4 +8,6 @@ router.get('/api/product/styles', controller.overView.getProductStyles);
 router.get('/questions', controller.questions.getQuestions);
 router.get('/reviews', controller.ratings.getRatings);
 
+router.put('/qa/:type/:id/helpful', controller.questions.updateHelpful);
+
 module.exports = router;
