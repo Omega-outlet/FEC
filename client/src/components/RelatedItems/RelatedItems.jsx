@@ -20,7 +20,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
         setRelatedProducts(response.data);
       })
       .catch((error) => error.message);
-    }, [currentProduct]);
+  }, [currentProduct]);
 
   const getOutfit = () => {
     const storedOutfit = localStorage.getItem('yourOutfit');
@@ -31,9 +31,6 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
     }
   };
 
-  //const addToOutfit = (item) => {console.log('added to outfit :', item)};
-  const removeFromOutfit = (item) => console.log(item, ' rm from outfit');
-
   // only if item doesn't already exist
   const addToOutfit = (item) => {
     const storedOutfit = localStorage.getItem('yourOutfit');
@@ -41,15 +38,25 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
     if (storedOutfit) {
       outfitArray = JSON.parse(storedOutfit);
     }
-    console.log(item);
     if (!outfitArray.find((i) => i.id === item.id)) {
       outfitArray.push(item);
     }
-    console.log(outfitArray);
     setOutfit(outfitArray);
     localStorage.setItem('yourOutfit', JSON.stringify(outfitArray));
   };
 
+  const removeFromOutfit = (item) => {
+    const storedOutfit = localStorage.getItem('yourOutfit');
+    let outfitArray = [];
+    if (storedOutfit) {
+      outfitArray = JSON.parse(storedOutfit);
+    }
+    console.log('Item to remove: ', item);
+    outfitArray = outfitArray.filter((i) => i.id !== item.id);
+    console.log('New outfit array: ', outfitArray);
+    setOutfit(outfitArray);
+    localStorage.setItem('yourOutfit', JSON.stringify(outfitArray));
+  };
 
   useEffect(getOutfit, []);
 
