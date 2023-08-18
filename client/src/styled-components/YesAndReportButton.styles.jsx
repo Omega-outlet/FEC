@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const YesButton = styled.button`
+const YesAndReportButton = styled.button`
   background: none;
   border: none;
   font-family: var(--body-text-font-family,inherit);
@@ -12,4 +12,4 @@ const YesButton = styled.button`
     text-decoration: none;
   }
 `;
-export default YesButton;
+export default YesAndReportButton;
