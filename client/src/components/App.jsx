@@ -21,15 +21,28 @@ const App = function () {
   };
   useEffect(loadFirstProduct, []);
 
-  const updateProduct = (prodID) => {
+  const updateProduct = (prodID, prod) => {
     setCurrentProductID(prodID);
+    setCurrentProduct(prod);
+  };
+
+  const dummyProduct = {
+    id: 40347,
+    campus: 'hr-rfp',
+    name: 'Slacker\'s Slacks',
+    slogan: 'Comfortable for everything, or nothing',
+    description: 'I\'ll tell you how great they are after I nap for a bit.',
+    category: 'Pants',
+    default_price: '65.00',
+    created_at: '2021-08-13T14:38:44.509Z',
+    updated_at: '2021-08-13T14:38:44.509Z',
   };
 
   return (
     <div>
       <h1>Omega Outlet</h1>
       <Overview currentProduct={currentProduct} currentProductID={currentProductID} />
-      <RelatedItems currentProductID={40352} updateProduct={updateProduct} />
+      <RelatedItems currentProduct={dummyProduct} updateProduct={updateProduct} />
       <QuestionsAndAnswers currentProductID={currentProductID} />
       <RatingsAndReviews currentProductID={currentProductID} />
     </div>
