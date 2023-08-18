@@ -10,6 +10,7 @@ import axios from 'axios';
 jest.mock('axios');
 const mockedAxios = axios;
 beforeEach(() => {
+///////mock axios calls and product data///////
   mockedAxios.get.mockImplementation((url) => {
     if (url === '/api/product/related') {
       return Promise.resolve({
@@ -73,7 +74,8 @@ beforeEach(() => {
       });
     }
     throw new Error("Unknown URL");
-  })
+  });
+///////mock localStorage and related methods///////
   class LocalStorageMock {
     constructor() {
       this.store = {};
@@ -95,14 +97,11 @@ beforeEach(() => {
       delete this.store[key];
     }
   }
-
   global.localStorage = new LocalStorageMock;
-
   window.localStorage.clear();
 });
 
-//////////RELATED ITEMS////////////
-
+//////////TEST RELATED ITEMS////////////
 describe('Related Items', () => {
   test('Related items render with first product and right button on page load', async () => {
     const dummy = {
@@ -158,10 +157,14 @@ describe('Related Items', () => {
   });
 });
 
-//////////YOUR OUTFIT////////////
-
+//////////TEST YOUR OUTFIT////////////
 describe('Your Outfit', () => {
-  test('after clicking "add to outfit", item is added to outfit', async () => {
+  //mock updateProduct function from parent
+  const updateProduct = async (prodID, prod) => {
+    await waitFor (() => render(<RelatedItems currentProductID={prodID} currentProduct={prod} />));
+  };
+
+  test('"add to outfit" and "remove from outfit buttons" behave as expected', async () => {
     const dummy = {
       name: "Product Name 1",
       category: "Category",
@@ -170,10 +173,16 @@ describe('Your Outfit', () => {
       id: 1,
     };
     const dummyString = JSON.stringify([dummy]);
-    await waitFor (() => render(<RelatedItems currentProduct={dummy} />));
+    await waitFor (() => render(<RelatedItems currentProduct={dummy} updateProduct={updateProduct} />));
     await waitFor (() => expect(localStorage.getItem('yourOutfit')).toBeNull());
-    // click add current item button
+
+    // test add current item button
     await waitFor (() => fireEvent.click(screen.getByText('Add current item to your outfit')));
     await waitFor (() => expect(localStorage.getItem('yourOutfit')).toEqual(dummyString));
+
+    // test remove item button
+    await waitFor (() => console.log('HERES THE DOM AFTER ADDING TO OUTFIT', screen));
+    await waitFor (() => fireEvent.click(screen.getByText('X')));
+    await waitFor (() => expect(localStorage.getItem('yourOutfit')).toEqual('[]'));
   });
 });
