@@ -59,3 +59,8 @@ export const SearchInput = styled.input`
   width: 100%;
   padding: 20px;
 `;
+
+export const YesReportButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
