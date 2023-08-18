@@ -26,8 +26,8 @@ function styleSelector({
     }
 
     getOriginalPrice()
-      .then((data) => { setSelectedStylePrice(data); })
-      .catch(() => {});
+      .then((data) => setSelectedStylePrice(data))
+      .catch(() => { });
 
     function getSalePrice() {
       let didSucceed = false;
@@ -44,7 +44,7 @@ function styleSelector({
     }
 
     getSalePrice()
-      .then((data) => { setSelectedStyleSalePrice(data); })
+      .then((data) => setSelectedStyleSalePrice(data))
       .catch(() => { });
 
     function getStyleName() {
