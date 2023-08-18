@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import StarView from '../../styled-components/common-elements.jsx';
+import { StarView, StyledButton } from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
 import NewReview from './NewReview.jsx';
@@ -59,22 +59,13 @@ function RatingsAndReviews({ currentProductID }) {
           <h5>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</h5>
         </div>
         )}
-        <button
+        <StyledButton
+          onClick={() => setShowForm((prev) => !prev)}
           data-testid="newReviewBtn"
           type="button"
-          style={
-          {
-            'height': '40px',
-            'border': 'none',
-            'color': 'white',
-            'background': 'black',
-            'cursor': 'pointer',
-          }
-          }
-          onClick={() => setShowForm((prev) => !prev)}
         >
           Write Review
-        </button>
+        </StyledButton>
       </div>
       {showForm && <NewReview renderForm={renderForm} />}
       <ReviewList reviews={reviews} currentProductID={currentProductID} />

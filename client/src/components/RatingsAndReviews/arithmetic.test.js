@@ -11,7 +11,7 @@ describe('test arithmetic js', () => {
     };
     expect(calculateTotal(recommendObj)).toBe(1725);
   });
-  test('calculateRecommended returns % of reviews that recommend product', () => {
+  test('calculatePercentage returns % of reviews that recommend product', () => {
     const recommendObj = {
       false: '444',
       true: '1281',

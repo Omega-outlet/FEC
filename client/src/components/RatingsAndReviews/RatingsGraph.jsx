@@ -5,7 +5,7 @@ import { calculatePercentage } from './arithmetic.js';
 
 function RatingsGraph({ metaData }) {
   return (
-    <div>
+    <div data-testid="ratings-graph-component">
       <BarFormat>
         <StarSpan>5 stars</StarSpan>
         <BarDisplay metadata={metaData} rating="5" />
