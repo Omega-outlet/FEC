@@ -1,12 +1,11 @@
 const axios = require('axios');
-
+const API_URL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp';
 module.exports = {
   getQuestions: (req, res) => {
     const productId = req.query.product_id;
     const { page } = req.query;
     const { count } = req.query;
-
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/', {
+    axios.get(`${API_URL}/qa/questions/`, {
       params: {
         product_id: productId,
         page,
@@ -27,9 +26,9 @@ module.exports = {
     console.log(type, id);
     let endpoint;
     if (type === 'questions') {
-      endpoint = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${id}/helpful`;
+      endpoint = `${API_URL}/qa/questions/${id}/helpful`;
     } else if (type === 'answers') {
-      endpoint = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${id}/helpful`;
+      endpoint = `${API_URL}/qa/answers/${id}/helpful`;
     } else {
       res.status(400).send({ message: 'Wrong type!' });
       return;
@@ -45,6 +44,31 @@ module.exports = {
       .catch((err) => {
         console.log(err);
         res.status(500).send({ message: 'Failed to update Helpful!' });
+      });
+  },
+  reportQA: (req, res) => {
+    const { type, id } = req.params;
+    let endpoint;
+
+    if (type === 'questions') {
+      endpoint = `${API_URL}/qa/questions/${id}/report`;
+    } else if (type === 'answers') {
+      endpoint = `${API_URL}/qa/answers/${id}/report`;
+    } else {
+      res.status(400).send({ message: 'Wrong type!' });
+      return;
+    }
+    axios.put(endpoint, {}, {
+      headers: {
+        Authorization: process.env.TOKEN,
+      },
+    })
+      .then(() => {
+        res.status(204).send();
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({ message: 'Failed to report item!' });
       });
   },
 };

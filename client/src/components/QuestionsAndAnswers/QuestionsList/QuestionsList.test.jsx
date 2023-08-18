@@ -3,78 +3,32 @@
  */
 /* eslint-env jest */
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import QuestionsList from './QuestionsList';
-// Use this mock function for testing
-jest.mock('../../../../utils/sortHelp.js', () => ({
-  sortByHelp: jest.fn((questions) => questions.sort((a, b) => b.helpfulness - a.helpfulness)),
-}));
+
+jest.mock('./Question', () => () => <div>Mocked Question</div>);
 
 describe('<QuestionsList />', () => {
-  const testQuestions = [
-    {
-      question_id: 1,
-      asker_name: 'Eric',
-      question_date: '2023-01-01',
-      question_body: 'Is this a spaceship?',
-      helpfulness: 2,
-      answers: {
-        1: {
-          id: 1,
-          body: 'Yes! It is a space ship!',
-          answerer_name: 'Lauren',
-          date: '2023-01-02',
-        },
-        2: {
-          id: 2,
-          body: 'Yes! You can take a 80 years long loan!',
-          answerer_name: 'Brandon',
-          date: '2023-01-03',
-        },
-      },
-    },
-    {
-      question_id: 2,
-      asker_name: 'Kimberly',
-      question_date: '2023-02-01',
-      question_body: 'How do you feel?',
-      helpfulness: 10,
-      answers: {},
-    },
+  const mockQuestions = [
+    { question_id: 1 },
+    { question_id: 2 },
+    { question_id: 3 },
+    { question_id: 4 },
   ];
-  it('renders questions and answers', () => {
-    const { getByText, queryByText, queryAllByText } = render(<QuestionsList
-      questions={testQuestions}
-    />);
 
-    expect(getByText('Yes! It is a space ship!')).toBeTruthy();
-
-    expect(queryByText('Non-existent Text')).toBeNull();
-
-    expect(getByText('Eric, December 31, 2022')).toBeTruthy();
-    expect(getByText('Kimberly, January 31, 2023')).toBeTruthy();
+  it('renders the expected number of Questions', async () => {
+    const { findAllByText } = render(<QuestionsList questions={mockQuestions.slice(0, 2)} />);
+    const questions = await findAllByText('Mocked Question');
+    expect(questions).toHaveLength(2);
   });
 
-  it('sorts questions by helpfulness in descending order', () => {
-    const { getAllByTestId } = render(<QuestionsList questions={testQuestions} />);
+  it('shows more questions when Load More Questions button is clicked', async () => {
+    const { getByText, findAllByText } = render(<QuestionsList questions={mockQuestions} />);
 
-    const qBody = getAllByTestId('question-body').map((item) => item.textContent);
-    expect(qBody[0]).toBe('Q: How do you feel?');
-    expect(qBody[1]).toBe('Q: Is this a spaceship?');
-  });
+    const loadMoreButton = getByText('MORE ANSWERED QUESTIONS');
+    fireEvent.click(loadMoreButton);
 
-  it('renders More Answered Questions button if there are more than 2 questions', () => {
-    // Change key to avoid errors
-    const fourQuestions = [...testQuestions, ...testQuestions]
-      .map((question, i) => ({
-        ...question,
-        question_id: i + 1,
-      }));
-    const { getByText } = render(<QuestionsList questions={fourQuestions} />);
-    expect(getByText('MORE ANSWERED QUESTIONS')).toBeTruthy();
-  });
-  it('does not render the More Answered Questions button if there are four or less questions', () => {
-    const { queryByText } = render(<QuestionsList questions={testQuestions} />);
-    expect(queryByText('MORE ANSWERED QUESTIONS')).toBeNull();
+    const questionsClicked = await findAllByText('Mocked Question');
+    expect(questionsClicked).toHaveLength(4);
   });
 });

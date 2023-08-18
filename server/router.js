@@ -16,5 +16,6 @@ router.put('/reviews/:review_id/helpful');
 router.put('/reviews/:review_id/report');
 
 router.put('/qa/:type/:id/helpful', controller.questions.updateHelpful);
+router.put('/qa/:type/:id/report', controller.questions.reportQA);
 
 module.exports = router;
