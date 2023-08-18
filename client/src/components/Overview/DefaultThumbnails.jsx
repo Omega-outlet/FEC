@@ -60,10 +60,13 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage }) {
         // set the array of 7 thumbnails to be used in the scroll list
         if (focalItem - 6 <= 0) {
           setSevenStylesArray(selectedStyleArray.slice(0, 7));
+          console.log("hi1")
         } else if (focalItem + 7 >= photosArrayLength) {
           setSevenStylesArray(selectedStyleArray.slice(-7));
+          console.log("hi2")
         } else {
-          setSevenStylesArray(selectedStyleArray.slice(focalItem, focalItem + 6));
+          setSevenStylesArray(selectedStyleArray.slice(focalItem, focalItem + 7));
+          console.log("hi3")
         }
       })
       .catch(() => { });
@@ -87,9 +90,10 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage }) {
                 selectedStyleArray={selectedStyleArray}
                 selectedStyle={selectedStyle}
                 key={index}
+                index={index}
               />
             )) : null}
-        { focalItem < photosArrayLength - 1 && <ScrollButton scroll={scrollRight} dir="right" /> }
+        { focalItem < photosArrayLength - 1 && <ScrollButton scroll={scrollRight} dir="right" />}
       </ImageGalleryComponents.DefaultThumbnails>
 
     </div>

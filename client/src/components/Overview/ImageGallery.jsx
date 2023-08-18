@@ -6,8 +6,7 @@ import DefaultThumbnails from './DefaultThumbnails.jsx';
 
 function ImageGallery({ selectedStyle, mainImage, setMainImage }) {
   return (
-    <ImageGalleryComponents.DefaultContainer>
-      {/* <h1>Image Gallery</h1> */}
+    <ImageGalleryComponents.DefaultContainer data-testid="imageGallery">
       <DefaultView
         selectedStyle={selectedStyle}
         mainImage={mainImage}

@@ -11,6 +11,19 @@ import StyleSelector from './StyleSelector.jsx';
 
 // afterEach(cleanup);
 
+// setCurrentProduct(     {
+//   "id": 40348,
+//   "campus": "hr-rfp",
+//   "name": "Heir Force Ones",
+//   "slogan": "A sneaker dynasty",
+//   "description": "Now where da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
+//   "category": "Kicks",
+//   "default_price": "99.00",
+//   "created_at": "2021-08-13T14:38:44.509Z",
+//   "updated_at": "2021-08-13T14:38:44.509Z"
+// });
+// setCurrentProductID(40348);
+
 // 2 products in products array
 const products = [
   {
@@ -191,7 +204,7 @@ describe('Overview component', () => {
       currentProductID={1}
     />);
     await waitFor(() => {
-      expect(screen.getByText(/Image Gallery/i)).toBeTruthy();
+      expect(screen.getAllByTestId('imageGallery')).toBeTruthy();
     });
   });
   it('Overview component contains ProductInformation component', async () => {
@@ -397,7 +410,7 @@ describe('render style\s info', () => {
   });
   it('should change style name after another style is clicked', async () => {
     const mockGetStyle = jest.fn(() => styles.results[1]);
-    const {rerender} = await waitFor(() => render(<ProductInformation
+    const { rerender } = await waitFor(() => render(<ProductInformation
       currentProduct={products[0]}
       currentProductID={1}
       selectedStyle={styles.results[0]}

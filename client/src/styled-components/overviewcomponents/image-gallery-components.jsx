@@ -20,7 +20,7 @@ width: 100%;
 height: 99%;
 position: absolute;
 top: 0;
-left: 125px;
+left: 120px;
 display: flex;
 flex-direction: row;
 flex-wrap: nowrap;

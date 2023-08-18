@@ -32,7 +32,9 @@ function DefaultView({ selectedStyle, mainImage, setMainImage }) {
 
   return (
     <div>
-      {isLoading ? null : (<ImageGalleryComponents.MainPhoto src={mainImage} />)}
+      {isLoading
+        ? null
+        : (<ImageGalleryComponents.MainPhoto src={mainImage} alt={selectedStyle?.name} />)}
     </div>
 
   );
