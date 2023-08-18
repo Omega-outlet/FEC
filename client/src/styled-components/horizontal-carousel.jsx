@@ -20,7 +20,9 @@ export const Item = styled.li`
   height: 100%;
   clip: shape;
   align-items: center;
+  background-color: #fafafa;
 `;
+// rm background color later, just putting it in for viz
 
 export const Image = styled.img`
   background-size: cover;
@@ -36,7 +38,7 @@ export const ButtonWrap = styled.button`
   background: black;
   color: white;
   text-align: center;
-  height: 10%;
-  font-weight: bold;
+  height: 15;
+  width: 15;
   flex-grow: 1;
 `;

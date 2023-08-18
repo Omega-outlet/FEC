@@ -7,7 +7,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RelatedItems from './RelatedItems.jsx';
 import axios from 'axios';
 
-jest.mock('axios')
+jest.mock('axios');
 const mockedAxios = axios;
 beforeEach(() => {
   mockedAxios.get.mockImplementation((url) => {
@@ -79,7 +79,14 @@ beforeEach(() => {
 
 describe('Related Items', () => {
   test('Related items render with first product and right button on page load', async () => {
-    await waitFor(() => render(<RelatedItems currentProductID={1} />));
+    const dummy = {
+      name: "Product Name 1",
+      category: "Category",
+      default_price: "$10",
+      slogan: "Slogan",
+      id: 1,
+    };
+    await waitFor(() => render(<RelatedItems currentProduct={dummy.id} />));
     // test header and products render
     await waitFor(() => expect(screen.queryByText('Related Items')).toBeTruthy());
     await waitFor(() => expect(screen.queryByText('Product Name 1')).toBeTruthy());
@@ -106,7 +113,14 @@ describe('Related Items', () => {
   });
 
   test('after scrolling right, first item disappears and left button appears', async () => {
-    await waitFor (() => render(<RelatedItems />));
+    const dummy = {
+      name: "Product Name 1",
+      category: "Category",
+      default_price: "$10",
+      slogan: "Slogan",
+      id: 1,
+    };
+    await waitFor (() => render(<RelatedItems currentProduct={dummy.id} />));
     // click right button to shift all items to the right
     await waitFor (() => fireEvent.click(screen.getByText('>')));
     // test first product disappears

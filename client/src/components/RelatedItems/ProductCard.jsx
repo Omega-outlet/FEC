@@ -32,17 +32,20 @@ const ProductCard = function ({ product, updateProduct, listType }) {
   };
 
   const onHover = () => setHover(!hover);
+  const handleClick = () => {
+    updateProduct(product.id, product);
+  };
 
   useEffect(getProductData, []);
 
   return (
-    <Item>
+    <Item onClick={handleClick} >
       <table>
         <tbody>
           <tr>
             <td>
               {img1 && (
-                <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover}/>
+                <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
               )}
             </td>
           </tr>

@@ -1,18 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import ItemList from './ItemList.jsx';
-import YourOutfitList from './YourOutfitList.jsx';
+import OutfitContext from './OutfitContext.jsx';
 
-const RelatedItems = function ({currentProductID, updateProduct}) {
+const RelatedItems = function ({currentProduct, updateProduct}) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [outfit, setOutfit] = useState([]);
 
   const getRelatedProducts = () => {
     axios.get('/api/product/related', {
       params: {
-        currentProductID,
+        currentProductID: currentProduct.id,
       },
       responseType: 'json',
     })
@@ -23,25 +23,48 @@ const RelatedItems = function ({currentProductID, updateProduct}) {
   };
 
   const getOutfit = () => {
-    let storedOutfit = localStorage.getItem('yourOutfit');
+    const storedOutfit = localStorage.getItem('yourOutfit');
     console.log('Outfit currently stored: ', storedOutfit);
     if (storedOutfit) {
-      let outfitArray = JSON.parse(storedOutfit);
+      const outfitArray = JSON.parse(storedOutfit);
       setOutfit(outfitArray);
     }
   };
 
+  //const addToOutfit = (item) => {console.log('added to outfit :', item)};
+  const removeFromOutfit = (item) => console.log(item, ' rm from outfit');
+
+  // only if item doesn't already exist
+  const addToOutfit = (item) => {
+    const storedOutfit = localStorage.getItem('yourOutfit');
+    let outfitArray = [];
+    if (storedOutfit) {
+      outfitArray = JSON.parse(storedOutfit);
+    }
+    console.log(item);
+    if (!outfitArray.find((i) => i.id === item.id)) {
+      outfitArray.push(item);
+    }
+    console.log(outfitArray);
+    setOutfit(outfitArray);
+    localStorage.setItem('yourOutfit', JSON.stringify(outfitArray));
+  };
+
   useEffect(getRelatedProducts, []);
+  useEffect(() =>console.log('product passed in: ', currentProduct), []);
   useEffect(getOutfit, []);
 
   return (
     <div>
-      <center>
-        <h4>Related Items</h4>
-        { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
-        <h4>Your Outfit</h4>
-        <YourOutfitList products={outfit} updateProduct={updateProduct} listType="outfit" />
-      </center>
+        <center>
+          <h3>Related Items</h3>
+          { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
+          <h3>Your Outfit</h3>
+          { outfit.length === 0 && <h4>No outfit yet!</h4> }
+          <OutfitContext.Provider value={{ addToOutfit, removeFromOutfit }}>
+            <ItemList currentProduct={currentProduct} products={outfit} updateProduct={updateProduct} listType="outfit" />
+          </OutfitContext.Provider>
+        </center>
     </div>
   );
 };
