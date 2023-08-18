@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 /* eslint-env jest */
 import React from 'react';
-import { calculateTotal, calculateAverage, calculateRecommended } from './arithmetic.js';
+import { calculateTotal, calculateAverage, calculatePercentage } from './arithmetic.js';
 
 describe('test arithmetic js', () => {
   test('calculateTotal returns total number of reviews', () => {
@@ -16,7 +16,7 @@ describe('test arithmetic js', () => {
       false: '444',
       true: '1281',
     };
-    expect(calculateRecommended(recommendObj)).toBe(74);
+    expect(calculatePercentage(recommendObj, 'true')).toBe(74);
   });
   test('calculateAverage returns star rating average of a product', () => {
     const ratingsObj = {

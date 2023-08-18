@@ -5,12 +5,22 @@ import StarView from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
 import NewReview from './NewReview.jsx';
-import { calculateAverage, calculateTotal, calculateRecommended } from './arithmetic.js';
+import { calculateAverage, calculateTotal, calculatePercentage } from './arithmetic.js';
 
 function RatingsAndReviews({ currentProductID }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
-  const [metaData, setMetaData] = React.useState({ recommended: { true: 1, false: 1 } });
+  const [metaData, setMetaData] = React.useState({
+    product_id: '0',
+    ratings: {
+      1: '150',
+      2: '214',
+      3: '330',
+      4: '324',
+      5: '707',
+    },
+    recommended: { false: '444', true: '1281' }
+  });
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
@@ -29,7 +39,7 @@ function RatingsAndReviews({ currentProductID }) {
       .then((response) => setMetaData(response.data))
       .catch(() => {});
   }, [currentProductID]);
-
+  console.log(metaData)
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };
@@ -48,11 +58,11 @@ function RatingsAndReviews({ currentProductID }) {
         <div>
           <span>{`${calculateAverage(metaData.ratings)} `}</span>
           <StarView rating={calculateAverage(metaData.ratings)} fontSize={25} />
-          <RatingsGraph />
+          <RatingsGraph metaData={metaData.ratings} />
           <h3>
             {`Based on ${calculateTotal(metaData.recommended)} reviews`}
           </h3>
-          <h5>{`${calculateRecommended(metaData.recommended)}% of users recommend this product`}</h5>
+          <h5>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</h5>
         </div>
         <button
           data-testid="newReviewBtn"

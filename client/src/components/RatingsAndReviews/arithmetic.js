@@ -8,8 +8,8 @@ const calculateTotal = (obj) => {
   return total;
 };
 
-const calculateRecommended = (obj) => (
-  Math.floor((Number(obj.true) / calculateTotal(obj)) * 100)
+const calculatePercentage = (obj, property) => (
+  Math.floor((Number(obj[property]) / calculateTotal(obj)) * 100)
 );
 
 const calculateAverage = (obj) => {
@@ -21,4 +21,4 @@ const calculateAverage = (obj) => {
   return Math.round(total * 10) / 10;
 };
 
-export { calculateAverage, calculateTotal, calculateRecommended };
+export { calculateAverage, calculateTotal, calculatePercentage };
