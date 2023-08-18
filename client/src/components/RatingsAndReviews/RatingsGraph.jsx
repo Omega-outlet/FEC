@@ -36,6 +36,7 @@ function RatingsGraph({ metaData }) {
 }
 
 RatingsGraph.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   metaData: PropTypes.objectOf(PropTypes.string),
 };
 

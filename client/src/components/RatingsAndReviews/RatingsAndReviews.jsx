@@ -10,17 +10,7 @@ import { calculateAverage, calculateTotal, calculatePercentage } from './arithme
 function RatingsAndReviews({ currentProductID }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
-  const [metaData, setMetaData] = React.useState({
-    product_id: '0',
-    ratings: {
-      1: '150',
-      2: '214',
-      3: '330',
-      4: '324',
-      5: '707',
-    },
-    recommended: { false: '444', true: '1281' }
-  });
+  const [metaData, setMetaData] = React.useState('');
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
@@ -39,12 +29,13 @@ function RatingsAndReviews({ currentProductID }) {
       .then((response) => setMetaData(response.data))
       .catch(() => {});
   }, [currentProductID]);
-  console.log(metaData)
+
+  // eslint-disable-next-line func-names
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };
   return (
-    <div className="ratingsComponent" style={{ 'padding': '0 20px' }}>
+    <div className="ratingsComponent" style={{ 'padding': '0 40px' }}>
       <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
       <div style={
         {
@@ -55,15 +46,19 @@ function RatingsAndReviews({ currentProductID }) {
         }
       }
       >
+        {metaData && (
         <div>
-          <span>{`${calculateAverage(metaData.ratings)} `}</span>
-          <StarView rating={calculateAverage(metaData.ratings)} fontSize={25} />
-          <RatingsGraph metaData={metaData.ratings} />
-          <h3>
-            {`Based on ${calculateTotal(metaData.recommended)} reviews`}
+          <div style={{ 'display': 'flex', 'alignItems': 'flex-start' }}>
+            <span style={{ 'fontSize': '25px', 'paddingRight': '10px' }}>{`${calculateAverage(metaData.ratings)} `}</span>
+            <StarView rating={calculateAverage(metaData.ratings)} fontSize={20} />
+          </div>
+          <h3 style={{ 'marginTop': '0', 'fontWeight': 'lighter' }}>
+            <i>{`Based on ${calculateTotal(metaData.recommended)} reviews`}</i>
           </h3>
+          <RatingsGraph metaData={metaData.ratings} />
           <h5>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</h5>
         </div>
+        )}
         <button
           data-testid="newReviewBtn"
           type="button"

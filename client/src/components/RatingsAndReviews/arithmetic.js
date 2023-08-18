@@ -2,9 +2,7 @@ import React from 'react';
 
 const calculateTotal = (obj) => {
   let total = 0;
-  for (let key in obj) {
-    total += Number(obj[key])
-  }
+  Object.values(obj).forEach((num) => { total += Number(num); });
   return total;
 };
 
