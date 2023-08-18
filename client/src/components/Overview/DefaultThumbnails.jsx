@@ -70,13 +70,18 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage }) {
     <div>
       <ImageGalleryComponents.DefaultThumbnails>
         { focalItem > 0 && <ScrollButton scroll={scrollLeft} dir="left" /> }
-        {selectedStyleArray ? selectedStyleArray.map((photoObj, index) => (
-          <PhotoThumbnail
-            photoObj={photoObj}
-            selectedStyle={selectedStyle}
-            key={index}
-          />
-        )) : null}
+        {selectedStyleArray
+          ? selectedStyleArray
+            .filter((item, index) => index >= focalItem && (index < focalItem + 3))
+            .map((photoObj, index) => (
+              <PhotoThumbnail
+                photoObj={photoObj}
+                focalItem={focalItem}
+                selectedStyleArray={selectedStyleArray}
+                selectedStyle={selectedStyle}
+                key={index}
+              />
+            )) : null}
         { focalItem < photosArrayLength - 1 && <ScrollButton scroll={scrollRight} dir="right" /> }
       </ImageGalleryComponents.DefaultThumbnails>
 

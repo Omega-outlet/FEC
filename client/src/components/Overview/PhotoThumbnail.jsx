@@ -1,15 +1,29 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 
-function PhotoThumbnail({ photoObj, selectedStyle }) {
+function PhotoThumbnail({
+  photoObj,
+  selectedStyle,
+  focalItem,
+  selectedStyleArray,
+}) {
+  console.log(selectedStyleArray);
   return (
     <div>
-      <ImageGalleryComponents.DefaultThumbnail
-        src={photoObj.thumbnail_url}
-        alt={selectedStyle.name}
-        value={selectedStyle.name}
-        // onClick={() => { setSelectedStyle(style); }}
-      />
+      {selectedStyleArray[focalItem].url === photoObj.url
+        ? (
+          <ImageGalleryComponents.CurrentThumbnail
+            src={photoObj.thumbnail_url}
+            alt={selectedStyle.name}
+            value={selectedStyle.name}
+          />
+        ) : (
+          <ImageGalleryComponents.DefaultThumbnail
+            src={photoObj.thumbnail_url}
+            alt={selectedStyle.name}
+            value={selectedStyle.name}
+          />
+        )}
     </div>
   );
 }

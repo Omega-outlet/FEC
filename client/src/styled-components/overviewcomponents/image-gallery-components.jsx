@@ -25,10 +25,6 @@ display: flex;
 flex-direction: row;
 flex-wrap: nowrap;
 align-items: flex-end;
-
-
-
-
 `;
 
 const DefaultThumbnail = styled.img`
@@ -39,9 +35,19 @@ object-fit: cover;
 padding: 2px;
 `;
 
+const CurrentThumbnail = styled.img`
+// display: block;
+width:50px;
+height:60px;
+object-fit: cover;
+padding: 2px;
+border: 5px solid #555;
+`;
+
 export default {
   MainPhoto,
   DefaultContainer,
   DefaultThumbnails,
   DefaultThumbnail,
+  CurrentThumbnail,
 };
