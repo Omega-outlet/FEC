@@ -9,6 +9,12 @@ import RelatedItems from './RelatedItems/RelatedItems.jsx';
 const App = function () {
   const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
+    /*
+  only have either loadFirstProduct or loadRandomProduct and
+  their respective useEffect uncommented, not both
+  Either code would only load on the first render of the page
+  */
+  
   // get the first product in the array
   // const loadFirstProduct = () => {
   //   axios
