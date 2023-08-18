@@ -39,7 +39,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
   useEffect(getProductData, []);
 
   return (
-    <Item onClick={handleClick} >
+    <Item onClick={handleClick}>
       <table>
         <tbody>
           <tr>

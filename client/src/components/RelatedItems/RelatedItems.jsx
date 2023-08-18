@@ -51,20 +51,19 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
   };
 
   useEffect(getRelatedProducts, []);
-  useEffect(() =>console.log('product passed in: ', currentProduct), []);
   useEffect(getOutfit, []);
 
   return (
     <div>
-        <center>
-          <h3>Related Items</h3>
-          { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
-          <h3>Your Outfit</h3>
-          { outfit.length === 0 && <h4>No outfit yet!</h4> }
-          <OutfitContext.Provider value={{ addToOutfit, removeFromOutfit }}>
-            <ItemList currentProduct={currentProduct} products={outfit} updateProduct={updateProduct} listType="outfit" />
-          </OutfitContext.Provider>
-        </center>
+      <center>
+        <h3>Related Items</h3>
+        { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
+        <h3>Your Outfit</h3>
+        { outfit.length === 0 && <h4>No outfit yet!</h4> }
+        <OutfitContext.Provider value={{ addToOutfit, removeFromOutfit }}>
+          <ItemList currentProduct={currentProduct} products={outfit} updateProduct={updateProduct} listType="outfit" />
+        </OutfitContext.Provider>
+      </center>
     </div>
   );
 };

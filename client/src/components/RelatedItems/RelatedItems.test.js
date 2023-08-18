@@ -74,8 +74,34 @@ beforeEach(() => {
     }
     throw new Error("Unknown URL");
   })
-})
+  class LocalStorageMock {
+    constructor() {
+      this.store = {};
+    }
 
+    clear() {
+      this.store = {};
+    }
+
+    getItem(key) {
+      return this.store[key] || null;
+    }
+
+    setItem(key, value) {
+      this.store[key] = String(value);
+    }
+
+    removeItem(key) {
+      delete this.store[key];
+    }
+  }
+
+  global.localStorage = new LocalStorageMock;
+
+  window.localStorage.clear();
+});
+
+//////////RELATED ITEMS////////////
 
 describe('Related Items', () => {
   test('Related items render with first product and right button on page load', async () => {
@@ -86,7 +112,7 @@ describe('Related Items', () => {
       slogan: "Slogan",
       id: 1,
     };
-    await waitFor(() => render(<RelatedItems currentProduct={dummy.id} />));
+    await waitFor(() => render(<RelatedItems currentProduct={dummy} />));
     // test header and products render
     await waitFor(() => expect(screen.queryByText('Related Items')).toBeTruthy());
     await waitFor(() => expect(screen.queryByText('Product Name 1')).toBeTruthy());
@@ -120,7 +146,7 @@ describe('Related Items', () => {
       slogan: "Slogan",
       id: 1,
     };
-    await waitFor (() => render(<RelatedItems currentProduct={dummy.id} />));
+    await waitFor (() => render(<RelatedItems currentProduct={dummy} />));
     // click right button to shift all items to the right
     await waitFor (() => fireEvent.click(screen.getByText('>')));
     // test first product disappears
@@ -129,5 +155,25 @@ describe('Related Items', () => {
     await waitFor (() => expect(screen.queryByText('<')).toBeTruthy());
     // test right button disappears for 5 element list
     await waitFor (() => expect(screen.queryByText('>')).toBeNull());
+  });
+});
+
+//////////YOUR OUTFIT////////////
+
+describe('Your Outfit', () => {
+  test('after clicking "add to outfit", item is added to outfit', async () => {
+    const dummy = {
+      name: "Product Name 1",
+      category: "Category",
+      default_price: "$10",
+      slogan: "Slogan",
+      id: 1,
+    };
+    const dummyString = JSON.stringify([dummy]);
+    await waitFor (() => render(<RelatedItems currentProduct={dummy} />));
+    await waitFor (() => expect(localStorage.getItem('yourOutfit')).toBeNull());
+    // click add current item button
+    await waitFor (() => fireEvent.click(screen.getByText('Add current item to your outfit')));
+    await waitFor (() => expect(localStorage.getItem('yourOutfit')).toEqual(dummyString));
   });
 });
