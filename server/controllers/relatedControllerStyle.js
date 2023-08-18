@@ -18,6 +18,6 @@ module.exports = {
       .then((response) => {
         res.send(response.data);
       })
-      .catch((error) => console.log('Error', error.message));
+      .catch(() => res.sendStatus(500));
   },
 };
