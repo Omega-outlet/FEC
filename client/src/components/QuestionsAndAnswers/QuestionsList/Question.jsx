@@ -5,8 +5,11 @@ import Answer from './Answer.jsx';
 import LoadMoreAnswersButton from '../Buttons/LoadMoreAnswersButton.jsx';
 import { QuestionDetailsList, AskerDetailsContainer,
   QuestionAndAnswersContainer, QuestionBodyAndHelpfulContainer, AnswerListContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import HelpfulYesButton from '../../../../utils/HelpfulYesButton.jsx';
+import useHelpfulYes from '../../../../utils/useHelpfulYes.jsx';
 
 function Question({ question }) {
+  const registerHelpfulClick = useHelpfulYes();
   // On pageload, 2 answers show up per questions
   const AnswersLoadOnPage = 2;
   const [numAnswersShowed, setNumAnswersShowed] = useState(AnswersLoadOnPage);
@@ -27,10 +30,10 @@ function Question({ question }) {
               {`Q: ${question.question_body}`}
             </strong>
           </p>
-          <div>
-            <p>Helpful? Yes</p>
-            <span>Add Answer</span>
-          </div>
+          <HelpfulYesButton
+            initialCount={question.question_helpfulness}
+            onHelpfulClick={() => registerHelpfulClick('questions', question.question_id)}
+          />
         </QuestionBodyAndHelpfulContainer>
         <AnswerListContainer>
           {Object.values(question.answers).slice(0, numAnswersShowed).map((answer) => (
@@ -49,6 +52,8 @@ function Question({ question }) {
 Question.propTypes = {
   question: PropTypes.shape({
     asker_name: PropTypes.string.isRequired,
+    question_id: PropTypes.number.isRequired,
+    question_helpfulness: PropTypes.number,
     question_date: PropTypes.string.isRequired,
     question_body: PropTypes.string.isRequired,
     answers: PropTypes.objectOf(PropTypes.shape({

@@ -8,7 +8,7 @@ function QuestionsAndAnswers(currentProductID) {
   const [questions, setQuestions] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
 
-  const productId = 40325;
+  const productId = 40353;
   useEffect(() => {
     axios.get('/questions', {
       params: {
