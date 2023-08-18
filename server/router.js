@@ -14,4 +14,6 @@ router.get('/reviews/meta', controller.ratings.getMetaData);
 router.put('/reviews/:review_id/helpful');
 router.put('/reviews/:review_id/report');
 
+router.put('/qa/:type/:id/helpful', controller.questions.updateHelpful);
+
 module.exports = router;
