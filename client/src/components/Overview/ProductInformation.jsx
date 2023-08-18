@@ -7,12 +7,11 @@ function ProductInformation({
   currentProduct, currentProductID, styles, selectedStyle,
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
-  setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto
+  setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto, mainImage, setMainImage
 }) {
   // const [stylesArray, setStylesArray] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
   const [selectedIsLoading, setSelectedIsLoading] = useState(true);
-
 
   // finish for style to load
   const loadStyles = () => {
@@ -24,9 +23,9 @@ function ProductInformation({
   const currentURL = window.location.href;
   const message = `This%20${currentProduct.name}%20from%20Omega%20Mart%20is%20amazing!`;
   // hard coded image URL for now
-  let imageURL = 'https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9';
-  if (selectedStylePhoto) {
-    imageURL = selectedStylePhoto;
+  let imageURL = '';
+  if (mainImage) {
+    imageURL = mainImage;
   }
 
   const twitterLink = `https://twitter.com/intent/tweet?text=${message}%20${currentURL}`;
