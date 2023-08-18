@@ -7,7 +7,6 @@ function PhotoThumbnail({
   focalItem,
   selectedStyleArray,
 }) {
-  console.log(selectedStyleArray);
   return (
     <div>
       {selectedStyleArray[focalItem].url === photoObj.url

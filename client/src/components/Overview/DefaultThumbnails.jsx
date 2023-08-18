@@ -9,11 +9,10 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage }) {
   const [isLoading, setIsLoading] = useState(true);
   const [photosArrayLength, setPhotosArrayLength] = useState(0);
   const [selectedStyleArray, setSelectedStyleArray] = useState([]);
+  const [sevenStylesArray, setSevenStylesArray] = useState([]);
 
-  // console.log("array length", arrayLength);
-
-  // const selectedStyleArray = selectedStyle?.photos;
   const loadStylesArray = () => {
+    // get the photos array of this style
     function getStylePhotosArray() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
@@ -40,6 +39,7 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage }) {
   useEffect(loadStylesArray, [selectedStyle]);
 
   const loadNewMainImage = () => {
+    // update the main image of this style after each arrow key click
     function getNewMainImage() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
@@ -57,6 +57,14 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage }) {
     getNewMainImage()
       .then((data) => {
         setMainImage(data);
+        // set the array of 7 thumbnails to be used in the scroll list
+        if (focalItem - 6 <= 0) {
+          setSevenStylesArray(selectedStyleArray.slice(0, 7));
+        } else if (focalItem + 7 >= photosArrayLength) {
+          setSevenStylesArray(selectedStyleArray.slice(-7));
+        } else {
+          setSevenStylesArray(selectedStyleArray.slice(focalItem, focalItem + 6));
+        }
       })
       .catch(() => { });
   };
@@ -69,10 +77,9 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage }) {
   return (
     <div>
       <ImageGalleryComponents.DefaultThumbnails>
-        { focalItem > 0 && <ScrollButton scroll={scrollLeft} dir="left" /> }
-        {selectedStyleArray
-          ? selectedStyleArray
-            .filter((item, index) => index >= focalItem && (index < focalItem + 3))
+        { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : <div>&nbsp;&nbsp;&nbsp;</div> }
+        {sevenStylesArray
+          ? sevenStylesArray
             .map((photoObj, index) => (
               <PhotoThumbnail
                 photoObj={photoObj}

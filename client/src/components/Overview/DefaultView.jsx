@@ -4,7 +4,9 @@ import ImageGalleryComponents from '../../styled-components/overviewcomponents/i
 
 function DefaultView({ selectedStyle, mainImage, setMainImage }) {
   const [isLoading, setIsLoading] = useState(true);
-  const getStyle = () => {
+
+  const loadStyle = () => {
+    // get the first image of the selected style and make it the main image
     function getMainImage() {
       setIsLoading(true);
       let didSucceed = false;
@@ -26,7 +28,7 @@ function DefaultView({ selectedStyle, mainImage, setMainImage }) {
       .finally(setIsLoading(false));
   };
 
-  useEffect(getStyle, [selectedStyle]);
+  useEffect(loadStyle, [selectedStyle]);
 
   return (
     <div>
