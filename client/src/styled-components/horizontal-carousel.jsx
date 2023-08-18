@@ -7,26 +7,28 @@ export const Carousel = styled.ul`
   inline-size: min-content;
   display: flex;
   flex-wrap: nowrap;
-  overflow: auto;
+  overflow: hidden;
   flex: 0 0 auto;
-
-  height: 30em;
+  gap: 5px;
+  justify-content: center;
+  height: 35em;
   align-items: center;
 `;
-//  add overflow: hidden above to hide scroll bars
-// once I finish CSS sizing
 
 export const Item = styled.li`
-  flex: 1;
   width: 20em;
   height: 100%;
+  clip: shape;
+  align-items: center;
 `;
 
 export const Image = styled.img`
-  value: none;
-  margin-left: auto;
-  margin-right: auto;
+  background-size: cover;
+  object-fit: cover;
+  display: block;
   height: 25em;
+  width: 20em;
+  clip: shape;
 `;
 
 export const ButtonWrap = styled.button`
@@ -36,4 +38,5 @@ export const ButtonWrap = styled.button`
   text-align: center;
   height: 10%;
   font-weight: bold;
+  flex-grow: 1;
 `;

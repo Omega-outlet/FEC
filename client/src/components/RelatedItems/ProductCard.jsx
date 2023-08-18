@@ -6,9 +6,10 @@ import { Item, Image } from '../../styled-components/horizontal-carousel.jsx';
 
 const ProductCard = function ({ product, updateProduct, listType }) {
   const [productData, setProductData] = useState({});
-  const [img1, setImg1] = useState('https://picsum.photos/700/900');
-  const [img2, setImg2] = useState('https://picsum.photos/900/550'); //random generated imgs for defaults
+  const [img1, setImg1] = useState('https://tinyurl.com/bp78yn9f');
+  const [img2, setImg2] = useState('https://tinyurl.com/2tb6ry8d'); //random imgs for defaults
   const [salePrice, setSalePrice] = useState('');
+  const [hover, setHover] = useState(false);
 
   // {product} prop holds basic product info from /products api query
   // productData holds additional info from /styles including default style and sale price
@@ -30,6 +31,8 @@ const ProductCard = function ({ product, updateProduct, listType }) {
       .catch((error) => console.log('Error', error.message));
   };
 
+  const onHover = () => setHover(!hover);
+
   useEffect(getProductData, []);
 
   return (
@@ -39,7 +42,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
           <tr>
             <td>
               {img1 && (
-                <Image src={img1} alt="default style 1" />
+                <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover}/>
               )}
             </td>
           </tr>

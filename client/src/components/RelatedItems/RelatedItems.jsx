@@ -36,10 +36,12 @@ const RelatedItems = function ({currentProductID, updateProduct}) {
 
   return (
     <div>
-      <h4>Related Items</h4>
-      { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
-      <h4>Your Outfit</h4>
-      <YourOutfitList products={outfit} updateProduct={updateProduct} listType="outfit" />
+      <center>
+        <h4>Related Items</h4>
+        { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
+        <h4>Your Outfit</h4>
+        <YourOutfitList products={outfit} updateProduct={updateProduct} listType="outfit" />
+      </center>
     </div>
   );
 };
