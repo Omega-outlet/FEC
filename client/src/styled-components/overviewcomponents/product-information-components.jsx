@@ -11,6 +11,19 @@ const StyleEntryThumbnail = styled.img`
   object-fit: cover;
 `;
 
+const ClickedStyleThumbnail = styled.div`
+position: absolute;
+font-size:30px;
+top: 8px;
+right: 25px;
+color: black;
+`;
+
+const EntryContainer = styled.div`
+  position: relative;
+  text-align: center;
+}
+`;
 /* https://stackoverflow.com/questions/29546550/flexbox-4-items-per-row */
 const StyleEntry = styled.div`
   display: inline-block;
@@ -76,4 +89,6 @@ export default {
   FacebookButton,
   PinterestButton,
   ShareButton,
+  ClickedStyleThumbnail,
+  EntryContainer,
 };

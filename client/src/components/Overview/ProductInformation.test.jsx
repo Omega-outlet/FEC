@@ -2,12 +2,15 @@
  * @jest-environment jsdom
  */
 
-
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import React, {useState} from 'react';
+import { render, screen, waitFor, fireEvent, cleanup } from '@testing-library/react';
 import ProductInformation from './ProductInformation.jsx';
 import StyleEntry from './StyleEntry.jsx';
 import Overview from './Overview.jsx';
+import StyleSelector from './StyleSelector.jsx';
+
+afterEach(cleanup);
+
 // 2 products in products array
 const products = [
   {
@@ -66,7 +69,7 @@ const styles = {
       'style_id': 2,
       'name': 'Desert Brown & Tan',
       'original_price': '140',
-      'sale_price': '0',
+      'sale_price': '70',
       'default?': false,
       'photos': [
         {
@@ -96,7 +99,7 @@ const styles2 = {
   results: [
     {
       'style_id': 1,
-      'name': 'Forest Green & Black',
+      'name': 'Gray',
       'original_price': '140',
       'sale_price': '0',
       'default?': true,
@@ -127,7 +130,7 @@ const styles2 = {
     },
     {
       'style_id': 2,
-      'name': 'Desert Brown & Tan',
+      'name': 'Orange',
       'original_price': '140',
       'sale_price': '0',
       'default?': false,
@@ -180,151 +183,268 @@ const styles2 = {
       },
     }],
 };
+
 describe('Overview component', () => {
   it('Overview component contains ImageGallery component', async () => {
-    await render(<Overview
-      currentProduct={products[0]}
-      currentProductID={1}
-    />);
-    expect(screen.getByText(/Image Gallery/i)).toBeTruthy();
-  });
-  it('Overview component contains ProductInformation component', () => {
     render(<Overview
       currentProduct={products[0]}
       currentProductID={1}
     />);
-    expect(screen.getByText(/Camo Onesie/i)).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByText(/Image Gallery/i)).toBeTruthy();
+    });
+  });
+  it('Overview component contains ProductInformation component', async () => {
+    render(<Overview
+      currentProduct={products[0]}
+      currentProductID={1}
+    />);
+    await waitFor(() => {
+      expect(screen.getByText(/Camo Onesie/i)).toBeTruthy();
+    });
   });
 });
 describe('product title', () => {
-  it('renders first product title in products array', () => {
+  it('renders first product title in products array', async () => {
     render(<ProductInformation
       currentProduct={products[0]}
       currentProductID={1}
       styles={styles}
     />);
-    const productName = screen.getByText('Camo Onesie');
-    expect(productName).toBeTruthy();
+    await waitFor(() => {
+      const productName = screen.getByText('Camo Onesie');
+      expect(productName).toBeTruthy();
+    });
   });
-  it('renders second product title in products array', () => {
+  it('renders second product title in products array', async () => {
     render(<ProductInformation
       currentProduct={products[1]}
       currentProductID={2}
       styles={styles}
     />);
-    const productName = screen.getByText('Bright Future Sunglasses');
-    expect(productName).toBeTruthy();
+    await waitFor(() => {
+      const productName = screen.getByText('Bright Future Sunglasses');
+      expect(productName).toBeTruthy();
+    });
   });
 });
 describe('product description', () => {
-  it('renders first product description', () => {
+  it('renders first product description', async () => {
     render(<ProductInformation
       currentProduct={products[0]}
       currentProductID={1}
       styles={styles}
     />);
-    const productDescription = screen.getByText('The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.');
-    expect(productDescription).toBeTruthy();
+    await waitFor(() => {
+      const productDescription = screen.getByText('The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.');
+      expect(productDescription).toBeTruthy();
+    });
   });
-  it('renders second product description', () => {
+  it('renders second product description', async () => {
     render(<ProductInformation
       currentProduct={products[1]}
       currentProductID={1}
       styles={styles}
     />);
-    const productDescription = screen.getByText('Where you\'re going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.');
-    expect(productDescription).toBeTruthy();
+    await waitFor(() => {
+      const productDescription = screen.getByText('Where you\'re going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.');
+      expect(productDescription).toBeTruthy();
+    });
   });
 });
 describe('style thumbnails', () => {
-  it('renders the first thumbnail of the style', () => {
+  it('renders the first thumbnail of the style', async () => {
     render(<StyleEntry
       style={styles.results[0]}
     />);
-    const imageElement = screen.getByAltText('Forest Green & Black');
-    expect(imageElement).toBeTruthy();
-    expect(imageElement.src).toContain('urlplaceholder/style_1_photo_number_thumbnail.jpg');
+    await waitFor(() => {
+      const imageElement = screen.getByAltText('Forest Green & Black');
+      expect(imageElement).toBeTruthy();
+      expect(imageElement.src).toContain('urlplaceholder/style_1_photo_number_thumbnail.jpg');
+    });
   });
-  it('renders the first thumbnail of the style', () => {
+  it('renders the first thumbnail of the style', async () => {
     render(<StyleEntry
       style={styles.results[1]}
     />);
-    const imageElement = screen.getByAltText('Desert Brown & Tan');
-    expect(imageElement).toBeTruthy();
-    expect(imageElement.src).toContain('urlplaceholder/style_2_photo_number_thumbnail.jpg');
+    await waitFor(() => {
+      const imageElement = screen.getByAltText('Desert Brown & Tan');
+      expect(imageElement).toBeTruthy();
+      expect(imageElement.src).toContain('urlplaceholder/style_2_photo_number_thumbnail.jpg');
+    });
   });
-  it('renders 2 style icons when product has 2 styles', () => {
+  it('renders 2 style icons when product has 2 styles', async () => {
     render(<ProductInformation
       currentProduct={products[0]}
       currentProductID={1}
       styles={styles}
     />);
-
-    const element = screen.getAllByTestId('styleEntry');
-    expect(element).toHaveLength(2);
+    await waitFor(() => {
+      const element = screen.getAllByTestId('styleEntry');
+      expect(element).toHaveLength(2);
+    });
   });
-  it('renders 3 style icons when product has 3 styles', () => {
+  it('renders 3 style icons when product has 3 styles', async () => {
     render(<ProductInformation
       currentProduct={products[1]}
       currentProductID={2}
       styles={styles2}
     />);
-
-    const element = screen.getAllByTestId('styleEntry');
-    expect(element).toHaveLength(3);
+    await waitFor(() => {
+      const element = screen.getAllByTestId('styleEntry');
+      expect(element).toHaveLength(3);
+    });
   });
 });
-describe('render price', (done) => {
-  it('renders the original price of the style', () => {
-    render(<Overview currentProduct={products[0]} currentProductID={1} />);
-    setTimeout(() => {
-      const originalPrice = screen.getByText('140');
-      expect(originalPrice).toBeTruthy();
-      done();
-    }, 500);
+describe('render price', () => {
+  it('renders the original price of the style', async () => {
+    await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStylePrice={styles.results[0].original_price}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      selectedStyleName={styles.results[0].name}
+      styles={styles}
+    />));
+    expect(screen.getByText('140')).toBeTruthy();
   });
-  it('renders the sales price of the style', () => {
-    render(<Overview currentProduct={products[0]} currentProductID={1} />);
-    setTimeout(() => {
-      const salePrice = screen.getByText('100');
-      expect(salePrice).toBeTruthy();
-      done();
-    }, 500);
+  it('renders the sales price of the style', async () => {
+    await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStylePrice={styles.results[0].original_price}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      selectedStyleName={styles.results[0].name}
+      styles={styles}
+    />));
+    const salePrice = screen.getByText('100');
+    expect(salePrice).toBeTruthy();
   });
 });
 describe('render category', () => {
-  it('renders the category of the product', () => {
+  it('renders the category of the product', async () => {
     render(<Overview currentProduct={products[0]} currentProductID={1} />);
-    const category = screen.getByText('Jackets');
-    expect(category).toBeTruthy();
+    await waitFor(() => {
+      const category = screen.getByText('Jackets');
+      expect(category).toBeTruthy();
+    });
   });
 });
 describe('share anchor element "button" tests', () => {
-  it('should have link to Twitter', () => {
+  it('should have link to Twitter', async () => {
     render(<ProductInformation
       currentProduct={products[1]}
       currentProductID={2}
       styles={styles2}
     />);
-    const anchorElement = screen.getAllByRole('link')[0];
-    expect(anchorElement.href).toContain('https://twitter.com/');
+    await waitFor(() => {
+      const anchorElement = screen.getAllByRole('link')[0];
+      expect(anchorElement.href).toContain('https://twitter.com/');
+    });
   });
-  it('should have link to Facebook', () => {
+  it('should have link to Facebook', async () => {
     render(<ProductInformation
       currentProduct={products[1]}
       currentProductID={2}
       styles={styles2}
     />);
-    const anchorElement = screen.getAllByRole('link')[1];
-    expect(anchorElement.href).toContain('http://www.facebook.com/');
+    await waitFor(() => {
+      const anchorElement = screen.getAllByRole('link')[1];
+      expect(anchorElement.href).toContain('http://www.facebook.com/');
+    });
   });
-  it('should have link to Pinterest', () => {
+  it('should have link to Pinterest', async () => {
     render(<ProductInformation
       currentProduct={products[1]}
       currentProductID={2}
       styles={styles2}
     />);
-    const anchorElement = screen.getAllByRole('link')[2];
-    expect(anchorElement.href).toContain('https://pinterest.com/');
+    await waitFor(() => {
+      const anchorElement = screen.getAllByRole('link')[2];
+      expect(anchorElement.href).toContain('https://pinterest.com/');
+    });
+  });
+});
+
+describe('render style\s info', () => {
+  it('render the default style\'s name which is the first product\s first style', async () => {
+    await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStylePrice={styles.results[0].original_price}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      selectedStyleName={styles.results[0].name}
+      styles={styles}
+    />));
+    const style1 = screen.getByText('Forest Green & Black');
+    expect(style1).toBeTruthy();
+  });
+  it('renders only one checkmark over style thumbnails', async () => {
+    await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStylePrice={styles.results[0].original_price}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      selectedStyleName={styles.results[0].name}
+      styles={styles}
+    />));
+    const checkmark = screen.getByText('✔');
+    expect(checkmark).toBeTruthy();
+  });
+  it('should change style name after another style is clicked', async () => {
+    const mockGetStyle = jest.fn(() => styles.results[1]);
+    const {rerender} = await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStyleName={styles.results[0].name}
+      setSelectedStyle={mockGetStyle}
+      styles={styles}
+    />));
+    const image = screen.getByAltText('Desert Brown & Tan');
+    fireEvent.click(image);
+    expect(mockGetStyle).toHaveBeenCalled();
+    rerender(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={mockGetStyle()}
+      selectedStyleName={mockGetStyle().name}
+      setSelectedStyle={mockGetStyle}
+      styles={styles}
+    />)
+    const style = screen.getByText('Desert Brown & Tan');
+    expect(style).toBeTruthy();
+  });
+  it('should change style sale price after another style is clicked', async () => {
+    const mockGetStyle = jest.fn(() => styles.results[1]);
+    const {rerender} = await waitFor(() => render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={styles.results[0]}
+      selectedStyleName={styles.results[0].name}
+      selectedStyleSalePrice={styles.results[0].sale_price}
+      setSelectedStyle={mockGetStyle}
+      styles={styles}
+    />));
+    const oldPrice = screen.getByText('100');
+    expect(oldPrice).toBeTruthy();
+    const image = screen.getByAltText('Desert Brown & Tan');
+    fireEvent.click(image);
+    expect(mockGetStyle).toHaveBeenCalled();
+    rerender(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      selectedStyle={mockGetStyle()}
+      selectedStyleName={mockGetStyle().name}
+      selectedStyleSalePrice={mockGetStyle().sale_price}
+      setSelectedStyle={mockGetStyle}
+      styles={styles}
+    />)
+    const newPrice = screen.getByText('70');
+    expect(newPrice).toBeTruthy();
   });
 });

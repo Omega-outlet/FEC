@@ -4,14 +4,24 @@ import ProductInformationComponents from '../../styled-components/overviewcompon
 
 function styleEntry({
   style, selectedStyle, setSelectedStyle,
-  selectedStyleSalePrice, setSelectedStyleSalePrice
+  selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName, setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto
 }) {
   return (
+
     <div>
-      <ProductInformationComponents.StyleEntryThumbnail
-        src={style.photos[0].thumbnail_url}
-        alt={style.name}
-      />
+      <ProductInformationComponents.EntryContainer>
+        {selectedStyleName === style.name ? (
+          <ProductInformationComponents.ClickedStyleThumbnail>
+            <span>✔</span>
+          </ProductInformationComponents.ClickedStyleThumbnail>
+        ) : (null)}
+        <ProductInformationComponents.StyleEntryThumbnail
+          src={style.photos[0].thumbnail_url}
+          alt={style.name}
+          value={style.name}
+          onClick={() => { setSelectedStyle(style); }}
+        />
+      </ProductInformationComponents.EntryContainer>
     </div>
   );
 }

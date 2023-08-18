@@ -1,11 +1,11 @@
 import React from 'react';
 import ProductCard from './ProductCard.jsx';
-import Carousel from '../../styled-components/horizontal-carousel.jsx';
+import { Carousel } from '../../styled-components/horizontal-carousel.jsx';
 
 const YourOutfitList = function ({updateProduct}) {
   return (
     <div>
-      <h4>No outfit yet!</h4>
+      <h5>No outfit yet!</h5>
       <Carousel>
         <input type="button" value="Add current item to your outfit" />
       </Carousel>
