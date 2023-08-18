@@ -1,7 +1,8 @@
 import React from 'react';
+import { ButtonWrap } from '../../styled-components/horizontal-carousel.jsx';
 
 const ScrollButton = function ({scroll, dir}) {
-  return <input type='button' value={dir === 'left' ? '<' : '>'} onClick={scroll} />;
+  return <ButtonWrap onClick={scroll}>{dir === 'left' ? '<' : '>'}</ButtonWrap>;
 };
 
 export default ScrollButton;

@@ -1,29 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import StarView from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
-import data from './exampleData.json';
 import NewReview from './NewReview.jsx';
+import { calculateAverage, calculateTotal, calculateRecommended } from './arithmetic.js';
 
-function RatingsAndReviews() {
-  // this is just example data, rating will come from request based on id passed as prop
-  const [reviews, setReviews] = React.useState(data.results);
-
+function RatingsAndReviews({ currentProductID }) {
+  const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
-
-  const reviewId = 40344;
+  const [metaData, setMetaData] = React.useState({ recommended: { true: 1, false: 1 } });
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
-        product_id: reviewId,
+        product_id: currentProductID,
       },
     })
-      .then((response) => console.log(response.data));
-  }, []);
+      .then((response) => setReviews(response.data.results))
+      .catch(() => {});
+  }, [currentProductID]);
+  React.useEffect(() => {
+    axios.get('/reviews/meta', {
+      params: {
+        product_id: currentProductID,
+      },
+    })
+      .then((response) => setMetaData(response.data))
+      .catch(() => {});
+  }, [currentProductID]);
 
-  const rating = 2.5;
-  const renderForm = function() {
+  const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };
   return (
@@ -39,11 +46,13 @@ function RatingsAndReviews() {
       }
       >
         <div>
-          <span>2.5 </span>
-          <StarView rating={rating} fontSize={20} />
+          <span>{`${calculateAverage(metaData.ratings)} `}</span>
+          <StarView rating={calculateAverage(metaData.ratings)} fontSize={25} />
           <RatingsGraph />
-          <h3>Based on 150 reviews</h3>
-          <h5>% of users recommend this product</h5>
+          <h3>
+            {`Based on ${calculateTotal(metaData.recommended)} reviews`}
+          </h3>
+          <h5>{`${calculateRecommended(metaData.recommended)}% of users recommend this product`}</h5>
         </div>
         <button
           data-testid="newReviewBtn"
@@ -63,9 +72,13 @@ function RatingsAndReviews() {
         </button>
       </div>
       {showForm && <NewReview renderForm={renderForm} />}
-      <ReviewList reviews={reviews} />
+      <ReviewList reviews={reviews} currentProductID={currentProductID} />
     </div>
   );
 }
+
+RatingsAndReviews.propTypes = {
+  currentProductID: PropTypes.number.isRequired,
+};
 
 export default RatingsAndReviews;

@@ -63,14 +63,14 @@ describe('<QuestionsList />', () => {
     expect(qBody[1]).toBe('Q: Is this a spaceship?');
   });
 
-  it('renders More Answered Questions button if there are more than 4 questions', () => {
+  it('renders More Answered Questions button if there are more than 2 questions', () => {
     // Change key to avoid errors
-    const sixQuestions = [...testQuestions, ...testQuestions, ...testQuestions]
+    const fourQuestions = [...testQuestions, ...testQuestions]
       .map((question, i) => ({
         ...question,
         question_id: i + 1,
       }));
-    const { getByText } = render(<QuestionsList questions={sixQuestions} />);
+    const { getByText } = render(<QuestionsList questions={fourQuestions} />);
     expect(getByText('MORE ANSWERED QUESTIONS')).toBeTruthy();
   });
   it('does not render the More Answered Questions button if there are four or less questions', () => {

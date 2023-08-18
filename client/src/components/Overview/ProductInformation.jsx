@@ -6,23 +6,28 @@ import ProductInformationComponents from '../../styled-components/overviewcompon
 function ProductInformation({
   currentProduct, currentProductID, styles, selectedStyle,
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
-  selectedStyleSalePrice, setSelectedStyleSalePrice,
+  selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
+  setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto
 }) {
-  const [stylesArray, setStylesArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [stylesArray, setStylesArray] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
   const [selectedIsLoading, setSelectedIsLoading] = useState(true);
 
-  // load the stylesArray with styles
+
+  // finish for style to load
   const loadStyles = () => {
     setSelectedIsLoading(true);
-
     setSelectedIsLoading(false);
   };
   useEffect(loadStyles, [currentProduct, selectedStyle]);
+
   const currentURL = window.location.href;
   const message = `This%20${currentProduct.name}%20from%20Omega%20Mart%20is%20amazing!`;
   // hard coded image URL for now
-  const imageURL = 'https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9';
+  let imageURL = 'https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9';
+  if (selectedStylePhoto) {
+    imageURL = selectedStylePhoto;
+  }
 
   const twitterLink = `https://twitter.com/intent/tweet?text=${message}%20${currentURL}`;
   const facebookLink = `http://www.facebook.com/sharer.php?s=100&p[url]=${currentURL}`;
@@ -51,7 +56,6 @@ function ProductInformation({
 
       <h3>{ currentProduct.category }</h3>
       <h3>{ currentProduct.description }</h3>
-
       <ProductInformationComponents.ShareButton>
         <span>share this product: </span>
         <ProductInformationComponents.TwitterButton href={twitterLink}>
@@ -74,6 +78,10 @@ function ProductInformation({
             setSelectedStylePrice={setSelectedStylePrice}
             selectedStyleSalePrice={selectedStyleSalePrice}
             setSelectedStyleSalePrice={setSelectedStyleSalePrice}
+            selectedStyleName={selectedStyleName}
+            setSelectedStyleName={setSelectedStyleName}
+            selectedStylePhoto={selectedStylePhoto}
+            setSelectedStylePhoto={setSelectedStylePhoto}
           />
         </ProductInformationComponents.StyleSelectorContainer>
       </div>
