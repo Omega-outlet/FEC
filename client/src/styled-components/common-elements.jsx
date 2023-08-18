@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 // this component takes in the rating as well as a font size so each widget can choose size
 function StarView({ rating, fontSize }) {
   // BRD indicates that rating should be calculated to the nearest quarter star
@@ -28,4 +29,11 @@ StarView.propTypes = {
   fontSize: PropTypes.number.isRequired,
 };
 
-export default StarView;
+const StyledButton = styled.button`
+  height: 40px;
+  border: none;
+  color: white;
+  background: black;
+  cursor: pointer`;
+
+export { StarView, StyledButton };
