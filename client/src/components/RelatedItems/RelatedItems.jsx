@@ -9,7 +9,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [outfit, setOutfit] = useState([]);
 
-  const getRelatedProducts = () => {
+  useEffect(() => {
     axios.get('/api/product/related', {
       params: {
         currentProductID: currentProduct.id,
@@ -20,7 +20,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
         setRelatedProducts(response.data);
       })
       .catch((error) => error.message);
-  };
+    }, [currentProduct]);
 
   const getOutfit = () => {
     const storedOutfit = localStorage.getItem('yourOutfit');
@@ -50,7 +50,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
     localStorage.setItem('yourOutfit', JSON.stringify(outfitArray));
   };
 
-  useEffect(getRelatedProducts, []);
+
   useEffect(getOutfit, []);
 
   return (
