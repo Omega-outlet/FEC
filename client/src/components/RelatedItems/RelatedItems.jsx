@@ -39,7 +39,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
       outfitArray = JSON.parse(storedOutfit);
     }
     if (!outfitArray.find((i) => i.id === item.id)) {
-      outfitArray.push(item);
+      outfitArray.unshift(item);
     }
     setOutfit(outfitArray);
     localStorage.setItem('yourOutfit', JSON.stringify(outfitArray));
@@ -58,6 +58,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
     localStorage.setItem('yourOutfit', JSON.stringify(outfitArray));
   };
 
+  // added currentProduct
   useEffect(getOutfit, []);
 
   return (
