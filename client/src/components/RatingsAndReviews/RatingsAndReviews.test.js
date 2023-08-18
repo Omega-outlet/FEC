@@ -29,22 +29,23 @@ import RatingsAndReviews from './RatingsAndReviews.jsx';
 //   expect(() => screen.queryByTestId('newReviewForm')).toBeNull();
 // });
 describe('Ratings Component', () => {
+  const mockCurrentProductID = 1;
   test('RatingsAndReviews Component rendered', () => {
-    render(<RatingsAndReviews />);
+    render(<RatingsAndReviews currentProductID={mockCurrentProductID} />);
     expect(screen.getByTestId('title')).toBeTruthy();
   });
   test('NewReview Component not rendered', () => {
-    render(<RatingsAndReviews />);
+    render(<RatingsAndReviews currentProductID={mockCurrentProductID} />);
     expect(screen.queryByTestId('newReviewForm')).toBeNull();
   });
   test('NewReview Component rendered after button click', () => {
-    render(<RatingsAndReviews />);
+    render(<RatingsAndReviews currentProductID={mockCurrentProductID} />);
     const button = screen.getByTestId('newReviewBtn');
     fireEvent.click(button);
     expect(screen.queryByTestId('newReviewForm')).toBeTruthy();
   });
   test('NewReview Component hidden after two button clicks', () => {
-    render(<RatingsAndReviews />);
+    render(<RatingsAndReviews currentProductID={mockCurrentProductID} />);
     const button = screen.getByTestId('newReviewBtn');
     fireEvent.click(button);
     fireEvent.click(button);
