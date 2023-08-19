@@ -10,6 +10,9 @@ router.get('/api/product/relatedStyle', controller.relatedProductStyle.getRelate
 router.get('/questions', controller.questions.getQuestions);
 router.get('/reviews', controller.ratings.getRatings);
 
+router.post('/qa/questions', controller.questions.addQuestion);
+router.post('/qa/questions/:question_id/answers', controller.questions.addAnswer);
+
 router.put('/qa/:type/:id/helpful', controller.questions.updateHelpful);
 router.put('/qa/:type/:id/report', controller.questions.reportQA);
 
