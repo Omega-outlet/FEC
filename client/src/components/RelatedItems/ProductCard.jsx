@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Item, Image } from '../../styled-components/horizontal-carousel.jsx';
+import Compare from './CompareButton.jsx';
+import Remove from './RemoveItemButton.jsx';
 
 const ProductCard = function ({ product, updateProduct, listType }) {
   const [productData, setProductData] = useState({});
@@ -28,7 +30,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
         if (defaultStyle.photos[1].url) { setImg2(defaultStyle.photos[1].url); }
         if (defaultStyle.sale_price) { setSalePrice(defaultStyle.sale_price); }
       })
-      .catch((error) => console.log('Error', error.message));
+      .catch((error) => console.log('Missing backend data replaced with dummy data -', error.message));
   };
 
   const onHover = () => setHover(!hover);
@@ -36,7 +38,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
     updateProduct(product.id, product);
   };
 
-  useEffect(getProductData, []);
+  useEffect(getProductData, [product]);
 
   return (
     <Item onClick={handleClick}>
@@ -85,6 +87,12 @@ const ProductCard = function ({ product, updateProduct, listType }) {
           <tr>
             <td>
               *****
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {listType === 'related' && <Compare style={{ textAlign: 'right' }} />}
+              {listType === 'outfit' && <Remove item={product} style={{ textAlign: 'right' }} />}
             </td>
           </tr>
         </tbody>
