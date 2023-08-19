@@ -42,7 +42,7 @@ const ItemList = function({currentProduct, products, updateProduct, listType}) {
     <Carousel>
       { focalItem > 0 && <ScrollButton scroll={scrollLeft} dir="left" /> }
       { renderedList }
-      { focalItem < products.length - 4 && <ScrollButton scroll={scrollRight} dir="right" /> }
+      { focalItem < products.length - (listType === 'outfit' ? 3 : 4) && <ScrollButton scroll={scrollRight} dir="right" /> }
     </Carousel>
   );
 };

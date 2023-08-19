@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import StyleSelector from './StyleSelector.jsx';
+import AddToCart from './AddToCart.jsx';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 
 function ProductInformation({
@@ -67,22 +68,23 @@ function ProductInformation({
           Pin
         </ProductInformationComponents.PinterestButton>
       </ProductInformationComponents.ShareButton>
+      <ProductInformationComponents.StyleSelectorContainer>
+        <StyleSelector
+          stylesArray={styles.results}
+          selectedStyle={selectedStyle}
+          setSelectedStyle={setSelectedStyle}
+          selectedStylePrice={selectedStylePrice}
+          setSelectedStylePrice={setSelectedStylePrice}
+          selectedStyleSalePrice={selectedStyleSalePrice}
+          setSelectedStyleSalePrice={setSelectedStyleSalePrice}
+          selectedStyleName={selectedStyleName}
+          setSelectedStyleName={setSelectedStyleName}
+          selectedStylePhoto={selectedStylePhoto}
+          setSelectedStylePhoto={setSelectedStylePhoto}
+        />
+      </ProductInformationComponents.StyleSelectorContainer>
       <div>
-        <ProductInformationComponents.StyleSelectorContainer>
-          <StyleSelector
-            stylesArray={styles.results}
-            selectedStyle={selectedStyle}
-            setSelectedStyle={setSelectedStyle}
-            selectedStylePrice={selectedStylePrice}
-            setSelectedStylePrice={setSelectedStylePrice}
-            selectedStyleSalePrice={selectedStyleSalePrice}
-            setSelectedStyleSalePrice={setSelectedStyleSalePrice}
-            selectedStyleName={selectedStyleName}
-            setSelectedStyleName={setSelectedStyleName}
-            selectedStylePhoto={selectedStylePhoto}
-            setSelectedStylePhoto={setSelectedStylePhoto}
-          />
-        </ProductInformationComponents.StyleSelectorContainer>
+        <AddToCart selectedStyle={selectedStyle} />
       </div>
     </div>
   );

@@ -9,35 +9,34 @@ import RelatedItems from './RelatedItems/RelatedItems.jsx';
 const App = function () {
   const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
-    /*
+  /*
   only have either loadFirstProduct or loadRandomProduct and
   their respective useEffect uncommented, not both
   Either code would only load on the first render of the page
   */
-  
   // get the first product in the array
-  // const loadFirstProduct = () => {
+  const loadFirstProduct = () => {
+    axios
+      .get('/api/product')
+      .then((response) => {
+        setCurrentProduct(response.data);
+        setCurrentProductID(response.data.id);
+      })
+      .catch((error) => console.log('Error', error.message));
+  };
+  useEffect(loadFirstProduct, []);
+
+  // get a random product from the array
+  // const loadRandomProduct = () => {
   //   axios
-  //     .get('/api/product')
+  //     .get('/api/randomproduct')
   //     .then((response) => {
   //       setCurrentProduct(response.data);
   //       setCurrentProductID(response.data.id);
   //     })
   //     .catch((error) => console.log('Error', error.message));
   // };
-  // useEffect(loadFirstProduct, []);
-
-    // get a random product from the array
-    const loadRandomProduct = () => {
-      axios
-        .get('/api/randomproduct')
-        .then((response) => {
-          setCurrentProduct(response.data);
-          setCurrentProductID(response.data.id);
-        })
-        .catch((error) => console.log('Error', error.message));
-    };
-    useEffect(loadRandomProduct, []);
+  // useEffect(loadRandomProduct, []);
 
   const updateProduct = (prodID, prod) => {
     setCurrentProductID(prodID);
