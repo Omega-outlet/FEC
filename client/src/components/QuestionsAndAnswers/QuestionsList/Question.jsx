@@ -8,8 +8,8 @@ import {
   QuestionDetailsList, AskerDetailsContainer,
   QuestionAndAnswersContainer,
   QuestionBodyAndHelpfulContainer, AnswerListContainer,
-  YesReportButtonContainer,
 } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import { YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
 import HelpfulYesButton from '../../../../utils/HelpfulYesButton.jsx';
 import useHelpfulYes from '../../../../utils/useHelpfulYes.jsx';
 import ReportButton from '../../../../utils/ReportButton.jsx';

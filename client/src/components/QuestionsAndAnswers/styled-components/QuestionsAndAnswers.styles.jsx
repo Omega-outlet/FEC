@@ -5,8 +5,8 @@ export const QAContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-top: 2px solid;
-  border-bottom: 2px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
 `;
 
 export const QuestionList = styled.ul`
@@ -63,4 +63,16 @@ export const SearchInput = styled.input`
 export const YesReportButtonContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+`;
+export const AnswerDetailsContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+`;
+export const LoadMoreAndAddNewButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 `;
