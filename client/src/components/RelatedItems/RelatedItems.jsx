@@ -51,9 +51,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
     if (storedOutfit) {
       outfitArray = JSON.parse(storedOutfit);
     }
-    console.log('Item to remove: ', item);
     outfitArray = outfitArray.filter((i) => i.id !== item.id);
-    console.log('New outfit array: ', outfitArray);
     setOutfit(outfitArray);
     localStorage.setItem('yourOutfit', JSON.stringify(outfitArray));
   };

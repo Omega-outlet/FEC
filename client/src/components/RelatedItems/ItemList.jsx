@@ -16,6 +16,7 @@ const ItemList = function({currentProduct, products, updateProduct, listType}) {
     );
   }
 
+  // 'add to outfit' button renders as the first array item in the outfit list
   const renderedList = outfitButton.concat(
     products.filter((item, i) => i >= focalItem && i < focalItem + (listType === 'outfit' ? 3 : 4))
       .map((item) => (

@@ -76,28 +76,28 @@ beforeEach(() => {
     throw new Error("Unknown URL");
   });
 ///////mock localStorage and related methods///////
-  class LocalStorageMock {
-    constructor() {
-      this.store = {};
-    }
+  // class LocalStorageMock {
+  //   constructor() {
+  //     this.store = {};
+  //   }
 
-    clear() {
-      this.store = {};
-    }
+  //   clear() {
+  //     this.store = {};
+  //   }
 
-    getItem(key) {
-      return this.store[key] || null;
-    }
+  //   getItem(key) {
+  //     return this.store[key] || null;
+  //   }
 
-    setItem(key, value) {
-      this.store[key] = String(value);
-    }
+  //   setItem(key, value) {
+  //     this.store[key] = String(value);
+  //   }
 
-    removeItem(key) {
-      delete this.store[key];
-    }
-  }
-  global.localStorage = new LocalStorageMock;
+  //   removeItem(key) {
+  //     delete this.store[key];
+  //   }
+  // }
+  //global.localStorage = new LocalStorageMock;
   window.localStorage.clear();
 });
 

@@ -71,9 +71,10 @@ const ProductCard = function ({ product, updateProduct, listType }) {
               {salePrice
                 ? (
                   <>
-                    <em style={{color: 'red'}}>
+                    <em style={{ color: 'red' }}>
                       $
-                      {salePrice}&nbsp;
+                      {salePrice}
+                      &nbsp;
                     </em>
                     <s>
                       $
