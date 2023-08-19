@@ -84,7 +84,7 @@ function ProductInformation({
         />
       </ProductInformationComponents.StyleSelectorContainer>
       <div>
-        <AddToCart selectedStyle={selectedStyle} selectedStyleName={selectedStyleName} />
+        <AddToCart selectedStyle={selectedStyle} />
       </div>
     </div>
   );

@@ -4,13 +4,16 @@ import React, { useState, useEffect, useContext } from 'react';
 function StyleQuantity({
   quantity,
   sku,
-  selectedStyle
+  selectedStyle,
+  cartQuantity,
+  setCartQuantity
 }) {
   const [doneLoading, setDoneLoading] = useState(false);
   const [quantityArray, setQuantityArray] = useState([]);
   // load the stylesArray with styles
   const loadQuantity = () => {
     setDoneLoading(false);
+    setCartQuantity(0);
     function getQuantity() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
@@ -37,14 +40,13 @@ function StyleQuantity({
   useEffect(loadQuantity, [quantity, sku, selectedStyle]);
 
   const handleQuantityChange = (e) => {
-    console.log('selected', e.target.value);
-    console.log('sku', sku);
+    setCartQuantity(e.target.value);
   };
   return (
     <div>
       {doneLoading ? (
         <select onChange={handleQuantityChange}>
-          <option value="Select Quantity"> Select Quantity </option>
+          <option data-testid="quantitySelect" value="Select Quantity"> Select Quantity </option>
           {
            quantityArray.map((i) => <option key={i} value={i}>{i}</option>)
           }
