@@ -8,27 +8,27 @@ function RatingsGraph({ metaData }) {
     <div data-testid="ratings-graph-component">
       <BarFormat>
         <StarSpan>5 stars</StarSpan>
-        <BarDisplay metadata={metaData} rating="5" />
+        <BarDisplay $metadata={metaData} $rating="5" />
         <ReviewSpan>{`(${metaData['5']})`}</ReviewSpan>
       </BarFormat>
       <BarFormat>
         <StarSpan>4 stars</StarSpan>
-        <BarDisplay metadata={metaData} rating="4" />
+        <BarDisplay $metadata={metaData} $rating="4" />
         <ReviewSpan>{`(${metaData['4']})`}</ReviewSpan>
       </BarFormat>
       <BarFormat>
         <StarSpan>3 stars</StarSpan>
-        <BarDisplay metadata={metaData} rating="3" />
+        <BarDisplay $metadata={metaData} $rating="3" />
         <ReviewSpan>{`(${metaData['3']})`}</ReviewSpan>
       </BarFormat>
       <BarFormat>
         <StarSpan>2 stars</StarSpan>
-        <BarDisplay metadata={metaData} rating="2" />
+        <BarDisplay $metadata={metaData} $rating="2" />
         <ReviewSpan>{`(${metaData['2']})`}</ReviewSpan>
       </BarFormat>
       <BarFormat>
         <StarSpan>1 stars</StarSpan>
-        <BarDisplay metadata={metaData} rating="1" />
+        <BarDisplay $metadata={metaData} $rating="1" />
         <ReviewSpan>{`(${metaData['1']})`}</ReviewSpan>
       </BarFormat>
     </div>
@@ -50,8 +50,8 @@ const StarSpan = styled.span`
   cursor: pointer;`;
 const BarDisplay = styled.div`
   background: linear-gradient(90deg,
-    black ${({ metadata, rating }) => calculatePercentage(metadata, rating)}%,
-    lightgrey ${({ metadata, rating }) => calculatePercentage(metadata, rating)}%);
+    black ${({ $metadata, $rating }) => calculatePercentage($metadata, $rating)}%,
+    lightgrey ${({ $metadata, $rating }) => calculatePercentage($metadata, $rating)}%);
   height: 10px;
   width: 200px;`;
 const ReviewSpan = styled.span`
