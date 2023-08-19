@@ -14,7 +14,7 @@ function RatingsAndReviews({ currentProductID }) {
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
-        product_id: currentProductID,
+        product_id: 40345,
       },
     })
       .then((response) => setReviews(response.data.results))
@@ -23,7 +23,7 @@ function RatingsAndReviews({ currentProductID }) {
   React.useEffect(() => {
     axios.get('/reviews/meta', {
       params: {
-        product_id: currentProductID,
+        product_id: 40345,
       },
     })
       .then((response) => setMetaData(response.data))

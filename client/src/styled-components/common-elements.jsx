@@ -35,5 +35,41 @@ const StyledButton = styled.button`
   color: white;
   background: black;
   cursor: pointer`;
+// $displaymodal is the boolean prop passed into the modal components to determine visibility
+const ModalWrapper = styled.div`
+  display: ${({ $displaymodal }) => ($displaymodal ? 'flex' : 'none')};
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);`;
 
-export { StarView, StyledButton };
+const Modal = styled.div`
+  display: ${({ $displaymodal }) => ($displaymodal ? 'flex' : 'none')};
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 85%;`;
+
+const ModalContent = styled.div`
+  display: ${({ $displaymodal }) => ($displaymodal ? 'block' : 'none')};
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%;
+  max-height: calc(80vh - 20vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;`;
+
+export {
+  StarView, StyledButton, ModalWrapper, Modal, ModalContent,
+};
