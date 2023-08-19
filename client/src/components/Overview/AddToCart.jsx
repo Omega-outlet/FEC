@@ -4,15 +4,18 @@ import StyleQuantity from './StyleQuantity.jsx';
 
 function AddToCart({
   selectedStyle,
+  selectedStyleName,
 }) {
   const [selectedStyleSkus, setSelectedStyleSkus] = useState({});
   const [SKUArray, setSKUArray] = useState([]);
   const [SKUValueArray, setSKUValueArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [quantity, setQuantity] = useState(0);
+  const [sku, setSKU] = useState('');
   const maxQuantity = 15;
   // load the stylesArray with styles
   const loadSkus = () => {
+    console.log(selectedStyle);
     function getStyleSkus() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
@@ -35,7 +38,7 @@ function AddToCart({
       .catch(() => { });
   };
 
-  useEffect(loadSkus, [selectedStyle, selectedStyleSkus]);
+  useEffect(loadSkus, [selectedStyle, selectedStyleSkus, sku, selectedStyleName]);
 
   const handleSizeChange = (e) => {
     if (SKUValueArray[e.target.value].quantity > maxQuantity) {
@@ -43,25 +46,29 @@ function AddToCart({
     } else {
       setQuantity(SKUValueArray[e.target.value].quantity);
     }
+    setSKU(SKUArray[e.target.value]);
   };
 
   return (
     <div>
-      <select onChange={handleSizeChange}>
-        <option value="Select Size"> Select Size </option>
-        {SKUValueArray
-          ? (SKUValueArray.map((info, index) => (
-            <option
-              key={index}
-              value={index}
-            >
-              {info?.size}
-            </option>
-          )))
-          : null}
-      </select>
 
-      <StyleQuantity quantity={quantity} />
+      {SKUValueArray
+        ? (
+          <select onChange={handleSizeChange}>
+            <option value="Select Size"> Select Size </option>
+            {(SKUValueArray.map((info, index) => (
+              <option
+                key={index}
+                value={index}
+              >
+                {info.size}
+              </option>
+            )))}
+          </select>
+        )
+        : null}
+
+      <StyleQuantity quantity={quantity} sku={sku} selectedStyle={selectedStyle} />
     </div>
   );
 }
