@@ -15,7 +15,6 @@ module.exports = {
       headers: options.headers,
       responseType: 'json',
     })
-      .catch((error) => console.log('Error at first axios get', error.message))
       .then((response) => {
         const relatedIDs = response.data;
         return axios({
@@ -30,9 +29,9 @@ module.exports = {
             return JSON.stringify(relatedItems);
           }],
         })
-          .catch(() => res.statusCode(500));
+          .catch(() => res.sendStatus(500));
       })
       .then((result) => res.send(result.data))
-      .catch(() => res.statusCode(500));
+      .catch(() => res.sendStatus(500));
   },
 };

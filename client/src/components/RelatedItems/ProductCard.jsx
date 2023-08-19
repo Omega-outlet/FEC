@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Item, Image } from '../../styled-components/horizontal-carousel.jsx';
+import Compare from './CompareButton.jsx';
+import Remove from './RemoveItemButton.jsx';
 
-const ProductCard = function ({ product }) {
+const ProductCard = function ({ product, updateProduct, listType }) {
   const [productData, setProductData] = useState({});
-  const [img1, setImg1] = useState('https://picsum.photos/700/900');
-  const [img2, setImg2] = useState('https://picsum.photos/900/550'); //random generated imgs for defaults
+  const [img1, setImg1] = useState('https://tinyurl.com/bp78yn9f');
+  const [img2, setImg2] = useState('https://tinyurl.com/2tb6ry8d'); //random imgs for defaults
   const [salePrice, setSalePrice] = useState('');
+  const [hover, setHover] = useState(false);
 
   // {product} prop holds basic product info from /products api query
   // productData holds additional info from /styles including default style and sale price
@@ -27,19 +30,24 @@ const ProductCard = function ({ product }) {
         if (defaultStyle.photos[1].url) { setImg2(defaultStyle.photos[1].url); }
         if (defaultStyle.sale_price) { setSalePrice(defaultStyle.sale_price); }
       })
-      .catch((error) => console.log('Error', error.message));
+      .catch((error) => console.log('Missing backend data replaced with dummy data -', error.message));
   };
 
-  useEffect(getProductData, []);
+  const onHover = () => setHover(!hover);
+  const handleClick = () => {
+    updateProduct(product.id, product);
+  };
+
+  useEffect(getProductData, [product]);
 
   return (
-    <Item>
+    <Item onClick={handleClick}>
       <table>
         <tbody>
           <tr>
             <td>
               {img1 && (
-                <Image src={img1} alt="default style 1" />
+                <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
               )}
             </td>
           </tr>
@@ -79,6 +87,12 @@ const ProductCard = function ({ product }) {
           <tr>
             <td>
               *****
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {listType === 'related' && <Compare style={{ textAlign: 'right' }} />}
+              {listType === 'outfit' && <Remove item={product} style={{ textAlign: 'right' }} />}
             </td>
           </tr>
         </tbody>

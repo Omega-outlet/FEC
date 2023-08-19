@@ -1,16 +1,23 @@
 /** @jest-environment jsdom */
 /* eslint-env jest */
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import ReviewList from './ReviewList.jsx';
 import data from './exampleData.json';
 
 describe('ReviewList Component', () => {
   const reviews = data.results;
-  render(<ReviewList reviews={reviews} />);
-  const title = screen.getByTestId('reviewList-component');
-
   test('Component rendered', () => {
+    render(<ReviewList reviews={reviews} />);
+    const title = screen.getByTestId('reviewList-component');
     expect(title).toBeTruthy();
+  });
+  test('Modal rendered', () => {
+    render(<ReviewList reviews={reviews} />);
+    const button = screen.getByTestId('reviewList-button');
+    fireEvent.click(button);
+    fireEvent.click(button);
+    const modal = screen.getByTestId('reviewList-modal');
+    expect(modal).toBeTruthy();
   });
 });

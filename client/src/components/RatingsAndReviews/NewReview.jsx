@@ -38,7 +38,7 @@ function NewReview({ renderForm }) {
       <legend>Would you recommend this product?</legend>
       <label htmlFor="yes">
         {'Yes: '}
-        <input type="radio" value="yes" name="recommend" onChange={handleChange} />
+        <input type="radio" value="yes" name="recommend" onChange={handleChange} required />
       </label>
       <label htmlFor="no">
         {'No: '}

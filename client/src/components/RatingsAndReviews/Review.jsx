@@ -2,9 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CharacteristicsGraph from './CharacteristicsGraph.jsx';
-import StarView from '../../styled-components/common-elements.jsx';
+import { StarView } from '../../styled-components/common-elements.jsx';
 
 function Review({ review }) {
+  // const productId =
   const {
     body,
     date,

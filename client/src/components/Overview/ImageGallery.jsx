@@ -1,13 +1,23 @@
-import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
+import Promise from 'bluebird';
+import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
+import DefaultView from './DefaultView.jsx';
+import DefaultThumbnails from './DefaultThumbnails.jsx';
 
-function ImageGallery({ currentProduct, selectedStyle }) {
-  // console.log("selected style in image gallery", selectedStyle);
+function ImageGallery({ selectedStyle, mainImage, setMainImage }) {
   return (
-    <div>
-      <h1>Image Gallery</h1>
-
-    </div>
+    <ImageGalleryComponents.DefaultContainer data-testid="imageGallery">
+      <DefaultView
+        selectedStyle={selectedStyle}
+        mainImage={mainImage}
+        setMainImage={setMainImage}
+      />
+      <DefaultThumbnails
+        selectedStyle={selectedStyle}
+        mainImage={mainImage}
+        setMainImage={setMainImage}
+      />
+    </ImageGalleryComponents.DefaultContainer>
   );
 }
 

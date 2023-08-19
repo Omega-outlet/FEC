@@ -15,6 +15,7 @@ function Overview({ currentProduct, currentProductID }) {
   const [selectedStyleSalePrice, setSelectedStyleSalePrice] = useState('');
   const [selectedStyleName, setSelectedStyleName] = useState('');
   const [selectedStylePhoto, setSelectedStylePhoto] = useState([]);
+  const [mainImage, setMainImage] = useState('');
 
   // get the styles of the current product
   const loadProductStyles = () => {
@@ -45,7 +46,12 @@ function Overview({ currentProduct, currentProductID }) {
     <div>
       <OverviewContainer.StyledOverviewContainer>
         <OverviewContainer.Half>
-          <ImageGallery currentProduct={currentProduct} selectedStyle={selectedStyle} />
+          <ImageGallery
+            currentProduct={currentProduct}
+            selectedStyle={selectedStyle}
+            mainImage={mainImage}
+            setMainImage={setMainImage}
+          />
         </OverviewContainer.Half>
         <OverviewContainer.Half>
           <ProductInformation
@@ -61,6 +67,8 @@ function Overview({ currentProduct, currentProductID }) {
             setSelectedStyleName={setSelectedStyleName}
             selectedStylePhoto={selectedStylePhoto}
             setSelectedStylePhoto={setSelectedStylePhoto}
+            mainImage={mainImage}
+            setMainImage={setMainImage}
             styles={styles}
           />
         </OverviewContainer.Half>

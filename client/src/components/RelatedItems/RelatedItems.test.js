@@ -7,9 +7,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RelatedItems from './RelatedItems.jsx';
 import axios from 'axios';
 
-jest.mock('axios')
+jest.mock('axios');
 const mockedAxios = axios;
 beforeEach(() => {
+///////mock axios calls and product data///////
   mockedAxios.get.mockImplementation((url) => {
     if (url === '/api/product/related') {
       return Promise.resolve({
@@ -73,13 +74,44 @@ beforeEach(() => {
       });
     }
     throw new Error("Unknown URL");
-  })
-})
+  });
+///////mock localStorage and related methods///////
+  class LocalStorageMock {
+    constructor() {
+      this.store = {};
+    }
 
+    clear() {
+      this.store = {};
+    }
 
+    getItem(key) {
+      return this.store[key] || null;
+    }
+
+    setItem(key, value) {
+      this.store[key] = String(value);
+    }
+
+    removeItem(key) {
+      delete this.store[key];
+    }
+  }
+  global.localStorage = new LocalStorageMock;
+  window.localStorage.clear();
+});
+
+//////////TEST RELATED ITEMS////////////
 describe('Related Items', () => {
   test('Related items render with first product and right button on page load', async () => {
-    await waitFor(() => render(<RelatedItems currentProductID={1} />));
+    const dummy = {
+      name: "Product Name 1",
+      category: "Category",
+      default_price: "$10",
+      slogan: "Slogan",
+      id: 1,
+    };
+    await waitFor(() => render(<RelatedItems currentProduct={dummy} />));
     // test header and products render
     await waitFor(() => expect(screen.queryByText('Related Items')).toBeTruthy());
     await waitFor(() => expect(screen.queryByText('Product Name 1')).toBeTruthy());
@@ -106,7 +138,14 @@ describe('Related Items', () => {
   });
 
   test('after scrolling right, first item disappears and left button appears', async () => {
-    await waitFor (() => render(<RelatedItems />));
+    const dummy = {
+      name: "Product Name 1",
+      category: "Category",
+      default_price: "$10",
+      slogan: "Slogan",
+      id: 1,
+    };
+    await waitFor (() => render(<RelatedItems currentProduct={dummy} />));
     // click right button to shift all items to the right
     await waitFor (() => fireEvent.click(screen.getByText('>')));
     // test first product disappears
@@ -115,5 +154,35 @@ describe('Related Items', () => {
     await waitFor (() => expect(screen.queryByText('<')).toBeTruthy());
     // test right button disappears for 5 element list
     await waitFor (() => expect(screen.queryByText('>')).toBeNull());
+  });
+});
+
+//////////TEST YOUR OUTFIT////////////
+describe('Your Outfit', () => {
+  //mock updateProduct function from parent
+  const updateProduct = async (prodID, prod) => {
+    await waitFor (() => render(<RelatedItems currentProductID={prodID} currentProduct={prod} />));
+  };
+
+  test('"add to outfit" and "remove from outfit buttons" behave as expected', async () => {
+    const dummy = {
+      name: "Product Name 1",
+      category: "Category",
+      default_price: "$10",
+      slogan: "Slogan",
+      id: 1,
+    };
+    const dummyString = JSON.stringify([dummy]);
+    await waitFor (() => render(<RelatedItems currentProduct={dummy} updateProduct={updateProduct} />));
+    await waitFor (() => expect(localStorage.getItem('yourOutfit')).toBeNull());
+
+    // test add current item button
+    await waitFor (() => fireEvent.click(screen.getByText('Add current item to your outfit')));
+    await waitFor (() => expect(localStorage.getItem('yourOutfit')).toEqual(dummyString));
+
+    // test remove item button
+    await waitFor (() => console.log('HERES THE DOM AFTER ADDING TO OUTFIT', screen));
+    await waitFor (() => fireEvent.click(screen.getByText('X')));
+    await waitFor (() => expect(localStorage.getItem('yourOutfit')).toEqual('[]'));
   });
 });
