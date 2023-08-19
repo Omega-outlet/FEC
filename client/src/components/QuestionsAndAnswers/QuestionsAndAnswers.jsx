@@ -9,6 +9,7 @@ function QuestionsAndAnswers(currentProductID) {
   const [filteredQuestions, setFilteredQuestions] = useState([]);
 
   const productId = 40353;
+
   useEffect(() => {
     axios.get('/questions', {
       params: {
@@ -34,10 +35,22 @@ function QuestionsAndAnswers(currentProductID) {
       setFilteredQuestions(questions);
     }
   };
+  const handleAddNewQuestion = (questionFormData) => {
+    axios.post('/qa/questions', {
+      body: questionFormData.question,
+      name: questionFormData.nickname,
+      email: questionFormData.email,
+      product_id: productId,
+    })
+      .then((res) => {
+        console.log('New Question added:', res.data);
+      })
+      .catch((err) => console.log('Error adding question:', err));
+  };
   return (
     <QAContainer>
       <SearchBar onSearch={handleSearch} />
-      <QuestionsList questions={filteredQuestions} />
+      <QuestionsList questions={filteredQuestions} onHandleAddQuestion={handleAddNewQuestion} />
     </QAContainer>
   );
 }
