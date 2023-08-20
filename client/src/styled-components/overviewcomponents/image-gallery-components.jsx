@@ -6,7 +6,6 @@ const MainPhoto = styled.img`
   height:660px;
   object-fit: cover;
   cursor: zoom-in;
-
 `;
 const DefaultContainer = styled.div`
 // width: 100px;
@@ -49,6 +48,56 @@ const ScrollButton = styled.input`
   color:black;
 `;
 
+const ExpandedMainPhoto = styled.img`
+  // display: block;
+  width:700px;
+  height:660px;
+  object-fit: cover;
+  cursor: zoom-in;
+`;
+
+const ModalWrapper = styled.div`
+  display: ${({ $displaymodal }) => ($displaymodal ? 'flex' : 'none')};
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.90);
+`;
+
+const Modal = styled.div`
+  // display: ${({ $displaymodal }) => ($displaymodal ? 'flex' : 'none')};
+  // flex-direction: column;
+  // justify-content: space-between;
+  align-items: center;
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 85%;
+  `;
+
+const ExpandedThumbnail = styled.img`
+// display: block;
+width:90px;
+height:100px;
+object-fit: cover;
+// padding: 2px;
+`;
+
+const CurExpandedThumbnail = styled.img`
+// display: block;
+width:90px;
+height:100px;
+object-fit: cover;
+border: 5px solid black;
+`;
+
 export default {
   MainPhoto,
   DefaultContainer,
@@ -56,4 +105,9 @@ export default {
   DefaultThumbnail,
   CurrentThumbnail,
   ScrollButton,
+  ExpandedMainPhoto,
+  ModalWrapper,
+  Modal,
+  ExpandedThumbnail,
+  CurExpandedThumbnail,
 };
