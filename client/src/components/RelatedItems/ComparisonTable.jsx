@@ -1,16 +1,69 @@
 //create style component for table design
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ComparisonTable = function ({currentProduct, comparedProduct}) {
+  const[currentFeatures, setCurrentFeatures] = useState([]);
+  const[comparedFeatures, setComparedFeatures] = useState([]);
+  const[comparisonObject, setComparisonObject] = useState({});
 
-  //Create a comparison object
+  //get features for both products
+  useEffect(() => {
+    axios.get('/api/product/features', {
+      params: {
+        currentProductID: currentProduct.id,
+      },
+      responseType: 'json',
+    })
+      .then((response) => {
+        setCurrentFeatures(response.data.features);
+      })
+      .catch((error) => error.message);
+  }, [currentProduct]);
 
-  //map to rows
-  const tableRows = () => (
-  <tr>
-    <td>{currentProduct.slogan}</td><td>Comparison category</td><td>{comparedProduct.slogan}</td>
-  </tr>
-  );
+  useEffect(() => {
+    axios.get('/api/product/features', {
+      params: {
+        currentProductID: comparedProduct.id,
+      },
+      responseType: 'json',
+    })
+      .then((response) => {
+        setComparedFeatures(response.data.features);
+      })
+      .catch((error) => error.message);
+  }, [comparedProduct]);
+
+  // Create a comparison object and set new object state
+  useEffect(() => {
+    const comparison = {};
+    currentFeatures.forEach((feature) => {
+      comparison[feature.feature] = [feature.value, ''];
+      if (feature.feature === null) {
+        comparison[feature.feature] = ['✓', ''];
+      }
+    });
+    comparedFeatures.forEach((feature) => {
+      if (comparison[feature.feature] === undefined) {
+        comparison[feature.feature] = ['', feature.value];
+      } else if (feature.feature === null) {
+        comparison[feature.feature][1] = '✓';
+      } else {
+        comparison[feature.feature][1] = feature.value;
+      }
+    });
+    setComparisonObject(comparison);
+  }, [currentFeatures, comparedFeatures]);
+
+  // map to table rows
+  const tableRows = Object.keys(comparisonObject)
+    .sort()
+    .map((key) => (
+      <tr>
+        <td>{comparisonObject[key][0]}</td>
+        <td>{key}</td>
+        <td>{comparisonObject[key][1]}</td>
+      </tr>
+    ));
 
   return (
     <table>
