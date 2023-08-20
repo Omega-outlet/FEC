@@ -100,6 +100,43 @@ object-fit: cover;
 border: 1px solid white;
 `;
 
+const Icons = styled.div`
+float: left;
+
+/* -webkit-column-count: 2;
+ -moz-column-count: 2;
+      column-count: 2; */
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      max-height: 600px;
+      min-width:15%;
+      width: 15%;
+      /* border: 1px solid black; */
+      padding: 5px;
+      gap: 5px;
+`;
+
+const ExpandedImageContainer = styled.div`
+float: left;
+width: 70%;
+`;
+
+const ExitExpanded = styled.div`
+position:absolute;
+top:10px;
+right: 10px;
+`;
+
+// clear floats after the columns
+const ExpandedNormal = styled.div`
+&:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+`;
+
 export default {
   MainPhoto,
   DefaultContainer,
@@ -112,4 +149,8 @@ export default {
   Modal,
   ExpandedThumbnail,
   CurExpandedThumbnail,
+  Icons,
+  ExpandedImageContainer,
+  ExitExpanded,
+  ExpandedNormal,
 };

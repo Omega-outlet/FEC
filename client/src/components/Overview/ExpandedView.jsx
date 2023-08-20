@@ -8,7 +8,7 @@ import {
 import ScrollButton from './DefaultScrollButton.jsx';
 
 function ExpandedView({
-  selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal, expandedMainImage, setExpandedMainImage,
+  selectedStyle, displayModal, setDisplayModal, expandedMainImage, setExpandedMainImage,
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [thumbnails, setThumbnails] = useState([]);
@@ -44,14 +44,7 @@ function ExpandedView({
 
   useEffect(loadStylesPhotos, [selectedStyle, expandedMainImage]);
 
-
-  const handleExpandedClick = function (e) {
-    setDisplayModal(true);
-  };
-
   const handleImageClick = (photoIndex) => {
-    console.log('this is the photo index clicked:', photoIndex);
-    console.log(thumbnails[photoIndex].url);
     setExpandedMainImage(thumbnails[photoIndex].url);
   };
 
@@ -68,8 +61,8 @@ function ExpandedView({
     <div>
       <ImageGalleryComponents.ModalWrapper $displaymodal={displayModal}>
         <ImageGalleryComponents.Modal $displaymodal={displayModal}>
-          <div className="row">
-            <div className="column1">
+          <ImageGalleryComponents.ExpandedNormal>
+            <ImageGalleryComponents.Icons>
 
               {thumbnails ? thumbnails.map((photoObj, index) => (
                 <ExpandedThumbnail
@@ -87,17 +80,16 @@ function ExpandedView({
                 />
               )) : null}
 
-            </div>
-            <div className="column2">
+            </ImageGalleryComponents.Icons>
+            <ImageGalleryComponents.ExpandedImageContainer>
               { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : null }
               <ImageGalleryComponents.ExpandedMainPhoto
                 src={expandedMainImage}
                 alt={selectedStyle?.name}
               />
               { focalItem < thumbnails.length - 1 && <ScrollButton scroll={scrollRight} dir="right" />}
-            </div>
-            <div className="column3">
-              {' '}
+            </ImageGalleryComponents.ExpandedImageContainer>
+            <ImageGalleryComponents.ExitExpanded>
               <StyledButton
                 type="button"
                 onClick={() => setDisplayModal(false)}
@@ -105,8 +97,8 @@ function ExpandedView({
                 Close
               </StyledButton>
 
-            </div>
-          </div>
+            </ImageGalleryComponents.ExitExpanded>
+          </ImageGalleryComponents.ExpandedNormal>
         </ImageGalleryComponents.Modal>
       </ImageGalleryComponents.ModalWrapper>
     </div>

@@ -2,11 +2,14 @@
  * @jest-environment jsdom
  */
 
-import React, {useState} from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import userEvent from "@testing-library/user-event";
+import React, { useState } from 'react';
+import {
+  render, screen, waitFor, fireEvent,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import DefaultView from './DefaultView.jsx';
 import DefaultThumbnails from './DefaultThumbnails.jsx';
+import ExpandedView from './ExpandedView.jsx';
 import Data from './OverviewDummyData.js';
 
 describe('default view', () => {
@@ -105,21 +108,157 @@ describe('default view', () => {
     userEvent.click(rightButton);
     await waitFor(() => expect(screen.queryByText('>')).toBeTruthy());
     userEvent.click(rightButton);
-    let imageElement = screen.getByAltText('White & Black 0');
-    expect(imageElement).toBeTruthy();
-    imageElement = screen.getByAltText('White & Black 1');
-    expect(imageElement).toBeTruthy();
-    imageElement = screen.getByAltText('White & Black 2');
-    expect(imageElement).toBeTruthy();
-    imageElement = screen.getByAltText('White & Black 3');
-    expect(imageElement).toBeTruthy();
-    imageElement = screen.getByAltText('White & Black 4');
-    expect(imageElement).toBeTruthy();
-    imageElement = screen.getByAltText('White & Black 5');
-    expect(imageElement).toBeTruthy();
-    imageElement = screen.getByAltText('White & Black 6');
-    expect(imageElement).toBeTruthy();
-    imageElement = screen.queryByAltText('White & Black 7');
+    for (let i = 0; i < 7; i++) {
+      const imageElement = screen.getByAltText(`White & Black ${i}`);
+      expect(imageElement).toBeTruthy();
+    }
+    const imageElement = screen.queryByAltText('White & Black 7');
     expect(imageElement).toBeFalsy();
+  });
+});
+describe('normal expanded view', () => {
+  it('renders all of the style\'s thumbnails to the page', async () => {
+    let count = 1;
+    const mockModal = jest.fn(() => false);
+    const mockSetImg = jest.fn(() => Data.styles.results[0].photos[count++].url);
+    await waitFor(() => render(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={Data.styles.results[0].photos[0].url}
+      setExpandedMainImage={mockSetImg}
+    />));
+    for (let i = 0; i < Data.styles.results[0].photos.length; i++) {
+      const imageElement = screen.getByAltText(`White & White ${i}`);
+      expect(imageElement).toBeTruthy();
+    }
+  });
+  it('no left button and present right button when expanded view main image is the first image in the thumbnail set', async () => {
+    let count = 1;
+    const mockModal = jest.fn(() => false);
+    const mockSetImg = jest.fn(() => Data.styles.results[0].photos[count++].url);
+    await waitFor(() => render(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={Data.styles.results[0].photos[0].url}
+      setExpandedMainImage={mockSetImg}
+    />));
+    const leftButton = screen.queryByText('<');
+    expect(leftButton).toBeFalsy();
+    const rightButton = screen.getByText('>');
+    expect(rightButton).toBeTruthy();
+  });
+  it('makes the thumbnail clicked the main image of expanded view', async () => {
+    const mockModal = jest.fn(() => false);
+    const mockSetImg = jest.fn(() => Data.styles.results[0].photos[1].url);
+    const { rerender } = await waitFor(() => render(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={Data.styles.results[0].photos[0].url}
+      setExpandedMainImage={mockSetImg}
+    />));
+    const mainImage = screen.getByAltText('White & White');
+    expect(mainImage).toBeTruthy();
+    expect(mainImage.src).toContain('https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
+    fireEvent.click(screen.getByAltText('White & White 1'));
+    expect(mockSetImg).toHaveBeenCalled();
+    rerender(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={mockSetImg()}
+      setExpandedMainImage={mockSetImg}
+    />);
+    const newImage = screen.getByAltText('White & White');
+    await waitFor(() => expect(newImage.src).toContain('https://images.unsplash.com/photo-1514590734052-344a18719611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'));
+  });
+  it('makes the thumbnail clicked the main image of expanded view', async () => {
+    const mockModal = jest.fn(() => false);
+    const mockSetImg = jest.fn(() => Data.styles.results[0].photos[1].url);
+    const { rerender } = await waitFor(() => render(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={Data.styles.results[0].photos[0].url}
+      setExpandedMainImage={mockSetImg}
+    />));
+    const mainImage = screen.getByAltText('White & White');
+    expect(mainImage).toBeTruthy();
+    expect(mainImage.src).toContain('https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
+    fireEvent.click(screen.getByAltText('White & White 1'));
+    expect(mockSetImg).toHaveBeenCalled();
+    rerender(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={mockSetImg()}
+      setExpandedMainImage={mockSetImg}
+    />);
+    const newImage = screen.getByAltText('White & White');
+    await waitFor(() => expect(newImage.src).toContain('https://images.unsplash.com/photo-1514590734052-344a18719611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'));
+  });
+  it('when right button is clicked, change main image to next image in list', async () => {
+    const mockModal = jest.fn(() => false);
+    const mockClickRight = jest.fn(() => Data.styles.results[0].photos[1].url);
+    const { rerender } = await waitFor(() => render(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={Data.styles.results[0].photos[0].url}
+      setExpandedMainImage={mockClickRight}
+    />));
+    const mainImage = screen.getByAltText('White & White');
+    expect(mainImage).toBeTruthy();
+    expect(mainImage.src).toContain('https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
+    const rightButton = screen.getByText('>');
+    fireEvent.click(rightButton);
+    expect(mockClickRight).toHaveBeenCalled();
+    rerender(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={mockClickRight()}
+      setExpandedMainImage={mockClickRight}
+    />);
+    const newImage = screen.getByAltText('White & White');
+    await waitFor(() => expect(newImage.src).toContain('https://images.unsplash.com/photo-1514590734052-344a18719611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'));
+  });
+  it('when left button is clicked, change main image to previous image in list', async () => {
+    const mockModal = jest.fn(() => false);
+    const mockClickLeft = jest.fn(() => Data.styles.results[0].photos[0].url);
+    const { rerender } = await waitFor(() => render(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={Data.styles.results[0].photos[1].url}
+      setExpandedMainImage={mockClickLeft}
+    />));
+    const mainImage = screen.getByAltText('White & White');
+    expect(mainImage).toBeTruthy();
+    expect(mainImage.src).toContain('https://images.unsplash.com/photo-1514590734052-344a18719611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
+    const leftButton = screen.getByText('<');
+    fireEvent.click(leftButton);
+    expect(mockClickLeft).toHaveBeenCalled();
+    rerender(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={mockClickLeft()}
+      setExpandedMainImage={mockClickLeft}
+    />);
+    const newImage = screen.getByAltText('White & White');
+    await waitFor(() => expect(newImage.src).toContain('https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80'));
   });
 });

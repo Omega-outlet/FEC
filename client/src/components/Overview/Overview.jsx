@@ -87,8 +87,6 @@ function Overview({ currentProduct, currentProductID }) {
         <ExpandedView
           currentProduct={currentProduct}
           selectedStyle={selectedStyle}
-          mainImage={mainImage}
-          setMainImage={setMainImage}
           displayModal={displayModal}
           setDisplayModal={setDisplayModal}
           expandedMainImage={expandedMainImage}
