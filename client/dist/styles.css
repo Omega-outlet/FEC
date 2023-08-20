@@ -16,7 +16,19 @@ body {
 }
 .column1 {
   float: left;
-  width: 10%;
+
+  /* -webkit-column-count: 2;
+   -moz-column-count: 2;
+        column-count: 2; */
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        max-height: 600px;
+        min-width:15%;
+        width: 15%;
+        /* border: 1px solid black; */
+        padding: 5px;
+        gap: 5px;
 
 }
 .column2 {

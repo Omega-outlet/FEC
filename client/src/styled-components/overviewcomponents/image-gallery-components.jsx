@@ -84,18 +84,19 @@ const Modal = styled.div`
 
 const ExpandedThumbnail = styled.img`
 // display: block;
-width:90px;
-height:100px;
+width:70px;
+height:70px;
 object-fit: cover;
+opacity: 0.5;
 // padding: 2px;
 `;
 
 const CurExpandedThumbnail = styled.img`
 // display: block;
-width:90px;
-height:100px;
+width:70px;
+height:70px;
 object-fit: cover;
-border: 5px solid black;
+// border: 5px solid black;
 `;
 
 export default {
