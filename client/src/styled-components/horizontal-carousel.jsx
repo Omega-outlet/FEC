@@ -33,12 +33,12 @@ export const Image = styled.img`
   clip: shape;
 `;
 
-export const ButtonWrap = styled.button`
-  background-color: black;
-  background: black;
-  color: white;
-  text-align: center;
-  height: 15;
-  width: 15;
-  flex-grow: 1;
-`;
+// export const ButtonWrap = styled.button`
+//   background-color: black;
+//   background: black;
+//   color: white;
+//   text-align: center;
+//   height: 15;
+//   width: 15;
+//   flex-grow: 1;
+// `;

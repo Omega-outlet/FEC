@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 
 import ItemList from './ItemList.jsx';
 import OutfitContext from './OutfitContext.jsx';
+import { StyledButton } from '../../styled-components/common-elements.jsx';
 
 const RelatedItems = function ({currentProduct, updateProduct}) {
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -24,7 +25,6 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
 
   const getOutfit = () => {
     const storedOutfit = localStorage.getItem('yourOutfit');
-    console.log('Outfit currently stored: ', storedOutfit);
     if (storedOutfit) {
       const outfitArray = JSON.parse(storedOutfit);
       setOutfit(outfitArray);
@@ -62,12 +62,16 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
   return (
     <div>
       <center>
-        <h3>Related Items</h3>
+        { relatedProducts.length === 0 ? <h3>No related items!</h3> : <h3>Related Items</h3>}
         { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
-        <h3>Your Outfit</h3>
-        { outfit.length === 0 && <h4>No outfit yet!</h4> }
-        <OutfitContext.Provider value={{ addToOutfit, removeFromOutfit }}>
-          <ItemList currentProduct={currentProduct} products={outfit} updateProduct={updateProduct} listType="outfit" />
+        { outfit.length === 0 ? <h3>No outfit yet!</h3> : <h3>Your Outfit</h3>}
+        <OutfitContext.Provider value={{ removeFromOutfit }}>
+          {outfit.indexOf(currentProduct) < 0 && (
+            <StyledButton onClick={() => addToOutfit(currentProduct)}>
+              Add {currentProduct.name} to Your Outfit
+            </StyledButton>
+          )}
+          <ItemList products={outfit} updateProduct={updateProduct} listType="outfit" />
         </OutfitContext.Provider>
       </center>
     </div>

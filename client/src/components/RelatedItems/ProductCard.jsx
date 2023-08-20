@@ -30,7 +30,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
         if (defaultStyle.photos[1].url) { setImg2(defaultStyle.photos[1].url); }
         if (defaultStyle.sale_price) { setSalePrice(defaultStyle.sale_price); }
       })
-      .catch((error) => console.log('Missing backend data replaced with dummy data -', error.message));
+      .catch((error) => console.log(`Missing product data for ${product.name}: `, error.message));
   };
 
   const onHover = () => setHover(!hover);

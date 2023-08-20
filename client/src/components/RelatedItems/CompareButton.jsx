@@ -1,9 +1,9 @@
 import React from 'react';
-import { ButtonWrap } from '../../styled-components/horizontal-carousel.jsx';
+import { StyledButton } from '../../styled-components/common-elements.jsx';
 
 const CompareButton = function () {
   // small star character for now
-  return <ButtonWrap onClick={() => console.log('Compare button clicked')}>☆</ButtonWrap>;
+  return <StyledButton onClick={() => console.log('Compare button clicked')}>☆</StyledButton>;
 };
 
 export default CompareButton;
