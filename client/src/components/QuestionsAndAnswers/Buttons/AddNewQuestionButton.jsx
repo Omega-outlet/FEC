@@ -1,16 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Modal from '../Forms/Modal.jsx';
+import QuestionForm from '../Forms/QuestionForm.jsx';
+import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
 
-function AskQuestionButton({ onClick }) {
+function AddNewQuestionButton({ productName, onHandleAddQuestion }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+
+  const handleSubmit = (formData) => {
+    onHandleAddQuestion(formData);
+    console.log(formData);
+    // close the modal after submit
+    setIsOpen(false);
+  };
   return (
-    <button type="button" onClick={onClick}>
-      ADD A QUESTION
-    </button>
+    <div>
+      <RoundedPulseButton type="button" onClick={handleOpenModal}>
+        ADD A QUESTION
+      </RoundedPulseButton>
+      <Modal isOpen={isOpen} onClose={handleCloseModal}>
+        <QuestionForm
+          productName={productName}
+          onSubmit={handleSubmit}
+          onCancel={handleCloseModal}
+        />
+      </Modal>
+    </div>
   );
 }
 
-AskQuestionButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+AddNewQuestionButton.propTypes = {
+  onHandleAddQuestion: PropTypes.func,
+  productName: PropTypes.string,
+};
+AddNewQuestionButton.defaultProps = {
+  onHandleAddQuestion: () => {},
+  productName: 'Default',
 };
 
-export default AskQuestionButton;
+export default AddNewQuestionButton;

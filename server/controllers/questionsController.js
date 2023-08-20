@@ -1,4 +1,5 @@
 const axios = require('axios');
+
 const API_URL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp';
 module.exports = {
   getQuestions: (req, res) => {
@@ -19,6 +20,47 @@ module.exports = {
       .catch((err) => {
         console.log(err);
         res.status(500).send({ message: 'Failed to get question list!' });
+      });
+  },
+  addQuestion: (req, res) => {
+    const { body, name, email } = req.body;
+    const productId = req.body.product_id;
+    console.log(productId);
+    axios.post(`${API_URL}/qa/questions`, {
+      body,
+      name,
+      email,
+      product_id: productId,
+    },{
+      headers: {
+        Authorization: process.env.TOKEN,
+      },
+    })
+      .then((response) => res.status(201).send(response.data))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({ message: 'Failed to add question!' });
+      });
+  },
+  addAnswer: (req, res) => {
+    const questionID = req.params.question_id;
+    const {
+      body, name, email, photos,
+    } = req.body;
+    axios.post(`${API_URL}/qa/questions/${questionID}/answers`, {
+      body,
+      name,
+      email,
+      photos,
+    }, {
+      headers: {
+        Authorization: process.env.TOKEN,
+      },
+    })
+      .then((response) => res.status(201).send(response.data))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({ message: 'Failed to add answer!' });
       });
   },
   updateHelpful: (req, res) => {

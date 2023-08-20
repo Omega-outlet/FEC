@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
 
 function LoadMoreQuestionsButton({ onClick, hasMoreQuestions }) {
   // if false, return null. Nothing will be rendered.
   if (!hasMoreQuestions) return null;
 
   return (
-    <button type="button" onClick={onClick}>MORE ANSWERED QUESTIONS</button>
+    <RoundedPulseButton type="button" onClick={onClick}>MORE ANSWERED QUESTIONS</RoundedPulseButton>
   );
 }
 
