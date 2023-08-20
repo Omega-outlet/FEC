@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { StarView, StyledButton } from '../../styled-components/common-elements.jsx';
+import {
+  StarView, StyledButton, ModalWrapper, Modal, ModalContent
+} from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
 import NewReview from './NewReview.jsx';
@@ -14,20 +16,20 @@ function RatingsAndReviews({ currentProductID }) {
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
-        product_id: 40345,
+        product_id: currentProductID,
       },
     })
       .then((response) => setReviews(response.data.results))
-      .catch(() => {});
+      .catch((err) => { console.log(err); });
   }, [currentProductID]);
   React.useEffect(() => {
     axios.get('/reviews/meta', {
       params: {
-        product_id: 40345,
+        product_id: currentProductID,
       },
     })
       .then((response) => setMetaData(response.data))
-      .catch(() => {});
+      .catch((err) => { console.log(err); });
   }, [currentProductID]);
 
   // eslint-disable-next-line func-names
@@ -67,7 +69,17 @@ function RatingsAndReviews({ currentProductID }) {
           Write Review
         </StyledButton>
       </div>
-      {showForm && <NewReview renderForm={renderForm} />}
+      {showForm
+        &&
+      (
+        <ModalWrapper $displaymodal={showForm}>
+          <Modal $displaymodal={showForm}>
+            <ModalContent $displaymodal={showForm}>
+              <NewReview renderForm={renderForm} currentProductID={currentProductID} />
+            </ModalContent>
+          </Modal>
+        </ModalWrapper>
+      )}
       <ReviewList reviews={reviews} currentProductID={currentProductID} />
     </div>
   );
