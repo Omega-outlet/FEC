@@ -20,7 +20,7 @@ function ExpandedThumbnail({
   return (
     <div>
 
-          {selectedStyleArray[focalItem].url === photoObj.url
+          {selectedStyleArray[focalItem]?.url === photoObj?.url
             ? (
               <ImageGalleryComponents.CurExpandedThumbnail
                 src={photoObj.thumbnail_url}

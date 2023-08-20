@@ -75,9 +75,9 @@ const Modal = styled.div`
   // flex-direction: column;
   // justify-content: space-between;
   align-items: center;
-  background-color: #fefefe;
+  // background-color: #fefefe;
   padding: 20px;
-  border: 1px solid #888;
+  // border: 1px solid #888;
   width: 80%;
   height: 85%;
   `;
@@ -87,7 +87,7 @@ const ExpandedThumbnail = styled.img`
 width:70px;
 height:70px;
 object-fit: cover;
-opacity: 0.5;
+opacity: 0.7;
 // padding: 2px;
 `;
 
@@ -96,7 +96,7 @@ const CurExpandedThumbnail = styled.img`
 width:70px;
 height:70px;
 object-fit: cover;
-// border: 5px solid black;
+border: 1px solid white;
 `;
 
 export default {
