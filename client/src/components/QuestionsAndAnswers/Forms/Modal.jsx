@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Overlay, ModalContainer, CloseButton } from '../styled-components/Modal.styles.jsx';
 
@@ -10,7 +10,7 @@ function Modal({ isOpen, onClose, children }) {
       <ModalContainer>
         {/* children prop */}
         { children }
-        <CloseButton onClick={onClose}>Close</CloseButton>
+        <CloseButton onClick={onClose}>X</CloseButton>
       </ModalContainer>
     </Overlay>
   );

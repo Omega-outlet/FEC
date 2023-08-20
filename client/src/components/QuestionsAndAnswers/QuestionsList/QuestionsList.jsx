@@ -21,8 +21,8 @@ function QuestionsList({ questions, onHandleAddQuestion }) {
 
   return (
     <div>
-      {questions.length === 0
-       && <AddNewQuestionButton onClick={onHandleAddQuestion} />}
+      {/* {questions.length === 0
+       && <AddNewQuestionButton onClick={onHandleAddQuestion} />} */}
       <QuestionList>
         {sortedQuestions.slice(0, numQuestionsShowed).map((question) => (
           <Question key={question.question_id} question={question} />

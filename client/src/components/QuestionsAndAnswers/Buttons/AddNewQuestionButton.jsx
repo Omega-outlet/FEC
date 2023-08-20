@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Forms/Modal.jsx';
 import QuestionForm from '../Forms/QuestionForm.jsx';
@@ -14,6 +14,14 @@ function AddNewQuestionButton({ productName, onHandleAddQuestion }) {
   const handleCloseModal = () => {
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('overflow-y-hidden');
+    } else {
+      document.body.classList.remove('overflow-y-hidden');
+    }
+  }, [isOpen]);
 
   const handleSubmit = (formData) => {
     onHandleAddQuestion(formData);
