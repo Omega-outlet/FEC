@@ -34,7 +34,7 @@ function RatingsAndReviews({ currentProductID, metaData, setMetaData }) {
     setShowForm((prevView) => !prevView);
   };
   return (
-    <div className="ratingsComponent" style={{ 'padding': '0 40px' }}>
+    <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '0 40px' }}>
       <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
       <div style={
         {
