@@ -46,6 +46,10 @@ const ProductCard = function ({ product, updateProduct, listType }) {
         <tbody>
           <tr>
             <td>
+              <span style={{  right: 0, position: 'absolute' }}>
+                {listType === 'related' && <Compare />}
+                {listType === 'outfit' && <Remove item={product} />}
+              </span>
               {img1 && (
                 <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
               )}
@@ -88,12 +92,6 @@ const ProductCard = function ({ product, updateProduct, listType }) {
           <tr>
             <td>
               *****
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {listType === 'related' && <Compare style={{ textAlign: 'right' }} />}
-              {listType === 'outfit' && <Remove item={product} style={{ textAlign: 'right' }} />}
             </td>
           </tr>
         </tbody>

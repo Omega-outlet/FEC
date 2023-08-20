@@ -57,7 +57,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
   };
 
   // added currentProduct
-  useEffect(getOutfit, []);
+  useEffect(getOutfit, [currentProduct]);
 
   return (
     <div>
@@ -66,7 +66,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
         { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
         { outfit.length === 0 ? <h3>No outfit yet!</h3> : <h3>Your Outfit</h3>}
         <OutfitContext.Provider value={{ removeFromOutfit }}>
-          {outfit.indexOf(currentProduct) < 0 && (
+          {!outfit.find((i) => i.id === currentProduct.id) && (
             <StyledButton onClick={() => addToOutfit(currentProduct)}>
               Add {currentProduct.name} to Your Outfit
             </StyledButton>

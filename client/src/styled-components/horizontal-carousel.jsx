@@ -21,6 +21,7 @@ export const Item = styled.li`
   clip: shape;
   align-items: center;
   background-color: #fafafa;
+  position: relative;
 `;
 // rm background color later, just putting it in for viz
 
