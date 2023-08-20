@@ -7,7 +7,7 @@ import ImageGallery from './ImageGallery.jsx';
 import OverviewContainer from '../../styled-components/overviewcomponents/overview-components.jsx';
 import Promise from 'bluebird';
 
-function Overview({ currentProduct, currentProductID }) {
+function Overview({ currentProduct, currentProductID, reviewData }) {
   const [styles, setStyles] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [selectedStyle, setSelectedStyle] = useState({});
@@ -70,6 +70,7 @@ function Overview({ currentProduct, currentProductID }) {
             mainImage={mainImage}
             setMainImage={setMainImage}
             styles={styles}
+            reviewData={reviewData}
           />
         </OverviewContainer.Half>
       </OverviewContainer.StyledOverviewContainer>

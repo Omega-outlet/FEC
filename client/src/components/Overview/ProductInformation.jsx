@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
+import { StarView } from '../../styled-components/common-elements.jsx';
+import { calculateAverage, calculateTotal} from '../RatingsAndReviews/arithmetic.js';
 
 function ProductInformation({
   currentProduct, currentProductID, styles, selectedStyle,
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
-  setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto, mainImage, setMainImage
+  setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto, mainImage, setMainImage, reviewData
 }) {
   // const [stylesArray, setStylesArray] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +55,8 @@ function ProductInformation({
           { selectedStylePrice }
         </span>
       )}
-
+      {reviewData ? <StarView rating={calculateAverage(reviewData?.ratings)} fontSize={20} /> : null}
+      {reviewData ? ( <i>{`Based on ${calculateTotal(reviewData.recommended)} reviews`}</i>) : null}
       <h3>{ currentProduct.category }</h3>
       <h3>{ currentProduct.description }</h3>
       <ProductInformationComponents.ShareButton>

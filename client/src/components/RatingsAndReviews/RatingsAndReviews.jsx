@@ -7,10 +7,9 @@ import ReviewList from './ReviewList.jsx';
 import NewReview from './NewReview.jsx';
 import { calculateAverage, calculateTotal, calculatePercentage } from './arithmetic.js';
 
-function RatingsAndReviews({ currentProductID }) {
+function RatingsAndReviews({ currentProductID, metaData, setMetaData }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
-  const [metaData, setMetaData] = React.useState('');
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
