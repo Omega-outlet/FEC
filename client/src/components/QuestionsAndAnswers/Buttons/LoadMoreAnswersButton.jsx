@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LoadMoreAnswerButton } from '../styled-components/Buttons.styles.jsx';
 
 function LoadMoreAnswersButton({ onClick, hasMoreAnswers }) {
   // if false, return null. Nothing will be rendered.
   if (!hasMoreAnswers) return null;
 
   return (
-    <button type="button" onClick={onClick}>Load More Answers</button>
+    <LoadMoreAnswerButton type="button" onClick={onClick}>Load More Answers</LoadMoreAnswerButton>
   );
 }
 
