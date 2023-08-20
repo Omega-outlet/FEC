@@ -5,8 +5,6 @@ import DefaultView from './DefaultView.jsx';
 import DefaultThumbnails from './DefaultThumbnails.jsx';
 
 function ImageGallery({ selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal, expandedMainImage, setExpandedMainImage }) {
-
-
   return (
     <ImageGalleryComponents.DefaultContainer data-testid="imageGallery">
       <DefaultView

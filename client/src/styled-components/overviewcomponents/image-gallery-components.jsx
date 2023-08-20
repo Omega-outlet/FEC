@@ -45,7 +45,8 @@ border: 1px solid white;
 const ScrollButton = styled.input`
  height:100px;
   width:30px;
-  color:black;
+  background-color:black;
+  color:white;
 `;
 
 const ExpandedMainPhoto = styled.img`

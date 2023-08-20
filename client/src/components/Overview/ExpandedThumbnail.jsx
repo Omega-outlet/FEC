@@ -13,28 +13,28 @@ function ExpandedThumbnail({
   setMainImage,
   handleImageClick,
   expandedMainImage,
-  setExpandedMainImage
+  setExpandedMainImage,
 }) {
   let altName = '';
   altName += `${selectedStyle.name} ${index}`;
   return (
     <div>
 
-          {selectedStyleArray[focalItem]?.url === photoObj?.url
-            ? (
-              <ImageGalleryComponents.CurExpandedThumbnail
-                src={photoObj.thumbnail_url}
-                alt={altName}
-                value={selectedStyle.name}
-              />
-            ) : (
-              <ImageGalleryComponents.ExpandedThumbnail
-                src={photoObj.thumbnail_url}
-                alt={altName}
-                value={selectedStyle.name}
-                onClick={() => {  handleImageClick(index)}}
-              />
-            )}
+      {selectedStyleArray[focalItem]?.url === photoObj?.url
+        ? (
+          <ImageGalleryComponents.CurExpandedThumbnail
+            src={photoObj.thumbnail_url}
+            alt={altName}
+            value={selectedStyle.name}
+          />
+        ) : (
+          <ImageGalleryComponents.ExpandedThumbnail
+            src={photoObj.thumbnail_url}
+            alt={altName}
+            value={selectedStyle.name}
+            onClick={() => { handleImageClick(index); }}
+          />
+        )}
 
     </div>
   );

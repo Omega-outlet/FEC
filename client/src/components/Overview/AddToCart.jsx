@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Promise from 'bluebird';
 import StyleQuantity from './StyleQuantity.jsx';
+import {
+  StyledButton,
+} from '../../styled-components/common-elements.jsx';
 
 function AddToCart({
   selectedStyle,
@@ -100,7 +103,7 @@ function AddToCart({
         setCartQuantity={setCartQuantity}
       />
 
-      <button type="button" onClick={() => { cartHandle(); }}>Add to cart</button>
+      <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to cart</StyledButton>
     </div>
   );
 }
