@@ -14,7 +14,7 @@ const App = function () {
   their respective useEffect uncommented, not both
   Either code would only load on the first render of the page
   */
-  
+
   // get the first product in the array
   // const loadFirstProduct = () => {
   //   axios
@@ -49,7 +49,7 @@ const App = function () {
       <h1>Omega Outlet</h1>
       <Overview currentProduct={currentProduct} currentProductID={currentProductID} />
       <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
-      <QuestionsAndAnswers currentProductID={currentProductID} />
+      <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
       <RatingsAndReviews currentProductID={currentProductID} />
     </div>
   );
