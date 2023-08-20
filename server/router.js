@@ -9,6 +9,7 @@ router.get('/api/product/styles', controller.overView.getProductStyles);
 router.get('/api/product/related', controller.relatedProducts.getRelatedProducts);
 router.get('/api/product/relatedStyle', controller.relatedProductStyle.getRelatedStyle);
 router.get('/questions', controller.questions.getQuestions);
+router.get('/qa/questions/:question_id/answers', controller.questions.getAnswers);
 router.get('/reviews', controller.ratings.getRatings);
 router.post('/reviews');
 router.get('/reviews/meta', controller.ratings.getMetaData);
