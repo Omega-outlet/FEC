@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const YesAndReportButton = styled.button`
+export const YesAndReportButton = styled.button`
   background: none;
   border: none;
   font-family: var(--body-text-font-family,inherit);
@@ -12,4 +12,9 @@ const YesAndReportButton = styled.button`
     text-decoration: none;
   }
 `;
-export default YesAndReportButton;
+export const YesReportButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+`;

@@ -5,7 +5,8 @@ import HelpfulYesButton from '../../../../utils/HelpfulYesButton.jsx';
 import ReportButton from '../../../../utils/ReportButton.jsx';
 import useHelpfulYes from '../../../../utils/useHelpfulYes.jsx';
 import useReport from '../../../../utils/useReport.jsx';
-import { YesReportButtonContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import { YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
+import { AnswerDetailsContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function Answer({ answer }) {
   const registerHelpfulClick = useHelpfulYes();
@@ -16,24 +17,28 @@ function Answer({ answer }) {
         <strong>A: </strong>
         {answer.body}
       </p>
-      <p>
-        Answered by
-        {' '}
-        {answer.answerer_name === 'Seller' ? <strong>{answer.answerer_name}</strong> : answer.answerer_name}
-        ,
-        {' '}
-        {reFormatDate(answer.date)}
-      </p>
-      <YesReportButtonContainer>
-        <HelpfulYesButton
-          initialCount={answer.helpfulness}
-          onHelpfulClick={() => registerHelpfulClick('answers', answer.id)}
-        />
-        <ReportButton
-          initialReported={answer.reported}
-          onReportClick={() => registerReportClick('answers', answer.id)}
-        />
-      </YesReportButtonContainer>
+      <AnswerDetailsContainer>
+        <div>
+          <p>
+            Answered by
+            {' '}
+            {answer.answerer_name === 'Seller' ? <strong>{answer.answerer_name}</strong> : answer.answerer_name}
+            ,
+            {' '}
+            {reFormatDate(answer.date)}
+          </p>
+        </div>
+        <YesReportButtonContainer>
+          <HelpfulYesButton
+            initialCount={answer.helpfulness}
+            onHelpfulClick={() => registerHelpfulClick('answers', answer.id)}
+          />
+          <ReportButton
+            initialReported={answer.reported}
+            onReportClick={() => registerReportClick('answers', answer.id)}
+          />
+        </YesReportButtonContainer>
+      </AnswerDetailsContainer>
     </li>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import YesAndReportButton from '../src/styled-components/YesAndReportButton.styles.jsx';
+import { YesAndReportButton } from '../src/styled-components/YesAndReportButton.styles.jsx';
 
 function ReportButton({ initialReported, onReportClick }) {
   const [isReported, setIsReported] = useState(initialReported);

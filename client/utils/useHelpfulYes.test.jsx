@@ -24,8 +24,21 @@ describe('useHelpfulYes', () => {
     render(<Test />);
     expect(axios.put).toHaveBeenCalledWith('/qa/questions/1/helpful');
 
-    // You can also add additional tests for the 'answers' and 'review' types
-    // and also for the error condition.
+    // Might want to add review after review gets add
+  });
+  it('should call the correct endpoint for answers type', async () => {
+    axios.put.mockResolvedValue({ status: 204 });
+
+    function Test() {
+      const registerHelpfulClick = useHelpfulYes();
+      act(() => {
+        registerHelpfulClick('answers', 2);
+      });
+      return null;
+    }
+
+    render(<Test />);
+    expect(axios.put).toHaveBeenCalledWith('/qa/answers/2/helpful');
   });
   it('should throw an error for wrong type', async () => {
     const registerHelpfulClick = useHelpfulYes();
