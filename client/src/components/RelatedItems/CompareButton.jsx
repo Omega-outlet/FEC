@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyledButton } from '../../styled-components/common-elements.jsx';
+import RelatedContext from './RelatedContext.jsx';
+// on click, toggle visible
+// add compare item item context
+// on click, send current item, compare item, and toggle show modal
+const CompareButton = function ({ item }) {
+  const { compareItem } = useContext(RelatedContext);
 
-const CompareButton = function () {
-  // small star character for now
-  return <StyledButton onClick={() => console.log('Compare button clicked')}>☆</StyledButton>;
+  return <StyledButton onClick={(event) => compareItem(item, event)}>☆</StyledButton>;
 };
 
 export default CompareButton;

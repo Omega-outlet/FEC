@@ -2,8 +2,6 @@ import { React, useState, useContext } from 'react';
 import ProductCard from './ProductCard.jsx';
 import { Carousel } from '../../styled-components/horizontal-carousel.jsx';
 import ScrollButton from './ScrollButton.jsx';
-// import { StyledButton } from '../../styled-components/common-elements.jsx';
-import OutfitContext from './OutfitContext.jsx';
 
 const ItemList = function({products, updateProduct, listType}) {
   const [focalItem, setFocalItem] = useState(0);

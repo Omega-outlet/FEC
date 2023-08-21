@@ -1,5 +1,7 @@
 //create style component for table design
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import CloseTable from './CloseTableButton.jsx';
 
 const ComparisonTable = function ({currentProduct, comparedProduct}) {
   const[currentFeatures, setCurrentFeatures] = useState([]);
@@ -76,6 +78,11 @@ const ComparisonTable = function ({currentProduct, comparedProduct}) {
       </thead>
       <tbody>
         {tableRows}
+        <tr>
+          <td>
+            <CloseTable />
+          </td>
+        </tr>
       </tbody>
     </table>
   );
