@@ -2,10 +2,11 @@ const axios = require('axios');
 
 module.exports = {
   getRatings: (req, res) => {
-    const productId = req.query.product_id;
+    const { product_id, count } = req.query;
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/', {
       params: {
-        product_id: productId,
+        product_id,
+        count,
       },
       headers: {
         Authorization: process.env.TOKEN,
@@ -28,14 +29,13 @@ module.exports = {
       .catch(() => res.status(404).send());
   },
   addReview: (req, res) => {
-    axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/', {
-      body: req.body,
+    axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/', req.body, {
       headers: {
         Authorization: process.env.TOKEN,
       },
     })
-      .then(() => (res.status(201).send('CREATED')))
-      .catch(() => res.status(404).send());
+      .then(() => res.status(201).send('CREATED'))
+      .catch((err) => res.status(401).send(err));
   },
   // markAsHelpful: (req, res) => {
   //   console.log(req);

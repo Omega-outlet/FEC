@@ -13,15 +13,18 @@ function RatingsAndReviews({ currentProductID }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
   const [metaData, setMetaData] = React.useState('');
+
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
         product_id: currentProductID,
+        count: 50,
       },
     })
       .then((response) => setReviews(response.data.results))
       .catch((err) => { console.log(err); });
   }, [currentProductID]);
+
   React.useEffect(() => {
     axios.get('/reviews/meta', {
       params: {
@@ -31,16 +34,19 @@ function RatingsAndReviews({ currentProductID }) {
       .then((response) => setMetaData(response.data))
       .catch((err) => { console.log(err); });
   }, [currentProductID]);
+
   // eslint-disable-next-line func-names
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };
+
   const submitForm = (formObj) => {
     axios.post('/reviews', formObj)
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
     // setShowForm((prev) => !prev);
   };
+
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 40px' }}>
       <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>

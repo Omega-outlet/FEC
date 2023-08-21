@@ -18,9 +18,11 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     characteristics: {
     },
   });
+
   React.useEffect(() => {
     setCharArray(Object.entries(characteristics));
   }, [characteristics]);
+
   const convertData = (obj) => {
     // eslint-disable-next-line prefer-const
     let { name, value } = obj;
@@ -35,6 +37,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     }
     return value;
   };
+
   const handleChange = (level) => (e) => {
     const { name, value } = e.target;
     if (!level) {
@@ -52,6 +55,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
       });
     }
   };
+
   const renderRadios = (arr, characteristicId) => (
     arr.map((number) => (<input type="radio" value={number} name={characteristicId} onChange={handleChange('characteristics')} required />)));
 
@@ -59,7 +63,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     e.preventDefault();
     submitForm(formData);
   };
-
+  console.log(formData);
   return (
     <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm">
       <label htmlFor="rating">
@@ -91,7 +95,6 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             {renderRadios(radioArray, characteristic[1].id)}
           </RadioStyle>
         ))}
-
       </fieldset>
       <label htmlFor="summary">
         Review Summary:
