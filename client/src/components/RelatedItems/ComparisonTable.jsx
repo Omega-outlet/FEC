@@ -78,12 +78,14 @@ const ComparisonTable = function ({currentProduct, comparedProduct}) {
       </thead>
       <tbody>
         {tableRows}
-        <tr>
-          <td>
-            <CloseTable />
-          </td>
-        </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td> </td>
+          <td> </td>
+          <td><CloseTable /></td>
+        </tr>
+      </tfoot>
     </StyledTable>
   );
 };
