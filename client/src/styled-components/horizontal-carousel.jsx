@@ -23,7 +23,7 @@ export const Item = styled.li`
   background-color: #fafafa;
   position: relative;
 `;
-// rm background color later, just putting it in for viz
+// rm background color if desired later, just putting it in for viz
 
 export const Image = styled.img`
   background-size: cover;

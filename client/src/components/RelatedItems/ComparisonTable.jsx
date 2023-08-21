@@ -1,6 +1,6 @@
-//create style component for table design
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import StyledTable from '../../styled-components/comparison-table.jsx';
 import CloseTable from './CloseTableButton.jsx';
 
 const ComparisonTable = function ({currentProduct, comparedProduct}) {
@@ -68,7 +68,7 @@ const ComparisonTable = function ({currentProduct, comparedProduct}) {
     ));
 
   return (
-    <table>
+    <StyledTable>
       <thead>
         <tr style={{ position: 'sticky' }}>
           <th>{currentProduct.name}</th>
@@ -84,7 +84,7 @@ const ComparisonTable = function ({currentProduct, comparedProduct}) {
           </td>
         </tr>
       </tbody>
-    </table>
+    </StyledTable>
   );
 };
 

@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 import ItemList from './ItemList.jsx';
 import RelatedContext from './RelatedContext.jsx';
 import ComparisonTable from './ComparisonTable.jsx';
-import { StyledButton } from '../../styled-components/common-elements.jsx';
+import { StyledButton, ModalWrapper, Modal, ModalContent } from '../../styled-components/common-elements.jsx';
 
 const RelatedItems = function ({currentProduct, updateProduct}) {
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -80,7 +80,13 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
         <RelatedContext.Provider value={{ removeFromOutfit, compareItem }}>
           { relatedProducts.length === 0 ? <h3>No related items!</h3> : <h3>Related Items</h3>}
           { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
-          { showTable && <ComparisonTable currentProduct={currentProduct} comparedProduct={comparedItem} />}
+          <ModalWrapper $displaymodal={showTable}>
+            <Modal $displaymodal={showTable}>
+              <ModalContent $displaymodal={showTable}>
+                <ComparisonTable currentProduct={currentProduct} comparedProduct={comparedItem} />
+              </ModalContent>
+            </Modal>
+          </ModalWrapper>
           { outfit.length === 0 ? <h3>No outfit yet!</h3> : <h3>Your Outfit</h3>}
           {!outfit.find((i) => i.id === currentProduct.id) && (
             <StyledButton onClick={() => addToOutfit(currentProduct)}>
