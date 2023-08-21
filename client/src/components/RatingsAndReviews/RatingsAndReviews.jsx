@@ -8,6 +8,7 @@ import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
 import NewReview from './NewReview.jsx';
 import { calculateAverage, calculateTotal, calculatePercentage } from './arithmetic.js';
+import CharacteristicsGraph from './CharacteristicsGraph.jsx';
 
 function RatingsAndReviews({ currentProductID }) {
   const [reviews, setReviews] = React.useState([]);
@@ -60,25 +61,35 @@ function RatingsAndReviews({ currentProductID }) {
       }
       >
         {metaData && (
-        <div>
-          <div style={{ 'display': 'flex', 'alignItems': 'flex-start' }}>
-            <span style={{ 'fontSize': '25px', 'paddingRight': '10px' }}>{`${calculateAverage(metaData.ratings)} `}</span>
-            <StarView rating={calculateAverage(metaData.ratings)} fontSize={20} />
+        <div style={{ 'width': '33%' }}>
+          <div>
+            <div style={{ 'display': 'flex', 'alignItems': 'flex-start' }}>
+              <span style={{ 'fontSize': '25px', 'paddingRight': '10px' }}>{`${calculateAverage(metaData.ratings)} `}</span>
+              <StarView rating={calculateAverage(metaData.ratings)} fontSize={20} />
+            </div>
+            <h3 style={{ 'marginTop': '0', 'fontWeight': 'lighter' }}>
+              <i>{`Based on ${calculateTotal(metaData.recommended)} reviews`}</i>
+            </h3>
+            <RatingsGraph metaData={metaData.ratings} />
+            <h5>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</h5>
           </div>
-          <h3 style={{ 'marginTop': '0', 'fontWeight': 'lighter' }}>
-            <i>{`Based on ${calculateTotal(metaData.recommended)} reviews`}</i>
-          </h3>
-          <RatingsGraph metaData={metaData.ratings} />
-          <h5>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</h5>
         </div>
         )}
-        <StyledButton
-          onClick={() => setShowForm((prev) => !prev)}
-          data-testid="newReviewBtn"
-          type="button"
-        >
-          Write Review
-        </StyledButton>
+        {metaData && (
+          <div style={{ 'width': '33%', 'marginTop': '-25px' }}>
+            <CharacteristicsGraph metaData={metaData.characteristics} />
+          </div>
+        )}
+        <div style={{ 'width': '33%', 'display': 'flex', 'justifyContent': 'flex-end' }}>
+          <StyledButton
+            onClick={() => setShowForm((prev) => !prev)}
+            data-testid="newReviewBtn"
+            type="button"
+          >
+            Write Review
+          </StyledButton>
+
+        </div>
       </div>
       {showForm
         &&
@@ -98,7 +109,7 @@ function RatingsAndReviews({ currentProductID }) {
           </Modal>
         </ModalWrapper>
       )}
-      <ReviewList reviews={reviews} currentProductID={currentProductID} />
+      <ReviewList reviews={reviews} currentProductID={currentProductID} metaData={metaData} />
     </div>
   );
 }
