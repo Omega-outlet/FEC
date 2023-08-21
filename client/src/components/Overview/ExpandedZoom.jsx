@@ -5,8 +5,8 @@ import {
   StyledButton, ModalWrapper, Modal, ModalContent,
 } from '../../styled-components/common-elements.jsx';
 
-function ExpandedZoom({ image }) {
-  const [displayZoomed, setDisplayZoomed] = useState(false);
+function ExpandedZoom({ image, width, height, siteWidth, siteHeight }) {
+
 
   // const magnify = (imageURL, imageWidth, imageHeight, zoomWidth, zoomHeight) => {
   //   const zoomStrength = 2.5;

@@ -16,9 +16,11 @@ function ExpandedView({
   const [focalItem, setFocalItem] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
+  const [siteWidth, setSiteWidth] = useState(0);
+  const [siteHeight, setSiteHeight] = useState(0);
+  const [displayZoomed, setDisplayZoomed] = useState(false);
 
   const loadImageDimensions = () => {
-    console.log('loaded image', expandedMainImage);
     // get the dimensions of image to be zoomed
     function getImageDimensions() {
       return new Promise((resolve, reject) => {
@@ -33,11 +35,16 @@ function ExpandedView({
       });
     }
 
-    (async() => {
+    (async () => {
+      // set width and height from the image as it displays on our browser
+      const clientImg = document.getElementById('expandedMain');
+      setSiteWidth(clientImg.width);
+      setSiteHeight(clientImg.height);
       const img = await getImageDimensions(expandedMainImage);
-      setHeight(img.naturalHeight);
-      setWidth(img.naturalWidth);
-    })();
+      // set the width and height from the original image url
+      setWidth(img.width);
+      setHeight(img.height);
+    })().catch(() => { });
   };
   useEffect(loadImageDimensions, [expandedMainImage]);
 
@@ -111,6 +118,7 @@ function ExpandedView({
             <ImageGalleryComponents.ExpandedImageContainer>
               { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : null }
               <ImageGalleryComponents.ExpandedMainPhoto
+                id="expandedMain"
                 src={expandedMainImage}
                 alt={selectedStyle?.name}
               />
@@ -130,6 +138,10 @@ function ExpandedView({
       </ImageGalleryComponents.ModalWrapper>
       <ExpandedZoom
         image={expandedMainImage}
+        width={width}
+        height={height}
+        siteWidth={siteWidth}
+        siteHeight={siteHeight}
       />
     </div>
 

@@ -51,7 +51,7 @@ const ScrollButton = styled.input`
 
 const ExpandedMainPhoto = styled.img`
   // display: block;
-  max-width:800px;
+  max-width:1200px;
   max-height:800px;
   object-fit: scale-down;
   cursor: zoom-in;
