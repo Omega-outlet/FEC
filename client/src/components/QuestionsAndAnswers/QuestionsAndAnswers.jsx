@@ -8,7 +8,7 @@ import { QAContainer } from './styled-components/QuestionsAndAnswers.styles.jsx'
 function QuestionsAndAnswers({ currentProduct, currentProductID }) {
   const [questions, setQuestions] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
-  useEffect(() => {
+  const fetchQuestions = () => {
     axios.get('/questions', {
       params: {
         product_id: currentProductID,
@@ -22,6 +22,10 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  useEffect(() => {
+    fetchQuestions();
   }, [currentProductID]);
 
   const handleSearch = (query) => {
@@ -42,6 +46,7 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
     })
       .then((res) => {
         console.log('New Question added:', res.data);
+        fetchQuestions();
       })
       .catch((err) => console.log('Error adding question:', err));
   };
@@ -60,7 +65,7 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
 QuestionsAndAnswers.propTypes = {
   currentProductID: PropTypes.number.isRequired,
   currentProduct: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
   }).isRequired,
 };
 
