@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Promise from 'bluebird';
 import ExpandedThumbnail from './ExpandedThumbnail.jsx';
+import ExpandedZoom from './ExpandedZoom.jsx';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 import {
   StyledButton, ModalWrapper, Modal, ModalContent,
@@ -13,6 +14,32 @@ function ExpandedView({
   const [isLoading, setIsLoading] = useState(true);
   const [thumbnails, setThumbnails] = useState([]);
   const [focalItem, setFocalItem] = useState(0);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+
+  const loadImageDimensions = () => {
+    console.log('loaded image', expandedMainImage);
+    // get the dimensions of image to be zoomed
+    function getImageDimensions() {
+      return new Promise((resolve, reject) => {
+        if (expandedMainImage) {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = (err) => reject(err);
+          img.src = expandedMainImage;
+        } else {
+          reject(new Error('Not done loading'));
+        }
+      });
+    }
+
+    (async() => {
+      const img = await getImageDimensions(expandedMainImage);
+      setHeight(img.naturalHeight);
+      setWidth(img.naturalWidth);
+    })();
+  };
+  useEffect(loadImageDimensions, [expandedMainImage]);
 
   const loadStylesPhotos = () => {
     // get the thumbnails
@@ -101,6 +128,9 @@ function ExpandedView({
           </ImageGalleryComponents.ExpandedNormal>
         </ImageGalleryComponents.Modal>
       </ImageGalleryComponents.ModalWrapper>
+      <ExpandedZoom
+        image={expandedMainImage}
+      />
     </div>
 
   );

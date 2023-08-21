@@ -51,9 +51,9 @@ const ScrollButton = styled.input`
 
 const ExpandedMainPhoto = styled.img`
   // display: block;
-  width:700px;
-  height:660px;
-  object-fit: cover;
+  max-width:800px;
+  max-height:800px;
+  object-fit: scale-down;
   cursor: zoom-in;
 `;
 
