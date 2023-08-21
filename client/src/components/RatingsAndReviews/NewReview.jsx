@@ -6,6 +6,7 @@ import { StyledButton } from '../../styled-components/common-elements.jsx';
 function NewReview({ renderForm, currentProductID, submitForm, characteristics }) {
   const radioArray = [1, 2, 3, 4, 5];
   const [charArray, setCharArray] = React.useState([]);
+  const [submittedMessage, setSubmittedMessage] = React.useState(false);
   const [formData, setFormData] = React.useState({
     product_id: currentProductID,
     rating: '',
@@ -62,6 +63,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
   const handleSubmit = (e) => {
     e.preventDefault();
     submitForm(formData);
+    setSubmittedMessage(true);
   };
   console.log(formData);
   return (
@@ -120,7 +122,13 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         <input type="email" id="email" name="email" onChange={handleChange()} required />
       </label>
       <br />
-      <StyledButton type="submit" data-testid="formSubmit">Submit Review</StyledButton>
+      <StyledButton
+        type="submit"
+        data-testid="formSubmit"
+      >
+        Submit Review
+      </StyledButton>
+      {submittedMessage && <h3 data-testid="confirmation">Thank you! Your review has been submitted</h3>}
     </form>
 
   );
@@ -130,6 +138,11 @@ NewReview.propTypes = {
   renderForm: propTypes.func.isRequired,
   currentProductID: propTypes.number.isRequired,
   submitForm: propTypes.func.isRequired,
+  characteristics: propTypes.shape({}),
+};
+
+NewReview.defaultProps = {
+  characteristics: {},
 };
 
 const RadioStyle = styled.div`

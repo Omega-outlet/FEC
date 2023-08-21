@@ -22,7 +22,7 @@ function RatingsAndReviews({ currentProductID }) {
       },
     })
       .then((response) => setReviews(response.data.results))
-      .catch((err) => { console.log(err); });
+      .catch(() => {});
   }, [currentProductID]);
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ function RatingsAndReviews({ currentProductID }) {
       },
     })
       .then((response) => setMetaData(response.data))
-      .catch((err) => { console.log(err); });
+      .catch(() => {});
   }, [currentProductID]);
 
   // eslint-disable-next-line func-names
@@ -43,7 +43,7 @@ function RatingsAndReviews({ currentProductID }) {
   const submitForm = (formObj) => {
     axios.post('/reviews', formObj)
       .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+      .catch(() => {});
     // setShowForm((prev) => !prev);
   };
 
@@ -94,7 +94,7 @@ function RatingsAndReviews({ currentProductID }) {
                 characteristics={metaData.characteristics}
               />
             </ModalContent>
-            <StyledButton type="button" onClick={() => setShowForm((prev) => !prev)}>Close</StyledButton>
+            <StyledButton data-testid="closeModal" type="button" onClick={() => setShowForm((prev) => !prev)}>Close</StyledButton>
           </Modal>
         </ModalWrapper>
       )}
