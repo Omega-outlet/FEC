@@ -45,7 +45,7 @@ function Answer({ answer }) {
 
 Answer.propTypes = {
   answer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     helpfulness: PropTypes.number,
     date: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,

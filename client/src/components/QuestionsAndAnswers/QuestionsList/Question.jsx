@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { reFormatDate } from '../../../../utils/reFormatDate.js';
@@ -10,7 +10,7 @@ import {
   QuestionDetailsList, AskerDetailsContainer,
   QuestionAndAnswersContainer,
   QuestionBodyAndHelpfulContainer, AnswerListContainer,
-  BodyAndQuestionContainer,
+  BodyAndQuestionContainer, QuestionAskedByText,
 } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 import { YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
 import HelpfulYesButton from '../../../../utils/HelpfulYesButton.jsx';
@@ -24,6 +24,25 @@ function Question({ productName, question }) {
   // On pageload, 2 answers show up per questions
   const AnswersLoadOnPage = 2;
   const [numAnswersShowed, setNumAnswersShowed] = useState(AnswersLoadOnPage);
+  const [answers, setAnswers] = useState([]);
+
+  const fetchAnswers = () => {
+    axios.get(`/qa/questions/${question.question_id}/answers`, {
+      params: {
+        count: 1000,
+      },
+    })
+      .then((res) => {
+        setAnswers(res.data.results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchAnswers();
+  }, [question.question_id]);
 
   const handleLoadMore = () => {
     setNumAnswersShowed((prev) => prev + 2);
@@ -36,33 +55,37 @@ function Question({ productName, question }) {
       email: answerFormData.email,
       photo: answerFormData.photos,
     })
-      .then((res) => console.log('New Answer added:', res.data))
+      .then((res) => {
+        console.log('New Answer added:', res.data);
+        fetchAnswers();
+      })
       .catch((err) => console.log('Error adding answer:', err));
   };
   return (
     <QuestionDetailsList>
       <AskerDetailsContainer>
-        <p>Question asked by</p>
-        <p>{`${question.asker_name}, ${reFormatDate(question.question_date)}`}</p>
+        <QuestionAskedByText>Question asked by</QuestionAskedByText>
+        <p>{question.asker_name}</p>
+        <p>{reFormatDate(question.question_date)}</p>
       </AskerDetailsContainer>
       <QuestionAndAnswersContainer>
         <QuestionBodyAndHelpfulContainer>
-          <BodyAndQuestionContainer >
-            <p data-testid="question-body">
+          <BodyAndQuestionContainer>
+            <div data-testid="question-body">
               <strong>
                 {`Q: ${question.question_body}`}
               </strong>
-            </p>
-            {Object.values(question.answers).length === 0
+              {answers.length === 0
               && (
                 <AddNewAnswerButton
                   productName={productName}
                   questionBody={question.question_body}
                   onHandleAddAnswer={handleAddNewAnswer}
-                  length={Object.values(question.answers).length}
+                  length={answers.length}
                 />
               )}
-          </BodyAndQuestionContainer >
+            </div>
+          </BodyAndQuestionContainer>
           <YesReportButtonContainer>
             <HelpfulYesButton
               initialCount={question.question_helpfulness}
@@ -72,26 +95,26 @@ function Question({ productName, question }) {
               initialReported={question.reported}
               onReportClick={() => registerReportClick('questions', question.question_id)}
             />
+            {answers.length > 0
+            && (
+              <AddNewAnswerButton
+                productName={productName}
+                questionBody={question.question_body}
+                onHandleAddAnswer={handleAddNewAnswer}
+                length={answers.length}
+              />
+            )}
           </YesReportButtonContainer>
-          {Object.values(question.answers).length > 0
-          && (
-            <AddNewAnswerButton
-              productName={productName}
-              questionBody={question.question_body}
-              onHandleAddAnswer={handleAddNewAnswer}
-              length={Object.values(question.answers).length}
-            />
-          )}
         </QuestionBodyAndHelpfulContainer>
         <AnswerListContainer>
-          {sortByHelpAnswer(Object.values(question.answers))
-            .slice(0, numAnswersShowed).map((answer) => (
-              <Answer key={answer.id} answer={answer} />
+          {sortByHelpAnswer(answers)
+            .slice(0, numAnswersShowed).map((answer, i) => (
+              <Answer key={i} answer={answer} />
             ))}
         </AnswerListContainer>
         <LoadMoreAnswersButton
           onClick={handleLoadMore}
-          hasMoreAnswers={Object.values(question.answers).length > numAnswersShowed}
+          hasMoreAnswers={answers.length > numAnswersShowed}
         />
       </QuestionAndAnswersContainer>
     </QuestionDetailsList>
@@ -107,7 +130,7 @@ Question.propTypes = {
     question_body: PropTypes.string.isRequired,
     reported: PropTypes.bool,
     answers: PropTypes.objectOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.number,
     })).isRequired,
   }).isRequired,
 };
