@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Promise from 'bluebird';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 
-function DefaultView({ selectedStyle, mainImage, setMainImage }) {
+function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const loadStyle = () => {
@@ -30,11 +30,28 @@ function DefaultView({ selectedStyle, mainImage, setMainImage }) {
 
   useEffect(loadStyle, [selectedStyle]);
 
+  const handleExpandedClick = function (e) {
+    setDisplayModal(true);
+  };
+
+  React.useEffect(() => {
+    if (displayModal) {
+      document.body.classList.add('overflow-y-hidden');
+    } else {
+      document.body.classList.remove('overflow-y-hidden');
+    }
+  }, [displayModal]);
   return (
     <div>
       {isLoading
         ? null
-        : (<ImageGalleryComponents.MainPhoto src={mainImage} alt={selectedStyle?.name} />)}
+        : (
+          <ImageGalleryComponents.MainPhoto
+            src={mainImage}
+            alt={selectedStyle?.name}
+            onClick={(e) => handleExpandedClick(e)}
+          />
+        )}
     </div>
 
   );

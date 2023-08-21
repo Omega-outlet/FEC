@@ -11,7 +11,7 @@ router.get('/api/product/relatedStyle', controller.relatedProductStyle.getRelate
 router.get('/questions', controller.questions.getQuestions);
 router.get('/qa/questions/:question_id/answers', controller.questions.getAnswers);
 router.get('/reviews', controller.ratings.getRatings);
-router.post('/reviews');
+router.post('/reviews', controller.ratings.addReview);
 router.get('/reviews/meta', controller.ratings.getMetaData);
 router.put('/reviews/:review_id/helpful');
 router.put('/reviews/:review_id/report');

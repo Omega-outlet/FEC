@@ -3,11 +3,13 @@
  */
 
 import React, {useState} from 'react';
-import { render, screen, waitFor, fireEvent, cleanup } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent, cleanup, act} from '@testing-library/react';
+import userEvent from "@testing-library/user-event";
 import ProductInformation from './ProductInformation.jsx';
 import StyleEntry from './StyleEntry.jsx';
 import Overview from './Overview.jsx';
 import StyleSelector from './StyleSelector.jsx';
+import AddToCart from './AddToCart.jsx';
 
 // afterEach(cleanup);
 
@@ -92,16 +94,16 @@ const styles = {
       ],
       'skus': {
         37: {
-          quantity: 8,
+          quantity: 4,
           size: 'XS',
         },
         38: {
-          quantity: 16,
+          quantity: 2,
           size: 'S',
         },
         39: {
-          quantity: 17,
-          size: 'M',
+          quantity: 5,
+          size: 'L',
         },
       },
     }],
@@ -459,5 +461,58 @@ describe('render style\s info', () => {
     />)
     const newPrice = screen.getByText('70');
     expect(newPrice).toBeTruthy();
+  });
+});
+describe('size selector', () => {
+  it('does not display message to user when user clicks add to cart and has selected a size', async () => {
+    await waitFor(() => render(<AddToCart
+      selectedStyle={styles}
+    />));
+    fireEvent.click(screen.getByTestId("sizeSelect"), {
+      target: { value: "XS" },
+    });
+    userEvent.click(screen.getByText('Add to cart'));
+    await waitFor(() => expect(screen.queryByText('select size before adding to cart')).toBeFalsy());
+  });
+});
+describe('size selector', () => {
+  it('display message to user when user clicks add to cart but does not select a size', async () => {
+    await waitFor(() => render(<AddToCart
+      selectedStyle={styles}
+    />));
+    userEvent.click(screen.getByText('Add to cart'));
+    await waitFor(() => expect(screen.getByText('select size before adding to cart')).toBeTruthy());
+  });
+});
+
+
+describe('add to cart', () => {
+  it('displays no quantity message when adding to cart', async () => {
+    await waitFor(() => render(<AddToCart
+      selectedStyle={styles}
+    />));
+    fireEvent.click(screen.getByTestId("sizeSelect"), {
+      target: { value: "XS" },
+    });
+    fireEvent.click(screen.getByTestId("quantitySelect"), {
+      target: { value: 2 },
+    });
+    userEvent.click(screen.getByText('Add to cart'));
+    await waitFor(() => expect(screen.queryByText('select quantity before adding to cart')).toBeFalsy());
+  });
+});
+describe('add to cart', () => {
+  it('displays no size message when adding to cart', async () => {
+    await waitFor(() => render(<AddToCart
+      selectedStyle={styles}
+    />));
+    fireEvent.click(screen.getByTestId("sizeSelect"), {
+      target: { value: "XS" },
+    });
+    fireEvent.click(screen.getByTestId("quantitySelect"), {
+      target: { value: 2 },
+    });
+    userEvent.click(screen.getByText('Add to cart'));
+    await waitFor(() => expect(screen.queryByText('select size before adding to cart')).toBeFalsy());
   });
 });
