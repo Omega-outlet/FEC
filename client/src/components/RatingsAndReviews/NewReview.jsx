@@ -3,8 +3,9 @@ import propTypes from 'prop-types';
 import styled from 'styled-components';
 import { StyledButton } from '../../styled-components/common-elements.jsx';
 
-function NewReview({ renderForm, currentProductID, submitForm }) {
+function NewReview({ renderForm, currentProductID, submitForm, characteristics }) {
   const radioArray = [1, 2, 3, 4, 5];
+  const [charArray, setCharArray] = React.useState([]);
   const [formData, setFormData] = React.useState({
     product_id: currentProductID,
     rating: '',
@@ -15,14 +16,11 @@ function NewReview({ renderForm, currentProductID, submitForm }) {
     email: '',
     photos: [],
     characteristics: {
-      size: '',
-      width: '',
-      comfort: '',
-      quality: '',
-      length: '',
-      fit: '',
     },
   });
+  React.useEffect(() => {
+    setCharArray(Object.entries(characteristics));
+  }, [characteristics]);
   const convertData = (obj) => {
     // eslint-disable-next-line prefer-const
     let { name, value } = obj;
@@ -54,8 +52,8 @@ function NewReview({ renderForm, currentProductID, submitForm }) {
       });
     }
   };
-  const renderRadios = (arr, characteristic) => (
-    arr.map((number) => (<input type="radio" value={number} name={characteristic} onChange={handleChange('characteristics')} required />)));
+  const renderRadios = (arr, characteristicId) => (
+    arr.map((number) => (<input type="radio" value={number} name={characteristicId} onChange={handleChange('characteristics')} required />)));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -87,30 +85,13 @@ function NewReview({ renderForm, currentProductID, submitForm }) {
       </label>
       <fieldset>
         <legend>Characteristics</legend>
-        <RadioStyle>
-          <legend style={{ 'width': '50px' }}>Size</legend>
-          {renderRadios(radioArray, 'size')}
-        </RadioStyle>
-        <RadioStyle>
-          <legend style={{ 'width': '50px' }}>Width</legend>
-          {renderRadios(radioArray, 'width')}
-        </RadioStyle>
-        <RadioStyle>
-          <legend style={{ 'width': '50px' }}>Comfort</legend>
-          {renderRadios(radioArray, 'comfort')}
-        </RadioStyle>
-        <RadioStyle>
-          <legend style={{ 'width': '50px' }}>Quality</legend>
-          {renderRadios(radioArray, 'quality')}
-        </RadioStyle>
-        <RadioStyle>
-          <legend style={{ 'width': '50px' }}>Length</legend>
-          {renderRadios(radioArray, 'length')}
-        </RadioStyle>
-        <RadioStyle>
-          <legend style={{ 'width': '50px' }}>Fit</legend>
-          {renderRadios(radioArray, 'fit')}
-        </RadioStyle>
+        {charArray.map((characteristic) => (
+          <RadioStyle>
+            <legend style={{ 'width': '50px' }}>{characteristic[0]}</legend>
+            {renderRadios(radioArray, characteristic[1].id)}
+          </RadioStyle>
+        ))}
+
       </fieldset>
       <label htmlFor="summary">
         Review Summary:

@@ -31,7 +31,6 @@ function RatingsAndReviews({ currentProductID }) {
       .then((response) => setMetaData(response.data))
       .catch((err) => { console.log(err); });
   }, [currentProductID]);
-  console.log(metaData.characteristics);
   // eslint-disable-next-line func-names
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
@@ -86,6 +85,7 @@ function RatingsAndReviews({ currentProductID }) {
                 renderForm={renderForm}
                 submitForm={submitForm}
                 currentProductID={currentProductID}
+                characteristics={metaData.characteristics}
               />
             </ModalContent>
             <StyledButton type="button" onClick={() => setShowForm((prev) => !prev)}>Close</StyledButton>
