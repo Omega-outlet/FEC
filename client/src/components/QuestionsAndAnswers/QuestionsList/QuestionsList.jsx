@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { sortByHelpQuestion } from '../utils/sortHelp.js';
 import Question from './Question.jsx';
@@ -8,6 +7,7 @@ import AddNewQuestionButton from '../Buttons/AddNewQuestionButton.jsx';
 import { QuestionList, LoadMoreAndAddNewButtonContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function QuestionsList({ productName, questions, onHandleAddQuestion }) {
+  console.log(questions);
   const sortedQuestions = sortByHelpQuestion(questions);
   // On page load, 2 questions will show up
   const QuestionsLoadOnPage = 2;
@@ -19,8 +19,6 @@ function QuestionsList({ productName, questions, onHandleAddQuestion }) {
 
   return (
     <div>
-      {/* {questions.length === 0
-       && <AddNewQuestionButton onClick={onHandleAddQuestion} />} */}
       <QuestionList>
         {sortedQuestions.slice(0, numQuestionsShowed).map((question) => (
           <Question
@@ -45,9 +43,9 @@ function QuestionsList({ productName, questions, onHandleAddQuestion }) {
 }
 
 QuestionsList.propTypes = {
-  onHandleAddQuestion: PropTypes.func,
+  onHandleAddQuestion: PropTypes.func.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({
-    question_id: PropTypes.number.isRequired,
+    question_id: PropTypes.number,
   })).isRequired,
 };
 

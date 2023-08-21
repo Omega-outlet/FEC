@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Forms/Modal.jsx';
 import AnswerForm from '../Forms/AnswerForm.jsx';
 import { AnswerThisQuestionButton } from '../styled-components/Buttons.styles.jsx';
-import { YesAndReportButton } from '../../../styled-components/YesAndReportButton.styles.jsx';
+import { YesAndReportButton, YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
 
 function AddNewAnswerButton({productName, questionBody, length, onHandleAddAnswer }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,27 +33,35 @@ function AddNewAnswerButton({productName, questionBody, length, onHandleAddAnswe
 
   return (
     <div>
-      {length === 0
-        ? (
-          <AnswerThisQuestionButton type="button" onClick={handleOpenModal}>
-            Answer This Question
-          </AnswerThisQuestionButton>
-        )
-        : (
-          <YesAndReportButton type="button" onClick={handleOpenModal}>
-            Add Answer
-          </YesAndReportButton>
-        )}
-        <Modal isOpen={isOpen} onClose={handleCloseModal}>
-          <AnswerForm
-            productName={productName}
-            questionBody={questionBody}
-            onSubmit={handleSubmit}
-            onCancel={handleCloseModal}
-          />
-        </Modal>
+      <YesReportButtonContainer>
+        {length === 0
+          ? (
+            <AnswerThisQuestionButton type="button" onClick={handleOpenModal}>
+              Answer This Question
+            </AnswerThisQuestionButton>
+          )
+          : (
+            <YesAndReportButton type="button" onClick={handleOpenModal}>
+              Add Answer
+            </YesAndReportButton>
+          )}
+      </YesReportButtonContainer>
+      <Modal isOpen={isOpen} onClose={handleCloseModal}>
+        <AnswerForm
+          productName={productName}
+          questionBody={questionBody}
+          onSubmit={handleSubmit}
+          onCancel={handleCloseModal}
+        />
+      </Modal>
     </div>
-  )
+  );
 }
+AddNewAnswerButton.propTypes = {
+  productName: PropTypes.string.isRequired,
+  questionBody: PropTypes.string.isRequired,
+  length: PropTypes.number.isRequired,
+  onHandleAddAnswer: PropTypes.func.isRequired,
+};
 
 export default AddNewAnswerButton;
