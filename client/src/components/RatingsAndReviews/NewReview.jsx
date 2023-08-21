@@ -20,6 +20,15 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     },
   });
 
+  const descriptionArr = [
+    {attribute: 'size', descArr: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide']},
+    {attribute: 'width', descArr: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide']},
+    {attribute: 'comfort', descArr: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect']},
+    {attribute: 'quality', descArr: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect']},
+    {attribute: 'length', descArr: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long']},
+    {attribute: 'fit', descArr: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long']}
+  ]
+
   React.useEffect(() => {
     setCharArray(Object.entries(characteristics));
   }, [characteristics]);
@@ -58,7 +67,16 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
   };
 
   const renderRadios = (arr, characteristicId) => (
-    arr.map((number) => (<input type="radio" value={number} name={characteristicId} onChange={handleChange('characteristics')} required />)));
+    arr.map((number) => (
+      <input
+        style={{'width': '20%'}}
+        type="radio"
+        value={number}
+        name={characteristicId}
+        onChange={handleChange('characteristics')}
+        required
+      />
+    )));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -93,8 +111,15 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         <legend>Characteristics</legend>
         {charArray.map((characteristic) => (
           <RadioStyle>
-            <legend style={{ 'width': '50px' }}>{characteristic[0]}</legend>
-            {renderRadios(radioArray, characteristic[1].id)}
+            <legend style={{ 'width': '70px' }}>{characteristic[0]}</legend>
+            <div style={{ 'width': '100%' }}>
+              <div style={{ 'display': 'flex', 'justifyContent': 'space-between'}}>
+                {descriptionArr.filter((descObj) => (descObj.attribute === characteristic[0].toLowerCase()))[0].descArr.map((feedback) => <span style={{'fontSize': '10px', 'width': '20%', 'textAlign': 'center'}}>{feedback}</span>)}
+              </div>
+              <div style={{ 'display': 'flex', 'justifyContent': 'space-between'}}>
+                {renderRadios(radioArray, characteristic[1].id)}
+              </div>
+            </div>
           </RadioStyle>
         ))}
       </fieldset>
