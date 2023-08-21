@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { StarView, StyledButton } from '../../styled-components/common-elements.jsx';
+import {
+  StarView, StyledButton, ModalWrapper, Modal, ModalContent
+} from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
 import NewReview from './NewReview.jsx';
@@ -11,19 +13,22 @@ function RatingsAndReviews({ currentProductID }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
   const [metaData, setMetaData] = React.useState('');
+
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
-        product_id: 40345,
+        product_id: currentProductID,
+        count: 50,
       },
     })
       .then((response) => setReviews(response.data.results))
       .catch(() => {});
   }, [currentProductID]);
+
   React.useEffect(() => {
     axios.get('/reviews/meta', {
       params: {
-        product_id: 40345,
+        product_id: currentProductID,
       },
     })
       .then((response) => setMetaData(response.data))
@@ -34,6 +39,14 @@ function RatingsAndReviews({ currentProductID }) {
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };
+
+  const submitForm = (formObj) => {
+    axios.post('/reviews', formObj)
+      .then((response) => console.log(response))
+      .catch(() => {});
+    // setShowForm((prev) => !prev);
+  };
+
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 40px' }}>
       <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
@@ -67,7 +80,24 @@ function RatingsAndReviews({ currentProductID }) {
           Write Review
         </StyledButton>
       </div>
-      {showForm && <NewReview renderForm={renderForm} />}
+      {showForm
+        &&
+      (
+        <ModalWrapper $displaymodal={showForm}>
+          <Modal $displaymodal={showForm}>
+            <h3>Your Review</h3>
+            <ModalContent $displaymodal={showForm}>
+              <NewReview
+                renderForm={renderForm}
+                submitForm={submitForm}
+                currentProductID={currentProductID}
+                characteristics={metaData.characteristics}
+              />
+            </ModalContent>
+            <StyledButton data-testid="closeModal" type="button" onClick={() => setShowForm((prev) => !prev)}>Close</StyledButton>
+          </Modal>
+        </ModalWrapper>
+      )}
       <ReviewList reviews={reviews} currentProductID={currentProductID} />
     </div>
   );
