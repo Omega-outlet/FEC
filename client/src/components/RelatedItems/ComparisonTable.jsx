@@ -60,7 +60,7 @@ const ComparisonTable = function ({currentProduct, comparedProduct}) {
   const tableRows = Object.keys(comparisonObject)
     .sort()
     .map((key) => (
-      <tr>
+      <tr key={key}>
         <td>{comparisonObject[key][0]}</td>
         <td>{key}</td>
         <td>{comparisonObject[key][1]}</td>

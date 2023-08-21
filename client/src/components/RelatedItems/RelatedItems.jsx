@@ -63,8 +63,13 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
   const compareItem = (item, event) => {
     event.stopPropagation();
     //window.event.cancelBubble = true; research later: possibly necessary for IE?
-    if (item) { setComparedItem(item); }
-    setShowTable(!showTable);
+    //using true/false instead of !show to allow immediate clicking on another compare button
+    if (item) {
+      setComparedItem(item);
+      setShowTable(true);
+    } else {
+      setShowTable(false);
+    }
   };
 
   useEffect(getOutfit, [currentProduct]);
