@@ -4,18 +4,25 @@ import ImageGalleryComponents from '../../styled-components/overviewcomponents/i
 import DefaultView from './DefaultView.jsx';
 import DefaultThumbnails from './DefaultThumbnails.jsx';
 
-function ImageGallery({ selectedStyle, mainImage, setMainImage }) {
+function ImageGallery({ selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal, expandedMainImage, setExpandedMainImage }) {
   return (
     <ImageGalleryComponents.DefaultContainer data-testid="imageGallery">
       <DefaultView
         selectedStyle={selectedStyle}
         mainImage={mainImage}
         setMainImage={setMainImage}
+        displayModal={displayModal}
+        setDisplayModal={setDisplayModal}
+        expandedMainImage={expandedMainImage}
+        setExpandedMainImage={setExpandedMainImage}
       />
       <DefaultThumbnails
         selectedStyle={selectedStyle}
         mainImage={mainImage}
         setMainImage={setMainImage}
+        displayModal={displayModal}
+        expandedMainImage={expandedMainImage}
+        setExpandedMainImage={setExpandedMainImage}
       />
     </ImageGalleryComponents.DefaultContainer>
   );
