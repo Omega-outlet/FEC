@@ -19,15 +19,6 @@ function RatingsAndReviews({ currentProductID, metaData, setMetaData }) {
       .then((response) => setReviews(response.data.results))
       .catch(() => {});
   }, [currentProductID]);
-  React.useEffect(() => {
-    axios.get('/reviews/meta', {
-      params: {
-        product_id: 40345,
-      },
-    })
-      .then((response) => setMetaData(response.data))
-      .catch(() => {});
-  }, [currentProductID]);
 
   // eslint-disable-next-line func-names
   const renderForm = function () {

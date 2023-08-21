@@ -44,6 +44,16 @@ const App = function () {
     setCurrentProduct(prod);
   };
 
+  React.useEffect(() => {
+    axios.get('/reviews/meta', {
+      params: {
+        product_id: currentProductID,
+      },
+    })
+      .then((response) => setMetaData(response.data))
+      .catch(() => {});
+  }, [currentProductID]);
+
   return (
     <div>
       <h1>Omega Outlet</h1>
