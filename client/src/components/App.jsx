@@ -48,7 +48,7 @@ const App = function () {
       <h1>Omega Outlet</h1>
       <Overview currentProduct={currentProduct} currentProductID={currentProductID} />
       <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
-      <QuestionsAndAnswers currentProductID={currentProductID} />
+      <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
       <RatingsAndReviews currentProductID={currentProductID} />
     </div>
   );

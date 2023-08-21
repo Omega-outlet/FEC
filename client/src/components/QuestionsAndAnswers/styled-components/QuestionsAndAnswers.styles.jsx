@@ -76,3 +76,8 @@ export const LoadMoreAndAddNewButtonContainer = styled.div`
   flex-direction: row;
   gap: 0.5rem;
 `;
+
+export const BodyAndQuestionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
