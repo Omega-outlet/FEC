@@ -16,6 +16,7 @@ function SearchBar({ onSearch }) {
 
   return (
     <SearchBarContainer>
+      <h2>Customer Questions & Answers</h2>
       <SearchInput
         type="text"
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
