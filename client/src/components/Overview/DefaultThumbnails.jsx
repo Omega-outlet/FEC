@@ -4,7 +4,7 @@ import ImageGalleryComponents from '../../styled-components/overviewcomponents/i
 import PhotoThumbnail from './PhotoThumbnail.jsx';
 import ScrollButton from './DefaultScrollButton.jsx';
 
-function DefaultThumbnails({ selectedStyle, mainImage, setMainImage }) {
+function DefaultThumbnails({ selectedStyle, mainImage, setMainImage, displayModal }) {
   const [focalItem, setFocalItem] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [photosArrayLength, setPhotosArrayLength] = useState(0);

@@ -63,12 +63,13 @@ const App = function () {
         reviewData={metaData}
       />
       <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
-      <QuestionsAndAnswers currentProductID={currentProductID} />
+      <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
       <RatingsAndReviews
         currentProductID={currentProductID}
         metaData={metaData}
         setMetaData={setMetaData}
       />
+
     </div>
   );
 };

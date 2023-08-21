@@ -1,9 +1,13 @@
-import React from 'react';
-import { ButtonWrap } from '../../styled-components/horizontal-carousel.jsx';
+import React, { useContext } from 'react';
+import { StyledButton } from '../../styled-components/common-elements.jsx';
+import RelatedContext from './RelatedContext.jsx';
+// on click, toggle visible
+// add compare item item context
+// on click, send current item, compare item, and toggle show modal
+const CompareButton = function ({ item }) {
+  const { compareItem } = useContext(RelatedContext);
 
-const CompareButton = function ({ currentProduct, comparedProduct }) {
-  // small star character for now
-  return <ButtonWrap onClick={() => console.log('Compare button clicked')}>☆</ButtonWrap>;
+  return <StyledButton onClick={(event) => compareItem(item, event)}>☆</StyledButton>;
 };
 
 export default CompareButton;

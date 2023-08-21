@@ -22,6 +22,24 @@ module.exports = {
         res.status(500).send({ message: 'Failed to get question list!' });
       });
   },
+  getAnswers: (req, res) => {
+    const questionID = req.params.question_id;
+    const { page, count } = req.query;
+    axios.get(`${API_URL}/qa/questions/${questionID}/answers`, {
+      params: {
+        page,
+        count,
+      },
+      headers: {
+        Authorization: process.env.TOKEN,
+      },
+    })
+      .then((response) => res.status(200).send(response.data))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({ message: 'Failed to get answers!' });
+      });
+  },
   addQuestion: (req, res) => {
     const { body, name, email } = req.body;
     const productId = req.body.product_id;

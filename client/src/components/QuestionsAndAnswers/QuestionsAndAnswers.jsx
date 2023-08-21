@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import QuestionsList from './QuestionsList/QuestionsList.jsx';
 import SearchBar from './Buttons/SearchBar.jsx';
 import { QAContainer } from './styled-components/QuestionsAndAnswers.styles.jsx';
 
-function QuestionsAndAnswers(currentProductID) {
+function QuestionsAndAnswers({ currentProduct, currentProductID }) {
   const [questions, setQuestions] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
-
-  const productId = 40353;
-
-  useEffect(() => {
+  const fetchQuestions = () => {
     axios.get('/questions', {
       params: {
-        product_id: productId,
+        product_id: currentProductID,
         count: 100,
       },
     })
@@ -24,7 +22,11 @@ function QuestionsAndAnswers(currentProductID) {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchQuestions();
+  }, [currentProductID]);
 
   const handleSearch = (query) => {
     if (query) {
@@ -40,19 +42,31 @@ function QuestionsAndAnswers(currentProductID) {
       body: questionFormData.question,
       name: questionFormData.nickname,
       email: questionFormData.email,
-      product_id: productId,
+      product_id: currentProductID,
     })
       .then((res) => {
         console.log('New Question added:', res.data);
+        fetchQuestions();
       })
       .catch((err) => console.log('Error adding question:', err));
   };
   return (
     <QAContainer>
       <SearchBar onSearch={handleSearch} />
-      <QuestionsList questions={filteredQuestions} onHandleAddQuestion={handleAddNewQuestion} />
+      <QuestionsList
+        productName={currentProduct.name}
+        questions={filteredQuestions}
+        onHandleAddQuestion={handleAddNewQuestion}
+      />
     </QAContainer>
   );
 }
+
+QuestionsAndAnswers.propTypes = {
+  currentProductID: PropTypes.number.isRequired,
+  currentProduct: PropTypes.shape({
+    name: PropTypes.string,
+  }).isRequired,
+};
 
 export default QuestionsAndAnswers;

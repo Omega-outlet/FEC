@@ -4,8 +4,8 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import ProductInformation from './ProductInformation.jsx';
 import ImageGallery from './ImageGallery.jsx';
+import ExpandedView from './ExpandedView.jsx';
 import OverviewContainer from '../../styled-components/overviewcomponents/overview-components.jsx';
-import Promise from 'bluebird';
 
 function Overview({ currentProduct, currentProductID, reviewData }) {
   const [styles, setStyles] = useState({});
@@ -16,6 +16,34 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
   const [selectedStyleName, setSelectedStyleName] = useState('');
   const [selectedStylePhoto, setSelectedStylePhoto] = useState([]);
   const [mainImage, setMainImage] = useState('');
+  const [displayModal, setDisplayModal] = React.useState(false);
+
+  const [expandedMainImage, setExpandedMainImage] = useState('');
+
+  const loadMainImageToExpanded = () => {
+    // get the thumbnails
+    function getExpandedImage() {
+      let didSucceed = false;
+      return new Promise((resolve, reject) => {
+        if (typeof mainImage !== 'undefined') {
+          didSucceed = true;
+        }
+        if (didSucceed === true) {
+          resolve(mainImage);
+        } else {
+          reject(new Error('Not done loading'));
+        }
+      });
+    }
+
+    getExpandedImage()
+      .then((data) => {
+        setExpandedMainImage(data);
+      })
+      .catch(() => { });
+  };
+
+  useEffect(loadMainImageToExpanded, [mainImage]);
 
   // get the styles of the current product
   const loadProductStyles = () => {
@@ -51,8 +79,19 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
             selectedStyle={selectedStyle}
             mainImage={mainImage}
             setMainImage={setMainImage}
+            displayModal={displayModal}
+            setDisplayModal={setDisplayModal}
           />
+
         </OverviewContainer.Half>
+        <ExpandedView
+          currentProduct={currentProduct}
+          selectedStyle={selectedStyle}
+          displayModal={displayModal}
+          setDisplayModal={setDisplayModal}
+          expandedMainImage={expandedMainImage}
+          setExpandedMainImage={setExpandedMainImage}
+        />
         <OverviewContainer.Half>
           <ProductInformation
             currentProduct={currentProduct}
