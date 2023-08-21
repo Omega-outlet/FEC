@@ -68,7 +68,7 @@ const ComparisonTable = function ({currentProduct, comparedProduct}) {
     ));
 
   return (
-    <StyledTable>
+    <StyledTable data-testid="compareTableTest">
       <thead>
         <tr style={{ position: 'sticky' }}>
           <th>{currentProduct.name}</th>

@@ -73,7 +73,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
   };
 
   useEffect(getOutfit, [currentProduct]);
-
+  //added conditional rendering to comparison table in addition to modals to pass tests
   return (
     <div>
       <center>
@@ -83,7 +83,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
           <ModalWrapper $displaymodal={showTable}>
             <Modal $displaymodal={showTable}>
               <ModalContent $displaymodal={showTable}>
-                <ComparisonTable currentProduct={currentProduct} comparedProduct={comparedItem} />
+                { showTable && <ComparisonTable currentProduct={currentProduct} comparedProduct={comparedItem} /> }
               </ModalContent>
             </Modal>
           </ModalWrapper>

@@ -5,7 +5,7 @@ import RelatedContext from './RelatedContext.jsx';
 const RemoveItemButton = function ({ item }) {
   const { removeFromOutfit } = useContext(RelatedContext);
 
-  return <StyledButton onClick={() => removeFromOutfit(item)}>X</StyledButton>;
+  return <StyledButton onClick={(event) => removeFromOutfit(item, event)}>X</StyledButton>;
 };
 
 export default RemoveItemButton;
