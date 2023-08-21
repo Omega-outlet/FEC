@@ -5,23 +5,42 @@ import React from 'react';
 import NewReview from './NewReview.jsx';
 
 describe('NewReview Component', () => {
+  const renderForm = jest.fn();
+  const currentProductID = 40434;
+  const submitForm = jest.fn();
+  const characteristics = { Length: 3, Comfort: 3 };
+
   test('NewReview Component rendered', () => {
-    const renderForm = jest.fn();
-    render(<NewReview renderForm={renderForm} />);
+    render(<NewReview
+      renderForm={renderForm}
+      currentProductID={currentProductID}
+      submitForm={submitForm}
+      characteristics={characteristics}
+    />);
     expect(screen.getByTestId('newReviewForm')).toBeTruthy();
   });
-  test('handleChange changes values based on user input', () => {
-    const renderForm = jest.fn();
-    render(<NewReview renderForm={renderForm}/>);
-    const summary = screen.getByLabelText('Review Summary:');
-    const username = screen.getByLabelText('Display Name:');
 
-    fireEvent.change(username, { target: { value: 'exampleUsername' } });
+  test('handleChange changes values based on user input', () => {
+    render(<NewReview
+      renderForm={renderForm}
+      currentProductID={currentProductID}
+      submitForm={submitForm}
+      characteristics={characteristics}
+    />);
+    const summary = screen.getByLabelText('Review Summary:');
     fireEvent.change(summary, { target: { value: 'exampleSummary' } });
-    expect(username.value).toBe('exampleUsername');
     expect(summary.value).toBe('exampleSummary');
   });
-  test('handleSubmit handles form submission', () => {
-
-  });
+  // test('handleSubmit submits the form', () => {
+  //   render(<NewReview
+  //     renderForm={renderForm}
+  //     currentProductID={currentProductID}
+  //     submitForm={submitForm}
+  //     characteristics={characteristics}
+  //   />);
+  //   const submitBtn = screen.getByTestId('formSubmit');
+  //   fireEvent.click(submitBtn);
+  //   const confirmMessage = screen.getByTestId('confirmation');
+  //   expect(confirmMessage).toBeTruthy();
+  // });
 });

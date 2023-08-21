@@ -1,10 +1,10 @@
 /*
- * Button styles inspired by or adapted from work by Raj Kamal.
+ * RoundedPulseButton styles inspired by or adapted from work by Raj Kamal.
  * All rights reserved by the original author.
  * This adaptation or usage does not imply any affiliation
  * with or endorsement by the original creator.
  */
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 const moveInBottom = keyframes`
     0% {
@@ -60,4 +60,29 @@ export const RoundedPulseButton = styled.button`
         transform: scaleX(1.4) scaleY(1.6);
         opacity: 0;
     }
+`;
+
+export const LoadMoreAnswerButton = styled.button`
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  color: #003057;
+  cursor: pointer;
+  background: none;
+  padding-left: 0;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const AnswerThisQuestionButton = styled.button`
+  text-decoration: none;
+  border: none;
+  color: #007185;
+  background: none;
+  cursor: pointer;
+  padding-left: 0;
+  &:hover {
+    text-decoration: underline;
+  }
 `;

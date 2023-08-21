@@ -1,131 +1,164 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import styled from 'styled-components';
+import { StyledButton } from '../../styled-components/common-elements.jsx';
 
-function NewReview({ renderForm }) {
+function NewReview({ renderForm, currentProductID, submitForm, characteristics }) {
+  const radioArray = [1, 2, 3, 4, 5];
+  const [charArray, setCharArray] = React.useState([]);
+  const [submittedMessage, setSubmittedMessage] = React.useState(false);
   const [formData, setFormData] = React.useState({
+    product_id: currentProductID,
     rating: '',
-    recommend: true,
-    size: '',
-    width: '',
-    comfort: '',
-    quality: '',
-    length: '',
-    fit: '',
     summary: '',
     body: '',
+    recommend: '',
     name: '',
     email: '',
+    photos: [],
+    characteristics: {
+    },
   });
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
+
+  React.useEffect(() => {
+    setCharArray(Object.entries(characteristics));
+  }, [characteristics]);
+
+  const convertData = (obj) => {
+    // eslint-disable-next-line prefer-const
+    let { name, value } = obj;
+    if (name === 'rating') {
+      return Number(value);
     }
-    ));
-  }
-  function handleSubmit(event) {
-    event.preventDefault();
-    renderForm();
-  }
+    if (name === 'recommend') {
+      if (value === 'true') {
+        return true;
+      }
+      return false;
+    }
+    return value;
+  };
+
+  const handleChange = (level) => (e) => {
+    const { name, value } = e.target;
+    if (!level) {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: convertData(e.target),
+      }));
+    } else {
+      setFormData({
+        ...formData,
+        [level]: {
+          ...formData[level],
+          [name]: Number(value),
+        },
+      });
+    }
+  };
+
+  const renderRadios = (arr, characteristicId) => (
+    arr.map((number) => (<input type="radio" value={number} name={characteristicId} onChange={handleChange('characteristics')} required />)));
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submitForm(formData);
+    setSubmittedMessage(true);
+  };
+  console.log(formData);
   return (
-    <form onSubmit={handleSubmit} data-testid="newReviewForm">
+    <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm">
       <label htmlFor="rating">
         {'Rating: '}
-        {'<SelectStars />'}
+        <div>
+          {radioArray.map((num) => {
+            if (num.toString() <= formData.rating) {
+              return <SelectedStar name="rating" value={num} onMouseOver={handleChange()} type="button">★</SelectedStar>;
+            }
+            return <NotSelectedStar name="rating" value={num} onMouseOver={handleChange()} type="button">★</NotSelectedStar>;
+          })}
+        </div>
       </label>
       <br />
       <legend>Would you recommend this product?</legend>
       <label htmlFor="yes">
         {'Yes: '}
-        <input type="radio" value="yes" name="recommend" onChange={handleChange} required />
+        <input type="radio" value="true" name="recommend" onChange={handleChange()} required />
       </label>
       <label htmlFor="no">
         {'No: '}
-        <input type="radio" value="no" name="recommend" onChange={handleChange} />
+        <input type="radio" value="false" name="recommend" onChange={handleChange()} />
       </label>
       <fieldset>
         <legend>Characteristics</legend>
-        <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
-          <legend style={{ 'width': '50px' }}>Size</legend>
-          <input type="radio" value="1" name="size" onChange={handleChange} required />
-          <input type="radio" value="2" name="size" onChange={handleChange} />
-          <input type="radio" value="3" name="size" onChange={handleChange} />
-          <input type="radio" value="4" name="size" onChange={handleChange} />
-          <input type="radio" value="5" name="size" onChange={handleChange} />
-        </div>
-        <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
-          <legend style={{ 'width': '50px' }}>Width</legend>
-          <input type="radio" value="1" name="width" onChange={handleChange} required />
-          <input type="radio" value="2" name="width" onChange={handleChange} />
-          <input type="radio" value="3" name="width" onChange={handleChange} />
-          <input type="radio" value="4" name="width" onChange={handleChange} />
-          <input type="radio" value="5" name="width" onChange={handleChange} />
-        </div>
-        <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
-          <legend style={{ 'width': '50px' }}>Comfort</legend>
-          <input type="radio" value="1" name="comfort" onChange={handleChange} required />
-          <input type="radio" value="2" name="comfort" onChange={handleChange} />
-          <input type="radio" value="3" name="comfort" onChange={handleChange} />
-          <input type="radio" value="4" name="comfort" onChange={handleChange} />
-          <input type="radio" value="5" name="comfort" onChange={handleChange} />
-        </div>
-        <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
-          <legend style={{ 'width': '50px' }}>Quality</legend>
-          <input type="radio" value="1" name="quality" onChange={handleChange} required />
-          <input type="radio" value="2" name="quality" onChange={handleChange} />
-          <input type="radio" value="3" name="quality" onChange={handleChange} />
-          <input type="radio" value="4" name="quality" onChange={handleChange} />
-          <input type="radio" value="5" name="quality" onChange={handleChange} />
-        </div>
-        <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
-          <legend style={{ 'width': '50px' }}>Length</legend>
-          <input type="radio" value="1" name="length" onChange={handleChange} required />
-          <input type="radio" value="2" name="length" onChange={handleChange} />
-          <input type="radio" value="3" name="length" onChange={handleChange} />
-          <input type="radio" value="4" name="length" onChange={handleChange} />
-          <input type="radio" value="5" name="length" onChange={handleChange} />
-        </div>
-        <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'height': '35px', 'padding': '0 25px' }}>
-          <legend style={{ 'width': '50px' }}>Fit</legend>
-          <input type="radio" value="1" name="fit" onChange={handleChange} required />
-          <input type="radio" value="2" name="fit" onChange={handleChange} />
-          <input type="radio" value="3" name="fit" onChange={handleChange} />
-          <input type="radio" value="4" name="fit" onChange={handleChange} />
-          <input type="radio" value="5" name="fit" onChange={handleChange} />
-        </div>
+        {charArray.map((characteristic) => (
+          <RadioStyle>
+            <legend style={{ 'width': '50px' }}>{characteristic[0]}</legend>
+            {renderRadios(radioArray, characteristic[1].id)}
+          </RadioStyle>
+        ))}
       </fieldset>
       <label htmlFor="summary">
         Review Summary:
         <br />
-        <input type="text" id="summary" maxLength="60" name="summary" onChange={handleChange} required />
+        <input type="text" id="summary" maxLength="60" name="summary" onChange={handleChange()} required />
       </label>
       <br />
       <label htmlFor="reviewBody">
         Review:
         <br />
-        <textarea id="reviewBody" name="body" onChange={handleChange} required />
+        <textarea id="reviewBody" name="body" onChange={handleChange()} required />
       </label>
       <br />
       <label htmlFor="username">
         Display Name:
         <br />
-        <input type="text" id="username" name="username" onChange={handleChange} required />
+        <input type="text" id="username" name="name" onChange={handleChange()} required />
       </label>
       <label htmlFor="email">
         <br />
         {'Email (we won\'t share it):'}
         <br />
-        <input type="email" id="email" name="email" onChange={handleChange} required />
+        <input type="email" id="email" name="email" onChange={handleChange()} required />
       </label>
       <br />
-      <button type="submit" data-testid="formSubmit">Submit Review</button>
+      <StyledButton
+        type="submit"
+        data-testid="formSubmit"
+      >
+        Submit Review
+      </StyledButton>
+      {submittedMessage && <h3 data-testid="confirmation">Thank you! Your review has been submitted</h3>}
     </form>
+
   );
 }
 
 NewReview.propTypes = {
   renderForm: propTypes.func.isRequired,
+  currentProductID: propTypes.number.isRequired,
+  submitForm: propTypes.func.isRequired,
+  characteristics: propTypes.shape({}),
 };
+
+NewReview.defaultProps = {
+  characteristics: {},
+};
+
+const RadioStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 35px;
+  padding: 0 25px;`;
+
+const SelectedStar = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 30px;
+  color: black`;
+
+const NotSelectedStar = styled(SelectedStar)`
+  color: lightgray`;
 
 export default NewReview;
