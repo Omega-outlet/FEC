@@ -27,9 +27,16 @@ module.exports = {
       .then((response) => res.status(200).send(response.data))
       .catch(() => res.status(404).send());
   },
-  // addReview: (req, res) => {
-  //   console.log(req);
-  // },
+  addReview: (req, res) => {
+    axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/', {
+      body: req.body,
+      headers: {
+        Authorization: process.env.TOKEN,
+      },
+    })
+      .then(() => (res.status(201).send('CREATED')))
+      .catch(() => res.status(404).send());
+  },
   // markAsHelpful: (req, res) => {
   //   console.log(req);
   // },

@@ -10,7 +10,7 @@ router.get('/api/product/related', controller.relatedProducts.getRelatedProducts
 router.get('/api/product/relatedStyle', controller.relatedProductStyle.getRelatedStyle);
 router.get('/questions', controller.questions.getQuestions);
 router.get('/reviews', controller.ratings.getRatings);
-router.post('/reviews');
+router.post('/reviews', controller.ratings.addReview);
 router.get('/reviews/meta', controller.ratings.getMetaData);
 router.put('/reviews/:review_id/helpful');
 router.put('/reviews/:review_id/report');

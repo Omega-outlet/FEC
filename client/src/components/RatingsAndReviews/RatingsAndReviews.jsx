@@ -31,10 +31,16 @@ function RatingsAndReviews({ currentProductID }) {
       .then((response) => setMetaData(response.data))
       .catch((err) => { console.log(err); });
   }, [currentProductID]);
-
+  console.log(metaData.characteristics);
   // eslint-disable-next-line func-names
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
+  };
+  const submitForm = (formObj) => {
+    axios.post('/reviews', formObj)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+    // setShowForm((prev) => !prev);
   };
   return (
     <div className="ratingsComponent" style={{ 'padding': '0 40px' }}>
@@ -74,9 +80,15 @@ function RatingsAndReviews({ currentProductID }) {
       (
         <ModalWrapper $displaymodal={showForm}>
           <Modal $displaymodal={showForm}>
+            <h3>Your Review</h3>
             <ModalContent $displaymodal={showForm}>
-              <NewReview renderForm={renderForm} currentProductID={currentProductID} />
+              <NewReview
+                renderForm={renderForm}
+                submitForm={submitForm}
+                currentProductID={currentProductID}
+              />
             </ModalContent>
+            <StyledButton type="button" onClick={() => setShowForm((prev) => !prev)}>Close</StyledButton>
           </Modal>
         </ModalWrapper>
       )}
