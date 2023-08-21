@@ -80,6 +80,11 @@ margin: 1px;
 }
 `;
 
+const Ratings = styled.div`
+position:relative;
+float: right;
+`;
+
 export default {
   StyleSelectorContainer,
   StyleEntryThumbnail,
@@ -91,4 +96,5 @@ export default {
   ShareButton,
   ClickedStyleThumbnail,
   EntryContainer,
+  Ratings,
 };

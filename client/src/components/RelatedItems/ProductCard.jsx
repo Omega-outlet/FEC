@@ -7,7 +7,7 @@ import Compare from './CompareButton.jsx';
 import Remove from './RemoveItemButton.jsx';
 
 const ProductCard = function ({ product, updateProduct, listType }) {
-  const [productData, setProductData] = useState({});
+  // const [productData, setProductData] = useState({});
   const [img1, setImg1] = useState('https://tinyurl.com/bp78yn9f');
   const [img2, setImg2] = useState('https://tinyurl.com/2tb6ry8d'); //random imgs for defaults
   const [salePrice, setSalePrice] = useState('');
@@ -24,17 +24,18 @@ const ProductCard = function ({ product, updateProduct, listType }) {
     })
       .then((response) => {
         const defaultStyle = response.data.results.find((style) => style['default?']);
-        setProductData(defaultStyle);
+        // setProductData(defaultStyle);
         // check for data existing on the backend
         if (defaultStyle.photos[0].url) { setImg1(defaultStyle.photos[0].url); }
         if (defaultStyle.photos[1].url) { setImg2(defaultStyle.photos[1].url); }
         if (defaultStyle.sale_price) { setSalePrice(defaultStyle.sale_price); }
       })
-      .catch((error) => console.log('Missing backend data replaced with dummy data -', error.message));
+      .catch((error) => console.log(`Missing product data for ${product.name}: `, error.message));
   };
 
   const onHover = () => setHover(!hover);
-  const handleClick = () => {
+
+  const handleClick = (event) => {
     updateProduct(product.id, product);
   };
 
@@ -46,6 +47,10 @@ const ProductCard = function ({ product, updateProduct, listType }) {
         <tbody>
           <tr>
             <td>
+              <span style={{ right: 0, position: 'absolute' }}>
+                {listType === 'related' && <Compare item={product}/>}
+                {listType === 'outfit' && <Remove item={product} />}
+              </span>
               {img1 && (
                 <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
               )}
@@ -71,9 +76,10 @@ const ProductCard = function ({ product, updateProduct, listType }) {
               {salePrice
                 ? (
                   <>
-                    <em>
+                    <em style={{ color: 'red' }}>
                       $
                       {salePrice}
+                      &nbsp;
                     </em>
                     <s>
                       $
@@ -87,12 +93,6 @@ const ProductCard = function ({ product, updateProduct, listType }) {
           <tr>
             <td>
               *****
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {listType === 'related' && <Compare style={{ textAlign: 'right' }} />}
-              {listType === 'outfit' && <Remove item={product} style={{ textAlign: 'right' }} />}
             </td>
           </tr>
         </tbody>

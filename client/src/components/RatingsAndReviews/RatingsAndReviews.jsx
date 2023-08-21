@@ -9,11 +9,10 @@ import ReviewList from './ReviewList.jsx';
 import NewReview from './NewReview.jsx';
 import { calculateAverage, calculateTotal, calculatePercentage } from './arithmetic.js';
 
-function RatingsAndReviews({ currentProductID }) {
+function RatingsAndReviews({ currentProductID, metaData, setMetaData }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
-  const [metaData, setMetaData] = React.useState('');
-
+  
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
@@ -22,16 +21,6 @@ function RatingsAndReviews({ currentProductID }) {
       },
     })
       .then((response) => setReviews(response.data.results))
-      .catch(() => {});
-  }, [currentProductID]);
-
-  React.useEffect(() => {
-    axios.get('/reviews/meta', {
-      params: {
-        product_id: currentProductID,
-      },
-    })
-      .then((response) => setMetaData(response.data))
       .catch(() => {});
   }, [currentProductID]);
 
@@ -48,7 +37,7 @@ function RatingsAndReviews({ currentProductID }) {
   };
 
   return (
-    <div className="ratingsComponent" style={{ 'padding': '0 40px' }}>
+    <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '0 40px' }}>
       <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
       <div style={
         {
