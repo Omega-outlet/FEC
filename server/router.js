@@ -8,6 +8,7 @@ router.get('/api/randomproduct', controller.products.getRandomProduct);
 router.get('/api/product/styles', controller.overView.getProductStyles);
 router.get('/api/product/related', controller.relatedProducts.getRelatedProducts);
 router.get('/api/product/relatedStyle', controller.relatedProductStyle.getRelatedStyle);
+router.get('/api/product/features', controller.features.getFeatures);
 router.get('/questions', controller.questions.getQuestions);
 router.get('/qa/questions/:question_id/answers', controller.questions.getAnswers);
 router.get('/reviews', controller.ratings.getRatings);

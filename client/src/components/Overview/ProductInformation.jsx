@@ -4,12 +4,14 @@ import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import OverviewContainer from '../../styled-components/overviewcomponents/overview-components.jsx';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
+import { StarView } from '../../styled-components/common-elements.jsx';
+import { calculateAverage, calculateTotal } from '../RatingsAndReviews/arithmetic.js';
 
 function ProductInformation({
   currentProduct, currentProductID, styles, selectedStyle,
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
-  setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto, mainImage, setMainImage,
+  setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto, mainImage, setMainImage, reviewData,
 }) {
   // const [stylesArray, setStylesArray] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +40,7 @@ function ProductInformation({
 
   return (
       <OverviewContainer.Half>
-        <h1>{ currentProduct.name }</h1>
+        <h1>{ currentProduct.name }</h1>    
         {selectedStyleSalePrice ? (
           <span>
             <s>{ selectedStylePrice }</s>
@@ -54,7 +56,27 @@ function ProductInformation({
             { selectedStylePrice }
           </span>
         )}
-
+        <ProductInformationComponents.Ratings>
+          {reviewData ? (
+            <StarView
+              rating={calculateAverage(reviewData?.ratings)}
+              fontSize={20}
+            />
+          )
+            : null}
+          {reviewData ? (
+            <span>
+              read all
+              {' '}
+              <a href="#ratingsComponent">
+                {' '}
+                {calculateTotal(reviewData.recommended)}
+              </a>
+              {' '}
+              reviews
+            </span>
+          ) : null}
+        </ProductInformationComponents.Ratings>
         <h3>{ currentProduct.category }</h3>
         <h3>{ currentProduct.description }</h3>
         <ProductInformationComponents.ShareButton>

@@ -3,11 +3,15 @@ import axios from 'axios';
 import { useState, useEffect, useContext } from 'react';
 
 import ItemList from './ItemList.jsx';
-import OutfitContext from './OutfitContext.jsx';
+import RelatedContext from './RelatedContext.jsx';
+import ComparisonTable from './ComparisonTable.jsx';
+import { StyledButton, ModalWrapper, Modal, ModalContent } from '../../styled-components/common-elements.jsx';
 
-const RelatedItems = function ({currentProduct, updateProduct}) {
+const RelatedItems = function ({ currentProduct, updateProduct }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [outfit, setOutfit] = useState([]);
+  const [showTable, setShowTable] = useState(false);
+  const [comparedItem, setComparedItem] = useState({});
 
   useEffect(() => {
     axios.get('/api/product/related', {
@@ -22,14 +26,13 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
       .catch((error) => error.message);
   }, [currentProduct]);
 
-  const getOutfit = () => {
+  useEffect(() => {
     const storedOutfit = localStorage.getItem('yourOutfit');
-    console.log('Outfit currently stored: ', storedOutfit);
     if (storedOutfit) {
       const outfitArray = JSON.parse(storedOutfit);
       setOutfit(outfitArray);
     }
-  };
+  }, [currentProduct]);
 
   // only if item doesn't already exist
   const addToOutfit = (item) => {
@@ -45,32 +48,52 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
     localStorage.setItem('yourOutfit', JSON.stringify(outfitArray));
   };
 
-  const removeFromOutfit = (item) => {
+  const removeFromOutfit = (item, event) => {
+    event.stopPropagation();
     const storedOutfit = localStorage.getItem('yourOutfit');
     let outfitArray = [];
     if (storedOutfit) {
       outfitArray = JSON.parse(storedOutfit);
     }
-    console.log('Item to remove: ', item);
     outfitArray = outfitArray.filter((i) => i.id !== item.id);
-    console.log('New outfit array: ', outfitArray);
     setOutfit(outfitArray);
     localStorage.setItem('yourOutfit', JSON.stringify(outfitArray));
   };
 
-  // added currentProduct
-  useEffect(getOutfit, []);
+  const compareItem = (item, event) => {
+    event.stopPropagation();
+    //window.event.cancelBubble = true; research later: possibly necessary for IE?
+    if (item) {
+      setComparedItem(item);
+      setShowTable(true);
+    } else {
+      setShowTable(false);
+    }
+  };
 
   return (
     <div>
       <center>
-        <h3>Related Items</h3>
-        { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
-        <h3>Your Outfit</h3>
-        { outfit.length === 0 && <h4>No outfit yet!</h4> }
-        <OutfitContext.Provider value={{ addToOutfit, removeFromOutfit }}>
-          <ItemList currentProduct={currentProduct} products={outfit} updateProduct={updateProduct} listType="outfit" />
-        </OutfitContext.Provider>
+        <RelatedContext.Provider value={{ removeFromOutfit, compareItem }}>
+          { relatedProducts.length === 0 ? <h3>No related items!</h3> : <h3>Related Items</h3>}
+          { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
+          <ModalWrapper $displaymodal={showTable}>
+            <Modal $displaymodal={showTable}>
+              <ModalContent $displaymodal={showTable}>
+                { showTable
+                &&
+                <ComparisonTable currentProduct={currentProduct} comparedProduct={comparedItem} /> }
+              </ModalContent>
+            </Modal>
+          </ModalWrapper>
+          { outfit.length === 0 ? <h3>No outfit yet!</h3> : <h3>Your Outfit</h3>}
+          {!outfit.find((i) => i.id === currentProduct.id) && (
+            <StyledButton onClick={() => addToOutfit(currentProduct)}>
+              Add {currentProduct.name} to Your Outfit
+            </StyledButton>
+          )}
+          <ItemList products={outfit} updateProduct={updateProduct} listType="outfit" />
+        </RelatedContext.Provider>
       </center>
     </div>
   );

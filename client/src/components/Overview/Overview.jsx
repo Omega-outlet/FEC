@@ -7,7 +7,7 @@ import ImageGallery from './ImageGallery.jsx';
 import ExpandedView from './ExpandedView.jsx';
 import OverviewContainer from '../../styled-components/overviewcomponents/overview-components.jsx';
 
-function Overview({ currentProduct, currentProductID }) {
+function Overview({ currentProduct, currentProductID, reviewData }) {
   const [styles, setStyles] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [selectedStyle, setSelectedStyle] = useState({});
@@ -89,7 +89,6 @@ function Overview({ currentProduct, currentProductID }) {
           expandedMainImage={expandedMainImage}
           setExpandedMainImage={setExpandedMainImage}
         />
-
         <ProductInformation
           currentProduct={currentProduct}
           currentProductID={currentProductID}
@@ -106,6 +105,7 @@ function Overview({ currentProduct, currentProductID }) {
           mainImage={mainImage}
           setMainImage={setMainImage}
           styles={styles}
+          reviewData={reviewData}
         />
       </OverviewContainer.StyledOverviewContainer>
     </div>

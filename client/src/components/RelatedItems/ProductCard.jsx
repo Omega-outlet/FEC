@@ -1,21 +1,24 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Item, Image } from '../../styled-components/horizontal-carousel.jsx';
 import Compare from './CompareButton.jsx';
 import Remove from './RemoveItemButton.jsx';
+import { StarView } from '../../styled-components/common-elements.jsx';
+import { calculateAverage } from '../RatingsAndReviews/arithmetic.js';
 
 const ProductCard = function ({ product, updateProduct, listType }) {
-  const [productData, setProductData] = useState({});
+  // const [productData, setProductData] = useState({});
   const [img1, setImg1] = useState('https://tinyurl.com/bp78yn9f');
   const [img2, setImg2] = useState('https://tinyurl.com/2tb6ry8d'); //random imgs for defaults
   const [salePrice, setSalePrice] = useState('');
   const [hover, setHover] = useState(false);
+  const [starRating, setStarRating] = useState(0);
 
   // {product} prop holds basic product info from /products api query
   // productData holds additional info from /styles including default style and sale price
-  const getProductData = () => {
+  useEffect(() => {
     axios.get('/api/product/relatedStyle', {
       params: {
         currentProductID: product.id,
@@ -24,21 +27,30 @@ const ProductCard = function ({ product, updateProduct, listType }) {
     })
       .then((response) => {
         const defaultStyle = response.data.results.find((style) => style['default?']);
-        setProductData(defaultStyle);
+        // setProductData(defaultStyle);
         // check for data existing on the backend
         if (defaultStyle.photos[0].url) { setImg1(defaultStyle.photos[0].url); }
         if (defaultStyle.photos[1].url) { setImg2(defaultStyle.photos[1].url); }
         if (defaultStyle.sale_price) { setSalePrice(defaultStyle.sale_price); }
       })
-      .catch((error) => console.log('Missing backend data replaced with dummy data -', error.message));
-  };
+      .catch((error) => console.log(`Missing product data for ${product.name}: `, error.message));
+  }, [product]);
+
+  useEffect(() => {
+    axios.get('/reviews/meta', {
+      params: {
+        product_id: product.id,
+      },
+    })
+      .then((response) => setStarRating(calculateAverage(response.data.ratings)))
+      .catch((error) => console.log(error.message));
+  }, [product]);
 
   const onHover = () => setHover(!hover);
+
   const handleClick = () => {
     updateProduct(product.id, product);
   };
-
-  useEffect(getProductData, [product]);
 
   return (
     <Item onClick={handleClick}>
@@ -46,6 +58,10 @@ const ProductCard = function ({ product, updateProduct, listType }) {
         <tbody>
           <tr>
             <td>
+              <span style={{ right: 0, position: 'absolute' }}>
+                {listType === 'related' && <Compare item={product}/>}
+                {listType === 'outfit' && <Remove item={product} />}
+              </span>
               {img1 && (
                 <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
               )}
@@ -53,7 +69,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
           </tr>
           <tr>
             <td>
-              {product.category}
+              <small>{product.category}</small>
             </td>
           </tr>
           <tr>
@@ -71,9 +87,10 @@ const ProductCard = function ({ product, updateProduct, listType }) {
               {salePrice
                 ? (
                   <>
-                    <em>
+                    <em style={{ color: 'red' }}>
                       $
                       {salePrice}
+                      &nbsp;
                     </em>
                     <s>
                       $
@@ -86,13 +103,12 @@ const ProductCard = function ({ product, updateProduct, listType }) {
           </tr>
           <tr>
             <td>
-              *****
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {listType === 'related' && <Compare style={{ textAlign: 'right' }} />}
-              {listType === 'outfit' && <Remove item={product} style={{ textAlign: 'right' }} />}
+              {starRating ? (
+                <>
+                  <StarView rating={starRating} fontSize={20} />
+                  <em><small> ({starRating})</small></em>
+                </>
+              ) : <em><small>...loading star rating</small></em>}
             </td>
           </tr>
         </tbody>
