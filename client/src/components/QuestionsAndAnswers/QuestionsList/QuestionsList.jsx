@@ -4,7 +4,7 @@ import { sortByHelpQuestion } from '../utils/sortHelp.js';
 import Question from './Question.jsx';
 import LoadMoreQuestionsButton from '../Buttons/LoadMoreQuestionsButton.jsx';
 import AddNewQuestionButton from '../Buttons/AddNewQuestionButton.jsx';
-import { QuestionList, LoadMoreAndAddNewButtonContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import { QuestionList, LoadMoreAndAddNewButtonContainer, ScrollSpinner } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function QuestionsList({ productName, questions, onHandleAddQuestion }) {
   console.log(questions);
@@ -14,14 +14,17 @@ function QuestionsList({ productName, questions, onHandleAddQuestion }) {
   const [numQuestionsShowed, setNumQuestionShowed] = useState(QuestionsLoadOnPage);
   const [hasClickedLoadMore, setHasClickedLoadMore] = useState(false);
   const questionListRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Infinite scroll
   const handleScroll = () => {
     if (questionListRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = questionListRef.current;
       if (scrollTop + clientHeight >= scrollHeight - 1) {
+        setIsLoading(true);
         setTimeout(() => {
           setNumQuestionShowed((prev) => prev + 2);
+          setIsLoading(false);
         }, 1000);
       }
     }
@@ -57,6 +60,7 @@ function QuestionsList({ productName, questions, onHandleAddQuestion }) {
           />
         ))}
       </QuestionList>
+      {isLoading && <ScrollSpinner />}
       <LoadMoreAndAddNewButtonContainer>
         {!hasClickedLoadMore && (
           <LoadMoreQuestionsButton

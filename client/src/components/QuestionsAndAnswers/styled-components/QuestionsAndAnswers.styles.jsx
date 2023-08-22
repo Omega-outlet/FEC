@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const QAContainer = styled.div`
   display: flex;
@@ -95,4 +95,18 @@ export const BodyAndQuestionContainer = styled.div`
 export const QuestionAskedByText = styled.p`
   font-size: 10px;
   color: #0E1311;
+`;
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+export const ScrollSpinner = styled.div`
+  border: 16px solid whitesmoke;
+  border-top: 16px solid dodgerblue;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: ${spinAnimation} 2s linear infinite;
+  // make it center
+  margin: 20px auto;
 `;
