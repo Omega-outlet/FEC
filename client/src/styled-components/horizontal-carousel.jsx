@@ -2,36 +2,39 @@
 //import React from 'react';
 import styled from 'styled-components';
 
-export const Carousel = styled.ul`
+export const Carousel = styled.div`
   list-style-type: none;
   inline-size: min-content;
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
   flex: 0 0 auto;
-  gap: 5px;
+  padding: 0;
   justify-content: center;
   height: 35em;
   align-items: center;
-  background-color: red;
-
+  border: 0;
+  top: 50%;
+  left: 50%;
 `;
 
-export const Item = styled.li`
-  width: 15em;
-  height: 100%;
-  clip: shape;
+export const Item = styled.table`
+  width: 20vw;
+  height: auto;
+  max-height: min-height;
   align-items: center;
-  background-color: #f5f5f5;
   position: relative;
+  margin: 0;
+  background-color: #f5f5f5;
+  border: 0;
+  flex-shrink: 2;
 `;
 // rm background color if desired later, just putting it in for viz
 
 export const Image = styled.img`
-  background-size: cover;
+  padding: 0;
+  margin: 0;
   object-fit: cover;
-  display: block;
   height: 25em;
-  width: 15em;
-  clip: shape;
+  width: 20vw;
 `;

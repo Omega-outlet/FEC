@@ -11,6 +11,7 @@ const App = function () {
   const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
   const [metaData, setMetaData] = React.useState('');
+  const [dark, setDark] = useState(false);
 
   const logo = 'https://i.postimg.cc/fyyfVNvF/logo.png';
   const darkmodeLogo = 'https://i.postimg.cc/d3fmdxH0/darkmode-Logo.png';
@@ -48,6 +49,18 @@ const App = function () {
     setCurrentProduct(prod);
   };
 
+  const toggleDark = () => {
+    if (!dark) {
+      setDark(true);
+      document.body.setAttribute('data-theme', 'dark');
+      //window.location.reload(false);
+    } else {
+      setDark(false);
+      document.body.setAttribute('data-theme', 'light');
+      //window.location.reload(false);
+    }
+  };
+
   React.useEffect(() => {
     axios.get('/reviews/meta', {
       params: {
@@ -60,6 +73,7 @@ const App = function () {
 
   return (
     <div className="app">
+      <header><button class="darkMode" onClick={toggleDark}>Switch to {dark ? 'light theme 🌞' : 'dark theme 🌙'}</button></header>
       <img className="logo" src={logo} alt="logo" />
       <Overview
         currentProduct={currentProduct}

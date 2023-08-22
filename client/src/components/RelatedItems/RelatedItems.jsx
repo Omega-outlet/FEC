@@ -75,7 +75,7 @@ const RelatedItems = function ({ currentProduct, updateProduct }) {
     <div className="relatedItems">
       <center>
         <RelatedContext.Provider value={{ removeFromOutfit, compareItem }}>
-          { relatedProducts.length === 0 ? <h3>No related items!</h3> : <h3>Related Items</h3>}
+          { relatedProducts.length === 0 ? <h2>No related items!</h2> : <h2>Related Items</h2>}
           { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
           <ModalWrapper $displaymodal={showTable}>
             <Modal $displaymodal={showTable}>
@@ -86,7 +86,7 @@ const RelatedItems = function ({ currentProduct, updateProduct }) {
               </ModalContent>
             </Modal>
           </ModalWrapper>
-          { outfit.length === 0 ? <h3>No outfit yet!</h3> : <h3>Your Outfit</h3>}
+          { outfit.length === 0 ? <h2>No outfit yet!</h2> : <h2>Your Outfit</h2>}
           {!outfit.find((i) => i.id === currentProduct.id) && (
             <StyledButton onClick={() => addToOutfit(currentProduct)}>
               Add {currentProduct.name} to Your Outfit

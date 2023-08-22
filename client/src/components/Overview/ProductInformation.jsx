@@ -39,8 +39,9 @@ function ProductInformation({
   const pinterestLink = `https://pinterest.com/pin/create/button/?&media=${imageURL}`;
 
   return (
-      <OverviewContainer.Half>
-        <h1>{ currentProduct.name }</h1>    
+    <OverviewContainer.Half>
+      <div className="productInfo">
+        <h1>{ currentProduct.name }</h1>
         {selectedStyleSalePrice ? (
           <span>
             <s>{ selectedStylePrice }</s>
@@ -109,7 +110,8 @@ function ProductInformation({
         <div>
           <AddToCart selectedStyle={selectedStyle} />
         </div>
-      </OverviewContainer.Half>
+      </div>
+    </OverviewContainer.Half>
   );
 }
 

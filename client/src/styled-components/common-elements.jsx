@@ -30,11 +30,14 @@ StarView.propTypes = {
 };
 
 const StyledButton = styled.button`
-  height: 40px;
+  padding: 10px;
   border: none;
   color: white;
   background: black;
-  cursor: pointer`;
+  cursor: pointer
+  border: 2px solid white;
+`
+
 // $displaymodal is the boolean prop passed into the modal components to determine visibility
 const ModalWrapper = styled.div`
   display: ${({ $displaymodal }) => ($displaymodal ? 'flex' : 'none')};

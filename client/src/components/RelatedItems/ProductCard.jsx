@@ -54,65 +54,61 @@ const ProductCard = function ({ product, updateProduct, listType }) {
 
   return (
     <Item onClick={handleClick}>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <span style={{ right: 0, position: 'absolute' }}>
-                {listType === 'related' && <Compare item={product}/>}
-                {listType === 'outfit' && <Remove item={product} />}
-              </span>
-              {img1 && (
-                <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
-              )}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <small>{product.category}</small>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>{product.name}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <em>{product.slogan}</em>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {salePrice
-                ? (
-                  <>
-                    <em style={{ color: 'red' }}>
-                      $
-                      {salePrice}
-                      &nbsp;
-                    </em>
-                    <s>
-                      $
-                      {product.default_price}
-                    </s>
-                  </>
-                )
-                : `$${product.default_price}`}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {starRating ? (
-                <>
-                  <StarView rating={starRating} fontSize={20} />
-                  <em><small> ({starRating})</small></em>
-                </>
-              ) : <em><small>...loading star rating</small></em>}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <tr>
+        <td>
+          <span style={{ right: 0, position: 'absolute' }}>
+            {listType === 'related' && <Compare item={product} />}
+            {listType === 'outfit' && <Remove item={product} />}
+          </span>
+          {img1 && (
+            <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
+          )}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <small>{product.category}</small>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>{product.name}</strong>
+        </td>
+      </tr>
+      <tr>
+        <td  style={{ textOverflow: 'ellipsis' }}>
+          <em>{product.slogan}</em>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {salePrice
+            ? (
+              <>
+                <em style={{ color: 'red' }}>
+                  $
+                  {salePrice}
+                  &nbsp;
+                </em>
+                <s>
+                  $
+                  {product.default_price}
+                </s>
+              </>
+            )
+            : `$${product.default_price}`}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {starRating ? (
+            <>
+              <StarView rating={starRating} fontSize={20} />
+              <em><small> ({starRating})</small></em>
+            </>
+          ) : <em><small>...loading star rating</small></em>}
+        </td>
+      </tr>
     </Item>
   );
 };
