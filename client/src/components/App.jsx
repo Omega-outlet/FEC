@@ -9,6 +9,7 @@ import RelatedItems from './RelatedItems/RelatedItems.jsx';
 const App = function () {
   const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
+  const [metaData, setMetaData] = React.useState('');
   /*
   only have either loadFirstProduct or loadRandomProduct and
   their respective useEffect uncommented, not both
@@ -43,13 +44,32 @@ const App = function () {
     setCurrentProduct(prod);
   };
 
+  React.useEffect(() => {
+    axios.get('/reviews/meta', {
+      params: {
+        product_id: currentProductID,
+      },
+    })
+      .then((response) => setMetaData(response.data))
+      .catch(() => {});
+  }, [currentProductID]);
+
   return (
     <div>
       <h1>Omega Outlet</h1>
-      <Overview currentProduct={currentProduct} currentProductID={currentProductID} />
+      <Overview
+        currentProduct={currentProduct}
+        currentProductID={currentProductID}
+        reviewData={metaData}
+      />
       <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
       <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
-      <RatingsAndReviews currentProductID={currentProductID} />
+      <RatingsAndReviews
+        currentProductID={currentProductID}
+        metaData={metaData}
+        setMetaData={setMetaData}
+      />
+
     </div>
   );
 };

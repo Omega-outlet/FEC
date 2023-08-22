@@ -5,6 +5,8 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RelatedItems from './RelatedItems.jsx';
+import ComparisonTable from './ComparisonTable.jsx';
+
 import axios from 'axios';
 
 jest.mock('axios');
@@ -73,31 +75,40 @@ beforeEach(() => {
         }
       });
     }
+    if (url === '/api/product/features') {
+      //update test to return dummy1 on first call and dummy2 on second call
+      console.log('axios.get called with /api/product/features');
+      return Promise.resolve({
+        data: {
+          id: 1,
+          name: 'Claud Jacket',
+          features: [{ feature: '5 Year Warranty', value: null },
+            { feature: 'Buttons', value: 'Blue Resin' },
+            { feature: 'Cut', value: 'Loose' }],
+        },
+      });
+    }
     throw new Error("Unknown URL");
   });
 ///////mock localStorage and related methods///////
-  class LocalStorageMock {
-    constructor() {
-      this.store = {};
-    }
-
-    clear() {
-      this.store = {};
-    }
-
-    getItem(key) {
-      return this.store[key] || null;
-    }
-
-    setItem(key, value) {
-      this.store[key] = String(value);
-    }
-
-    removeItem(key) {
-      delete this.store[key];
-    }
-  }
-  global.localStorage = new LocalStorageMock;
+  // class LocalStorageMock {
+  //   constructor() {
+  //     this.store = {};
+  //   }
+  //   clear() {
+  //     this.store = {};
+  //   }
+  //   getItem(key) {
+  //     return this.store[key] || null;
+  //   }
+  //   setItem(key, value) {
+  //     this.store[key] = String(value);
+  //   }
+  //   removeItem(key) {
+  //     delete this.store[key];
+  //   }
+  // }
+  //global.localStorage = new LocalStorageMock;
   window.localStorage.clear();
 });
 
@@ -155,6 +166,43 @@ describe('Related Items', () => {
     // test right button disappears for 5 element list
     await waitFor (() => expect(screen.queryByText('>')).toBeNull());
   });
+
+  test('comparison window opens upon button click', async () => {
+    const dummy = {
+      name: "Product Name 1",
+      category: "Category",
+      default_price: "$10",
+      slogan: "Slogan",
+      id: 1,
+    };
+    await waitFor (() => render(<RelatedItems currentProduct={dummy} />));
+    await waitFor (() => expect(screen.queryByTestId('compareTableTest')).toBeNull());
+    // click star button to show comparison modal
+    await waitFor (() => fireEvent.click(screen.getAllByText('☆')[0]));
+    await waitFor (() => expect(screen.queryByTestId('compareTableTest')).toBeTruthy());
+  });
+
+  test('comparison window renders as expected', async () => {
+    // LL to add below data to dummy axios call in future test iteration to check feature rendering
+    const dummy1 = {
+      id: 1,
+      name: 'Claud Jacket',
+      features: [{ feature: '5 Year Warranty', value: null },
+        { feature: 'Buttons', value: 'Blue Resin' },
+        { feature: 'Cut', value: 'Loose' }],
+    };
+    const dummy2 = {
+      id: 2,
+      name: 'Sunglasses',
+      features: [{ feature: 'Stitching', value: 'Double Stitch' },
+        { feature: 'Green Leaf Certified', value: null }],
+    };
+    await waitFor (() => render(<ComparisonTable currentProduct={dummy1} comparedProduct={dummy2} />));
+    await waitFor (() => expect(screen.queryByText('Claud Jacket')).toBeTruthy());
+    await waitFor (() => expect(screen.queryByText('Comparing')).toBeTruthy());
+    await waitFor (() => expect(screen.queryByText('Sunglasses')).toBeTruthy());
+    await waitFor (() => expect(screen.queryByText('Close')).toBeTruthy());
+  });
 });
 
 //////////TEST YOUR OUTFIT////////////
@@ -177,11 +225,10 @@ describe('Your Outfit', () => {
     await waitFor (() => expect(localStorage.getItem('yourOutfit')).toBeNull());
 
     // test add current item button
-    await waitFor (() => fireEvent.click(screen.getByText('Add current item to your outfit')));
+    await waitFor (() => fireEvent.click(screen.getByText(`Add ${dummy.name} to Your Outfit`)));
     await waitFor (() => expect(localStorage.getItem('yourOutfit')).toEqual(dummyString));
 
     // test remove item button
-    await waitFor (() => console.log('HERES THE DOM AFTER ADDING TO OUTFIT', screen));
     await waitFor (() => fireEvent.click(screen.getByText('X')));
     await waitFor (() => expect(localStorage.getItem('yourOutfit')).toEqual('[]'));
   });
