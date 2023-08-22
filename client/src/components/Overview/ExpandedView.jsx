@@ -19,7 +19,12 @@ function ExpandedView({
   const [siteWidth, setSiteWidth] = useState(0);
   const [siteHeight, setSiteHeight] = useState(0);
   const [displayZoomed, setDisplayZoomed] = useState(false);
+  const [showMagnify, setShowMagnify] = useState(false);
+  const [coordinates, setCoordinates] = useState([0, 0]);
 
+  // const zoomStrength = 2.5;
+  // const zoomWidth = 300;
+  // const zoomHeight = 300;
   const loadImageDimensions = () => {
     // get the dimensions of image to be zoomed
     function getImageDimensions() {
@@ -46,7 +51,7 @@ function ExpandedView({
       setHeight(img.height);
     })().catch(() => { });
   };
-  useEffect(loadImageDimensions, [expandedMainImage]);
+  useEffect(loadImageDimensions, [expandedMainImage, selectedStyle, displayZoomed]);
 
   const loadStylesPhotos = () => {
     // get the thumbnails
@@ -91,6 +96,20 @@ function ExpandedView({
     setExpandedMainImage(thumbnails[focalItem + 1].url);
   };
 
+  const handleMouseEnter = (e) => {
+    if (displayZoomed) {
+      setShowMagnify(true);
+    }
+  };
+
+  // get the current position of the cursor when it is on main image
+  const cursorPos = (e) => {
+    const imageArea = e.currentTarget;
+    const { top, left } = imageArea.getBoundingClientRect();
+    // sets coordinates of cursor in the imageArea
+    setCoordinates([(e.pageX - left - window.pageXOffset), (e.pageY - top - window.pageYOffset)]);
+  };
+
   return (
     <div>
       <ImageGalleryComponents.ModalWrapper $displaymodal={displayModal}>
@@ -121,28 +140,39 @@ function ExpandedView({
                 id="expandedMain"
                 src={expandedMainImage}
                 alt={selectedStyle?.name}
+                onClick={() => {
+                  setDisplayZoomed(!displayZoomed);
+                  setShowMagnify(!showMagnify);
+                }}
+                onMouseEnter={(e) => { handleMouseEnter(e); }}
+                onMouseLeave={() => { setShowMagnify(false); }}
+                onMouseMove={(e) => { cursorPos(e); }}
               />
               { focalItem < thumbnails.length - 1 && <ScrollButton scroll={scrollRight} dir="right" />}
             </ImageGalleryComponents.ExpandedImageContainer>
             <ImageGalleryComponents.ExitExpanded>
               <StyledButton
                 type="button"
-                onClick={() => setDisplayModal(false)}
+                onClick={() => {
+                  setDisplayModal(false);
+                  setDisplayZoomed(false);
+                  showMagnify(false);
+                }}
               >
                 Close
               </StyledButton>
 
             </ImageGalleryComponents.ExitExpanded>
           </ImageGalleryComponents.ExpandedNormal>
+          <ExpandedZoom
+            expandedMainImage={expandedMainImage}
+            siteWidth={siteWidth}
+            siteHeight={siteHeight}
+            showMagnify={showMagnify}
+            coordinates={coordinates}
+          />
         </ImageGalleryComponents.Modal>
       </ImageGalleryComponents.ModalWrapper>
-      <ExpandedZoom
-        image={expandedMainImage}
-        width={width}
-        height={height}
-        siteWidth={siteWidth}
-        siteHeight={siteHeight}
-      />
     </div>
 
   );
