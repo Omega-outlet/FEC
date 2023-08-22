@@ -9,6 +9,7 @@ import { YesReportButtonContainer } from '../../../styled-components/YesAndRepor
 import { AnswerDetailsContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function Answer({ answer }) {
+  console.log(answer);
   const registerHelpfulClick = useHelpfulYes();
   const registerReportClick = useReport();
   return (
@@ -31,11 +32,11 @@ function Answer({ answer }) {
         <YesReportButtonContainer>
           <HelpfulYesButton
             initialCount={answer.helpfulness}
-            onHelpfulClick={() => registerHelpfulClick('answers', answer.id)}
+            onHelpfulClick={() => registerHelpfulClick('answers', answer.answer_id)}
           />
           <ReportButton
             initialReported={answer.reported}
-            onReportClick={() => registerReportClick('answers', answer.id)}
+            onReportClick={() => registerReportClick('answers', answer.answer_id)}
           />
         </YesReportButtonContainer>
       </AnswerDetailsContainer>
@@ -45,7 +46,7 @@ function Answer({ answer }) {
 
 Answer.propTypes = {
   answer: PropTypes.shape({
-    id: PropTypes.number,
+    answer_id: PropTypes.number,
     helpfulness: PropTypes.number,
     date: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
