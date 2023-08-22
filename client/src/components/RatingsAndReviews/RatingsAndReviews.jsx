@@ -10,15 +10,14 @@ import NewReview from './NewReview.jsx';
 import { calculateAverage, calculateTotal, calculatePercentage } from './arithmetic.js';
 import CharacteristicsGraph from './CharacteristicsGraph.jsx';
 
-function RatingsAndReviews({ currentProductID, metaData, setMetaData }) {
+function RatingsAndReviews({ currentProductID, metaData }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
-  
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
         product_id: currentProductID,
-        count: 50,
+        count: 5,
       },
     })
       .then((response) => setReviews(response.data.results))
@@ -36,7 +35,6 @@ function RatingsAndReviews({ currentProductID, metaData, setMetaData }) {
       .catch(() => {});
     // setShowForm((prev) => !prev);
   };
-
   return (
     <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '0 40px' }}>
       <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
