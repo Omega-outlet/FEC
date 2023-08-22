@@ -6,6 +6,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import QuestionsList from './QuestionsList';
 
+
 jest.mock('./Question', () => () => <div>Mocked Question</div>);
 
 describe('<QuestionsList />', () => {
@@ -20,6 +21,12 @@ describe('<QuestionsList />', () => {
     const { findAllByText } = render(<QuestionsList questions={mockQuestions.slice(0, 2)} />);
     const questions = await findAllByText('Mocked Question');
     expect(questions).toHaveLength(2);
+  });
+
+  it('renders correctly when there questions', () => {
+    const { queryByText } = render(<QuestionsList questions={[]} />);
+    const noQuestionsFound = queryByText('Mocked Question');
+    expect(noQuestionsFound).toBeNull();
   });
 
   it('shows more questions when Load More Questions button is clicked', async () => {

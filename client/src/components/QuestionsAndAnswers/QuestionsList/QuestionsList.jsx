@@ -1,25 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { sortByHelpQuestion } from '../utils/sortHelp.js';
 import Question from './Question.jsx';
 import LoadMoreQuestionsButton from '../Buttons/LoadMoreQuestionsButton.jsx';
 import AddNewQuestionButton from '../Buttons/AddNewQuestionButton.jsx';
-import { QuestionList, LoadMoreAndAddNewButtonContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import { QuestionList, LoadMoreAndAddNewButtonContainer, ScrollSpinner } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function QuestionsList({ productName, questions, onHandleAddQuestion }) {
   console.log(questions);
   const sortedQuestions = sortByHelpQuestion(questions);
   // On page load, 2 questions will show up
   const QuestionsLoadOnPage = 2;
-  const [numQuestionsShowed, setNumQuestionshowed] = useState(QuestionsLoadOnPage);
+  const [numQuestionsShowed, setNumQuestionShowed] = useState(QuestionsLoadOnPage);
+  const [hasClickedLoadMore, setHasClickedLoadMore] = useState(false);
+  const questionListRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Infinite scroll
+  const handleScroll = () => {
+    if (questionListRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = questionListRef.current;
+      if (scrollTop + clientHeight >= scrollHeight - 1) {
+        setIsLoading(true);
+        setTimeout(() => {
+          setNumQuestionShowed((prev) => prev + 2);
+          setIsLoading(false);
+        }, 1000);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (hasClickedLoadMore) {
+      questionListRef.current.addEventListener('scroll', handleScroll);
+      return () => {
+        if (questionListRef.current) {
+          questionListRef.current.removeEventListener('scroll', handleScroll);
+        }
+      };
+    }
+    // Expected to return a value at the end of arrow function (Eslint)
+    return () => {};
+  }, [hasClickedLoadMore]);
 
   const handleShowMore = () => {
-    setNumQuestionshowed((prev) => prev + 2);
+    setHasClickedLoadMore(true);
+    setNumQuestionShowed((prev) => prev + 2);
   };
+
 
   return (
     <div>
-      <QuestionList>
+      <QuestionList ref={questionListRef}>
         {sortedQuestions.slice(0, numQuestionsShowed).map((question) => (
           <Question
             key={question.question_id}
@@ -27,17 +59,20 @@ function QuestionsList({ productName, questions, onHandleAddQuestion }) {
             question={question}
           />
         ))}
-        <LoadMoreAndAddNewButtonContainer>
+      </QuestionList>
+      {isLoading && <ScrollSpinner />}
+      <LoadMoreAndAddNewButtonContainer>
+        {!hasClickedLoadMore && (
           <LoadMoreQuestionsButton
             onClick={handleShowMore}
             hasMoreQuestions={numQuestionsShowed < sortedQuestions.length}
           />
-          <AddNewQuestionButton
-            productName={productName}
-            onHandleAddQuestion={onHandleAddQuestion}
-          />
-        </LoadMoreAndAddNewButtonContainer>
-      </QuestionList>
+        )}
+        <AddNewQuestionButton
+          productName={productName}
+          onHandleAddQuestion={onHandleAddQuestion}
+        />
+      </LoadMoreAndAddNewButtonContainer>
     </div>
   );
 }
