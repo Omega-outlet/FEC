@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Promise from 'bluebird';
-import StyleQuantity from './StyleQuantity.jsx';
 import {
   StyledButton,
 } from '../../styled-components/common-elements.jsx';
@@ -24,6 +23,7 @@ function AddToCart({
   const [size, setSize] = useState(-1);
   const [quantity, setQuantity] = useState(-1);
   const [quantityArray, setQuantityArray] = useState([]);
+  const [outOfStock, setOutOfStock] = useState(false);
 
   const maxQuantity = 15;
   // load the stylesArray with styles
@@ -50,6 +50,7 @@ function AddToCart({
         setQuantity(-1);
         setOpenSize(false);
         setOpenQuantity(false);
+        setMessage('');
       })
       .catch(() => { });
   };
@@ -84,9 +85,10 @@ function AddToCart({
             maxQuantitiesArray[i] = data[i].quantity;
           }
         }
-        console.log("max quantity array", maxQuantitiesArray);
+        setOutOfStock([maxQuantitiesArray].every((item) => item === 0));
+
         const tempArray = Array.from(Array(maxQuantitiesArray[size])).map((e, i) => i + 1);
-        console.log("temp Array", tempArray);
+        console.log('temp Array', tempArray);
         setQuantityArray(tempArray);
       })
       .catch(() => { });
@@ -110,17 +112,17 @@ function AddToCart({
   //   setSKU(SKUArray[e.target.value]);
   // };
 
-  // const cartHandle = () => {
-  //   if (cartActivated === false) {
-  //     setMessage('select size before adding to cart');
-  //   } else if (cartQuantity === 0 || cartQuantity === 'Select Quantity') {
-  //     setQuantityMessage('select quantity before adding to cart');
-  //   } else {
-  //     setMessage('');
-  //     setQuantityMessage('');
-  //     console.log(`added ${cartQuantity} of ${cartSize} of ${sku} to cart`);
-  //   }
-  // };
+  const cartHandle = () => {
+    // if user didn't select size, show message
+    if (size === -1) {
+      setMessage('Please select size');
+      // else add to cart and reset sizee and quantity to -1
+    } else {
+      setMessage(`added ${quantity} of size ${SKUValueArray[size].size} to cart`);
+      setSize(-1);
+      setQuantity(-1);
+    }
+  };
 
   const dropdownMenuSizeHandler = () => {
     setOpenSize(!openSize);
@@ -133,7 +135,7 @@ function AddToCart({
   const dropdownSizeHandler = (e) => {
     console.log('size', e.target.value);
     setSize(e.target.value);
-    setQuantity(-1);
+    setQuantity(1);
     setOpenSize(!openSize);
   };
 
@@ -147,7 +149,7 @@ function AddToCart({
     <div>
       {cartActivated ? null : <span>{message}</span> }
       <br />
-
+      Size:
       {/* size selected */}
       {size > -1 ? (
         <div className="dropdownSize">
@@ -155,11 +157,6 @@ function AddToCart({
           {SKUValueArray && openSize
             ? (
               <ul className="menu">
-                <li>
-                  <button type="button" className="menuItem" value={-1} onClick={(e) => { dropdownSizeHandler(e); }}>
-                    Select Size
-                  </button>
-                </li>
                 {(SKUValueArray.map((info, index) => (
                   <li key={info.id}>
                     <button type="button" className="menuItem" value={index} onClick={(e) => { dropdownSizeHandler(e); }}>{info.size}</button>
@@ -187,7 +184,7 @@ function AddToCart({
             : null}
         </div>
       )}
-
+      Quantity:
       {/* size selected but no quantity selected */}
       {size > -1 && quantity === -1 ? (
         <div className="dropdownQuantity">
@@ -198,7 +195,7 @@ function AddToCart({
               <ul className="menu">
                 {(quantityArray.map((i) => (
                   <li>
-                    <button type="button" className="menuItem" key={i} value={i} onClick={(e) => { dropdownQuantityHandler(e); }}>{i}</button>
+                    <button type="button" className="menuItem" key={i} value={i} onClick={(e) => { dropdownMenuQuantityHandler(); dropdownQuantityHandler(e); }}>{i}</button>
                   </li>
                 )))}
               </ul>
@@ -214,11 +211,6 @@ function AddToCart({
           {quantityArray && openQuantity
             ? (
               <ul className="menu">
-                <li>
-                  <button type="button" className="menuItem" value={-1} onClick={(e) => { dropdownQuantityHandler(e); }}>
-                    Select Quantity
-                  </button>
-                </li>
                 {(quantityArray.map((i) => (
                   <li>
                     <button type="button" className="menuItem" key={i} value={i} onClick={(e) => { dropdownQuantityHandler(e); }}>{i}</button>
@@ -231,78 +223,24 @@ function AddToCart({
         </div>
       ) : null}
 
-      {/* {size > -1 ? (
+      {size === -1 ? (
         <div className="dropdownQuantity">
-          <button type="button" onClick={() => { dropdownMenuQHandler(); }}>{SKUValueArray[size].size}</button>
-          {SKUValueArray && openQ
-            ? (
-
-              <ul className="menu">
-                <li>
-                  <button type="button" className="menuItem" value={-1} onClick={(e) => { dropdownSizeHandler(e); }}>
-                    Select Size
-                  </button>
-                </li>
-                {(SKUValueArray.map((info, index) => (
-                  <li key={info.id}>
-                    <button type="button" className="menuItem" value={index} onClick={(e) => { dropdownSizeHandler(e); }}>{info.size}</button>
-                  </li>
-                )))}
-              </ul>
-            )
-            : null}
+          <button
+            disabled
+            type="button"
+            onClick={() => {
+              dropdownMenuQuantityHandler();
+            }}
+          >
+            -
+          </button>
         </div>
-      ) : ((
-        <div className="dropdownQuantity">
-          <button type="button" onClick={() => { dropdownMenuQHandler(); }}>Select Size</button>
-          {SKUValueArray && openQuantity
-            ? (
+      ) : null }
 
-              <ul className="menu">
-                {(SKUValueArray.map((info, index) => (
-                  <li key={info.id}>
-                    <button type="button" className="menuItem" value={index} onClick={(e) => { dropdownSizeHandler(e); }}>{info.size}</button>
-                  </li>
-                )))}
-              </ul>
+      {outOfStock === true ? <span>Out of Stock</span> : <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>}
 
-            )
-            : null}
-        </div>
-      ))} */}
-      {/* <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to cart</StyledButton> */}
     </div>
-  // <div>
-  //   {cartActivated ? null : <span>{message}</span> }
 
-  //   <br />
-  //   {SKUValueArray
-  //     ? (
-  //       <select onChange={handleSizeChange}>
-  //         <option data-testid="sizeSelect" value="unselected"> Select Size </option>
-  //         {(SKUValueArray.map((info, index) => (
-  //           <option
-  //             key={index}
-  //             value={index}
-  //           >
-  //             {info.size}
-  //           </option>
-  //         )))}
-  //       </select>
-  //     )
-  //     : null}
-  //   <br />
-  //   {quantityMessage}
-  //   <StyleQuantity
-  //     quantity={quantity}
-  //     sku={sku}
-  //     selectedStyle={selectedStyle}
-  //     cartQuantity={cartQuantity}
-  //     setCartQuantity={setCartQuantity}
-  //   />
-
-  //   <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to cart</StyledButton>
-  // </div>
   );
 }
 
