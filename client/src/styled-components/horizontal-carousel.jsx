@@ -11,18 +11,19 @@ export const Carousel = styled.ul`
   flex: 0 0 auto;
   gap: 5px;
   justify-content: center;
-  height: 35em;
+  height: 70vh;
   align-items: center;
 `;
 
 export const Item = styled.li`
   width: 20em;
-  height: 100%;
+  height: min-content;
   clip: shape;
   align-items: center;
-  background-color: #fafafa;
+  background-color: #f5f5f5;
+  position: relative;
 `;
-// rm background color later, just putting it in for viz
+// rm background color if desired later, just putting it in for viz
 
 export const Image = styled.img`
   background-size: cover;
@@ -31,14 +32,4 @@ export const Image = styled.img`
   height: 25em;
   width: 20em;
   clip: shape;
-`;
-
-export const ButtonWrap = styled.button`
-  background-color: black;
-  background: black;
-  color: white;
-  text-align: center;
-  height: 15;
-  width: 15;
-  flex-grow: 1;
 `;

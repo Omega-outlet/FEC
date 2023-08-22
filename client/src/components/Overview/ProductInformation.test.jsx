@@ -2,9 +2,11 @@
  * @jest-environment jsdom
  */
 
-import React, {useState} from 'react';
-import { render, screen, waitFor, fireEvent, cleanup, act} from '@testing-library/react';
-import userEvent from "@testing-library/user-event";
+import React, { useState } from 'react';
+import {
+  render, screen, waitFor, fireEvent, cleanup, act,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import ProductInformation from './ProductInformation.jsx';
 import StyleEntry from './StyleEntry.jsx';
 import Overview from './Overview.jsx';
@@ -199,6 +201,38 @@ const styles2 = {
     }],
 };
 
+const review = {
+  'product_id': '40349',
+  'ratings': {
+    '1': '1',
+    '2': '2',
+    '3': '3',
+    '4': '2',
+    '5': '3',
+  },
+  'recommended': {
+    'false': '2',
+    'true': '9',
+  },
+  'characteristics': {
+    'Size': {
+      'id': 135236,
+      'value': '2.1538461538461538',
+    },
+    'Width': {
+      'id': 135237,
+      'value': '1.9230769230769231',
+    },
+    'Comfort': {
+      'id': 135238,
+      'value': '2.3076923076923077',
+    },
+    'Quality': {
+      'id': 135239,
+      'value': '2.6428571428571429',
+    },
+  },
+};
 describe('Overview component', () => {
   it('Overview component contains ImageGallery component', async () => {
     render(<Overview
@@ -430,13 +464,13 @@ describe('render style\s info', () => {
       selectedStyleName={mockGetStyle().name}
       setSelectedStyle={mockGetStyle}
       styles={styles}
-    />)
+    />);
     const style = screen.getByText('Desert Brown & Tan');
     expect(style).toBeTruthy();
   });
   it('should change style sale price after another style is clicked', async () => {
     const mockGetStyle = jest.fn(() => styles.results[1]);
-    const {rerender} = await waitFor(() => render(<ProductInformation
+    const { rerender } = await waitFor(() => render(<ProductInformation
       currentProduct={products[0]}
       currentProductID={1}
       selectedStyle={styles.results[0]}
@@ -458,7 +492,7 @@ describe('render style\s info', () => {
       selectedStyleSalePrice={mockGetStyle().sale_price}
       setSelectedStyle={mockGetStyle}
       styles={styles}
-    />)
+    />);
     const newPrice = screen.getByText('70');
     expect(newPrice).toBeTruthy();
   });
@@ -468,8 +502,8 @@ describe('size selector', () => {
     await waitFor(() => render(<AddToCart
       selectedStyle={styles}
     />));
-    fireEvent.click(screen.getByTestId("sizeSelect"), {
-      target: { value: "XS" },
+    fireEvent.click(screen.getByTestId('sizeSelect'), {
+      target: { value: 'XS' },
     });
     userEvent.click(screen.getByText('Add to cart'));
     await waitFor(() => expect(screen.queryByText('select size before adding to cart')).toBeFalsy());
@@ -485,16 +519,15 @@ describe('size selector', () => {
   });
 });
 
-
 describe('add to cart', () => {
   it('displays no quantity message when adding to cart', async () => {
     await waitFor(() => render(<AddToCart
       selectedStyle={styles}
     />));
-    fireEvent.click(screen.getByTestId("sizeSelect"), {
-      target: { value: "XS" },
+    fireEvent.click(screen.getByTestId('sizeSelect'), {
+      target: { value: 'XS' },
     });
-    fireEvent.click(screen.getByTestId("quantitySelect"), {
+    fireEvent.click(screen.getByTestId('quantitySelect'), {
       target: { value: 2 },
     });
     userEvent.click(screen.getByText('Add to cart'));
@@ -506,13 +539,25 @@ describe('add to cart', () => {
     await waitFor(() => render(<AddToCart
       selectedStyle={styles}
     />));
-    fireEvent.click(screen.getByTestId("sizeSelect"), {
-      target: { value: "XS" },
+    fireEvent.click(screen.getByTestId('sizeSelect'), {
+      target: { value: 'XS' },
     });
-    fireEvent.click(screen.getByTestId("quantitySelect"), {
+    fireEvent.click(screen.getByTestId('quantitySelect'), {
       target: { value: 2 },
     });
     userEvent.click(screen.getByText('Add to cart'));
     await waitFor(() => expect(screen.queryByText('select size before adding to cart')).toBeFalsy());
+  });
+});
+describe('Display review and rating in product information', () => {
+  it('displays the review count in product information', async () => {
+    render(<ProductInformation
+      currentProduct={products[0]}
+      currentProductID={1}
+      styles={styles}
+      reviewData={review}
+    />);
+    const reviewCount = screen.getByText('11');
+    expect(reviewCount).toBeTruthy();
   });
 });

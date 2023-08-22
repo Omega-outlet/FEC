@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { ButtonWrap } from '../../styled-components/horizontal-carousel.jsx';
-import OutfitContext from './OutfitContext.jsx';
+import { StyledButton } from '../../styled-components/common-elements.jsx';
+import RelatedContext from './RelatedContext.jsx';
 
 const RemoveItemButton = function ({ item }) {
-  const { removeFromOutfit } = useContext(OutfitContext);
+  const { removeFromOutfit } = useContext(RelatedContext);
 
-  return <ButtonWrap onClick={() => removeFromOutfit(item)}>X</ButtonWrap>;
+  return <StyledButton onClick={(event) => removeFromOutfit(item, event)}>X</StyledButton>;
 };
 
 export default RemoveItemButton;

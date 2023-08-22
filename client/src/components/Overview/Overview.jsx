@@ -7,7 +7,7 @@ import ImageGallery from './ImageGallery.jsx';
 import ExpandedView from './ExpandedView.jsx';
 import OverviewContainer from '../../styled-components/overviewcomponents/overview-components.jsx';
 
-function Overview({ currentProduct, currentProductID }) {
+function Overview({ currentProduct, currentProductID, reviewData }) {
   const [styles, setStyles] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [selectedStyle, setSelectedStyle] = useState({});
@@ -73,17 +73,14 @@ function Overview({ currentProduct, currentProductID }) {
   return (
     <div>
       <OverviewContainer.StyledOverviewContainer>
-        <OverviewContainer.Half>
-          <ImageGallery
-            currentProduct={currentProduct}
-            selectedStyle={selectedStyle}
-            mainImage={mainImage}
-            setMainImage={setMainImage}
-            displayModal={displayModal}
-            setDisplayModal={setDisplayModal}
-          />
-
-        </OverviewContainer.Half>
+        <ImageGallery
+          currentProduct={currentProduct}
+          selectedStyle={selectedStyle}
+          mainImage={mainImage}
+          setMainImage={setMainImage}
+          displayModal={displayModal}
+          setDisplayModal={setDisplayModal}
+        />
         <ExpandedView
           currentProduct={currentProduct}
           selectedStyle={selectedStyle}
@@ -92,25 +89,24 @@ function Overview({ currentProduct, currentProductID }) {
           expandedMainImage={expandedMainImage}
           setExpandedMainImage={setExpandedMainImage}
         />
-        <OverviewContainer.Half>
-          <ProductInformation
-            currentProduct={currentProduct}
-            currentProductID={currentProductID}
-            selectedStyle={selectedStyle}
-            setSelectedStyle={setSelectedStyle}
-            selectedStylePrice={selectedStylePrice}
-            setSelectedStylePrice={setSelectedStylePrice}
-            selectedStyleSalePrice={selectedStyleSalePrice}
-            setSelectedStyleSalePrice={setSelectedStyleSalePrice}
-            selectedStyleName={selectedStyleName}
-            setSelectedStyleName={setSelectedStyleName}
-            selectedStylePhoto={selectedStylePhoto}
-            setSelectedStylePhoto={setSelectedStylePhoto}
-            mainImage={mainImage}
-            setMainImage={setMainImage}
-            styles={styles}
-          />
-        </OverviewContainer.Half>
+        <ProductInformation
+          currentProduct={currentProduct}
+          currentProductID={currentProductID}
+          selectedStyle={selectedStyle}
+          setSelectedStyle={setSelectedStyle}
+          selectedStylePrice={selectedStylePrice}
+          setSelectedStylePrice={setSelectedStylePrice}
+          selectedStyleSalePrice={selectedStyleSalePrice}
+          setSelectedStyleSalePrice={setSelectedStyleSalePrice}
+          selectedStyleName={selectedStyleName}
+          setSelectedStyleName={setSelectedStyleName}
+          selectedStylePhoto={selectedStylePhoto}
+          setSelectedStylePhoto={setSelectedStylePhoto}
+          mainImage={mainImage}
+          setMainImage={setMainImage}
+          styles={styles}
+          reviewData={reviewData}
+        />
       </OverviewContainer.StyledOverviewContainer>
     </div>
   );
