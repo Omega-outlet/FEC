@@ -8,12 +8,12 @@ import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
 import NewReview from './NewReview.jsx';
 import { calculateAverage, calculateTotal, calculatePercentage } from './arithmetic.js';
+import CharacteristicsGraph from './CharacteristicsGraph.jsx';
 
-function RatingsAndReviews({ currentProductID }) {
+function RatingsAndReviews({ currentProductID, metaData, setMetaData }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
-  const [metaData, setMetaData] = React.useState('');
-
+  
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
@@ -22,16 +22,6 @@ function RatingsAndReviews({ currentProductID }) {
       },
     })
       .then((response) => setReviews(response.data.results))
-      .catch(() => {});
-  }, [currentProductID]);
-
-  React.useEffect(() => {
-    axios.get('/reviews/meta', {
-      params: {
-        product_id: currentProductID,
-      },
-    })
-      .then((response) => setMetaData(response.data))
       .catch(() => {});
   }, [currentProductID]);
 
@@ -48,7 +38,7 @@ function RatingsAndReviews({ currentProductID }) {
   };
 
   return (
-    <div className="ratingsComponent" style={{ 'padding': '0 40px' }}>
+    <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '0 40px' }}>
       <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
       <div style={
         {
@@ -60,25 +50,35 @@ function RatingsAndReviews({ currentProductID }) {
       }
       >
         {metaData && (
-        <div>
-          <div style={{ 'display': 'flex', 'alignItems': 'flex-start' }}>
-            <span style={{ 'fontSize': '25px', 'paddingRight': '10px' }}>{`${calculateAverage(metaData.ratings)} `}</span>
-            <StarView rating={calculateAverage(metaData.ratings)} fontSize={20} />
+        <div style={{ 'width': '33%' }}>
+          <div>
+            <div style={{ 'display': 'flex', 'alignItems': 'flex-start' }}>
+              <span style={{ 'fontSize': '25px', 'paddingRight': '10px' }}>{`${calculateAverage(metaData.ratings)} `}</span>
+              <StarView rating={calculateAverage(metaData.ratings)} fontSize={20} />
+            </div>
+            <h3 style={{ 'marginTop': '0', 'fontWeight': 'lighter' }}>
+              <i>{`Based on ${calculateTotal(metaData.recommended)} reviews`}</i>
+            </h3>
+            <RatingsGraph metaData={metaData.ratings} />
+            <h5>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</h5>
           </div>
-          <h3 style={{ 'marginTop': '0', 'fontWeight': 'lighter' }}>
-            <i>{`Based on ${calculateTotal(metaData.recommended)} reviews`}</i>
-          </h3>
-          <RatingsGraph metaData={metaData.ratings} />
-          <h5>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</h5>
         </div>
         )}
-        <StyledButton
-          onClick={() => setShowForm((prev) => !prev)}
-          data-testid="newReviewBtn"
-          type="button"
-        >
-          Write Review
-        </StyledButton>
+        {metaData.characteristics && (
+          <div style={{ 'width': '33%', 'marginTop': '-25px' }}>
+            <CharacteristicsGraph metaData={metaData.characteristics} />
+          </div>
+        )}
+        <div style={{ 'width': '33%', 'display': 'flex', 'justifyContent': 'flex-end' }}>
+          <StyledButton
+            onClick={() => setShowForm((prev) => !prev)}
+            data-testid="newReviewBtn"
+            type="button"
+          >
+            Write Review
+          </StyledButton>
+
+        </div>
       </div>
       {showForm
         &&
@@ -98,7 +98,7 @@ function RatingsAndReviews({ currentProductID }) {
           </Modal>
         </ModalWrapper>
       )}
-      <ReviewList reviews={reviews} currentProductID={currentProductID} />
+      <ReviewList reviews={reviews} currentProductID={currentProductID} metaData={metaData} />
     </div>
   );
 }

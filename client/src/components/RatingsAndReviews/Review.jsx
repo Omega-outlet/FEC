@@ -1,11 +1,9 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
-import CharacteristicsGraph from './CharacteristicsGraph.jsx';
 import { StarView } from '../../styled-components/common-elements.jsx';
 
 function Review({ review }) {
-  // console.log(review)
   const {
     body,
     date,
@@ -34,7 +32,6 @@ function Review({ review }) {
         style={{ 'borderRight': '1px solid grey', 'paddingRight': '20px' }}
       >
         <p>{reviewer_name}</p>
-        <CharacteristicsGraph />
         <p>{recommend ? 'recommended' : 'not recommended'}</p>
       </div>
       <div className="second-column">

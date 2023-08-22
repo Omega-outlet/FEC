@@ -4,3 +4,4 @@ exports.relatedProducts = require('./relatedController.js');
 exports.relatedProductStyle = require('./relatedControllerStyle.js');
 exports.ratings = require('./ratingsController.js');
 exports.questions = require('./questionsController.js');
+exports.features = require('./featureController.js');
