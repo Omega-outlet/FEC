@@ -123,6 +123,7 @@ function Question({ productName, question }) {
 
 Question.propTypes = {
   question: PropTypes.shape({
+    productName: PropTypes.string,
     asker_name: PropTypes.string.isRequired,
     question_id: PropTypes.number.isRequired,
     question_helpfulness: PropTypes.number,
