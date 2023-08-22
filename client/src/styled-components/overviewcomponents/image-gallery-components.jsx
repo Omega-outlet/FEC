@@ -54,7 +54,7 @@ const ExpandedMainPhoto = styled.img`
   width:700px;
   height:660px;
   object-fit: cover;
-  cursor: zoom-in;
+  cursor: ${({ $displayZoomed }) => ($displayZoomed ? 'zoom-out' : 'zoom-in')};
 `;
 
 const ModalWrapper = styled.div`
@@ -137,6 +137,26 @@ const ExpandedNormal = styled.div`
 }
 `;
 
+// tried passing parameters to styled components but it isn't working. Using CSS for now
+// const ZoomedArea = styled.div`
+// display: ${({ $showMagnify }) => ($showMagnify ? '' : 'none')};
+// position: 'absolute',
+// pointerEvents: 'none',
+// // magnifer position
+// top: ${({ $coordinatesY, $zoomHeight }) => (`${$coordinatesY - $zoomHeight / 2.5}px`)},
+// left: ${({ $coordinatesX, $zoomWidth }) => (`${$coordinatesX + $zoomWidth / 1.5}px`)};
+// backgroundImage: ${({ $expandedMainImage }) => (`url('${$expandedMainImage}')`)},
+// // backgroundRepeat: 'no-repeat',
+// backgroundSize: : ${({ $siteWidth, $zoomStrength, $siteHeight }) => (`${$siteWidth * $zoomStrength}px ${$siteHeight * $zoomStrength}px`)};
+// backgroundPositionY: ${({ $coordinatesY, $zoomHeight, $zoomStrength }) => (`${-$coordinatesY * $zoomStrength + $zoomHeight / 2}px`)},
+// backgroundPositionX: ${({ $coordinatesX, $zoomWidth, $zoomStrength }) => (`${-$coordinatesX * $zoomStrength + $zoomWidth / 2}px`)},
+// // magnifier border
+// border: '2px solid #818589',
+// // magnifer dimensions
+// height: ${({ $zoomHeight }) => (`${$zoomHeight}px`)},
+// width: ${({ $zoomWidth }) => (`${$zoomWidth}px`)},
+// `;
+
 export default {
   MainPhoto,
   DefaultContainer,
@@ -153,4 +173,5 @@ export default {
   ExpandedImageContainer,
   ExitExpanded,
   ExpandedNormal,
+  // ZoomedArea,
 };
