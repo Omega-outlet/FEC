@@ -114,6 +114,7 @@ function ExpandedView({
               {focalItem > 0 && displayZoomed === false && <ScrollButton scroll={scrollLeft} dir="left" />}
 
               <ImageGalleryComponents.ExpandedMainPhoto
+                $displayZoomed={displayZoomed}
                 id="expandedMain"
                 src={expandedMainImage}
                 alt={selectedStyle?.name}
