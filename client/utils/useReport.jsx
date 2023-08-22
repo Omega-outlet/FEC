@@ -10,7 +10,7 @@ function useReport() {
     } else if (type === 'answers') {
       endpoint = `/qa/answers/${id}/report`;
     } else if (type === 'review') {
-      endpoint = `/reviews/${id}/helpful`;
+      endpoint = `/reviews/${id}/report`;
     } else {
       throw new Error('Wrong type!');
     }

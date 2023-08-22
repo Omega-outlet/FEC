@@ -83,7 +83,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     submitForm(formData);
     setSubmittedMessage(true);
   };
-  console.log(formData);
+  // console.log(formData);
   return (
     <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm">
       <label htmlFor="rating">
@@ -110,7 +110,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
       <fieldset>
         <legend>Characteristics</legend>
         {charArray.map((characteristic) => (
-          <RadioStyle>
+          <RadioStyle key={characteristic[0]}>
             <legend style={{ 'width': '70px' }}>{characteristic[0]}</legend>
             <div style={{ 'width': '100%' }}>
               <div style={{ 'display': 'flex', 'justifyContent': 'space-between'}}>

@@ -1,10 +1,20 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
+import useHelpfulYes from '../../../utils/useHelpfulYes.jsx';
+import useReport from '../../../utils/useReport.jsx';
 import { StarView } from '../../styled-components/common-elements.jsx';
+import { reFormatDate } from '../../../utils/reFormatDate.js';
+import HelpfulYesButton from '../../../utils/HelpfulYesButton.jsx';
+import ReportButton from '../../../utils/ReportButton.jsx';
 
 function Review({ review }) {
+  const registerHelpfulClick = useHelpfulYes();
+  const registerReportClick = useReport();
   const {
+    reported,
+    response,
+    review_id,
     body,
     date,
     helpfulness,
@@ -32,7 +42,11 @@ function Review({ review }) {
         style={{ 'borderRight': '1px solid grey', 'paddingRight': '20px' }}
       >
         <p>{reviewer_name}</p>
-        <p>{recommend ? 'recommended' : 'not recommended'}</p>
+        <p><i>{recommend ? 'recommended' : 'not recommended'}</i></p>
+        <ReportButton
+          initialReported={reported}
+          onReportClick={() => registerReportClick('review', review_id)}
+        />
       </div>
       <div className="second-column">
         <StarView rating={rating} fontSize={20} />
@@ -41,17 +55,22 @@ function Review({ review }) {
         <p>
           {body}
         </p>
+        {response && <p style={{ 'color': 'red' }}><strong>{response}</strong></p>}
       </div>
       <div
         className="third-column"
         style={{ 'borderLeft': '1px solid grey', 'paddingLeft': '20px' }}
       >
         <p>Images Module</p>
-        <p>{date}</p>
-        <p>Upvote/Downvote</p>
+        <p>{reFormatDate(date)}</p>
+        <div style={{'display': 'flex', 'flexDirection': 'column' }}>
+          <HelpfulYesButton
+            initialCount={helpfulness}
+            onHelpfulClick={() => registerHelpfulClick('review', review_id)}
+          />
+        </div>
       </div>
     </div>
-
   );
 }
 
@@ -70,6 +89,7 @@ Review.propTypes = {
     response: PropTypes.string,
     reviewer_name: PropTypes.string,
     summary: PropTypes.string,
+    reported: PropTypes.bool,
   }).isRequired,
 };
 
