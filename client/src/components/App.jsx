@@ -62,7 +62,7 @@ const App = function () {
         currentProductID={currentProductID}
         reviewData={metaData}
       />
-      <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
+      <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} reviewData={metaData} />
       <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
       <RatingsAndReviews
         currentProductID={currentProductID}

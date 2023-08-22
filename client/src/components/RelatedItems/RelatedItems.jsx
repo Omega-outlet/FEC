@@ -7,7 +7,7 @@ import RelatedContext from './RelatedContext.jsx';
 import ComparisonTable from './ComparisonTable.jsx';
 import { StyledButton, ModalWrapper, Modal, ModalContent } from '../../styled-components/common-elements.jsx';
 
-const RelatedItems = function ({currentProduct, updateProduct}) {
+const RelatedItems = function ({currentProduct, updateProduct }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [outfit, setOutfit] = useState([]);
   const [showTable, setShowTable] = useState(false);
@@ -63,7 +63,6 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
   const compareItem = (item, event) => {
     event.stopPropagation();
     //window.event.cancelBubble = true; research later: possibly necessary for IE?
-    //using true/false instead of !show to allow immediate clicking on another compare button
     if (item) {
       setComparedItem(item);
       setShowTable(true);
@@ -73,7 +72,7 @@ const RelatedItems = function ({currentProduct, updateProduct}) {
   };
 
   useEffect(getOutfit, [currentProduct]);
-  //added conditional rendering to comparison table in addition to modals to pass tests
+
   return (
     <div>
       <center>
