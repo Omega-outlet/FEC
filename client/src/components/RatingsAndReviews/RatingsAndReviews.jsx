@@ -35,7 +35,6 @@ function RatingsAndReviews({ currentProductID, metaData }) {
       .catch(() => {});
     // setShowForm((prev) => !prev);
   };
-
   return (
     <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '0 40px' }}>
       <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
