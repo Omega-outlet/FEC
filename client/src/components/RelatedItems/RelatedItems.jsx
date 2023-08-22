@@ -7,7 +7,7 @@ import RelatedContext from './RelatedContext.jsx';
 import ComparisonTable from './ComparisonTable.jsx';
 import { StyledButton, ModalWrapper, Modal, ModalContent } from '../../styled-components/common-elements.jsx';
 
-const RelatedItems = function ({currentProduct, updateProduct }) {
+const RelatedItems = function ({ currentProduct, updateProduct }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [outfit, setOutfit] = useState([]);
   const [showTable, setShowTable] = useState(false);
@@ -26,13 +26,13 @@ const RelatedItems = function ({currentProduct, updateProduct }) {
       .catch((error) => error.message);
   }, [currentProduct]);
 
-  const getOutfit = () => {
+  useEffect(() => {
     const storedOutfit = localStorage.getItem('yourOutfit');
     if (storedOutfit) {
       const outfitArray = JSON.parse(storedOutfit);
       setOutfit(outfitArray);
     }
-  };
+  }, [currentProduct]);
 
   // only if item doesn't already exist
   const addToOutfit = (item) => {
@@ -71,8 +71,6 @@ const RelatedItems = function ({currentProduct, updateProduct }) {
     }
   };
 
-  useEffect(getOutfit, [currentProduct]);
-
   return (
     <div>
       <center>
@@ -82,7 +80,9 @@ const RelatedItems = function ({currentProduct, updateProduct }) {
           <ModalWrapper $displaymodal={showTable}>
             <Modal $displaymodal={showTable}>
               <ModalContent $displaymodal={showTable}>
-                { showTable && <ComparisonTable currentProduct={currentProduct} comparedProduct={comparedItem} /> }
+                { showTable
+                &&
+                <ComparisonTable currentProduct={currentProduct} comparedProduct={comparedItem} /> }
               </ModalContent>
             </Modal>
           </ModalWrapper>

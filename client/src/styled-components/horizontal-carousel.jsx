@@ -11,7 +11,7 @@ export const Carousel = styled.ul`
   flex: 0 0 auto;
   gap: 5px;
   justify-content: center;
-  height: 35em;
+  height: 33em;
   align-items: center;
 `;
 
