@@ -11,7 +11,7 @@ function CharacteristicsGraph({ metaData }) {
     { attribute: 'length', descArr: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'] },
     { attribute: 'fit', descArr: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'] },
   ];
-  console.log(characteristics)
+  console.log(metaData)
   return (
     <div>
       <div>

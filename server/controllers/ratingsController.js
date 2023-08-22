@@ -37,10 +37,26 @@ module.exports = {
       .then(() => res.status(201).send('CREATED'))
       .catch((err) => res.status(401).send(err));
   },
-  // markAsHelpful: (req, res) => {
-  //   console.log(req);
-  // },
-  // reportReview: (req, res) => {
-  //   console.log(req);
-  // },
+  markAsHelpful: (req, res) => {
+    const { review_id } = req.params;
+    // console.log(review_id);
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${review_id}/helpful`, {}, {
+      headers: {
+        Authorization: process.env.TOKEN,
+      },
+    })
+      .then(() => res.status(204).send('NO CONTENT'))
+      .catch(() => res.status(404));
+  },
+  reportReview: (req, res) => {
+    const { review_id } = req.params;
+    // console.log(review_id);
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${review_id}/report`, {}, {
+      headers: {
+        Authorization: process.env.TOKEN,
+      },
+    })
+      .then(() => res.status(204).send('NO CONTENT'))
+      .catch(() => res.status(404));
+  }
 };
