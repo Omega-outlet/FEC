@@ -4,12 +4,14 @@ export const QAContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-top: 1px solid;
   border-bottom: 1px solid;
+  max-height: 100vh;
 `;
 
 export const QuestionList = styled.ul`
   list-style-type: none;
+  max-height: 80vh;
+  overflow-y: auto;
 `;
 
 export const QuestionDetailsList = styled.li`
@@ -22,6 +24,7 @@ export const QuestionDetailsList = styled.li`
   margin-bottom: 15px;
   border-bottom: var(--common-border-width,1px) solid var(--common-border-color,rgba(0,0,0,0.15));
   padding-bottom: 40px;
+
 `;
 
 export const AskerDetailsContainer = styled.div`
@@ -55,6 +58,11 @@ export const AnswerListContainer = styled.ul`
 export const SearchBarContainer = styled.div`
   width: 65%;
   padding: 20px;
+  position: sticky;
+  // makes it stick on top of the scrollable section
+  top: 0;
+  background-color: white;
+  padding-bottom: 0;
 `;
 
 export const SearchInput = styled.input`
@@ -77,6 +85,7 @@ export const LoadMoreAndAddNewButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
+  padding-bottom: 10px;
 `;
 
 export const BodyAndQuestionContainer = styled.div`

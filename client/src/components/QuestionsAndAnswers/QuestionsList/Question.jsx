@@ -29,7 +29,7 @@ function Question({ productName, question }) {
   const fetchAnswers = () => {
     axios.get(`/qa/questions/${question.question_id}/answers`, {
       params: {
-        count: 1000,
+        count: 10,
       },
     })
       .then((res) => {
@@ -108,8 +108,8 @@ function Question({ productName, question }) {
         </QuestionBodyAndHelpfulContainer>
         <AnswerListContainer>
           {sortByHelpAnswer(answers)
-            .slice(0, numAnswersShowed).map((answer, i) => (
-              <Answer key={i} answer={answer} />
+            .slice(0, numAnswersShowed).map((answer) => (
+              <Answer key={answer.id} answer={answer} />
             ))}
         </AnswerListContainer>
         <LoadMoreAnswersButton

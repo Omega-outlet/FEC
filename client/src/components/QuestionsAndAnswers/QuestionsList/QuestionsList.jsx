@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { sortByHelpQuestion } from '../utils/sortHelp.js';
 import Question from './Question.jsx';
@@ -11,15 +11,44 @@ function QuestionsList({ productName, questions, onHandleAddQuestion }) {
   const sortedQuestions = sortByHelpQuestion(questions);
   // On page load, 2 questions will show up
   const QuestionsLoadOnPage = 2;
-  const [numQuestionsShowed, setNumQuestionshowed] = useState(QuestionsLoadOnPage);
+  const [numQuestionsShowed, setNumQuestionShowed] = useState(QuestionsLoadOnPage);
+  const [hasClickedLoadMore, setHasClickedLoadMore] = useState(false);
+  const questionListRef = useRef(null);
+
+  // Infinite scroll
+  const handleScroll = () => {
+    if (questionListRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = questionListRef.current;
+      if (scrollTop + clientHeight >= scrollHeight - 1) {
+        setTimeout(() => {
+          setNumQuestionShowed((prev) => prev + 2);
+        }, 1000);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (hasClickedLoadMore) {
+      questionListRef.current.addEventListener('scroll', handleScroll);
+      return () => {
+        if (questionListRef.current) {  // <---- Add this check here
+          questionListRef.current.removeEventListener('scroll', handleScroll);
+        }
+      };
+    }
+    // Expected to return a value at the end of arrow function (Eslint)
+    return () => {};
+  }, [hasClickedLoadMore]);
 
   const handleShowMore = () => {
-    setNumQuestionshowed((prev) => prev + 2);
+    setHasClickedLoadMore(true);
+    setNumQuestionShowed((prev) => prev + 2);
   };
+
 
   return (
     <div>
-      <QuestionList>
+      <QuestionList ref={questionListRef}>
         {sortedQuestions.slice(0, numQuestionsShowed).map((question) => (
           <Question
             key={question.question_id}
@@ -27,17 +56,19 @@ function QuestionsList({ productName, questions, onHandleAddQuestion }) {
             question={question}
           />
         ))}
-        <LoadMoreAndAddNewButtonContainer>
+      </QuestionList>
+      <LoadMoreAndAddNewButtonContainer>
+        {!hasClickedLoadMore && (
           <LoadMoreQuestionsButton
             onClick={handleShowMore}
             hasMoreQuestions={numQuestionsShowed < sortedQuestions.length}
           />
-          <AddNewQuestionButton
-            productName={productName}
-            onHandleAddQuestion={onHandleAddQuestion}
-          />
-        </LoadMoreAndAddNewButtonContainer>
-      </QuestionList>
+        )}
+        <AddNewQuestionButton
+          productName={productName}
+          onHandleAddQuestion={onHandleAddQuestion}
+        />
+      </LoadMoreAndAddNewButtonContainer>
     </div>
   );
 }
