@@ -262,3 +262,42 @@ describe('normal expanded view', () => {
     await waitFor(() => expect(newImage.src).toContain('https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80'));
   });
 });
+describe('expanded view zoom', () => {
+  it('no arrows button functionality when in zoomed view', async () => {
+    let count = 1;
+    const mockModal = jest.fn(() => false);
+    const mockSetImg = jest.fn(() => Data.styles.results[0].photos[count++].url);
+    await waitFor(() => render(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={Data.styles.results[0].photos[0].url}
+      setExpandedMainImage={mockSetImg}
+    />));
+    const rightButton = screen.queryByText('>');
+    expect(rightButton).toBeTruthy();
+    const imageElement = screen.getByAltText(`White & White`);
+    fireEvent.click(imageElement);
+    await waitFor(() => expect(screen.queryByText('>')).toBeFalsy());
+  });
+  it('no image icon click functionality when in zoomed view', async () => {
+    let count = 1;
+    const mockModal = jest.fn(() => false);
+    const mockSetImg = jest.fn(() => Data.styles.results[0].photos[count++].url);
+    await waitFor(() => render(<ExpandedView
+      currentProduct={Data.product}
+      selectedStyle={Data.styles.results[0]}
+      displayModal
+      setDisplayModal={mockModal}
+      expandedMainImage={Data.styles.results[0].photos[0].url}
+      setExpandedMainImage={mockSetImg}
+    />));
+    let icon = screen.getByAltText(`White & White 1`);
+    expect(icon).toBeTruthy();
+    const imageElement = screen.getByAltText(`White & White`);
+    fireEvent.click(imageElement);
+    icon = screen.queryByAltText(`White & White 1`);
+    await waitFor(() => expect(icon).toBeFalsy());
+  });
+});

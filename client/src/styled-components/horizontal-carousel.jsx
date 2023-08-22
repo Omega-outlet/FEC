@@ -11,13 +11,13 @@ export const Carousel = styled.ul`
   flex: 0 0 auto;
   gap: 5px;
   justify-content: center;
-  height: 35em;
+  height: 70vh;
   align-items: center;
 `;
 
 export const Item = styled.li`
   width: 20em;
-  height: 100%;
+  height: min-content;
   clip: shape;
   align-items: center;
   background-color: #f5f5f5;
