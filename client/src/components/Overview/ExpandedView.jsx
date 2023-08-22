@@ -14,43 +14,19 @@ function ExpandedView({
   const [isLoading, setIsLoading] = useState(true);
   const [thumbnails, setThumbnails] = useState([]);
   const [focalItem, setFocalItem] = useState(0);
-  const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
   const [siteWidth, setSiteWidth] = useState(0);
   const [siteHeight, setSiteHeight] = useState(0);
   const [displayZoomed, setDisplayZoomed] = useState(false);
   const [showMagnify, setShowMagnify] = useState(false);
   const [coordinates, setCoordinates] = useState([0, 0]);
 
-  // const zoomStrength = 2.5;
-  // const zoomWidth = 300;
-  // const zoomHeight = 300;
   const loadImageDimensions = () => {
-    // get the dimensions of image to be zoomed
-    function getImageDimensions() {
-      return new Promise((resolve, reject) => {
-        if (expandedMainImage) {
-          const img = new Image();
-          img.onload = () => resolve(img);
-          img.onerror = (err) => reject(err);
-          img.src = expandedMainImage;
-        } else {
-          reject(new Error('Not done loading'));
-        }
-      });
-    }
-
-    (async () => {
-      // set width and height from the image as it displays on our browser
-      const clientImg = document.getElementById('expandedMain');
-      setSiteWidth(clientImg.width);
-      setSiteHeight(clientImg.height);
-      const img = await getImageDimensions(expandedMainImage);
-      // set the width and height from the original image url
-      setWidth(img.width);
-      setHeight(img.height);
-    })().catch(() => { });
+    // set width and height from the image as it displays on our browser
+    const clientImg = document.getElementById('expandedMain');
+    setSiteWidth(clientImg.width);
+    setSiteHeight(clientImg.height);
   };
+
   useEffect(loadImageDimensions, [expandedMainImage, selectedStyle, displayZoomed]);
 
   const loadStylesPhotos = () => {
@@ -116,8 +92,7 @@ function ExpandedView({
         <ImageGalleryComponents.Modal $displaymodal={displayModal}>
           <ImageGalleryComponents.ExpandedNormal>
             <ImageGalleryComponents.Icons>
-
-              {thumbnails ? thumbnails.map((photoObj, index) => (
+              {thumbnails && displayZoomed === false ? thumbnails.map((photoObj, index) => (
                 <ExpandedThumbnail
                   photoObj={photoObj}
                   focalItem={focalItem}
@@ -134,8 +109,10 @@ function ExpandedView({
               )) : null}
 
             </ImageGalleryComponents.Icons>
+
             <ImageGalleryComponents.ExpandedImageContainer>
-              { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : null }
+              {focalItem > 0 && displayZoomed === false && <ScrollButton scroll={scrollLeft} dir="left" />}
+
               <ImageGalleryComponents.ExpandedMainPhoto
                 id="expandedMain"
                 src={expandedMainImage}
@@ -148,7 +125,8 @@ function ExpandedView({
                 onMouseLeave={() => { setShowMagnify(false); }}
                 onMouseMove={(e) => { cursorPos(e); }}
               />
-              { focalItem < thumbnails.length - 1 && <ScrollButton scroll={scrollRight} dir="right" />}
+              {focalItem < thumbnails.length - 1 && displayZoomed === false && <ScrollButton scroll={scrollRight} dir="right" />}
+
             </ImageGalleryComponents.ExpandedImageContainer>
             <ImageGalleryComponents.ExitExpanded>
               <StyledButton
