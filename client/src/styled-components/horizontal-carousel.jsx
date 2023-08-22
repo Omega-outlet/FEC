@@ -11,13 +11,15 @@ export const Carousel = styled.ul`
   flex: 0 0 auto;
   gap: 5px;
   justify-content: center;
-  height: 70vh;
+  height: 35em;
   align-items: center;
+  background-color: red;
+
 `;
 
 export const Item = styled.li`
-  width: 20em;
-  height: min-content;
+  width: 15em;
+  height: 100%;
   clip: shape;
   align-items: center;
   background-color: #f5f5f5;
@@ -30,6 +32,6 @@ export const Image = styled.img`
   object-fit: cover;
   display: block;
   height: 25em;
-  width: 20em;
+  width: 15em;
   clip: shape;
 `;

@@ -72,7 +72,7 @@ const RelatedItems = function ({ currentProduct, updateProduct }) {
   };
 
   return (
-    <div>
+    <div className="relatedItems">
       <center>
         <RelatedContext.Provider value={{ removeFromOutfit, compareItem }}>
           { relatedProducts.length === 0 ? <h3>No related items!</h3> : <h3>Related Items</h3>}

@@ -5,11 +5,15 @@ import Overview from './Overview/Overview.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
+// import logo from 'https://postimg.cc/VJLj1kC6';
 
 const App = function () {
   const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
   const [metaData, setMetaData] = React.useState('');
+
+  const logo = 'https://i.postimg.cc/fyyfVNvF/logo.png';
+  const darkmodeLogo = 'https://i.postimg.cc/d3fmdxH0/darkmode-Logo.png';
   /*
   only have either loadFirstProduct or loadRandomProduct and
   their respective useEffect uncommented, not both
@@ -55,8 +59,8 @@ const App = function () {
   }, [currentProductID]);
 
   return (
-    <div>
-      <h1>Omega Outlet</h1>
+    <div className="app">
+      <img className="logo" src={logo} alt="logo" />
       <Overview
         currentProduct={currentProduct}
         currentProductID={currentProductID}
@@ -69,7 +73,6 @@ const App = function () {
         metaData={metaData}
         setMetaData={setMetaData}
       />
-
     </div>
   );
 };

@@ -1,6 +1,26 @@
 body {
     font-family: Arial;
 }
+
+.app {
+  margin: 1vh 5vw 1vh 5vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  width: 5vw;
+  height: auto;
+  align-self: center;
+  margin: 1vw;
+}
+
+.relatedItems {
+  margin: 0;
+  display: flex;
+  background-color: blue;
+}
+
 .Stars {
   &::before {
     content: '★★★★★';
