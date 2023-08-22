@@ -14,3 +14,17 @@ body {
 .overflow-y-hidden {
   overflow: hidden;
 }
+
+.descriptions {
+  text-align: center;
+  padding-left: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+.descriptions span:first-of-type {
+  text-align: left;
+}
+.descriptions span:last-of-type {
+  text-align: right;
+}
+
