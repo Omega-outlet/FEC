@@ -69,7 +69,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
           </tr>
           <tr>
             <td>
-              {product.category}
+              <small>{product.category}</small>
             </td>
           </tr>
           <tr>
@@ -108,7 +108,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
                   <StarView rating={starRating} fontSize={20} />
                   <em><small> ({starRating})</small></em>
                 </>
-              ) : <em><small>...star rating loading</small></em>}
+              ) : <em><small>...loading star rating</small></em>}
             </td>
           </tr>
         </tbody>
