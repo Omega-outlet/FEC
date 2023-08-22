@@ -11,7 +11,7 @@ function CharacteristicsGraph({ metaData }) {
     { attribute: 'length', descArr: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'] },
     { attribute: 'fit', descArr: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'] },
   ];
-  console.log(metaData)
+  console.log(characteristics)
   return (
     <div>
       <div>
@@ -24,9 +24,9 @@ function CharacteristicsGraph({ metaData }) {
           </div>
           <div className="bar" style={{ 'display': 'flex', 'alignItems': 'center' }}>
             <span style={{ 'width': '100px', 'fontSize': '15px' }}>{char}</span>
-            <div style={{ 'height': '1px', 'width': `${100 - ((metaData[char]['value'] - 1) / 5) * 100}%`, 'background': 'black' }} />
+            <div style={{ 'height': '1px', 'width': `${100 - ((metaData[char]?.value - 1) / 5) * 100}%`, 'background': 'black' }} />
             <span>x</span>
-            <div style={{ 'height': '1px', 'width': `${((metaData[char]['value'] - 1) / 5) * 100}%`, 'background': 'black' }} />
+            <div style={{ 'height': '1px', 'width': `${((metaData[char]?.value - 1) / 5) * 100}%`, 'background': 'black' }} />
           </div>
         </div>
       ))}

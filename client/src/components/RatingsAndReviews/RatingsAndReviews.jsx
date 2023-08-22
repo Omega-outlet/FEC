@@ -75,7 +75,7 @@ function RatingsAndReviews({ currentProductID }) {
           </div>
         </div>
         )}
-        {metaData && (
+        {metaData.characteristics && (
           <div style={{ 'width': '33%', 'marginTop': '-25px' }}>
             <CharacteristicsGraph metaData={metaData.characteristics} />
           </div>
