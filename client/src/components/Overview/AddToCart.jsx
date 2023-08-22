@@ -7,17 +7,9 @@ import {
 function AddToCart({
   selectedStyle,
 }) {
-  const [selectedStyleSkus, setSelectedStyleSkus] = useState({});
   const [SKUArray, setSKUArray] = useState([]);
   const [SKUValueArray, setSKUValueArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [sku, setSKU] = useState('');
-  const [cartActivated, setCartActivated] = useState(false);
   const [message, setMessage] = useState('');
-  const [quantityMessage, setQuantityMessage] = useState('');
-  const [cartQuantity, setCartQuantity] = useState(0);
-  const [cartSize, setCartSize] = useState('');
   const [openSize, setOpenSize] = useState(false);
   const [openQuantity, setOpenQuantity] = useState(false);
   const [size, setSize] = useState(-1);
@@ -96,26 +88,11 @@ function AddToCart({
 
   useEffect(loadMaxQuantity, [selectedStyle, size]);
 
-  // const handleSizeChange = (e) => {
-  //   if (e.target.value === 'unselected') {
-  //     setCartActivated(false);
-  //     setCartSize('');
-  //   } else {
-  //     setCartActivated(true);
-  //     setCartSize(SKUValueArray[e.target.value].size);
-  //   }
-  //   if (SKUValueArray[e.target.value].quantity > maxQuantity) {
-  //     setQuantity(maxQuantity);
-  //   } else {
-  //     setQuantity(SKUValueArray[e.target.value].quantity);
-  //   }
-  //   setSKU(SKUArray[e.target.value]);
-  // };
-
   const cartHandle = () => {
     // if user didn't select size, show message
     if (size === -1) {
       setMessage('Please select size');
+      setOpenSize(true);
       // else add to cart and reset sizee and quantity to -1
     } else {
       setMessage(`added ${quantity} of size ${SKUValueArray[size].size} to cart`);
@@ -147,7 +124,7 @@ function AddToCart({
 
   return (
     <div>
-      {cartActivated ? null : <span>{message}</span> }
+      <span>{message}</span>
       <br />
       Size:
       {/* size selected */}
