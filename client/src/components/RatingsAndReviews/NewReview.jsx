@@ -3,9 +3,11 @@ import propTypes from 'prop-types';
 import styled from 'styled-components';
 import { StyledButton } from '../../styled-components/common-elements.jsx';
 import descriptionArr from './descriptionArr.js';
+import ThemeContext from '../ThemeContext.jsx';
 
 // eslint-disable-next-line object-curly-newline
 function NewReview({ renderForm, currentProductID, submitForm, characteristics }) {
+  const { theme } = React.useContext(ThemeContext);
   const radioArray = [1, 2, 3, 4, 5];
   const [charArray, setCharArray] = React.useState([]);
   // const [photoURL, setPhotoUrl] = React.useState('');
@@ -81,15 +83,15 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     renderForm();
   };
   return (
-    <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm">
+    <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm" style={{ 'fontColor': 'black' }}>
       <label htmlFor="rating">
         {'Rating: '}
         <div>
           {radioArray.map((num) => {
             if (num.toString() <= formData.rating) {
-              return <SelectedStar key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">★</SelectedStar>;
+              return <SelectedStar $theme={theme} key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">★</SelectedStar>;
             }
-            return <SelectedStar key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">☆</SelectedStar>;
+            return <SelectedStar $theme={theme} key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">☆</SelectedStar>;
           })}
           {formData.rating && <span>{`${formData.rating} stars`}</span>}
         </div>
@@ -124,28 +126,57 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
       </fieldset>
       <LineSkip />
       <div style={{'display': 'flex'}}>
-        <div className="leftside" style={{ 'width': '25%'}}>
+        <div className="leftside" style={{ 'width': '50%'}}>
           <label htmlFor="summary">
             Review Summary:
             <br />
-            <StyledInput type="text" id="summary" maxLength="60" name="summary" onChange={handleChange()} required />
+            <StyledInput
+              type="text"
+              placeholder="Example: Best purchase ever!"
+              id="summary"
+              maxLength="60"
+              name="summary"
+              onChange={handleChange()}
+              required
+            />
+            <br />
+            <InputDescription>{`${formData.summary.length}/60`}</InputDescription>
           </label>
           <LineSkip />
           <label htmlFor="username">
             Display Name:
             <br />
-            <StyledInput type="text" id="username" name="name" onChange={handleChange()} required />
+            <StyledInput
+              type="text"
+              id="username"
+              name="name"
+              onChange={handleChange()}
+              placeholder="Example: jackson11!"
+              required
+            />
+            <br />
+            <InputDescription>For privacy reasons, do not use your full name or email address</InputDescription>
           </label>
           <LineSkip />
           <label htmlFor="email">
             Email:
             <br />
-            <StyledInput type="email" id="email" name="email" onChange={handleChange()} required />
+            <StyledInput
+              type="email"
+              placeholder="Example: jackson11@email.com"
+              id="email"
+              name="email"
+              onChange={handleChange()}
+              required
+            />
+            <br />
+            <InputDescription>For authentication reasons, you will not be emailed</InputDescription>
           </label>
           <LineSkip />
           <StyledButton
             type="submit"
             data-testid="formSubmit"
+            $theme={theme}
           >
             Submit Review
           </StyledButton>
@@ -154,7 +185,15 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
           <label htmlFor="reviewBody">
             Review:
             <br />
-            <StyledTextArea id="reviewBody" name="body" onChange={handleChange()} required />
+            <StyledTextArea
+              id="reviewBody"
+              placeholder="Why did you like the product or not?"
+              name="body"
+              onChange={handleChange()}
+              required
+            />
+            <br />
+            <InputDescription>{`${formData.body.length}/1000`}</InputDescription>
           </label>
         </div>
       </div>
@@ -191,7 +230,7 @@ const SelectedStar = styled.button`
   background: none;
   cursor: pointer;
   font-size: 30px;
-  color: black`;
+  color: ${({ $theme }) => ($theme === 'light' ? 'black' : 'white')};`;
 
 const LineSkip = styled.div`
   height: 10px`;
@@ -206,9 +245,12 @@ const StyledInput = styled.input`
 const StyledTextArea = styled.textarea`
   resize: none;
   background: #f8f8f8;
-  width: 75%;
-  height: 75%;
+  width: 90%;
+  height: 80%;
   border: 1px solid lightgray;
   outline: none;`;
+
+const InputDescription = styled.span`
+  font-size: 12px;`;
 
 export default NewReview;

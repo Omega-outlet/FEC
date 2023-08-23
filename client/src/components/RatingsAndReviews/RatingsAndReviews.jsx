@@ -9,12 +9,15 @@ import ReviewList from './ReviewList.jsx';
 import NewReview from './NewReview.jsx';
 import { calculateAverage, calculateTotal, calculatePercentage } from './arithmetic.js';
 import CharacteristicsGraph from './CharacteristicsGraph.jsx';
+import ThemeContext from '../ThemeContext.jsx';
 
 function RatingsAndReviews({ currentProductID, metaData }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
   const [filters, setFilters] = React.useState([]);
   const [submitMessage, setSubmitMessage] = React.useState(false);
+  const [sortBy, setSortBy] = React.useState('relevant');
+  const { theme } = React.useContext(ThemeContext);
 
   React.useEffect(() => {
     axios.get('/reviews', {
@@ -23,10 +26,19 @@ function RatingsAndReviews({ currentProductID, metaData }) {
         count: 100,
       },
     })
-      .then((response) => setReviews(response.data.results))
-      .catch((err) => {console.log(err)});
-  }, [currentProductID, submitMessage]);
+      .then((response) => {
+        if (sortBy === 'relevant') {
+          setReviews(response.data.results);
+        } else if (sortBy === 'helpful') {
+          setReviews(response.data.results.sort((a, b) => b.helpfulness - a.helpfulness));
+        } else if (sortBy === 'newest') {
+          setReviews(response.data.results.sort((a, b) => new Date(b.date) - new Date(a.date)));
+        }
+      })
+      .catch((err) => { console.log(err); });
+  }, [currentProductID, submitMessage, sortBy]);
   // eslint-disable-next-line func-names
+
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };
@@ -45,6 +57,10 @@ function RatingsAndReviews({ currentProductID, metaData }) {
       .then((response) => console.log(response))
       .catch((err) => {console.log(err)});
     setSubmitMessage((prev) => !prev);
+  };
+
+  const changeSortMethod = function (value) {
+    setSortBy(value);
   };
 
   return (
@@ -82,6 +98,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
         )}
         <div style={{ 'width': '33%', 'display': 'flex', 'justifyContent': 'flex-end' }}>
           <StyledButton
+            $theme={theme}
             onClick={() => setShowForm((prev) => !prev)}
             data-testid="newReviewBtn"
             type="button"
@@ -96,9 +113,9 @@ function RatingsAndReviews({ currentProductID, metaData }) {
         &&
       (
         <ModalWrapper $displaymodal={showForm}>
-          <Modal $displaymodal={showForm}>
+          <Modal $theme={theme} $displaymodal={showForm}>
             <h3>Your Review</h3>
-            <ModalContent $displaymodal={showForm}>
+            <ModalContent $theme={theme} $displaymodal={showForm}>
               <NewReview
                 renderForm={renderForm}
                 submitForm={submitForm}
@@ -106,7 +123,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
                 characteristics={metaData.characteristics}
               />
             </ModalContent>
-            <StyledButton data-testid="closeModal" type="button" onClick={() => setShowForm((prev) => !prev)}>Close</StyledButton>
+            <StyledButton $theme={theme} data-testid="closeModal" type="button" onClick={() => setShowForm((prev) => !prev)}>Close</StyledButton>
           </Modal>
         </ModalWrapper>
       )}
@@ -116,6 +133,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
         metaData={metaData}
         filters={filters}
         submitMessage={submitMessage}
+        changeSortMethod={changeSortMethod}
       />
     </div>
   );
