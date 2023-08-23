@@ -76,7 +76,7 @@ const App = function () {
       <header>
         <button className="darkMode" onClick={toggleDark}>Switch to {dark === 'dark' ? 'light theme 🌞' : 'dark theme 🌙'}</button>
       </header>
-      <img className="logo" src={logo} alt="logo" />
+      <img className="logo" src={dark === 'light' ? logo : darkmodeLogo} alt="logo" />
       <Overview
         currentProduct={currentProduct}
         currentProductID={currentProductID}
