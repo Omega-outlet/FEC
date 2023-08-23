@@ -28,7 +28,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     { attribute: 'length', descArr: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'] },
     { attribute: 'fit', descArr: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'] },
   ];
-
+  console.log(formData);
   React.useEffect(() => {
     setCharArray(Object.entries(characteristics));
   }, [characteristics]);
@@ -50,7 +50,10 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
 
   const handleChange = (level) => (e) => {
     const { name, value } = e.target;
-    if (!level) {
+    if (name === 'photos') {
+      // const photos = [value]
+      setFormData((prev) => ({ ...prev, photos: [...prev.photos, (value)] }));
+    } else if (!level) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: convertData(e.target),
@@ -66,6 +69,12 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     }
   };
 
+  // const onImageChange = (event) => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     setFormData((prev) => ({ ...prev, photos: [...prev.photos, URL.createObjectURL(event.target.files[0])] }));
+  //   }
+  // };
+
   const renderRadios = (arr, characteristicId) => (
     arr.map((number) => (
       <input
@@ -75,6 +84,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         name={characteristicId}
         onChange={handleChange('characteristics')}
         required
+        key={characteristicId + number}
       />
     )));
 
@@ -91,9 +101,9 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         <div>
           {radioArray.map((num) => {
             if (num.toString() <= formData.rating) {
-              return <SelectedStar name="rating" value={num} onMouseOver={handleChange()} type="button">★</SelectedStar>;
+              return <SelectedStar key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">★</SelectedStar>;
             }
-            return <NotSelectedStar name="rating" value={num} onMouseOver={handleChange()} type="button">★</NotSelectedStar>;
+            return <NotSelectedStar key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">★</NotSelectedStar>;
           })}
         </div>
       </label>
@@ -114,7 +124,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             <legend style={{ 'width': '70px' }}>{characteristic[0]}</legend>
             <div style={{ 'width': '100%' }}>
               <div style={{ 'display': 'flex', 'justifyContent': 'space-between'}}>
-                {descriptionArr.filter((descObj) => (descObj.attribute === characteristic[0].toLowerCase()))[0].descArr.map((feedback) => <span style={{'fontSize': '10px', 'width': '20%', 'textAlign': 'center'}}>{feedback}</span>)}
+                {descriptionArr.filter((descObj) => (descObj.attribute === characteristic[0].toLowerCase()))[0].descArr.map((feedback) => <span key={feedback} style={{'fontSize': '10px', 'width': '20%', 'textAlign': 'center'}}>{feedback}</span>)}
               </div>
               <div style={{ 'display': 'flex', 'justifyContent': 'space-between'}}>
                 {renderRadios(radioArray, characteristic[1].id)}
@@ -146,6 +156,12 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         <br />
         <input type="email" id="email" name="email" onChange={handleChange()} required />
       </label>
+      {/* <label htmlFor="photos">
+        <br />
+        {'Photos (up to 5): '}
+        <br />
+        {formData.photos.length < 5 && <input type="file" multiple id="photos" name="photos" required />}
+      </label> */}
       <br />
       <StyledButton
         type="submit"

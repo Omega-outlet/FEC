@@ -4,6 +4,7 @@ import axios from 'axios';
 import QuestionsList from './QuestionsList/QuestionsList.jsx';
 import SearchBar from './Buttons/SearchBar.jsx';
 import { QAContainer } from './styled-components/QuestionsAndAnswers.styles.jsx';
+import AddNewQuestionButton from './Buttons/AddNewQuestionButton.jsx';
 
 function QuestionsAndAnswers({ currentProduct, currentProductID }) {
   const [questions, setQuestions] = useState([]);
@@ -52,12 +53,25 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
   };
   return (
     <QAContainer>
-      <SearchBar onSearch={handleSearch} />
-      <QuestionsList
-        productName={currentProduct.name}
-        questions={filteredQuestions}
-        onHandleAddQuestion={handleAddNewQuestion}
-      />
+      {
+        questions.length === 0
+          ? (
+            <AddNewQuestionButton
+              productName={currentProduct.name}
+              onHandleAddQuestion={handleAddNewQuestion}
+            />
+          )
+          : (
+            <>
+              <SearchBar onSearch={handleSearch} />
+              <QuestionsList
+                productName={currentProduct.name}
+                questions={filteredQuestions}
+                onHandleAddQuestion={handleAddNewQuestion}
+              />
+            </>
+          )
+      }
     </QAContainer>
   );
 }

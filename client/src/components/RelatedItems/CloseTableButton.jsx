@@ -5,7 +5,7 @@ import RelatedContext from './RelatedContext.jsx';
 const CloseTableButton = function () {
   const { compareItem } = useContext(RelatedContext);
 
-  return <StyledButton onClick={(event) => compareItem(undefined, event)}>Close</StyledButton>;
+  return <StyledButton onClick={(event) => compareItem(undefined, event)} className="shortButton" >Close</StyledButton>;
 };
 
 export default CloseTableButton;

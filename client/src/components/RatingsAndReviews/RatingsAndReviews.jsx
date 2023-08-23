@@ -13,20 +13,29 @@ import CharacteristicsGraph from './CharacteristicsGraph.jsx';
 function RatingsAndReviews({ currentProductID, metaData }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
+  const [filters, setFilters] = React.useState([]);
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
         product_id: currentProductID,
-        count: 5,
+        count: 25,
       },
     })
       .then((response) => setReviews(response.data.results))
       .catch(() => {});
   }, [currentProductID]);
-
   // eslint-disable-next-line func-names
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
+  };
+
+  const changeFilter = (value) => {
+    const index = filters.indexOf(value);
+    if (index > -1) {
+      setFilters((prevFilters) => [...prevFilters.slice(0, index), ...prevFilters.slice(index + 1)])
+    } else {
+      setFilters((prevFilters) => [...prevFilters, value]);
+    }
   };
 
   const submitForm = (formObj) => {
@@ -36,7 +45,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
     // setShowForm((prev) => !prev);
   };
   return (
-    <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '0 40px' }}>
+    <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '0 40px' }} data-testid="testing">
       <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
       <div style={
         {
@@ -48,7 +57,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
       }
       >
         {metaData && (
-        <div style={{ 'width': '33%' }}>
+        <div style={{ 'width': '33%' }} data-testid="test123">
           <div>
             <div style={{ 'display': 'flex', 'alignItems': 'flex-start' }}>
               <span style={{ 'fontSize': '25px', 'paddingRight': '10px' }}>{`${calculateAverage(metaData.ratings)} `}</span>
@@ -57,7 +66,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
             <h3 style={{ 'marginTop': '0', 'fontWeight': 'lighter' }}>
               <i>{`Based on ${calculateTotal(metaData.recommended)} reviews`}</i>
             </h3>
-            <RatingsGraph metaData={metaData.ratings} />
+            <RatingsGraph metaData={metaData.ratings} changeFilter={changeFilter} />
             <h5>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</h5>
           </div>
         </div>
@@ -96,7 +105,12 @@ function RatingsAndReviews({ currentProductID, metaData }) {
           </Modal>
         </ModalWrapper>
       )}
-      <ReviewList reviews={reviews} currentProductID={currentProductID} metaData={metaData} />
+      <ReviewList
+        reviews={reviews}
+        currentProductID={currentProductID}
+        metaData={metaData}
+        filters={filters}
+      />
     </div>
   );
 }

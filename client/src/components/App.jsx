@@ -5,11 +5,16 @@ import Overview from './Overview/Overview.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
+import ThemeContext from './ThemeContext.jsx';
 
 const App = function () {
   const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
   const [metaData, setMetaData] = React.useState('');
+  const [theme, setTheme] = useState('light');
+
+  const logo = 'https://i.postimg.cc/fyyfVNvF/logo.png';
+  const darkmodeLogo = 'https://i.postimg.cc/d3fmdxH0/darkmode-Logo.png';
   /*
   only have either loadFirstProduct or loadRandomProduct and
   their respective useEffect uncommented, not both
@@ -44,6 +49,16 @@ const App = function () {
     setCurrentProduct(prod);
   };
 
+  const toggleDark = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+      document.body.setAttribute('data-theme', 'dark');
+    } else {
+      setTheme('light');
+      document.body.setAttribute('data-theme', 'light');
+    }
+  };
+
   React.useEffect(() => {
     axios.get('/reviews/meta', {
       params: {
@@ -55,22 +70,26 @@ const App = function () {
   }, [currentProductID]);
 
   return (
-    <div>
-      <h1>Omega Outlet</h1>
-      <Overview
-        currentProduct={currentProduct}
-        currentProductID={currentProductID}
-        reviewData={metaData}
-      />
-      <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
-      <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
-      <RatingsAndReviews
-        currentProductID={currentProductID}
-        metaData={metaData}
-        setMetaData={setMetaData}
-      />
-
-    </div>
+    <ThemeContext.Provider value={{ theme }}>
+      <div className="app">
+        <header>
+          <button className="darkMode" onClick={toggleDark}>Switch to {theme === 'dark' ? 'light theme 🌞' : 'dark theme 🌙'}</button>
+        </header>
+        <img className="logo" src={theme === 'light' ? logo : darkmodeLogo} alt="logo" />
+        <Overview
+          currentProduct={currentProduct}
+          currentProductID={currentProductID}
+          reviewData={metaData}
+        />
+        <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
+        <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
+        <RatingsAndReviews
+          currentProductID={currentProductID}
+          metaData={metaData}
+          setMetaData={setMetaData}
+        />
+      </div>
+    </ThemeContext.Provider>
   );
 };
 

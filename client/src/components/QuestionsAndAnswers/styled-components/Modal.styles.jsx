@@ -45,3 +45,61 @@ export const TextInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 6px;
 `;
+export const ImageInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+`;
+
+export const InputWithButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+export const UrlButton = styled.button`
+  background: none;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  &:hover {
+    background-color: #bbb;
+  }
+`;
+
+export const ModalButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+`;
+
+export const WarningMessageContainer = styled.div`
+  background-color: #ffdddd;
+  border: 1px solid #f44336;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 6px;
+  color: #f44336;
+  font-weight: bold;
+`;
+
+export const CustomChooseFileInput = styled.input`
+  display: none;
+`;
+
+export const CustomFileInputLabel = styled.label`
+  display: inline-block;
+  padding: 8px 16px;
+  background: #2d87f0;
+  color: #fff;
+  border: none;
+  border-radius: 10x;
+  cursor: pointer;
+  text-align: center;
+`;

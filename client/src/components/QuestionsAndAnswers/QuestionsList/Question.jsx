@@ -53,7 +53,7 @@ function Question({ productName, question }) {
       body: answerFormData.body,
       name: answerFormData.nickname,
       email: answerFormData.email,
-      photo: answerFormData.photos,
+      photos: answerFormData.photos,
     })
       .then((res) => {
         console.log('New Answer added:', res.data);
@@ -123,6 +123,7 @@ function Question({ productName, question }) {
 
 Question.propTypes = {
   question: PropTypes.shape({
+    productName: PropTypes.string,
     asker_name: PropTypes.string.isRequired,
     question_id: PropTypes.number.isRequired,
     question_helpfulness: PropTypes.number,

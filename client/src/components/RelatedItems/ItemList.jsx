@@ -27,11 +27,13 @@ const ItemList = function({products, updateProduct, listType}) {
   };
 
   return (
-    <Carousel>
-      { focalItem > 0 && <ScrollButton scroll={scrollLeft} dir="left" /> }
-      { renderedList }
-      { focalItem < products.length - 4 && <ScrollButton scroll={scrollRight} dir="right" /> }
-    </Carousel>
+    <div className="horizontalList">
+      <Carousel>
+        { focalItem > 0 && <ScrollButton scroll={scrollLeft} dir="left" className="shortButton" /> }
+        { renderedList }
+        { focalItem < products.length - 4 && <ScrollButton scroll={scrollRight} dir="right" className="shortButton" /> }
+      </Carousel>
+    </div>
   );
 };
 

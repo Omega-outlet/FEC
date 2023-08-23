@@ -4,7 +4,6 @@ export const QAContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-bottom: 1px solid;
   max-height: 100vh;
 `;
 
@@ -61,7 +60,7 @@ export const SearchBarContainer = styled.div`
   position: sticky;
   // makes it stick on top of the scrollable section
   top: 0;
-  background-color: white;
+  background-color: transplant;
   padding-bottom: 0;
 `;
 
@@ -109,4 +108,14 @@ export const ScrollSpinner = styled.div`
   animation: ${spinAnimation} 2s linear infinite;
   // make it center
   margin: 20px auto;
+`;
+export const Header = styled.h2`
+  border-top: 0;
+`;
+
+export const ThumbnailImg = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 5px;
 `;
