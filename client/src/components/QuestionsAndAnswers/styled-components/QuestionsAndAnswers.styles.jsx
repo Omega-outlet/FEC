@@ -112,3 +112,10 @@ export const ScrollSpinner = styled.div`
 export const Header = styled.h2`
   border-top: 0;
 `;
+
+export const ThumbnailImg = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 5px;
+`;
