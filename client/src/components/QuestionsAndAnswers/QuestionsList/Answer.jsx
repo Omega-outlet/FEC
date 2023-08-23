@@ -6,7 +6,7 @@ import ReportButton from '../../../../utils/ReportButton.jsx';
 import useHelpfulYes from '../../../../utils/useHelpfulYes.jsx';
 import useReport from '../../../../utils/useReport.jsx';
 import { YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
-import { AnswerDetailsContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import { AnswerDetailsContainer, ThumbnailImg } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function Answer({ answer }) {
   console.log(answer);
@@ -18,6 +18,11 @@ function Answer({ answer }) {
         <strong>A: </strong>
         {answer.body}
       </p>
+      <div>
+        {answer.photos && answer.photos.map((photo) => (
+          <ThumbnailImg key={photo.id} src={photo.url} alt={`Photo ${photo.id}`} />
+        ))}
+      </div>
       <AnswerDetailsContainer>
         <div>
           <p>
@@ -52,6 +57,10 @@ Answer.propTypes = {
     body: PropTypes.string.isRequired,
     reported: PropTypes.bool,
     answerer_name: PropTypes.string.isRequired,
+    photos: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      url: PropTypes.string.isRequired,
+    })),
   }).isRequired,
 };
 

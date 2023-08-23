@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { InputLabel, TextInput } from '../styled-components/Modal.styles.jsx';
+import axios from 'axios';
+import { InputLabel, TextInput, ImageInput, UrlButton, InputWithButtonContainer, ModalButtonContainer, WarningMessageContainer, CustomChooseFileInput, CustomFileInputLabel } from '../styled-components/Modal.styles.jsx';
 import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
+import { ThumbnailImg } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import config from '../../../../../config.js';
 
-function AnswerForm({productName, questionBody, onSubmit, onCancel}) {
+function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
   const [body, setBody] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
-  // An array of urls corresponding to images to display
-  const [photos, setPhotos] = useState([]);
+
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const [imageUrl, setImageUrl] = useState('');
+  const [photos, setPhotos] = useState([]);
 
   const handleSubmit = () => {
     if (!body || !nickname || !email) {
@@ -25,10 +30,52 @@ function AnswerForm({productName, questionBody, onSubmit, onCancel}) {
     });
   };
 
+  const handleImageUrlSubmit = () => {
+    if (photos.length >= 5) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+    if (!imageUrl.includes('.')) {
+      setErrorMessage('Please enter a valid image url address.');
+      return;
+    }
+
+    if (imageUrl) {
+      setPhotos((prevUrls) => [...prevUrls, imageUrl]);
+      setImageUrl('');
+    } else {
+      setErrorMessage('Please provide a valid image URL.');
+    }
+  };
+
+  const uploadToImgbb = (imageFile) => {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+    axios.post('https://api.imgbb.com/1/upload', formData, {
+      params: {
+        key: config.imgbbApiKey,
+      },
+    })
+      .then((response) => {
+        const uploaded = response.data.data.url;
+        setPhotos((prev) => [...prev, uploaded]);
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrorMessage('Error uploading image. Please try again.');
+      });
+  };
+
+  const handleLocalImageChange = (e) => {
+    const imageFile = e.target.files[0];
+    if (imageFile) {
+      uploadToImgbb(imageFile);
+    }
+  };
+
   return (
     <div>
-      {/* if errormessage is true show it */}
-      {errorMessage && <div>{errorMessage}</div>}
+      {errorMessage && <WarningMessageContainer>{errorMessage}</WarningMessageContainer >}
       <h2>Submit your Answer</h2>
       <h4>
         {' '}
@@ -69,14 +116,43 @@ function AnswerForm({productName, questionBody, onSubmit, onCancel}) {
         />
         <div>For authentication reasons, you will not be emailed</div>
       </InputLabel>
-      <button type="button">Upload Photo(Not functional yet)</button>
-      <RoundedPulseButton type="button" onClick={handleSubmit}>SUBMIT ANSWER</RoundedPulseButton>
-      <RoundedPulseButton type="button" onClick={onCancel}>CANCEL</RoundedPulseButton>
+      <InputLabel>
+        Add image url
+        <InputWithButtonContainer>
+          <ImageInput
+            type="text"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="Enter the direct link to your image"
+          />
+          <UrlButton type="button" onClick={handleImageUrlSubmit}>
+            Add URL
+          </UrlButton>
+        </InputWithButtonContainer>
+      </InputLabel>
+      <div>
+        {photos.map((url, i) => (
+          <ThumbnailImg
+            key={i}
+            src={url}
+            alt={`Image-${i}`}
+          />
+        ))}
+      </div>
+      <InputLabel>
+        <CustomChooseFileInput type="file" onChange={handleLocalImageChange} id="uploadInput" />
+        <CustomFileInputLabel htmlFor="uploadInput">Upload images</CustomFileInputLabel>
+      </InputLabel>
+      <ModalButtonContainer>
+        <RoundedPulseButton type="button" onClick={handleSubmit}>SUBMIT ANSWER</RoundedPulseButton>
+        <RoundedPulseButton type="button" onClick={onCancel}>CANCEL</RoundedPulseButton>
+      </ModalButtonContainer>
     </div>
   );
 };
 AnswerForm.propTypes = {
   productName: PropTypes.string.isRequired,
+  questionBody: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };
