@@ -92,7 +92,7 @@ const RelatedItems = function ({ currentProduct, updateProduct }) {
               Add {currentProduct.name} to Your Outfit
             </StyledButton>
           )}
-          <ItemList products={outfit} updateProduct={updateProduct} listType="outfit" />
+          { outfit.length > 0 && <ItemList products={outfit} updateProduct={updateProduct} listType="outfit" /> }
         </RelatedContext.Provider>
       </center>
     </div>
