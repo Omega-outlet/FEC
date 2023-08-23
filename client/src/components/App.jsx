@@ -5,13 +5,13 @@ import Overview from './Overview/Overview.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
-// import logo from 'https://postimg.cc/VJLj1kC6';
+import ThemeContext from './ThemeContext.jsx';
 
 const App = function () {
   const [currentProductID, setCurrentProductID] = useState(0);
   const [currentProduct, setCurrentProduct] = useState({});
   const [metaData, setMetaData] = React.useState('');
-  const [dark, setDark] = useState('light');
+  const [theme, setTheme] = useState('light');
 
   const logo = 'https://i.postimg.cc/fyyfVNvF/logo.png';
   const darkmodeLogo = 'https://i.postimg.cc/d3fmdxH0/darkmode-Logo.png';
@@ -50,14 +50,12 @@ const App = function () {
   };
 
   const toggleDark = () => {
-    if (dark === 'light') {
-      setDark('dark');
+    if (theme === 'light') {
+      setTheme('dark');
       document.body.setAttribute('data-theme', 'dark');
-      //window.location.reload(false);
     } else {
-      setDark('light');
+      setTheme('light');
       document.body.setAttribute('data-theme', 'light');
-      //window.location.reload(false);
     }
   };
 
@@ -72,24 +70,26 @@ const App = function () {
   }, [currentProductID]);
 
   return (
-    <div className="app">
-      <header>
-        <button className="darkMode" onClick={toggleDark}>Switch to {dark === 'dark' ? 'light theme 🌞' : 'dark theme 🌙'}</button>
-      </header>
-      <img className="logo" src={dark === 'light' ? logo : darkmodeLogo} alt="logo" />
-      <Overview
-        currentProduct={currentProduct}
-        currentProductID={currentProductID}
-        reviewData={metaData}
-      />
-      <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
-      <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
-      <RatingsAndReviews
-        currentProductID={currentProductID}
-        metaData={metaData}
-        setMetaData={setMetaData}
-      />
-    </div>
+    <ThemeContext.Provider value={{ theme }}>
+      <div className="app">
+        <header>
+          <button className="darkMode" onClick={toggleDark}>Switch to {theme === 'dark' ? 'light theme 🌞' : 'dark theme 🌙'}</button>
+        </header>
+        <img className="logo" src={theme === 'light' ? logo : darkmodeLogo} alt="logo" />
+        <Overview
+          currentProduct={currentProduct}
+          currentProductID={currentProductID}
+          reviewData={metaData}
+        />
+        <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
+        <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
+        <RatingsAndReviews
+          currentProductID={currentProductID}
+          metaData={metaData}
+          setMetaData={setMetaData}
+        />
+      </div>
+    </ThemeContext.Provider>
   );
 };
 

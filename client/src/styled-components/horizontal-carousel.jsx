@@ -25,7 +25,7 @@ export const Item = styled.table`
   align-items: center;
   position: relative;
   margin: 0;
-  background-color: #f5f5f5;
+  background-color: ${($theme) => ($theme === 'light' ? '#f5f5f5' : 'black')};
   border: 0;
   flex-shrink: 2;
 `;

@@ -7,15 +7,17 @@ import Compare from './CompareButton.jsx';
 import Remove from './RemoveItemButton.jsx';
 import { StarView } from '../../styled-components/common-elements.jsx';
 import { calculateAverage } from '../RatingsAndReviews/arithmetic.js';
+import ThemeContext from '../ThemeContext.jsx';
+
 
 const ProductCard = function ({ product, updateProduct, listType }) {
-  // const [productData, setProductData] = useState({});
   const [img1, setImg1] = useState('https://tinyurl.com/bp78yn9f');
   const [img2, setImg2] = useState('https://tinyurl.com/2tb6ry8d'); //random imgs for defaults
   const [salePrice, setSalePrice] = useState('');
   const [hover, setHover] = useState(false);
   const [starRating, setStarRating] = useState(0);
 
+  const { theme } = useContext(ThemeContext);
   // {product} prop holds basic product info from /products api query
   // productData holds additional info from /styles including default style and sale price
   useEffect(() => {
@@ -53,7 +55,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
   };
 
   return (
-    <Item onClick={handleClick}>
+    <Item onClick={handleClick} $theme={theme}>
       <tr>
         <td>
           <span style={{ right: 0, position: 'absolute' }}>
