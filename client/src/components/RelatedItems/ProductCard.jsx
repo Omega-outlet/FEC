@@ -9,7 +9,6 @@ import { StarView } from '../../styled-components/common-elements.jsx';
 import { calculateAverage } from '../RatingsAndReviews/arithmetic.js';
 import ThemeContext from '../ThemeContext.jsx';
 
-
 const ProductCard = function ({ product, updateProduct, listType }) {
   const [img1, setImg1] = useState('https://tinyurl.com/bp78yn9f');
   const [img2, setImg2] = useState('https://tinyurl.com/2tb6ry8d'); //random imgs for defaults
@@ -18,8 +17,6 @@ const ProductCard = function ({ product, updateProduct, listType }) {
   const [starRating, setStarRating] = useState(0);
 
   const { theme } = useContext(ThemeContext);
-  // {product} prop holds basic product info from /products api query
-  // productData holds additional info from /styles including default style and sale price
   useEffect(() => {
     axios.get('/api/product/relatedStyle', {
       params: {
@@ -29,11 +26,20 @@ const ProductCard = function ({ product, updateProduct, listType }) {
     })
       .then((response) => {
         const defaultStyle = response.data.results.find((style) => style['default?']);
-        // setProductData(defaultStyle);
         // check for data existing on the backend
-        if (defaultStyle.photos[0].url) { setImg1(defaultStyle.photos[0].url); }
-        if (defaultStyle.photos[1].url) { setImg2(defaultStyle.photos[1].url); }
-        if (defaultStyle.sale_price) { setSalePrice(defaultStyle.sale_price); }
+        // check for default style, fallback on alt style, then stock img
+        if (defaultStyle?.sale_price) { setSalePrice(defaultStyle.sale_price); }
+        if (defaultStyle?.photos[0]?.url) {
+          setImg1(defaultStyle.photos[0].url);
+          if (defaultStyle?.photos[1]?.url) { setImg2(defaultStyle.photos[1].url); }
+        } else {
+          const altStyle = response.data.results.find((style) => style.photos[0].url);
+          if (altStyle) {
+            setImg1(altStyle.photos[0].url);
+            if (altStyle.sale_price) { setSalePrice(altStyle.sale_price); }
+            if (altStyle?.photos[1]?.url) { setImg2(altStyle.photos[1].url); }
+          }
+        }
       })
       .catch((error) => console.log(`Missing product data for ${product.name}: `, error.message));
   }, [product]);
