@@ -2,11 +2,12 @@ import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import { StyledButton } from '../../styled-components/common-elements.jsx';
+import descriptionArr from './descriptionArr.js';
 
+// eslint-disable-next-line object-curly-newline
 function NewReview({ renderForm, currentProductID, submitForm, characteristics }) {
   const radioArray = [1, 2, 3, 4, 5];
   const [charArray, setCharArray] = React.useState([]);
-  const [submittedMessage, setSubmittedMessage] = React.useState(false);
   const [formData, setFormData] = React.useState({
     product_id: currentProductID,
     rating: '',
@@ -20,15 +21,6 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     },
   });
 
-  const descriptionArr = [
-    { attribute: 'size', descArr: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'] },
-    { attribute: 'width', descArr: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'] },
-    { attribute: 'comfort', descArr: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'] },
-    { attribute: 'quality', descArr: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'] },
-    { attribute: 'length', descArr: ['Runs Short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'] },
-    { attribute: 'fit', descArr: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs long'] },
-  ];
-  console.log(formData);
   React.useEffect(() => {
     setCharArray(Object.entries(characteristics));
   }, [characteristics]);
@@ -69,16 +61,10 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     }
   };
 
-  // const onImageChange = (event) => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     setFormData((prev) => ({ ...prev, photos: [...prev.photos, URL.createObjectURL(event.target.files[0])] }));
-  //   }
-  // };
-
   const renderRadios = (arr, characteristicId) => (
     arr.map((number) => (
       <input
-        style={{'width': '20%'}}
+        style={{ 'width': '20%' }}
         type="radio"
         value={number}
         name={characteristicId}
@@ -91,7 +77,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
   const handleSubmit = (e) => {
     e.preventDefault();
     submitForm(formData);
-    setSubmittedMessage(true);
+    renderForm();
   };
   // console.log(formData);
   return (
@@ -103,11 +89,13 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             if (num.toString() <= formData.rating) {
               return <SelectedStar key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">★</SelectedStar>;
             }
-            return <NotSelectedStar key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">★</NotSelectedStar>;
+            return <SelectedStar key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">☆</SelectedStar>;
           })}
+          {formData.rating && <span>{`${formData.rating} stars`}</span>}
         </div>
       </label>
       <br />
+
       <legend>Would you recommend this product?</legend>
       <label htmlFor="yes">
         {'Yes: '}
@@ -117,6 +105,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         {'No: '}
         <input type="radio" value="false" name="recommend" onChange={handleChange()} />
       </label>
+      <div style={{ 'height': '10px' }} />
       <fieldset>
         <legend>Characteristics</legend>
         {charArray.map((characteristic) => (
@@ -124,7 +113,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             <legend style={{ 'width': '70px' }}>{characteristic[0]}</legend>
             <div style={{ 'width': '100%' }}>
               <div style={{ 'display': 'flex', 'justifyContent': 'space-between'}}>
-                {descriptionArr.filter((descObj) => (descObj.attribute === characteristic[0].toLowerCase()))[0].descArr.map((feedback) => <span key={feedback} style={{'fontSize': '10px', 'width': '20%', 'textAlign': 'center'}}>{feedback}</span>)}
+                {descriptionArr.filter((descObj) => (descObj.attribute === characteristic[0].toLowerCase()))[0].descArr.map((feedback) => <span key={feedback} style={{ 'fontSize': '10px', 'width': '20%', 'textAlign': 'center' }}>{feedback}</span>)}
               </div>
               <div style={{ 'display': 'flex', 'justifyContent': 'space-between'}}>
                 {renderRadios(radioArray, characteristic[1].id)}
@@ -133,29 +122,34 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
           </RadioStyle>
         ))}
       </fieldset>
+      <div style={{ 'height': '10px' }} />
       <label htmlFor="summary">
         Review Summary:
         <br />
         <input type="text" id="summary" maxLength="60" name="summary" onChange={handleChange()} required />
       </label>
       <br />
+      <div style={{ 'height': '10px' }} />
       <label htmlFor="reviewBody">
         Review:
         <br />
         <textarea id="reviewBody" name="body" onChange={handleChange()} required />
       </label>
       <br />
+      <div style={{ 'height': '10px' }} />
       <label htmlFor="username">
         Display Name:
         <br />
         <input type="text" id="username" name="name" onChange={handleChange()} required />
       </label>
+      <div style={{ 'height': '10px' }} />
       <label htmlFor="email">
         <br />
         {'Email (we won\'t share it):'}
         <br />
         <input type="email" id="email" name="email" onChange={handleChange()} required />
       </label>
+      <div style={{ 'height': '10px' }} />
       {/* <label htmlFor="photos">
         <br />
         {'Photos (up to 5): '}
@@ -169,7 +163,6 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
       >
         Submit Review
       </StyledButton>
-      {submittedMessage && <h3 data-testid="confirmation">Thank you! Your review has been submitted</h3>}
     </form>
 
   );
@@ -198,8 +191,5 @@ const SelectedStar = styled.button`
   cursor: pointer;
   font-size: 30px;
   color: black`;
-
-const NotSelectedStar = styled(SelectedStar)`
-  color: lightgray`;
 
 export default NewReview;
