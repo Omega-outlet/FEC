@@ -122,34 +122,31 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
           </RadioStyle>
         ))}
       </fieldset>
-      <div style={{ 'height': '10px' }} />
+      <LineSkip />
       <label htmlFor="summary">
         Review Summary:
         <br />
         <input type="text" id="summary" maxLength="60" name="summary" onChange={handleChange()} required />
       </label>
-      <br />
-      <div style={{ 'height': '10px' }} />
+      <LineSkip />
       <label htmlFor="reviewBody">
         Review:
         <br />
-        <textarea id="reviewBody" name="body" onChange={handleChange()} required />
+        <textarea style={{ 'resize': 'none' }} id="reviewBody" name="body" onChange={handleChange()} required />
       </label>
-      <br />
-      <div style={{ 'height': '10px' }} />
+      <LineSkip />
       <label htmlFor="username">
         Display Name:
         <br />
         <input type="text" id="username" name="name" onChange={handleChange()} required />
       </label>
-      <div style={{ 'height': '10px' }} />
+      <LineSkip />
       <label htmlFor="email">
-        <br />
         {'Email (we won\'t share it):'}
         <br />
         <input type="email" id="email" name="email" onChange={handleChange()} required />
       </label>
-      <div style={{ 'height': '10px' }} />
+      <LineSkip />
       {/* <label htmlFor="photos">
         <br />
         {'Photos (up to 5): '}
@@ -192,4 +189,6 @@ const SelectedStar = styled.button`
   font-size: 30px;
   color: black`;
 
+const LineSkip = styled.div`
+  height: 10px`;
 export default NewReview;
