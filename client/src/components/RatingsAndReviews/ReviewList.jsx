@@ -5,21 +5,18 @@ import {
   StyledButton, ModalWrapper, Modal, ModalContent,
 } from '../../styled-components/common-elements.jsx';
 
-function ReviewList({ reviews }) {
-  const [displayedReviews, setDisplayedReviews] = React.useState(2);
-  const [remainingReviews, setRemainingReviews] = React.useState(0);
-  const [clickCount, setClickCount] = React.useState(0);
+function ReviewList({ reviews, filters }) {
+  const [reviewsToRender, setReviewsToRender] = React.useState([]);
   const [displayModal, setDisplayModal] = React.useState(false);
-  React.useEffect(() => setRemainingReviews(reviews.length - 2), [reviews]);
+  const [hiddenReviews, setHiddenReviews] = React.useState(0);
+  const [displayedReviews, setDisplayedReviews] = React.useState(2);
+  React.useEffect(() => setReviewsToRender(reviews), [reviews]);
   // eslint-disable-next-line func-names
   const handleClick = function (e) {
-    if (clickCount < 1) {
-      e.preventDefault();
-      setDisplayedReviews((prev) => prev + 2);
-      setRemainingReviews((prev) => prev - 2);
-      setClickCount((prev) => prev + 1);
-    } else {
+    if (displayedReviews === 4) {
       setDisplayModal(true);
+    } else {
+      setDisplayedReviews((prev) => prev + 2);
     }
   };
   React.useEffect(() => {
@@ -30,30 +27,47 @@ function ReviewList({ reviews }) {
     }
   }, [displayModal]);
 
+  React.useEffect(() => {
+    if (filters.length === 0) {
+      setReviewsToRender(reviews);
+    } else {
+      setReviewsToRender(reviews.filter((review) => filters.includes(review.rating.toString())));
+    }
+  }, [filters, reviews]);
+
+  React.useEffect(() => {
+    setHiddenReviews(reviewsToRender.length - displayedReviews);
+  }, [reviewsToRender]);
+
   return (
     <div
       style={{ 'paddingTop': '20px' }}
       data-testid="reviewList-component"
     >
-      <label htmlFor="dropdown">
-        {'Sort By: '}
-        <select id="dropdown">
-          <option value="relevant">Relevant</option>
-          <option value="helpful">Helpful</option>
-          <option value="newest">Newest</option>
-        </select>
-      </label>
+      <div style={{ 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'space-between' }}>
+        <label htmlFor="dropdown">
+          {'Sort By: '}
+          <select id="dropdown">
+            <option value="relevant">Relevant</option>
+            <option value="helpful">Helpful</option>
+            <option value="newest">Newest</option>
+          </select>
+        </label>
+        {filters && <h3>{`Filters: ${filters}`}</h3>}
+      </div>
       <div style={{ 'paddingTop': '20px' }}>
         {
-        reviews.length
-          ?
-          reviews.slice(0, displayedReviews).map((review) =>
-            <Review key={review.review_id} review={review} />)
-          : <h1>Be the first to add a review!</h1>
+        // eslint-disable-next-line no-nested-ternary
+        reviewsToRender.length ?
+          reviewsToRender.slice(0, displayedReviews)
+            .map((review) => <Review key={review.review_id} review={review} />)
+          :
+          <h1>Be the first to write a review!</h1>
         }
       </div>
+
       <div style={{ 'display': 'flex', 'justifyContent': 'center' }}>
-        { remainingReviews > 0 && (
+        { hiddenReviews > 0 && (
         <StyledButton
           data-testid="reviewList-button"
           type="button"
@@ -68,8 +82,10 @@ function ReviewList({ reviews }) {
           <h1 data-testid="reviewList-modal">Reviews</h1>
           <ModalContent $displaymodal={displayModal}>
             {
-            reviews.length && reviews.map((review) =>
-              <Review key={review.review_id} review={review} />)
+            reviewsToRender.length ?
+              reviewsToRender.map((review) => <Review key={review.review_id} review={review} />)
+              :
+              <h1>Be the first to write a review!</h1>
             }
           </ModalContent>
           <StyledButton

@@ -7,13 +7,14 @@ import data from './exampleData.json';
 
 describe('ReviewList Component', () => {
   const reviews = data.results;
+  const mockFilters = ['3'];
   test('Component rendered', () => {
-    render(<ReviewList reviews={reviews} />);
+    render(<ReviewList reviews={reviews} filters={mockFilters} />);
     const title = screen.getByTestId('reviewList-component');
     expect(title).toBeTruthy();
   });
   test('Modal rendered', () => {
-    render(<ReviewList reviews={reviews} />);
+    render(<ReviewList reviews={reviews} filters={mockFilters} />);
     const button = screen.getByTestId('reviewList-button');
     fireEvent.click(button);
     fireEvent.click(button);
