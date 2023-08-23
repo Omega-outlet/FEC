@@ -4,17 +4,18 @@ import axios from 'axios';
 import { InputLabel, TextInput, ImageInput, UrlButton, InputWithButtonContainer, ModalButtonContainer, WarningMessageContainer, CustomChooseFileInput, CustomFileInputLabel } from '../styled-components/Modal.styles.jsx';
 import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
 import { ThumbnailImg } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import ImageModal from './ImageModal.jsx';
 import config from '../../../../../config.js';
 
 function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
   const [body, setBody] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
-
   const [errorMessage, setErrorMessage] = useState(null);
-
   const [imageUrl, setImageUrl] = useState('');
   const [photos, setPhotos] = useState([]);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState(null);
 
   const handleSubmit = () => {
     if (!body || !nickname || !email) {
@@ -71,6 +72,11 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
     if (imageFile) {
       uploadToImgbb(imageFile);
     }
+  };
+
+  const handleImageClick = (url) => {
+    setCurrentImage(url);
+    setIsImageModalOpen(true);
   };
 
   return (
@@ -136,6 +142,7 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
             key={i}
             src={url}
             alt={`Image-${i}`}
+            onClick={() => handleImageClick(url)}
           />
         ))}
       </div>
@@ -147,6 +154,8 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
         <RoundedPulseButton type="button" onClick={handleSubmit}>SUBMIT ANSWER</RoundedPulseButton>
         <RoundedPulseButton type="button" onClick={onCancel}>CANCEL</RoundedPulseButton>
       </ModalButtonContainer>
+      {isImageModalOpen
+        && <ImageModal imageUrl={currentImage} onClose={() => setIsImageModalOpen(false)} />}
     </div>
   );
 };

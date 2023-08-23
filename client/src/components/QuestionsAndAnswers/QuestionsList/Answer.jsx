@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { reFormatDate } from '../../../../utils/reFormatDate.js';
 import HelpfulYesButton from '../../../../utils/HelpfulYesButton.jsx';
@@ -7,11 +7,25 @@ import useHelpfulYes from '../../../../utils/useHelpfulYes.jsx';
 import useReport from '../../../../utils/useReport.jsx';
 import { YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
 import { AnswerDetailsContainer, ThumbnailImg } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import ImageModal from '../Forms/ImageModal.jsx'
 
 function Answer({ answer }) {
   console.log(answer);
   const registerHelpfulClick = useHelpfulYes();
   const registerReportClick = useReport();
+
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState('');
+
+  const handleImageClick = (url) => {
+    setCurrentImage(url);
+    setIsImageModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setIsImageModalOpen(false);
+    setCurrentImage('');
+  };
   return (
     <li>
       <p>
@@ -20,7 +34,7 @@ function Answer({ answer }) {
       </p>
       <div>
         {answer.photos && answer.photos.map((photo) => (
-          <ThumbnailImg key={photo.id} src={photo.url} alt={`Photo ${photo.id}`} />
+          <ThumbnailImg key={photo.id} src={photo.url} alt={`Photo ${photo.id} `} onClick={() => handleImageClick(photo.url)}/>
         ))}
       </div>
       <AnswerDetailsContainer>
@@ -34,6 +48,7 @@ function Answer({ answer }) {
             {reFormatDate(answer.date)}
           </p>
         </div>
+        {isImageModalOpen && <ImageModal imageUrl={currentImage} onClose={closeImageModal} />}
         <YesReportButtonContainer>
           <HelpfulYesButton
             initialCount={answer.helpfulness}

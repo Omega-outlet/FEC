@@ -52,6 +52,8 @@ export const QuestionBodyAndHelpfulContainer = styled.div`
 export const AnswerListContainer = styled.ul`
   list-style-type: none;
   padding-left: 0;
+  max-height: 50vh;
+  overflow-y: auto;
 `;
 
 export const SearchBarContainer = styled.div`
@@ -117,5 +119,5 @@ export const ThumbnailImg = styled.img`
   width: 50px;
   height: 50px;
   margin-right: 10px;
-  border-radius: 5px;
+  cursor: pointer;
 `;
