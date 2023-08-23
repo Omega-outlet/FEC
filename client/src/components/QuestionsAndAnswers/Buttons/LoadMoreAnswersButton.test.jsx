@@ -12,13 +12,6 @@ describe('<LoadMoreAnswersButton />', () => {
       <LoadMoreAnswersButton onClick={() => {}} hasMoreAnswers />,
     );
 
-    expect(getByText('Load More Answers')).toBeTruthy();
-  });
-  it('Not render the button when hasMoreAnswers is falsy', () => {
-    const { queryByText } = render(
-      <LoadMoreAnswersButton onClick={() => {}} hasMoreAnswers={false} />,
-    );
-
-    expect(queryByText('Load More Answers')).toBeNull();
+    expect(getByText('See more answers')).toBeTruthy();
   });
 });

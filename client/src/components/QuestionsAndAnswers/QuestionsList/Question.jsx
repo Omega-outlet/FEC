@@ -25,6 +25,7 @@ function Question({ productName, question }) {
   const AnswersLoadOnPage = 2;
   const [numAnswersShowed, setNumAnswersShowed] = useState(AnswersLoadOnPage);
   const [answers, setAnswers] = useState([]);
+  const [expanded, setExpanded] = useState(false);
 
   const fetchAnswers = () => {
     axios.get(`/qa/questions/${question.question_id}/answers`, {
@@ -45,7 +46,12 @@ function Question({ productName, question }) {
   }, [question.question_id]);
 
   const handleLoadMore = () => {
-    setNumAnswersShowed((prev) => prev + 2);
+    if (!expanded) {
+      setNumAnswersShowed(answers.length);
+    } else {
+      setNumAnswersShowed(AnswersLoadOnPage);
+    }
+    setExpanded((prev) => !prev);
   };
 
   const handleAddNewAnswer = (answerFormData) => {
@@ -112,10 +118,12 @@ function Question({ productName, question }) {
               <Answer key={answer.id} answer={answer} />
             ))}
         </AnswerListContainer>
-        <LoadMoreAnswersButton
-          onClick={handleLoadMore}
-          hasMoreAnswers={answers.length > numAnswersShowed}
-        />
+        {answers.length > 2 && (
+          <LoadMoreAnswersButton
+             onClick={handleLoadMore}
+             expanded={expanded}
+          />
+        )}
       </QuestionAndAnswersContainer>
     </QuestionDetailsList>
   );

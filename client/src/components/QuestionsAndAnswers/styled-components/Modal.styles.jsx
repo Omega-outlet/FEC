@@ -11,6 +11,8 @@ export const Overlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  // always on top
+  z-index: 9999;
 `;
 
 export const ModalContainer = styled.div`
@@ -21,16 +23,16 @@ export const ModalContainer = styled.div`
 `;
 
 export const CloseButton = styled.button`
-  background: none;
-  border: none;
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 30px;
+  top: 20px;
+  right: 20px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 5px 10px;
   cursor: pointer;
-  color: #fff;
   &:hover {
-    color: #000;
+    color: #f44336;
   }
 `;
 export const InputLabel = styled.label`
@@ -102,4 +104,22 @@ export const CustomFileInputLabel = styled.label`
   border-radius: 10x;
   cursor: pointer;
   text-align: center;
+`;
+
+export const ImageModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalImage = styled.img`
+  max-width: 80%;
+  max-height: 80%;
 `;
