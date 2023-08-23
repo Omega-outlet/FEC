@@ -11,6 +11,7 @@ describe('Review Component', () => {
   const title = screen.getByTestId('review-component');
 
   test('Component rendered', () => {
+    render(<Review review={review} />);
     expect(title).toBeTruthy();
   });
 });

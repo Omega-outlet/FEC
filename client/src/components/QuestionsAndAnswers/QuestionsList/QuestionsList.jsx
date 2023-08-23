@@ -7,7 +7,7 @@ import AddNewQuestionButton from '../Buttons/AddNewQuestionButton.jsx';
 import { QuestionList, LoadMoreAndAddNewButtonContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function QuestionsList({ productName, questions, onHandleAddQuestion }) {
-  console.log(questions);
+  // console.log(questions);
   const sortedQuestions = sortByHelpQuestion(questions);
   // On page load, 2 questions will show up
   const QuestionsLoadOnPage = 2;

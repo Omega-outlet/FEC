@@ -24,6 +24,7 @@ function Review({ review }) {
     reviewer_name,
     summary,
   } = review;
+  // console.log(photos)
   return (
     <div
       data-testid="review-component"
@@ -48,7 +49,7 @@ function Review({ review }) {
           onReportClick={() => registerReportClick('review', review_id)}
         />
       </div>
-      <div className="second-column">
+      <div className="second-column" style={{'textWrap': 'wrap'}}>
         <StarView rating={rating} fontSize={20} />
         :
         {summary}
@@ -61,9 +62,9 @@ function Review({ review }) {
         className="third-column"
         style={{ 'borderLeft': '1px solid grey', 'paddingLeft': '20px' }}
       >
-        <p>Images Module</p>
+        {!photos.length ? '' : photos.map((photo) => <img style={{'width': '50px'}} src={photo.url} alt="uploaded by reviewer" />)}
         <p>{reFormatDate(date)}</p>
-        <div style={{'display': 'flex', 'flexDirection': 'column' }}>
+        <div style={{'display': 'flex', 'flexDirection': 'column'}}>
           <HelpfulYesButton
             initialCount={helpfulness}
             onHelpfulClick={() => registerHelpfulClick('review', review_id)}

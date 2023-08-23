@@ -1,5 +1,6 @@
 /** @jest-environment jsdom */
 /* eslint-env jest */
+import axios from 'axios';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import RatingsAndReviews from './RatingsAndReviews.jsx';
@@ -8,7 +9,7 @@ describe('Ratings Component', () => {
   const mockCurrentProductID = 40344;
   const mockMetaData = {
     characteristics: {
-      Fit: {}, Length: {}, Comfort: {}, Quality: {}
+      Fit: {}, Length: {}, Comfort: {}, Quality: {},
     },
     product_id: 40344,
     ratings: {

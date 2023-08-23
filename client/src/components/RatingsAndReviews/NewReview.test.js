@@ -31,16 +31,4 @@ describe('NewReview Component', () => {
     fireEvent.change(summary, { target: { value: 'exampleSummary' } });
     expect(summary.value).toBe('exampleSummary');
   });
-  // test('handleSubmit submits the form', () => {
-  //   render(<NewReview
-  //     renderForm={renderForm}
-  //     currentProductID={currentProductID}
-  //     submitForm={submitForm}
-  //     characteristics={characteristics}
-  //   />);
-  //   const submitBtn = screen.getByTestId('formSubmit');
-  //   fireEvent.click(submitBtn);
-  //   const confirmMessage = screen.getByTestId('confirmation');
-  //   expect(confirmMessage).toBeTruthy();
-  // });
 });
