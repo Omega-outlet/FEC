@@ -4,6 +4,8 @@ import { useState, useEffect, useContext } from 'react';
 
 import ItemList from './ItemList.jsx';
 import RelatedContext from './RelatedContext.jsx';
+import ThemeContext from '../ThemeContext.jsx';
+
 import ComparisonTable from './ComparisonTable.jsx';
 import { StyledButton, ModalWrapper, Modal, ModalContent } from '../../styled-components/common-elements.jsx';
 
@@ -12,6 +14,7 @@ const RelatedItems = function ({ currentProduct, updateProduct }) {
   const [outfit, setOutfit] = useState([]);
   const [showTable, setShowTable] = useState(false);
   const [comparedItem, setComparedItem] = useState({});
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     axios.get('/api/product/related', {
@@ -88,7 +91,7 @@ const RelatedItems = function ({ currentProduct, updateProduct }) {
           </ModalWrapper>
           { outfit.length === 0 ? <h2>No outfit yet!</h2> : <h2>Your Outfit</h2>}
           {!outfit.find((i) => i.id === currentProduct.id) && (
-            <StyledButton onClick={() => addToOutfit(currentProduct)}>
+            <StyledButton onClick={() => addToOutfit(currentProduct)} $theme={theme}>
               Add {currentProduct.name} to Your Outfit
             </StyledButton>
           )}

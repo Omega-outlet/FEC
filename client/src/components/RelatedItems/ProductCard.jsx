@@ -17,6 +17,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
   const [starRating, setStarRating] = useState(0);
 
   const { theme } = useContext(ThemeContext);
+
   useEffect(() => {
     axios.get('/api/product/relatedStyle', {
       params: {

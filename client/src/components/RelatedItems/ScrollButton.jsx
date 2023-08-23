@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyledButton } from '../../styled-components/common-elements.jsx';
+import ThemeContext from '../ThemeContext.jsx';
 
 const ScrollButton = function ({scroll, dir}) {
-  return <StyledButton onClick={scroll}>{dir === 'left' ? '<' : '>'}</StyledButton>;
+  const { theme } = useContext(ThemeContext);
+  return <StyledButton onClick={scroll} $theme={theme}>{dir === 'left' ? '<' : '>'}</StyledButton>;
 };
 
 export default ScrollButton;
