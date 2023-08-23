@@ -8,6 +8,7 @@ import descriptionArr from './descriptionArr.js';
 function NewReview({ renderForm, currentProductID, submitForm, characteristics }) {
   const radioArray = [1, 2, 3, 4, 5];
   const [charArray, setCharArray] = React.useState([]);
+  const [photoURL, setPhotoUrl] = React.useState('');
   const [formData, setFormData] = React.useState({
     product_id: currentProductID,
     rating: '',
@@ -124,7 +125,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
       </fieldset>
       <LineSkip />
       <div style={{'display': 'flex'}}>
-        <div className="rightside" style={{ 'width': '25%'}}>
+        <div className="leftside" style={{ 'width': '25%'}}>
           <label htmlFor="summary">
             Review Summary:
             <br />
@@ -150,18 +151,18 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             Submit Review
           </StyledButton>
         </div>
-        <div className="leftside" style={{ 'width': '50%'}}>
+        <div className="rightside" style={{ 'width': '50%'}}>
           <label htmlFor="reviewBody">
             Review:
             <br />
-            <textarea style={{ 'resize': 'none', 'backgroundColor': '#f8f8f8', 'width': '75%', 'height': '75%', 'border': '1px solid lightgray', 'outline': 'none' }} id="reviewBody" name="body" onChange={handleChange()} required />
+            <StyledTextArea id="reviewBody" name="body" onChange={handleChange()} required />
           </label>
         </div>
       </div>
       {/* <label htmlFor="photos">
         {'Photos (up to 5): '}
         <br />
-        {formData.photos.length < 5 && <input type="file" multiple id="photos" name="photos" required />}
+        <input type="text" name="photos" />
       </label> */}
       <br />
     </form>
@@ -202,5 +203,13 @@ const StyledInput = styled.input`
   border: 1px solid lightgray;
   outline: none;
   width: 75%`;
+
+const StyledTextArea = styled.textarea`
+  resize: none;
+  background: #f8f8f8;
+  width: 75%;
+  height: 75%;
+  border: 1px solid lightgray;
+  outline: none;`;
 
 export default NewReview;
