@@ -1,27 +1,27 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Promise from 'bluebird';
-import StyleQuantity from './StyleQuantity.jsx';
+import DropdownQuantity from './DropdownQuantity.jsx';
+import DropdownSize from './DropdownSize.jsx';
 import {
   StyledButton,
 } from '../../styled-components/common-elements.jsx';
+import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 
 function AddToCart({
   selectedStyle,
 }) {
-  const [selectedStyleSkus, setSelectedStyleSkus] = useState({});
   const [SKUArray, setSKUArray] = useState([]);
   const [SKUValueArray, setSKUValueArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [quantity, setQuantity] = useState(0);
-  const [sku, setSKU] = useState('');
-  const [cartActivated, setCartActivated] = useState(false);
   const [message, setMessage] = useState('');
-  const [quantityMessage, setQuantityMessage] = useState('');
-  const [cartQuantity, setCartQuantity] = useState(0);
-  const [cartSize, setCartSize] = useState('');
-  const maxQuantity = 15;
+  const [openSize, setOpenSize] = useState(false);
+  const [openQuantity, setOpenQuantity] = useState(false);
+  const [size, setSize] = useState(-1);
+  const [quantity, setQuantity] = useState(-1);
+  const [oneOutOfStock, setOneOutOfStock] = useState(false);
+
   // load the stylesArray with styles
   const loadSkus = () => {
+    setOneOutOfStock(false);
     function getStyleSkus() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
@@ -40,71 +40,97 @@ function AddToCart({
       .then((data) => {
         setSKUArray(Object.keys(data));
         setSKUValueArray(Object.values(data));
+        setSize(-1);
+        setQuantity(-1);
+        setOpenSize(false);
+        setOpenQuantity(false);
+        setMessage('');
       })
       .catch(() => { });
   };
 
-  useEffect(loadSkus, [selectedStyle, selectedStyleSkus, sku]);
-
-  const handleSizeChange = (e) => {
-    if (e.target.value === 'unselected') {
-      setCartActivated(false);
-      setCartSize('');
-    } else {
-      setCartActivated(true);
-      setCartSize(SKUValueArray[e.target.value].size);
-    }
-    if (SKUValueArray[e.target.value].quantity > maxQuantity) {
-      setQuantity(maxQuantity);
-    } else {
-      setQuantity(SKUValueArray[e.target.value].quantity);
-    }
-    setSKU(SKUArray[e.target.value]);
-  };
+  useEffect(loadSkus, [selectedStyle]);
 
   const cartHandle = () => {
-    if (cartActivated === false) {
-      setMessage('select size before adding to cart');
-    } else if (cartQuantity === 0 || cartQuantity === 'Select Quantity') {
-      setQuantityMessage('select quantity before adding to cart');
+    // if user didn't select size, show message
+    if (size === -1) {
+      setMessage('Please select size');
+      setOpenSize(true);
+      // else add to cart and reset sizee and quantity to -1
+    } else if (oneOutOfStock === true) {
+      setMessage('Sorry, that item is out of stock');
+      setSize(-1);
+      setQuantity(-1);
+      setOneOutOfStock(false);
     } else {
-      setMessage('');
-      setQuantityMessage('');
-      console.log(`added ${cartQuantity} of ${cartSize} of ${sku} to cart`);
+      setMessage(`added ${quantity} of size ${SKUValueArray[size].size} to cart`);
+      setSize(-1);
+      setQuantity(-1);
     }
   };
+
   return (
     <div>
-      {cartActivated ? null : <span>{message}</span> }
-
       <br />
-      {SKUValueArray
-        ? (
-          <select onChange={handleSizeChange}>
-            <option data-testid="sizeSelect" value="unselected"> Select Size </option>
-            {(SKUValueArray.map((info, index) => (
-              <option
-                key={index}
-                value={index}
-              >
-                {info.size}
-              </option>
-            )))}
-          </select>
-        )
-        : null}
-      <br />
-      {quantityMessage}
-      <StyleQuantity
-        quantity={quantity}
-        sku={sku}
-        selectedStyle={selectedStyle}
-        cartQuantity={cartQuantity}
-        setCartQuantity={setCartQuantity}
-      />
+      <span>{message}</span>
+      {oneOutOfStock === true ? (
+        <div>
+          <ProductInformationComponents.DropdownRow>
+            <DropdownSize
+              size={size}
+              setSize={setSize}
+              setQuantity={setQuantity}
+              openSize={openSize}
+              setOpenSize={setOpenSize}
+              selectedStyle={selectedStyle}
+              SKUValueArray={SKUValueArray}
+            />
+            <DropdownQuantity
+              size={size}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              openQuantity={openQuantity}
+              setOpenQuantity={setOpenQuantity}
+              selectedStyle={selectedStyle}
+              SKUValueArray={SKUValueArray}
+              setOneOutOfStock={setOneOutOfStock}
+            />
 
-      <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to cart</StyledButton>
+            <StyledButton disabled type="button" onClick={() => { cartHandle(); }}>Sold Out</StyledButton>
+          </ProductInformationComponents.DropdownRow>
+
+        </div>
+      ) : (
+        <div>
+          <ProductInformationComponents.DropdownRow>
+            <DropdownSize
+              size={size}
+              setSize={setSize}
+              setQuantity={setQuantity}
+              openSize={openSize}
+              setOpenSize={setOpenSize}
+              selectedStyle={selectedStyle}
+              SKUValueArray={SKUValueArray}
+            />
+            <DropdownQuantity
+              size={size}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              openQuantity={openQuantity}
+              setOpenQuantity={setOpenQuantity}
+              selectedStyle={selectedStyle}
+              SKUValueArray={SKUValueArray}
+              setOneOutOfStock={setOneOutOfStock}
+            />
+
+            <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
+          </ProductInformationComponents.DropdownRow>
+
+        </div>
+      )}
+
     </div>
+
   );
 }
 
