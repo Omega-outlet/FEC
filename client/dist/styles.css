@@ -3,7 +3,7 @@ body[data-theme='dark'] {
   background-color: black;
 }
 
-body, body[data-theme='light'] {
+body[data-theme='light'] {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #424242;
 }
