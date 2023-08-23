@@ -85,6 +85,74 @@ position:relative;
 float: right;
 `;
 
+const Dropdown = styled.div`
+position: absolute
+`;
+
+const Menu = styled.ul`
+> li {
+  margin: 0;
+  background-color: white;
+}
+
+li:hover {
+  background-color: lightgray;
+}
+
+> li > button {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 5px;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+position: absolute;
+
+list-style-type: none;
+margin: 5px 0;
+padding: 0;
+
+border: 1px solid grey;
+width: 150px;
+z-index: 1000
+
+`;
+
+const DropdownRow = styled.div`
+> * {
+  margin: 30px;
+}
+display:flex;
+flex-direction:row;
+`;
+
+const StyledDropdownButton = styled.button`
+display: inline-block;
+border: 1px solid gray;
+border-radius: 4px;
+padding: 10px 10px 10px 10px;
+background-color: #ffffff;
+cursor: pointer;
+white-space: nowrap;
+`;
+
+const StyledDropdownButtonDisabled = styled.button`
+display: inline-block;
+border: 1px solid gray;
+border-radius: 4px;
+padding: 10px 10px 10px 10px;
+background-color: lightgray;
+cursor: pointer;
+white-space: nowrap;
+`;
+
 export default {
   StyleSelectorContainer,
   StyleEntryThumbnail,
@@ -97,4 +165,9 @@ export default {
   ClickedStyleThumbnail,
   EntryContainer,
   Ratings,
+  Dropdown,
+  Menu,
+  DropdownRow,
+  StyledDropdownButton,
+  StyledDropdownButtonDisabled,
 };
