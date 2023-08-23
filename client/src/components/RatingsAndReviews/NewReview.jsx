@@ -146,7 +146,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
           <StyledButton
             type="submit"
             data-testid="formSubmit"
-            >
+          >
             Submit Review
           </StyledButton>
         </div>
@@ -164,7 +164,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         {formData.photos.length < 5 && <input type="file" multiple id="photos" name="photos" required />}
       </label> */}
       <br />
-      </form>
+    </form>
 
   );
 }

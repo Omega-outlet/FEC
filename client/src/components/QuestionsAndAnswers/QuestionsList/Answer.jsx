@@ -9,7 +9,7 @@ import { YesReportButtonContainer } from '../../../styled-components/YesAndRepor
 import { AnswerDetailsContainer, ThumbnailImg } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
 function Answer({ answer }) {
-  console.log(answer);
+  // console.log(answer);
   const registerHelpfulClick = useHelpfulYes();
   const registerReportClick = useReport();
   return (

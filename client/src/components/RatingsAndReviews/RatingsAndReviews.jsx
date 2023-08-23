@@ -15,7 +15,8 @@ function RatingsAndReviews({ currentProductID, metaData }) {
   const [showForm, setShowForm] = React.useState(false);
   const [filters, setFilters] = React.useState([]);
   const [submitMessage, setSubmitMessage] = React.useState(false);
-
+  console.log('show form: ' + showForm);
+  console.log('submit message: '+ submitMessage);
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
@@ -44,8 +45,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
     axios.post('/reviews', formObj)
       .then((response) => console.log(response))
       .catch(() => {});
-    setShowForm((prev) => !prev);
-    setSubmitMessage(true);
+    setSubmitMessage((prev) => !prev);
   };
 
   return (
