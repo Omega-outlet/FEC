@@ -123,44 +123,48 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         ))}
       </fieldset>
       <LineSkip />
-      <label htmlFor="summary">
-        Review Summary:
-        <br />
-        <input type="text" id="summary" maxLength="60" name="summary" onChange={handleChange()} required />
-      </label>
-      <LineSkip />
-      <label htmlFor="reviewBody">
-        Review:
-        <br />
-        <textarea style={{ 'resize': 'none' }} id="reviewBody" name="body" onChange={handleChange()} required />
-      </label>
-      <LineSkip />
-      <label htmlFor="username">
-        Display Name:
-        <br />
-        <input type="text" id="username" name="name" onChange={handleChange()} required />
-      </label>
-      <LineSkip />
-      <label htmlFor="email">
-        {'Email (we won\'t share it):'}
-        <br />
-        <input type="email" id="email" name="email" onChange={handleChange()} required />
-      </label>
-      <LineSkip />
+      <div style={{'display': 'flex'}}>
+        <div className="rightside" style={{ 'width': '25%'}}>
+          <label htmlFor="summary">
+            Review Summary:
+            <br />
+            <StyledInput type="text" id="summary" maxLength="60" name="summary" onChange={handleChange()} required />
+          </label>
+          <LineSkip />
+          <label htmlFor="username">
+            Display Name:
+            <br />
+            <StyledInput type="text" id="username" name="name" onChange={handleChange()} required />
+          </label>
+          <LineSkip />
+          <label htmlFor="email">
+            Email:
+            <br />
+            <StyledInput type="email" id="email" name="email" onChange={handleChange()} required />
+          </label>
+          <LineSkip />
+          <StyledButton
+            type="submit"
+            data-testid="formSubmit"
+            >
+            Submit Review
+          </StyledButton>
+        </div>
+        <div className="leftside" style={{ 'width': '50%'}}>
+          <label htmlFor="reviewBody">
+            Review:
+            <br />
+            <textarea style={{ 'resize': 'none', 'backgroundColor': '#f8f8f8', 'width': '75%', 'height': '75%', 'border': '1px solid lightgray', 'outline': 'none' }} id="reviewBody" name="body" onChange={handleChange()} required />
+          </label>
+        </div>
+      </div>
       {/* <label htmlFor="photos">
-        <br />
         {'Photos (up to 5): '}
         <br />
         {formData.photos.length < 5 && <input type="file" multiple id="photos" name="photos" required />}
       </label> */}
       <br />
-      <StyledButton
-        type="submit"
-        data-testid="formSubmit"
-      >
-        Submit Review
-      </StyledButton>
-    </form>
+      </form>
 
   );
 }
@@ -191,4 +195,12 @@ const SelectedStar = styled.button`
 
 const LineSkip = styled.div`
   height: 10px`;
+
+const StyledInput = styled.input`
+  background-color: #f8f8f8;
+  padding: 5px;
+  border: 1px solid lightgray;
+  outline: none;
+  width: 75%`;
+
 export default NewReview;
