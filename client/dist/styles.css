@@ -1,6 +1,63 @@
 body {
-    font-family: Arial;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+body[data-theme='dark'] {
+  color: rgb(223, 223, 223);
+  background-color: rgb(20, 20, 20);
+}
+
+body[data-theme='light'] {
+  color: #424242;
+}
+
+.app {
+  margin: 1vh 5vw 1vh 5vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.darkMode {
+  float: right;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.logo {
+  width: 5vw;
+  height: auto;
+  align-self: center;
+  margin-bottom: 2vw;
+}
+
+h1, h2, h3, h4, h5 {
+  text-align: left;
+  margin-top: 2vw;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+table, td, tr {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.relatedItems {
+  margin: 0;
+  display: flex;
+  margin-bottom: 3vh;
+  padding: 0;
+}
+
+/* .shortButton {
+  nav buttons for related section have this class
+} */
+
+.productInfo {
+  margin-left: 2vw;
+}
+
 .Stars {
   &::before {
     content: '★★★★★';

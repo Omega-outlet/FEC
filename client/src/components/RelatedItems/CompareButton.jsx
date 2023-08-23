@@ -7,7 +7,7 @@ import RelatedContext from './RelatedContext.jsx';
 const CompareButton = function ({ item }) {
   const { compareItem } = useContext(RelatedContext);
 
-  return <StyledButton onClick={(event) => compareItem(item, event)}>☆</StyledButton>;
+  return <StyledButton onClick={(event) => compareItem(item, event)} className="shortButton">☆</StyledButton>;
 };
 
 export default CompareButton;

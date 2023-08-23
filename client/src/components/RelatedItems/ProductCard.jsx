@@ -7,15 +7,17 @@ import Compare from './CompareButton.jsx';
 import Remove from './RemoveItemButton.jsx';
 import { StarView } from '../../styled-components/common-elements.jsx';
 import { calculateAverage } from '../RatingsAndReviews/arithmetic.js';
+import ThemeContext from '../ThemeContext.jsx';
+
 
 const ProductCard = function ({ product, updateProduct, listType }) {
-  // const [productData, setProductData] = useState({});
   const [img1, setImg1] = useState('https://tinyurl.com/bp78yn9f');
   const [img2, setImg2] = useState('https://tinyurl.com/2tb6ry8d'); //random imgs for defaults
   const [salePrice, setSalePrice] = useState('');
   const [hover, setHover] = useState(false);
   const [starRating, setStarRating] = useState(0);
 
+  const { theme } = useContext(ThemeContext);
   // {product} prop holds basic product info from /products api query
   // productData holds additional info from /styles including default style and sale price
   useEffect(() => {
@@ -53,66 +55,62 @@ const ProductCard = function ({ product, updateProduct, listType }) {
   };
 
   return (
-    <Item onClick={handleClick}>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <span style={{ right: 0, position: 'absolute' }}>
-                {listType === 'related' && <Compare item={product}/>}
-                {listType === 'outfit' && <Remove item={product} />}
-              </span>
-              {img1 && (
-                <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
-              )}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <small>{product.category}</small>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>{product.name}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <em>{product.slogan}</em>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {salePrice
-                ? (
-                  <>
-                    <em style={{ color: 'red' }}>
-                      $
-                      {salePrice}
-                      &nbsp;
-                    </em>
-                    <s>
-                      $
-                      {product.default_price}
-                    </s>
-                  </>
-                )
-                : `$${product.default_price}`}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {starRating ? (
-                <>
-                  <StarView rating={starRating} fontSize={20} />
-                  <em><small> ({starRating})</small></em>
-                </>
-              ) : <em><small>...loading star rating</small></em>}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <Item onClick={handleClick} $theme={theme}>
+      <tr>
+        <td>
+          <span style={{ right: 0, position: 'absolute' }}>
+            {listType === 'related' && <Compare item={product} />}
+            {listType === 'outfit' && <Remove item={product} />}
+          </span>
+          {img1 && (
+            <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
+          )}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <small>{product.category}</small>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>{product.name}</strong>
+        </td>
+      </tr>
+      <tr>
+        <td  style={{ textOverflow: 'ellipsis' }}>
+          <em>{product.slogan}</em>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {salePrice
+            ? (
+              <>
+                <em style={{ color: 'red' }}>
+                  $
+                  {salePrice}
+                  &nbsp;
+                </em>
+                <s>
+                  $
+                  {product.default_price}
+                </s>
+              </>
+            )
+            : `$${product.default_price}`}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {starRating ? (
+            <>
+              <StarView rating={starRating} fontSize={20} />
+              <em><small> ({starRating})</small></em>
+            </>
+          ) : <em><small>...loading star rating</small></em>}
+        </td>
+      </tr>
     </Item>
   );
 };

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const StyledTable = styled.table`
   width: 100%;
   table-layout: fixed;
+  color: black;
   td:nth-child(2) {
     text-align: center;
   };
