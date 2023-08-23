@@ -53,7 +53,7 @@ function Question({ productName, question }) {
       body: answerFormData.body,
       name: answerFormData.nickname,
       email: answerFormData.email,
-      photo: answerFormData.photos,
+      photos: answerFormData.photos,
     })
       .then((res) => {
         console.log('New Answer added:', res.data);

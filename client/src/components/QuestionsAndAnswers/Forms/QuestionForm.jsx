@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { InputLabel, TextInput } from '../styled-components/Modal.styles.jsx';
+import { InputLabel, TextInput, ModalButtonContainer } from '../styled-components/Modal.styles.jsx';
 import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
 
 function QuestionForm({ productName, onSubmit, onCancel }) {
@@ -61,8 +61,10 @@ function QuestionForm({ productName, onSubmit, onCancel }) {
         />
         <div>For authentication reasons, you will not be emailed</div>
       </InputLabel>
-      <RoundedPulseButton type="button" onClick={handleSubmit}>SUBMIT QUESTION</RoundedPulseButton>
-      <RoundedPulseButton type="button" onClick={onCancel}>CANCEL</RoundedPulseButton>
+      <ModalButtonContainer>
+        <RoundedPulseButton type="button" onClick={handleSubmit}>SUBMIT QUESTION</RoundedPulseButton>
+        <RoundedPulseButton type="button" onClick={onCancel}>CANCEL</RoundedPulseButton>
+      </ModalButtonContainer>
     </div>
   );
 };
