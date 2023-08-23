@@ -16,7 +16,9 @@ body[data-theme='light'] {
   display: flex;
   flex-direction: column;
 }
-
+footer {
+  text-align: center;
+}
 .darkMode {
   float: right;
   background-color: white;

@@ -88,6 +88,11 @@ const App = function () {
           metaData={metaData}
           setMetaData={setMetaData}
         />
+        <footer>
+          <small>
+            About Us: Brandon Gomez, Eric Chang, Kimberly Tom, and Lauren Laxton... blurb
+          </small>
+        </footer>
       </div>
     </ThemeContext.Provider>
   );
