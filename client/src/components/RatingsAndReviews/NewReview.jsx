@@ -8,7 +8,7 @@ import descriptionArr from './descriptionArr.js';
 function NewReview({ renderForm, currentProductID, submitForm, characteristics }) {
   const radioArray = [1, 2, 3, 4, 5];
   const [charArray, setCharArray] = React.useState([]);
-  const [photoURL, setPhotoUrl] = React.useState('');
+  // const [photoURL, setPhotoUrl] = React.useState('');
   const [formData, setFormData] = React.useState({
     product_id: currentProductID,
     rating: '',
@@ -80,7 +80,6 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     submitForm(formData);
     renderForm();
   };
-  // console.log(formData);
   return (
     <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm">
       <label htmlFor="rating">

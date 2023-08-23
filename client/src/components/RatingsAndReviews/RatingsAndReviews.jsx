@@ -15,8 +15,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
   const [showForm, setShowForm] = React.useState(false);
   const [filters, setFilters] = React.useState([]);
   const [submitMessage, setSubmitMessage] = React.useState(false);
-  console.log('show form: ' + showForm);
-  console.log('submit message: '+ submitMessage);
+
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
@@ -25,7 +24,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
       },
     })
       .then((response) => setReviews(response.data.results))
-      .catch(() => {});
+      .catch((err) => {console.log(err)});
   }, [currentProductID, submitMessage]);
   // eslint-disable-next-line func-names
   const renderForm = function () {
@@ -44,7 +43,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
   const submitForm = (formObj) => {
     axios.post('/reviews', formObj)
       .then((response) => console.log(response))
-      .catch(() => {});
+      .catch((err) => {console.log(err)});
     setSubmitMessage((prev) => !prev);
   };
 
@@ -125,12 +124,14 @@ function RatingsAndReviews({ currentProductID, metaData }) {
 RatingsAndReviews.propTypes = {
   currentProductID: PropTypes.number.isRequired,
   // eslint-disable-next-line react/require-default-props
-  metaData: PropTypes.objectOf({
+  metaData: PropTypes.oneOfType({
     characteristics: PropTypes.objectOf({
       Fit: PropTypes.objectOf({}),
       Length: PropTypes.objectOf({}),
       Comfort: PropTypes.objectOf({}),
       Quality: PropTypes.objectOf({}),
+      Size: PropTypes.objectOf({}),
+      Width: PropTypes.objectOf({}),
     }),
     product_id: PropTypes.number,
     ratings: PropTypes.objectOf({
