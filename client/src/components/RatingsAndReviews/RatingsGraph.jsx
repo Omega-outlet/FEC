@@ -38,6 +38,7 @@ function RatingsGraph({ metaData, changeFilter }) {
 RatingsGraph.propTypes = {
   // eslint-disable-next-line react/require-default-props
   metaData: PropTypes.objectOf(PropTypes.string),
+  changeFilter: PropTypes.func.isRequired,
 };
 
 export default RatingsGraph;

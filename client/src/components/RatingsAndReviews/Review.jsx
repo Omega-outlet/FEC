@@ -33,14 +33,14 @@ function Review({ review }) {
         'display': 'flex',
         'justifyContent': 'space-between',
         'borderTop': '1px solid grey',
-        'height': '200px',
+        'minHeight': '200px',
         'alignItems': 'center',
       }
     }
     >
       <div
         className="first-column"
-        style={{ 'borderRight': '1px solid grey', 'paddingRight': '20px' }}
+        style={{ 'borderRight': '1px solid grey', 'paddingRight': '20px', 'width': '15%' }}
       >
         <p>{reviewer_name}</p>
         <p><i>{recommend ? 'recommended' : 'not recommended'}</i></p>
@@ -49,18 +49,24 @@ function Review({ review }) {
           onReportClick={() => registerReportClick('review', review_id)}
         />
       </div>
-      <div className="second-column" style={{'textWrap': 'wrap'}}>
-        <StarView rating={rating} fontSize={20} />
-        :
-        {summary}
-        <p>
-          {body}
-        </p>
+      <div className="second-column" style={{ 'width': '50%' }}>
+        <div style={{ 'display': 'flex', 'justifyContent': 'center' }}>
+          <StarView rating={rating} fontSize={20} />
+          :
+          <div style={{ 'paddingLeft': '10px', 'fontSize': '16px', 'wordBreak': 'break-word' }}>
+            <strong>{summary}</strong>
+          </div>
+        </div>
+        <div style={{ 'wordBreak': 'break-word' }}>
+          <p>
+            {body}
+          </p>
+        </div>
         {response && <p style={{ 'color': 'red' }}><strong>{response}</strong></p>}
       </div>
       <div
         className="third-column"
-        style={{ 'borderLeft': '1px solid grey', 'paddingLeft': '20px' }}
+        style={{ 'borderLeft': '1px solid grey', 'paddingLeft': '20px', 'width': '15%', 'textAlign': 'center' }}
       >
         {!photos.length ? '' : photos.map((photo) => <img style={{'width': '50px'}} src={photo.url} alt="uploaded by reviewer" />)}
         <p>{reFormatDate(date)}</p>

@@ -10,7 +10,7 @@ import { AnswerDetailsContainer, ThumbnailImg } from '../styled-components/Quest
 import ImageModal from '../Forms/ImageModal.jsx'
 
 function Answer({ answer }) {
-  console.log(answer);
+  // console.log(answer);
   const registerHelpfulClick = useHelpfulYes();
   const registerReportClick = useReport();
 

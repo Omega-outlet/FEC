@@ -14,16 +14,18 @@ function RatingsAndReviews({ currentProductID, metaData }) {
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
   const [filters, setFilters] = React.useState([]);
+  const [submitMessage, setSubmitMessage] = React.useState(false);
+
   React.useEffect(() => {
     axios.get('/reviews', {
       params: {
         product_id: currentProductID,
-        count: 25,
+        count: 100,
       },
     })
       .then((response) => setReviews(response.data.results))
-      .catch(() => {});
-  }, [currentProductID]);
+      .catch((err) => {console.log(err)});
+  }, [currentProductID, submitMessage]);
   // eslint-disable-next-line func-names
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
@@ -41,23 +43,25 @@ function RatingsAndReviews({ currentProductID, metaData }) {
   const submitForm = (formObj) => {
     axios.post('/reviews', formObj)
       .then((response) => console.log(response))
-      .catch(() => {});
-    // setShowForm((prev) => !prev);
+      .catch((err) => {console.log(err)});
+    setSubmitMessage((prev) => !prev);
   };
+
   return (
-    <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '0 40px' }} data-testid="testing">
-      <h1 data-testid="title" style={{ 'textAlign': 'center' }}>Reviews</h1>
+    <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '40px 40px' }} data-testid="testing">
+      <h1 data-testid="title" style={{ 'textAlign': 'center', 'paddingBottom': '40px' }}>Reviews</h1>
       <div style={
         {
           'display': 'flex',
           'justifyContent': 'space-between',
           'alignItems': 'center',
           'borderBottom': '1px solid grey',
+          'height': '250px',
         }
       }
       >
         {metaData && (
-        <div style={{ 'width': '33%' }} data-testid="test123">
+        <div style={{ 'width': '33%' }}>
           <div>
             <div style={{ 'display': 'flex', 'alignItems': 'flex-start' }}>
               <span style={{ 'fontSize': '25px', 'paddingRight': '10px' }}>{`${calculateAverage(metaData.ratings)} `}</span>
@@ -81,6 +85,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
             onClick={() => setShowForm((prev) => !prev)}
             data-testid="newReviewBtn"
             type="button"
+            disabled={submitMessage}
           >
             Write Review
           </StyledButton>
@@ -110,6 +115,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
         currentProductID={currentProductID}
         metaData={metaData}
         filters={filters}
+        submitMessage={submitMessage}
       />
     </div>
   );
@@ -117,6 +123,29 @@ function RatingsAndReviews({ currentProductID, metaData }) {
 
 RatingsAndReviews.propTypes = {
   currentProductID: PropTypes.number.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  metaData: PropTypes.oneOfType({
+    characteristics: PropTypes.objectOf({
+      Fit: PropTypes.objectOf({}),
+      Length: PropTypes.objectOf({}),
+      Comfort: PropTypes.objectOf({}),
+      Quality: PropTypes.objectOf({}),
+      Size: PropTypes.objectOf({}),
+      Width: PropTypes.objectOf({}),
+    }),
+    product_id: PropTypes.number,
+    ratings: PropTypes.objectOf({
+      1: PropTypes.string,
+      2: PropTypes.string,
+      3: PropTypes.string,
+      4: PropTypes.string,
+      5: PropTypes.string,
+    }),
+    recommended: PropTypes.objectOf({
+      false: PropTypes.string,
+      true: PropTypes.string,
+    }),
+  }),
 };
 
 export default RatingsAndReviews;
