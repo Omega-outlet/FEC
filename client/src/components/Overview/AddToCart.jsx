@@ -5,6 +5,7 @@ import DropdownSize from './DropdownSize.jsx';
 import {
   StyledButton,
 } from '../../styled-components/common-elements.jsx';
+import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 
 function AddToCart({
   selectedStyle,
@@ -70,53 +71,61 @@ function AddToCart({
 
   return (
     <div>
-      <span>{message}</span>
       <br />
+      <span>{message}</span>
       {oneOutOfStock === true ? (
         <div>
-          <DropdownSize
-            size={size}
-            setSize={setSize}
-            setQuantity={setQuantity}
-            openSize={openSize}
-            setOpenSize={setOpenSize}
-            selectedStyle={selectedStyle}
-            SKUValueArray={SKUValueArray}
-          />
-          <DropdownQuantity
-            size={size}
-            quantity={quantity}
-            setQuantity={setQuantity}
-            openQuantity={openQuantity}
-            setOpenQuantity={setOpenQuantity}
-            selectedStyle={selectedStyle}
-            SKUValueArray={SKUValueArray}
-            setOneOutOfStock={setOneOutOfStock}
-          />
-          <StyledButton disabled type="button" onClick={() => { cartHandle(); }}>Sold Out</StyledButton>
+          <ProductInformationComponents.DropdownRow>
+            <DropdownSize
+              size={size}
+              setSize={setSize}
+              setQuantity={setQuantity}
+              openSize={openSize}
+              setOpenSize={setOpenSize}
+              selectedStyle={selectedStyle}
+              SKUValueArray={SKUValueArray}
+            />
+            <DropdownQuantity
+              size={size}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              openQuantity={openQuantity}
+              setOpenQuantity={setOpenQuantity}
+              selectedStyle={selectedStyle}
+              SKUValueArray={SKUValueArray}
+              setOneOutOfStock={setOneOutOfStock}
+            />
+
+            <StyledButton disabled type="button" onClick={() => { cartHandle(); }}>Sold Out</StyledButton>
+          </ProductInformationComponents.DropdownRow>
+
         </div>
       ) : (
         <div>
-          <DropdownSize
-            size={size}
-            setSize={setSize}
-            setQuantity={setQuantity}
-            openSize={openSize}
-            setOpenSize={setOpenSize}
-            selectedStyle={selectedStyle}
-            SKUValueArray={SKUValueArray}
-          />
-          <DropdownQuantity
-            size={size}
-            quantity={quantity}
-            setQuantity={setQuantity}
-            openQuantity={openQuantity}
-            setOpenQuantity={setOpenQuantity}
-            selectedStyle={selectedStyle}
-            SKUValueArray={SKUValueArray}
-            setOneOutOfStock={setOneOutOfStock}
-          />
-          <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
+          <ProductInformationComponents.DropdownRow>
+            <DropdownSize
+              size={size}
+              setSize={setSize}
+              setQuantity={setQuantity}
+              openSize={openSize}
+              setOpenSize={setOpenSize}
+              selectedStyle={selectedStyle}
+              SKUValueArray={SKUValueArray}
+            />
+            <DropdownQuantity
+              size={size}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              openQuantity={openQuantity}
+              setOpenQuantity={setOpenQuantity}
+              selectedStyle={selectedStyle}
+              SKUValueArray={SKUValueArray}
+              setOneOutOfStock={setOneOutOfStock}
+            />
+
+            <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
+          </ProductInformationComponents.DropdownRow>
+
         </div>
       )}
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
+import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 
 function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUValueArray
 }) {
@@ -18,37 +19,37 @@ function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUVa
       Size:
       {/* size selected */}
       {size > -1 ? (
-        <div className="dropdownSize">
-          <button type="button" onClick={() => { dropdownMenuSizeHandler(); }}>{SKUValueArray[size].size}</button>
+        <ProductInformationComponents.Dropdown>
+          <ProductInformationComponents.StyledDropdownButton type="button" onClick={() => { dropdownMenuSizeHandler(); }}>{SKUValueArray[size].size}</ProductInformationComponents.StyledDropdownButton>
           {SKUValueArray && openSize
             ? (
-              <ul className="menu">
+              <ProductInformationComponents.Menu>
                 {(SKUValueArray.map((info, index) => (
                   <li key={info.id}>
                     <button type="button" className="menuItem" value={index} onClick={(e) => { dropdownSizeHandler(e); }}>{info.size}</button>
                   </li>
                 )))}
-              </ul>
+              </ProductInformationComponents.Menu>
             )
             : null}
-        </div>
+        </ProductInformationComponents.Dropdown>
       ) : (
-        <div className="dropdownSize">
-          <button type="button" onClick={() => { dropdownMenuSizeHandler(); }}>Select Size</button>
+        <ProductInformationComponents.Dropdown>
+          <ProductInformationComponents.StyledDropdownButton type="button" onClick={() => { dropdownMenuSizeHandler(); }}>Select Size</ProductInformationComponents.StyledDropdownButton>
           {SKUValueArray && openSize
             ? (
 
-              <ul className="menu">
+              <ProductInformationComponents.Menu>
                 {(SKUValueArray.map((info, index) => (
                   <li key={info.id}>
                     <button type="button" className="menuItem" value={index} onClick={(e) => { dropdownSizeHandler(e); }}>{info.size}</button>
                   </li>
                 )))}
-              </ul>
+              </ProductInformationComponents.Menu>
 
             )
             : null}
-        </div>
+        </ProductInformationComponents.Dropdown>
       )}
     </div>
   );

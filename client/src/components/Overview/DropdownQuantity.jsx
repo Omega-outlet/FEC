@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
+import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 
 function DropdownQuantity({
   size, quantity, setQuantity, openQuantity, setOpenQuantity,
@@ -35,7 +36,6 @@ function DropdownQuantity({
           }
         }
         const tempArray = Array.from(Array(maxQuantitiesArray[size])).map((e, i) => i + 1);
-        console.log('tempArray', tempArray);
         setQuantityArray(tempArray);
         if (tempArray.length === 0) {
           setOneOutOfStock(true);
@@ -60,51 +60,51 @@ function DropdownQuantity({
       {quantityArray.length === 0
         ? (
           <div className="dropdownQuantity">
-            <button disabled type="button" className="menuItem" value={0} onClick={(e) => { dropdownQuantityHandler(e); }}>Out of Stock</button>
+            <ProductInformationComponents.StyledDropdownButtonDisabled disabled type="button" className="menuItem" value={0} onClick={(e) => { dropdownQuantityHandler(e); }}>Out of Stock</ProductInformationComponents.StyledDropdownButtonDisabled>
           </div>
         )
         : null }
       {/* size selected but no quantity selected */}
       {size > -1 && quantity === -1 && quantityArray.length !== 0 ? (
-        <div className="dropdownQuantity">
-          <button type="button" onClick={() => { dropdownMenuQuantityHandler(); }}>Select Quantity</button>
+        <ProductInformationComponents.Dropdown>
+          <ProductInformationComponents.StyledDropdownButton type="button" onClick={() => { dropdownMenuQuantityHandler(); }}>Select Quantity</ProductInformationComponents.StyledDropdownButton>
           {/* dropdown menu opened */}
           {quantityArray && openQuantity
             ? (
-              <ul className="menu">
+              <ProductInformationComponents.Menu>
                 {(quantityArray.map((i) => (
                   <li>
                     <button type="button" className="menuItem" key={i} value={i} onClick={(e) => { dropdownMenuQuantityHandler(); dropdownQuantityHandler(e); }}>{i}</button>
                   </li>
                 )))}
-              </ul>
+              </ProductInformationComponents.Menu>
             )
             : null}
-        </div>
+        </ProductInformationComponents.Dropdown>
       ) : null}
       {/* size selected and quantity selected */}
       {quantityArray && quantity > -1 && quantityArray.length !== 0 ? (
-        <div className="dropdownQuantity">
-          <button type="button" onClick={() => { dropdownMenuQuantityHandler(); }}>{quantity}</button>
+        <ProductInformationComponents.Dropdown>
+          <ProductInformationComponents.StyledDropdownButton type="button" onClick={() => { dropdownMenuQuantityHandler(); }}>{quantity}</ProductInformationComponents.StyledDropdownButton>
           {/* dropdown menu opened */}
           {quantityArray && openQuantity
             ? (
-              <ul className="menu">
+              <ProductInformationComponents.Menu>
                 {(quantityArray.map((i) => (
                   <li>
                     <button type="button" className="menuItem" key={i} value={i} onClick={(e) => { dropdownQuantityHandler(e); }}>{i}</button>
 
                   </li>
                 )))}
-              </ul>
+              </ProductInformationComponents.Menu>
             )
             : null}
-        </div>
+        </ProductInformationComponents.Dropdown>
       ) : null}
 
       {size === -1 && quantityArray.length !== 0 ? (
         <div className="dropdownQuantity">
-          <button
+          <ProductInformationComponents.StyledDropdownButtonDisabled
             disabled
             type="button"
             onClick={() => {
@@ -112,7 +112,7 @@ function DropdownQuantity({
             }}
           >
             -
-          </button>
+          </ProductInformationComponents.StyledDropdownButtonDisabled>
         </div>
       ) : null }
       {' '}
