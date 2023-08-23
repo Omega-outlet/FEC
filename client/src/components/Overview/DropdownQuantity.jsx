@@ -3,12 +3,13 @@ import React, { useState, useEffect, useContext } from 'react';
 
 function DropdownQuantity({
   size, quantity, setQuantity, openQuantity, setOpenQuantity,
-  selectedStyle, SKUValueArray, setOutOfStock
+  selectedStyle, SKUValueArray, setOneOutOfStock
 
 }) {
   const maxQuantity = 15;
   const [quantityArray, setQuantityArray] = useState([]);
   const loadMaxQuantity = () => {
+    setOneOutOfStock(false);
     function getQuantity() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
@@ -33,10 +34,12 @@ function DropdownQuantity({
             maxQuantitiesArray[y] = data[y].quantity;
           }
         }
-        // set out of stock if item is out of stock
-        setOutOfStock([maxQuantitiesArray].every((item) => item === 0));
         const tempArray = Array.from(Array(maxQuantitiesArray[size])).map((e, i) => i + 1);
+        console.log('tempArray', tempArray);
         setQuantityArray(tempArray);
+        if (tempArray.length === 0) {
+          setOneOutOfStock(true);
+        }
       })
       .catch(() => { });
   };
@@ -54,8 +57,15 @@ function DropdownQuantity({
   return (
     <div>
       Quantity:
+      {quantityArray.length === 0
+        ? (
+          <div className="dropdownQuantity">
+            <button disabled type="button" className="menuItem" value={0} onClick={(e) => { dropdownQuantityHandler(e); }}>Out of Stock</button>
+          </div>
+        )
+        : null }
       {/* size selected but no quantity selected */}
-      {size > -1 && quantity === -1 ? (
+      {size > -1 && quantity === -1 && quantityArray.length !== 0 ? (
         <div className="dropdownQuantity">
           <button type="button" onClick={() => { dropdownMenuQuantityHandler(); }}>Select Quantity</button>
           {/* dropdown menu opened */}
@@ -73,7 +83,7 @@ function DropdownQuantity({
         </div>
       ) : null}
       {/* size selected and quantity selected */}
-      {quantityArray && quantity > -1 ? (
+      {quantityArray && quantity > -1 && quantityArray.length !== 0 ? (
         <div className="dropdownQuantity">
           <button type="button" onClick={() => { dropdownMenuQuantityHandler(); }}>{quantity}</button>
           {/* dropdown menu opened */}
@@ -92,7 +102,7 @@ function DropdownQuantity({
         </div>
       ) : null}
 
-      {size === -1 ? (
+      {size === -1 && quantityArray.length !== 0 ? (
         <div className="dropdownQuantity">
           <button
             disabled

@@ -16,10 +16,11 @@ function AddToCart({
   const [openQuantity, setOpenQuantity] = useState(false);
   const [size, setSize] = useState(-1);
   const [quantity, setQuantity] = useState(-1);
-  const [outOfStock, setOutOfStock] = useState(true);
+  const [oneOutOfStock, setOneOutOfStock] = useState(false);
 
   // load the stylesArray with styles
   const loadSkus = () => {
+    setOneOutOfStock(false);
     function getStyleSkus() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
@@ -55,6 +56,11 @@ function AddToCart({
       setMessage('Please select size');
       setOpenSize(true);
       // else add to cart and reset sizee and quantity to -1
+    } else if (oneOutOfStock === true) {
+      setMessage('Sorry, that item is out of stock');
+      setSize(-1);
+      setQuantity(-1);
+      setOneOutOfStock(false);
     } else {
       setMessage(`added ${quantity} of size ${SKUValueArray[size].size} to cart`);
       setSize(-1);
@@ -66,26 +72,28 @@ function AddToCart({
     <div>
       <span>{message}</span>
       <br />
-      {outOfStock === true ? (
+      {oneOutOfStock === true ? (
         <div>
-          Size:
-          <div className="dropDownSize">
-            <button
-              disabled
-              type="button"
-            >
-              OUT OF STOCK
-            </button>
-          </div>
-          Quantity:
-          <div className="dropDownSize">
-            <button
-              disabled
-              type="button"
-            >
-              -
-            </button>
-          </div>
+          <DropdownSize
+            size={size}
+            setSize={setSize}
+            setQuantity={setQuantity}
+            openSize={openSize}
+            setOpenSize={setOpenSize}
+            selectedStyle={selectedStyle}
+            SKUValueArray={SKUValueArray}
+          />
+          <DropdownQuantity
+            size={size}
+            quantity={quantity}
+            setQuantity={setQuantity}
+            openQuantity={openQuantity}
+            setOpenQuantity={setOpenQuantity}
+            selectedStyle={selectedStyle}
+            SKUValueArray={SKUValueArray}
+            setOneOutOfStock={setOneOutOfStock}
+          />
+          <StyledButton disabled type="button" onClick={() => { cartHandle(); }}>Sold Out</StyledButton>
         </div>
       ) : (
         <div>
@@ -106,7 +114,7 @@ function AddToCart({
             setOpenQuantity={setOpenQuantity}
             selectedStyle={selectedStyle}
             SKUValueArray={SKUValueArray}
-            setOutOfStock={setOutOfStock}
+            setOneOutOfStock={setOneOutOfStock}
           />
           <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
         </div>
