@@ -11,7 +11,6 @@ import { calculateAverage, calculateTotal, calculatePercentage } from './arithme
 import CharacteristicsGraph from './CharacteristicsGraph.jsx';
 import ThemeContext from '../ThemeContext.jsx';
 function RatingsAndReviews({ currentProductID, metaData }) {
-  console.log(metaData)
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
   const [filters, setFilters] = React.useState([]);
@@ -37,8 +36,13 @@ function RatingsAndReviews({ currentProductID, metaData }) {
       })
       .catch((err) => { console.log(err); });
   }, [currentProductID, submitMessage, sortBy]);
-  // eslint-disable-next-line func-names
+  React.useEffect(() => {
+    setSubmitMessage(() => false);
+  });
 
+  console.log(currentProductID);
+
+  // eslint-disable-next-line func-names
   const renderForm = function () {
     setShowForm((prevView) => !prevView);
   };

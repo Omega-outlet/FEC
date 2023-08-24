@@ -80,10 +80,8 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.summary.length > 50) {
-      submitForm(formData);
-      renderForm();
-    }
+    submitForm(formData);
+    renderForm();
   };
 
 
@@ -93,7 +91,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         {'Rating: '}
         <div>
           {radioArray.map((num) => {
-            if (num.toString() <= formData.rating) {
+            if (num <= formData.rating) {
               return <SelectedStar $theme={theme} key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">★</SelectedStar>;
             }
             return <SelectedStar $theme={theme} key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">☆</SelectedStar>;
