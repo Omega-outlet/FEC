@@ -18,7 +18,7 @@ export const Carousel = styled.div`
   left: 50%;
 `;
 
-export const Item = styled.table`
+export const Item = styled.div`
   width: 20vw;
   height: auto;
   max-height: min-height;
@@ -29,7 +29,6 @@ export const Item = styled.table`
   border: 0;
   flex-shrink: 2;
 `;
-// rm background color if desired later, just putting it in for viz
 
 export const Image = styled.img`
   padding: 0;
