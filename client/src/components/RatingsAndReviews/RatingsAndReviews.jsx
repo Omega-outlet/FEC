@@ -10,8 +10,8 @@ import NewReview from './NewReview.jsx';
 import { calculateAverage, calculateTotal, calculatePercentage } from './arithmetic.js';
 import CharacteristicsGraph from './CharacteristicsGraph.jsx';
 import ThemeContext from '../ThemeContext.jsx';
-
 function RatingsAndReviews({ currentProductID, metaData }) {
+  console.log(metaData)
   const [reviews, setReviews] = React.useState([]);
   const [showForm, setShowForm] = React.useState(false);
   const [filters, setFilters] = React.useState([]);
@@ -142,28 +142,28 @@ function RatingsAndReviews({ currentProductID, metaData }) {
 RatingsAndReviews.propTypes = {
   currentProductID: PropTypes.number.isRequired,
   // eslint-disable-next-line react/require-default-props
-  metaData: PropTypes.oneOfType({
-    characteristics: PropTypes.objectOf({
-      Fit: PropTypes.objectOf({}),
-      Length: PropTypes.objectOf({}),
-      Comfort: PropTypes.objectOf({}),
-      Quality: PropTypes.objectOf({}),
-      Size: PropTypes.objectOf({}),
-      Width: PropTypes.objectOf({}),
+  metaData: PropTypes.oneOfType([ PropTypes.shape({
+    characteristics: PropTypes.shape({
+      Fit: PropTypes.shape({}),
+      Length: PropTypes.shape({}),
+      Comfort: PropTypes.shape({}),
+      Quality: PropTypes.shape({}),
+      Size: PropTypes.shape({}),
+      Width: PropTypes.shape({}),
     }),
-    product_id: PropTypes.number,
-    ratings: PropTypes.objectOf({
+    product_id: PropTypes.string,
+    ratings: PropTypes.shape({
       1: PropTypes.string,
       2: PropTypes.string,
       3: PropTypes.string,
       4: PropTypes.string,
       5: PropTypes.string,
     }),
-    recommended: PropTypes.objectOf({
+    recommended: PropTypes.shape({
       false: PropTypes.string,
       true: PropTypes.string,
     }),
-  }),
+  }), PropTypes.string]),
 };
 
 export default RatingsAndReviews;

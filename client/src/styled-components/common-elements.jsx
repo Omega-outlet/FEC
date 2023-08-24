@@ -56,7 +56,8 @@ const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);`;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 100000;`;
 
 const Modal = styled.div`
   display: ${({ $displaymodal }) => ($displaymodal ? 'flex' : 'none')};
@@ -67,7 +68,8 @@ const Modal = styled.div`
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
-  height: min-content;`;
+  height: min-content;
+  z-index: 100000;`;
 
 const ModalContent = styled.div`
   display: ${({ $displaymodal }) => ($displaymodal ? 'block' : 'none')};
@@ -77,7 +79,8 @@ const ModalContent = styled.div`
   width: 90%;
   max-height: calc(80vh - 20vh);
   overflow-y: auto;
-  overscroll-behavior: contain;`;
+  overscroll-behavior: contain;
+  z-index: 100000;`;
 
 export {
   StarView, StyledButton, ModalWrapper, Modal, ModalContent,
