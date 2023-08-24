@@ -6,11 +6,12 @@ export const YesAndReportButton = styled.button`
   background: none;
   border: none;
   font-family: var(--body-text-font-family,inherit);
-  color: #069;
-  text-decoration: underline;
+  color: #5a5a5a;
   cursor: pointer;
   line-height: 2;
-  &:hover {
+  .underline-text {
+    text-decoration: underline;
+      &:hover {
     text-decoration: none;
   }
 `;
@@ -19,4 +20,9 @@ export const YesReportButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
+  color: #5a5a5a;
+`;
+export const HelpfulTextSpan = styled.span`
+  margin-right: 5px;
+  color: #5a5a5a;
 `;
