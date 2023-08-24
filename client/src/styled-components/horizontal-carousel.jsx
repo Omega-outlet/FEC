@@ -27,7 +27,7 @@ export const Item = styled.div`
   position: relative;
   margin: .5rem;
   padding-bottom: .6em;
-  background-color: ${({ $theme }) => ($theme === 'dark' ? 'black' : '#f5f5f5')};
+  background-color: ${({ $theme }) => ($theme === 'dark' ? '#2c2c2c' : '#f5f5f5')};
   border: 0;
   line-height: 1.2em;
   flex-shrink: 2;
