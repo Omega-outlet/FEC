@@ -33,12 +33,15 @@ StarView.propTypes = {
 };
 
 const StyledButton = styled.button`
-  padding: 10px;
-  border-radius: 5px;
+  padding: 15px;
+  border-radius: 20px;
   color: ${({ $theme }) => ($theme === 'light' ? 'white' : '#121212')};
   background: ${({ $theme }) => ($theme === 'light' ? '#212121' : '#dfdfdf')};
   cursor: pointer;
   border: ${({ $theme }) => ($theme === 'light' ? '#dfdfdf' : '#212121')};
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 // $displaymodal is the boolean prop passed into the modal components to determine visibility

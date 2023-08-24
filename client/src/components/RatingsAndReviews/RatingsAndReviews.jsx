@@ -65,7 +65,7 @@ function RatingsAndReviews({ currentProductID, metaData }) {
 
   return (
     <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '40px 0' }} data-testid="testing">
-      <h2 data-testid="title" style={{ 'paddingBottom': '40px' }}>Reviews</h2>
+      <h2 data-testid="title">Reviews</h2>
       <div style={
         {
           'display': 'flex',
