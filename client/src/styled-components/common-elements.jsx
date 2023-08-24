@@ -64,7 +64,7 @@ const Modal = styled.div`
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
-  height: 85%;`;
+  height: min-content;`;
 
 const ModalContent = styled.div`
   display: ${({ $displaymodal }) => ($displaymodal ? 'block' : 'none')};
