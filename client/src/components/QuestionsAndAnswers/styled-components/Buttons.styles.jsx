@@ -66,7 +66,7 @@ export const LoadMoreAnswerButton = styled.button`
   font-size: 12px;
   font-weight: 700;
   border: none;
-  color: #003057;
+  color: ${({ $theme }) => ($theme === 'light' ? '#003057' : '#ADD8E6')};
   cursor: pointer;
   background: none;
   padding-left: 0;
@@ -78,9 +78,10 @@ export const LoadMoreAnswerButton = styled.button`
 export const AnswerThisQuestionButton = styled.button`
   text-decoration: none;
   border: none;
-  color: #007185;
+  color: ${({ $theme }) => ($theme === 'light' ? '#007185' : '#ADD8E6')};
   background: none;
   cursor: pointer;
+  padding-top: 10px;
   padding-left: 0;
   &:hover {
     text-decoration: underline;

@@ -17,7 +17,7 @@ export const Overlay = styled.div`
 
 export const ModalContainer = styled.div`
   width: 50%;
-  background-color: white;
+  background-color: ${({ $theme }) => ($theme === 'light' ? 'white' : '#303030')};
   padding: 30px;
   border-radius: 10px;
 `;

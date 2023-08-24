@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { LoadMoreAnswerButton } from '../styled-components/Buttons.styles.jsx';
+import ThemeContext from '../../ThemeContext.jsx';
 
 function LoadMoreAnswersButton({ onClick, expanded }) {
+  const { theme } = useContext(ThemeContext);
   return (
-    <LoadMoreAnswerButton type="button" onClick={onClick}>{expanded ? 'Collapse answers' : 'See more answers'}</LoadMoreAnswerButton>
+    <LoadMoreAnswerButton type="button" onClick={onClick} $theme={theme}>{expanded ? 'Collapse answers' : 'See more answers'}</LoadMoreAnswerButton>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { reFormatDate } from '../../../../utils/reFormatDate.js';
@@ -10,7 +10,7 @@ import {
   QuestionDetailsList, AskerDetailsContainer,
   QuestionAndAnswersContainer,
   QuestionBodyAndHelpfulContainer, AnswerListContainer,
-  BodyAndQuestionContainer, QuestionAskedByText,
+  BodyAndQuestionContainer, QuestionAskedByText, QuestionIcon, QuestionIconContainer,
 } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 import { YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
 import HelpfulYesButton from '../../../../utils/HelpfulYesButton.jsx';
@@ -18,8 +18,10 @@ import useHelpfulYes from '../../../../utils/useHelpfulYes.jsx';
 import ReportButton from '../../../../utils/ReportButton.jsx';
 import useReport from '../../../../utils/useReport.jsx';
 import getHighlightedSearchTerm from '../utils/getHighlightedSearchTerm.jsx';
+import ThemeContext from '../../ThemeContext.jsx';
 
 function Question({ productName, question, searchTerm }) {
+  const { theme } = useContext(ThemeContext);
   const registerHelpfulClick = useHelpfulYes();
   const registerReportClick = useReport();
   // On pageload, 2 answers show up per questions
@@ -69,9 +71,12 @@ function Question({ productName, question, searchTerm }) {
       .catch((err) => console.log('Error adding answer:', err));
   };
   return (
-    <QuestionDetailsList>
-      <AskerDetailsContainer>
-        <QuestionAskedByText>Question asked by</QuestionAskedByText>
+    <QuestionDetailsList $theme={theme}>
+      <AskerDetailsContainer $theme={theme}>
+        <QuestionIconContainer>
+          <QuestionIcon $theme={theme} />
+          <QuestionAskedByText $theme={theme}>Question asked by</QuestionAskedByText>
+        </QuestionIconContainer>
         <p>{question.asker_name}</p>
         <p>{reFormatDate(question.question_date)}</p>
         <ReportButton
