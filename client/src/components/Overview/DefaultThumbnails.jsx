@@ -3,6 +3,7 @@ import Promise from 'bluebird';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 import PhotoThumbnail from './PhotoThumbnail.jsx';
 import ScrollButton from './DefaultScrollButton.jsx';
+import DummyButton from './DummyScrollButton.jsx';
 
 function DefaultThumbnails({ selectedStyle, mainImage, setMainImage, displayModal }) {
   const [focalItem, setFocalItem] = useState(0);
@@ -75,9 +76,9 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage, displayModa
   const scrollRight = () => setFocalItem(focalItem + 1);
 
   return (
-    <div>
+    <>
       <ImageGalleryComponents.DefaultThumbnails>
-        { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> }
+        { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : <DummyButton/> }
         {sevenStylesArray
           ? sevenStylesArray
             .map((photoObj, index) => (
@@ -92,8 +93,7 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage, displayModa
             )) : null}
         { focalItem < photosArrayLength - 1 && <ScrollButton scroll={scrollRight} dir="right" />}
       </ImageGalleryComponents.DefaultThumbnails>
-
-    </div>
+    </>
   );
 }
 

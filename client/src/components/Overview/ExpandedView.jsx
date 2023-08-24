@@ -6,7 +6,9 @@ import ImageGalleryComponents from '../../styled-components/overviewcomponents/i
 import {
   StyledButton, ModalWrapper, Modal, ModalContent,
 } from '../../styled-components/common-elements.jsx';
+import { CloseButton } from '../QuestionsAndAnswers/styled-components/Modal.styles.jsx';
 import ScrollButton from './DefaultScrollButton.jsx';
+import DummyButton from './DummyScrollButton.jsx';
 
 function ExpandedView({
   selectedStyle, displayModal, setDisplayModal, expandedMainImage, setExpandedMainImage,
@@ -111,8 +113,8 @@ function ExpandedView({
             </ImageGalleryComponents.Icons>
 
             <ImageGalleryComponents.ExpandedImageContainer>
-              {focalItem > 0 && displayZoomed === false && <ScrollButton scroll={scrollLeft} dir="left" />}
-
+              {focalItem > 0 && !displayZoomed && <ScrollButton scroll={scrollLeft} dir="left" /> }
+              {focalItem === 0 && <DummyButton />}
               <ImageGalleryComponents.ExpandedMainPhoto
                 $displayZoomed={displayZoomed}
                 id="expandedMain"
@@ -126,11 +128,10 @@ function ExpandedView({
                 onMouseLeave={() => { setShowMagnify(false); }}
                 onMouseMove={(e) => { cursorPos(e); }}
               />
-              {focalItem < thumbnails.length - 1 && displayZoomed === false && <ScrollButton scroll={scrollRight} dir="right" />}
-
+              {focalItem < thumbnails.length - 1 && !displayZoomed && <ScrollButton scroll={scrollRight} dir="right" />}
             </ImageGalleryComponents.ExpandedImageContainer>
             <ImageGalleryComponents.ExitExpanded>
-              <StyledButton
+              <CloseButton
                 type="button"
                 onClick={() => {
                   setDisplayModal(false);
@@ -138,8 +139,8 @@ function ExpandedView({
                   showMagnify(false);
                 }}
               >
-                Close
-              </StyledButton>
+                X
+              </CloseButton>
 
             </ImageGalleryComponents.ExitExpanded>
           </ImageGalleryComponents.ExpandedNormal>

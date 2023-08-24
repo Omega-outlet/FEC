@@ -31,6 +31,14 @@ export const Item = styled.div`
   border: 0;
   line-height: 1.2em;
   flex-shrink: 2;
+  & p {
+    margin: 0;
+    padding: 4px;
+    font-size: small;
+    overflow-x: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
 `;
 
 export const Image = styled.img`

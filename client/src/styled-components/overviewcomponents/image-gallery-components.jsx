@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const MainPhoto = styled.img`
   // display: block;
   width:700px;
-  height:660px;
+  height:800px;
   object-fit: cover;
   cursor: zoom-in;
 `;
@@ -12,17 +12,22 @@ const DefaultContainer = styled.div`
 // height: 100px;
 position: relative;
 // min-height:700px;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 `;
 
 const DefaultThumbnails = styled.div`
 position: absolute;
-top: 550px;
-left: 45px;
+top: 690px;
+max-width: 900px;
+height: auto;
 display: flex;
 flex-direction: row;
 flex-wrap: nowrap;
-align-items: flex-end;
+align-items: center;
+z-index: 997;
 `;
 
 const DefaultThumbnail = styled.img`
@@ -32,6 +37,7 @@ height:100px;
 object-fit: cover;
 // padding: 2px;
 opacity: 0.5;
+z-index: 997;
 `;
 
 const CurrentThumbnail = styled.img`
@@ -43,17 +49,21 @@ border: 1px solid white;
 `;
 
 const ScrollButton = styled.input`
- height:100px;
+  height:50px;
   width:30px;
-  background-color:black;
-  color:white;
+  background-color:white;
+  color:#222222;
+  opacity: 65%;
+  border: 0px;
 `;
 
 const ExpandedMainPhoto = styled.img`
-  // display: block;
+  display: flex;
   width:700px;
   height:660px;
   object-fit: cover;
+  align-items: center;
+  justify-content: center;
   cursor: ${({ $displayZoomed }) => ($displayZoomed ? 'zoom-out' : 'zoom-in')};
   z-index: 999;
 `;
@@ -119,8 +129,11 @@ float: left;
 `;
 
 const ExpandedImageContainer = styled.div`
-float: left;
-width: 70%;
+  display: flex;
+  float: left;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
 `;
 
 const ExitExpanded = styled.div`
@@ -132,31 +145,11 @@ right: 10px;
 // clear floats after the columns
 const ExpandedNormal = styled.div`
 &:after {
-  content: "";
-  display: table;
-  clear: both;
+  // content: "";
+  // display: table;
+  // clear: both;
 }
 `;
-
-// tried passing parameters to styled components but it isn't working. Using CSS for now
-// const ZoomedArea = styled.div`
-// display: ${({ $showMagnify }) => ($showMagnify ? '' : 'none')};
-// position: 'absolute',
-// pointerEvents: 'none',
-// // magnifer position
-// top: ${({ $coordinatesY, $zoomHeight }) => (`${$coordinatesY - $zoomHeight / 2.5}px`)},
-// left: ${({ $coordinatesX, $zoomWidth }) => (`${$coordinatesX + $zoomWidth / 1.5}px`)};
-// backgroundImage: ${({ $expandedMainImage }) => (`url('${$expandedMainImage}')`)},
-// // backgroundRepeat: 'no-repeat',
-// backgroundSize: : ${({ $siteWidth, $zoomStrength, $siteHeight }) => (`${$siteWidth * $zoomStrength}px ${$siteHeight * $zoomStrength}px`)};
-// backgroundPositionY: ${({ $coordinatesY, $zoomHeight, $zoomStrength }) => (`${-$coordinatesY * $zoomStrength + $zoomHeight / 2}px`)},
-// backgroundPositionX: ${({ $coordinatesX, $zoomWidth, $zoomStrength }) => (`${-$coordinatesX * $zoomStrength + $zoomWidth / 2}px`)},
-// // magnifier border
-// border: '2px solid #818589',
-// // magnifer dimensions
-// height: ${({ $zoomHeight }) => (`${$zoomHeight}px`)},
-// width: ${({ $zoomWidth }) => (`${$zoomWidth}px`)},
-// `;
 
 export default {
   MainPhoto,

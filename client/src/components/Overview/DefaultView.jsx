@@ -42,7 +42,7 @@ function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, set
     }
   }, [displayModal]);
   return (
-    <div>
+    <>
       {isLoading
         ? null
         : (
@@ -52,7 +52,7 @@ function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, set
             onClick={(e) => handleExpandedClick(e)}
           />
         )}
-    </div>
+    </>
 
   );
 }
