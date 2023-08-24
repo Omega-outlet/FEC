@@ -81,15 +81,17 @@ const RelatedItems = function ({ currentProduct, updateProduct }) {
           { relatedProducts.length === 0 ? <h2>No related items!</h2> : <h2>Related Items</h2>}
           { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
           <ModalWrapper $displaymodal={showTable}>
-            <Modal $displaymodal={showTable}>
-              <ModalContent $displaymodal={showTable}>
+            <Modal $displaymodal={showTable} style={{ 'backgroundColor': 'white' }}>
+              <ModalContent $displaymodal={showTable} style={{ 'backgroundColor': 'white' }}>
                 { showTable
                 &&
                 <ComparisonTable currentProduct={currentProduct} comparedProduct={comparedItem} /> }
               </ModalContent>
             </Modal>
           </ModalWrapper>
-          { outfit.length === 0 ? <h2>No outfit yet!</h2> : <h2>Your Outfit</h2>}
+          { outfit.length === 0 ? <h2 style={{ 'paddingTop':
+          '40px'}}>No outfit yet!</h2> : <h2 style={{ 'paddingTop':
+          '40px'}}>Your Outfit</h2>}
           {!outfit.find((i) => i.id === currentProduct.id) && (
             <StyledButton onClick={() => addToOutfit(currentProduct)} $theme={theme}>
               Add {currentProduct.name} to Your Outfit

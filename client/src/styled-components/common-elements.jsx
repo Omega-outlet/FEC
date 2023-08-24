@@ -33,12 +33,15 @@ StarView.propTypes = {
 };
 
 const StyledButton = styled.button`
-  padding: 10px;
-  border: none;
-  color: ${({ $theme }) => ($theme === 'light' ? 'white' : 'black')};
-  background: ${({ $theme }) => ($theme === 'light' ? 'black' : 'white')};
+  padding: 15px;
+  border-radius: 25px;
+  color: ${({ $theme }) => ($theme === 'light' ? 'white' : '#121212')};
+  background: ${({ $theme }) => ($theme === 'light' ? '#212121' : '#dfdfdf')};
   cursor: pointer;
-  border: 2px solid white;
+  border: ${({ $theme }) => ($theme === 'light' ? '#dfdfdf' : '#212121')};
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 // $displaymodal is the boolean prop passed into the modal components to determine visibility
@@ -60,7 +63,7 @@ const Modal = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: ${({ $theme }) => ($theme === 'light' ? 'white' : 'black')};
+  background-color: ${({ $theme }) => ($theme === 'light' ? 'white' : '#303030')};
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -68,7 +71,7 @@ const Modal = styled.div`
 
 const ModalContent = styled.div`
   display: ${({ $displaymodal }) => ($displaymodal ? 'block' : 'none')};
-  background-color: ${({ $theme }) => ($theme === 'light' ? 'white' : 'black')};
+  background-color: ${({ $theme }) => ($theme === 'light' ? 'white' : '#303030')};
   padding: 20px;
   border: 1px solid #888;
   width: 90%;
