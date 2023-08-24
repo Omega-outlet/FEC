@@ -56,11 +56,11 @@ function AddToCart({
   const cartHandle = () => {
     // if user didn't select size, show message
     if (size === -1) {
-      setMessage('Please select size');
+      setMessage('Please select size.');
       setOpenSize(true);
       // else add to cart and reset sizee and quantity to -1
     } else if (oneOutOfStock === true) {
-      setMessage('Sorry, that item is out of stock');
+      setMessage('Sorry, that item is out of stock.');
       setSize(-1);
       setQuantity(-1);
       setOneOutOfStock(false);

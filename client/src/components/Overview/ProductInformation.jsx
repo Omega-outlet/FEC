@@ -9,15 +9,16 @@ import { calculateAverage, calculateTotal } from '../RatingsAndReviews/arithmeti
 import ThemeContext from '../ThemeContext.jsx';
 
 function ProductInformation({
+
   currentProduct, currentProductID, styles, selectedStyle,
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
   setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto, mainImage, setMainImage, reviewData,
 }) {
-  const { theme } = useContext(ThemeContext);
   // const [stylesArray, setStylesArray] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
   const [selectedIsLoading, setSelectedIsLoading] = useState(true);
+  const { theme } = useContext(ThemeContext);
 
   // finish for style to load
   const loadStyles = () => {
@@ -43,11 +44,14 @@ function ProductInformation({
   return (
     <OverviewContainer.Half>
       <div className="productInfo">
-        <h1>{ currentProduct.name }</h1>
+        <ProductInformationComponents.Title>
+          { currentProduct.name }
+        </ProductInformationComponents.Title>
+
         {selectedStyleSalePrice ? (
           <span>
             <s>{ selectedStylePrice }</s>
-            {' '}
+            &nbsp;
             <span>
               <ProductInformationComponents.SaleText>
                 {selectedStyleSalePrice}
@@ -62,6 +66,7 @@ function ProductInformation({
         <ProductInformationComponents.Ratings>
           {reviewData ? (
             <StarView
+              $theme={theme}
               rating={calculateAverage(reviewData?.ratings)}
               fontSize={20}
             />
@@ -69,7 +74,7 @@ function ProductInformation({
             : null}
           {reviewData ? (
             <span>
-              read all
+              Read all
               {' '}
               <a href="#ratingsComponent">
                 {' '}
@@ -80,10 +85,15 @@ function ProductInformation({
             </span>
           ) : null}
         </ProductInformationComponents.Ratings>
-        <h3>{ currentProduct.category }</h3>
-        <h3>{ currentProduct.description }</h3>
-        <ProductInformationComponents.ShareButton>
-          share this product:&nbsp;
+        <ProductInformationComponents.Category>
+          /
+          { currentProduct.category }
+        </ProductInformationComponents.Category>
+        <ProductInformationComponents.Description>
+          { currentProduct.description }
+        </ProductInformationComponents.Description>
+        <ProductInformationComponents.Share>
+          Share this product:&nbsp;
           <ProductInformationComponents.SocialMediaIcon $theme={theme} href={twitterLink}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" width="20px" height="20px">
               <title>Share on Twitter</title>
@@ -102,7 +112,7 @@ function ProductInformation({
               <path d="M32 103.5c-.6-5-1-12.7.2-18.1 1.1-4.9 7.4-31.4 7.4-31.4s-1.9-3.8-1.9-9.4c0-8.8 5.1-15.3 11.4-15.3 5.4 0 8 4 8 8.9 0 5.4-3.4 13.5-5.2 21-1.5 6.3 3.2 11.4 9.3 11.4C72.4 70.6 81 58.8 81 41.7 81.1 26.6 70.2 16 54.7 16c-18 0-28.5 13.5-28.5 27.4 0 5.4 2.1 11.2 4.7 14.4.5.6.6 1.2.4 1.8-.5 2-1.5 6.3-1.8 7.2-.3 1.2-.9 1.4-2.1.8-7.8-3.6-12.7-15.2-12.7-24.4C14.7 23.3 29.2 5 56.4 5c21.9 0 38.9 15.6 38.9 36.4 0 21.8-13.7 39.3-32.7 39.3-6.4 0-12.4-3.3-14.5-7.2 0 0-3.2 12-3.9 15-1.4 5.5-5.3 12.3-7.8 16.5l-4.4-1.5z" />
             </svg>
           </ProductInformationComponents.SocialMediaIcon>
-        </ProductInformationComponents.ShareButton>
+        </ProductInformationComponents.Share>
         <ProductInformationComponents.StyleSelectorContainer>
           <StyleSelector
             stylesArray={styles.results}
