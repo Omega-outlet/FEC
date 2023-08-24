@@ -68,7 +68,8 @@ function Review({ review }) {
         className="third-column"
         style={{ 'borderLeft': '1px solid grey', 'paddingLeft': '20px', 'width': '15%', 'textAlign': 'center' }}
       >
-        {!photos.length ? '' : photos.map((photo) => <img style={{'width': '50px'}} src={photo.url} alt="uploaded by reviewer" />)}
+        {/* eslint-disable-next-line react/no-array-index-key */}
+        {!photos.length ? '' : photos.map((photo, index) => <img key={photo.url + index} style={{'width': '50px'}} src={photo.url} alt="uploaded by reviewer" />)}
         <p>{reFormatDate(date)}</p>
         <div style={{'display': 'flex', 'flexDirection': 'column'}}>
           <HelpfulYesButton
