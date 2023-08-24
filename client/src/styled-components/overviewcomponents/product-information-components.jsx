@@ -93,7 +93,7 @@ const Menu = styled.ul`
 > li {
   margin: 0;
   background-color: white;
-  color:   ${({ $theme }) => ($theme === 'light' ? '' : 'black')};
+  color: ${({ $theme }) => ($theme === 'light' ? '' : 'black')};
 }
 
 li:hover {

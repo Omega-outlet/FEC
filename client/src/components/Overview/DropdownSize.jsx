@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
+import ThemeContext from '../ThemeContext.jsx';
 
 function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUValueArray
 }) {
+  const { theme } = useContext(ThemeContext);
   const dropdownMenuSizeHandler = () => {
     setOpenSize(!openSize);
   };
@@ -23,7 +25,7 @@ function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUVa
           <ProductInformationComponents.StyledDropdownButton type="button" onClick={() => { dropdownMenuSizeHandler(); }}>{SKUValueArray[size].size}</ProductInformationComponents.StyledDropdownButton>
           {SKUValueArray && openSize
             ? (
-              <ProductInformationComponents.Menu>
+              <ProductInformationComponents.Menu $theme={theme}>
                 {(SKUValueArray.map((info, index) => (
                   <li key={info.id}>
                     <button type="button" className="menuItem" value={index} onClick={(e) => { dropdownSizeHandler(e); }}>{info.size}</button>
@@ -39,7 +41,7 @@ function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUVa
           {SKUValueArray && openSize
             ? (
 
-              <ProductInformationComponents.Menu>
+              <ProductInformationComponents.Menu $theme={theme}>
                 {(SKUValueArray.map((info, index) => (
                   <li key={info.id}>
                     <button type="button" className="menuItem" value={index} onClick={(e) => { dropdownSizeHandler(e); }}>{info.size}</button>

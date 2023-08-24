@@ -6,10 +6,12 @@ import {
   StyledButton,
 } from '../../styled-components/common-elements.jsx';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
+import ThemeContext from '../ThemeContext.jsx';
 
 function AddToCart({
   selectedStyle,
 }) {
+  const { theme } = useContext(ThemeContext);
   const [SKUArray, setSKUArray] = useState([]);
   const [SKUValueArray, setSKUValueArray] = useState([]);
   const [message, setMessage] = useState('');
@@ -96,7 +98,7 @@ function AddToCart({
               setOneOutOfStock={setOneOutOfStock}
             />
 
-            <StyledButton disabled type="button" onClick={() => { cartHandle(); }}>Sold Out</StyledButton>
+            <StyledButton $theme={theme} disabled type="button" onClick={() => { cartHandle(); }}>Sold Out</StyledButton>
           </ProductInformationComponents.DropdownRow>
 
         </div>
@@ -123,7 +125,7 @@ function AddToCart({
               setOneOutOfStock={setOneOutOfStock}
             />
 
-            <StyledButton type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
+            <StyledButton $theme={theme} type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
           </ProductInformationComponents.DropdownRow>
 
         </div>
