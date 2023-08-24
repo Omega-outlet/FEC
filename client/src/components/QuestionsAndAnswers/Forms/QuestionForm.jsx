@@ -36,7 +36,7 @@ function QuestionForm({ productName, onSubmit, onCancel }) {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           maxLength={1000}
-          placeholder="Why did you like the product or not?"
+          placeholder="Example: Why did you like the product or not?"
         />
       </InputLabel>
       <InputLabel>

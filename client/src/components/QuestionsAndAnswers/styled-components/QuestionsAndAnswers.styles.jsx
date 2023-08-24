@@ -1,12 +1,13 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import searchIcon from '../../../../dist/assets/searchIcon.svg';
+import questionIcon from '../../../../dist/assets/questionIcon.svg';
 
 export const QAContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   max-height: 100vh;
-  border-bottom: var(--common-border-width,1px) solid var(--common-border-color,rgba(0,0,0,0.15));
+  border-bottom: var(--common-border-width,1px) solid ${({ $theme }) => ($theme === 'light' ? 'rgba(0,0,0,0.15)' : '#dfdfdf')};
   padding: 20px 0;
 `;
 
@@ -23,27 +24,32 @@ export const QuestionDetailsList = styled.li`
   align-items: baseline;
   flex-shrink: 0;
   width: 100%;
-  margin-bottom: 5px;
+  border-radius: 8px;
   &:not(:first-child) {
-    border-top: var(--common-border-width,1px) solid var(--common-border-color,rgba(0,0,0,0.15));
+    border-top: var(--common-border-width,1px) solid ${({ $theme }) => ($theme === 'light' ? 'rgba(0,0,0,0.15)' : '#dfdfdf')};
   }
-  padding-bottom: 10px;
+  padding: 10px 0;
+
 `;
 
 export const AskerDetailsContainer = styled.div`
   min-width: 200px;
   max-width: 200px;
-  border-right: var(--common-border-width,1px) solid var(--common-border-color,rgba(0,0,0,0.15));
+  border-right: var(--common-border-width,1px) solid ${({ $theme }) => ($theme === 'light' ? 'rgba(0,0,0,0.15)' : '#dfdfdf')};
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-right: 30px;
   padding-bottom: 20px;
   font-size: 16px;
+  p {
+    margin: 5px 0;
+    line-height: 1.7;
+  }
 `;
 export const QuestionAndAnswersContainer = styled.div`
   flex: 2;
-  padding: 20px;
+  padding-left: 20px;
 `;
 
 export const QuestionBodyAndHelpfulContainer = styled.div`
@@ -59,6 +65,7 @@ export const AnswerListContainer = styled.ul`
   max-height: 50vh;
   overflow-y: auto;
 `;
+
 
 export const SearchBarContainer = styled.div`
   width: 65%;
@@ -107,10 +114,11 @@ export const LoadMoreAndAddNewButtonContainer = styled.div`
 export const BodyAndQuestionContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 0;
 `;
 export const QuestionAskedByText = styled.p`
-  font-size: 10px;
-  color: #0E1311;
+  font-size: 14px;
+  font-style: italic;
 `;
 const spinAnimation = keyframes`
   0% { transform: rotate(0deg); }
@@ -136,19 +144,34 @@ export const ThumbnailImg = styled.img`
   height: 50px;
   margin-right: 10px;
   cursor: pointer;
+  border-radius: 25%;
+  border: 2px solid #E0E0E0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 export const HighlightTerm = styled.span`
   background-color: yellow;
 `;
 export const AnswerBodyText = styled.p`
-  display: inline-block;
-  max-width: 80%;
+  font-family: AktivGrotesk-Light, Helvetica, sans-serif;
+  max-width: 30%;
   font-size: 14px;
-  color: #0E1311;
+  color: ${({ $theme }) => ($theme === 'light' ? '#222222' : '#DFDFDF')}
   text-align: left;
-  margin-top: 0;
   overflow-wrap: break-word;
+  clear: both;
+  margin-left: 5px;
+  margin-top: 0;
+`;
+
+export const AnswerContainer = styled.div`
+  display: flex;
+  align-Items: baseline;
 `;
 
 export const NoQuestionImage = styled.img`
@@ -170,4 +193,30 @@ export const ScrollableContainer = styled.div`
   max-height: 100vh;
   overflow-y: auto;
   position: relative;
+`;
+export const QuestionIcon = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url(${questionIcon});
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: ${({ $theme }) => ($theme === 'light' ? 'invert(0%)' : 'invert(100%)')};
+  margin-right: 5px;
+  align-self: center;
+`;
+
+export const QuestionIconContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const AnswerFormContainer = styled.div`
+  color: ${({ $theme }) => ($theme === 'light' ? '#222222' : '#DFDFDF')}
+`;
+export const NoQuestionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 `;

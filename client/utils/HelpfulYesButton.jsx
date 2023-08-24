@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { YesAndReportButton, YesReportButtonContainer, HelpfulTextSpan } from '../src/styled-components/YesAndReportButton.styles.jsx';
+import { YesAndReportButton, YesReportButtonContainer, HelpfulTextSpan, YesReportSpan } from '../src/styled-components/YesAndReportButton.styles.jsx';
+import ThemeContext from '../src/components/ThemeContext.jsx';
 
 function HelpfulYesButton({ initialCount, onHelpfulClick }) {
+  const { theme } = useContext(ThemeContext);
   const [helpfulYesCount, setHelpfulYesCount] = useState(initialCount);
   // State to check if the user has clicked "Yes" or not
   const [clicked, setClicked] = useState(false);
@@ -16,10 +18,10 @@ function HelpfulYesButton({ initialCount, onHelpfulClick }) {
     }
   };
   return (
-    <YesReportButtonContainer>
+    <YesReportButtonContainer $theme={theme}>
       <HelpfulTextSpan>Helpful?</HelpfulTextSpan>
-      <YesAndReportButton type="button" onClick={handleHelpfulYesClick}>
-        <span className="underline-text">Yes</span>
+      <YesAndReportButton type="button" onClick={handleHelpfulYesClick} $theme={theme}>
+        <YesReportSpan>Yes</YesReportSpan>
         {' '}
         (
         {helpfulYesCount}

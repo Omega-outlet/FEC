@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { InputLabel, TextInput, ImageInput, UrlButton, InputWithButtonContainer, ModalButtonContainer, WarningMessageContainer, CustomChooseFileInput, CustomFileInputLabel } from '../styled-components/Modal.styles.jsx';
 import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
-import { ThumbnailImg } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import { ThumbnailImg, AnswerFormContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 import ImageModal from './ImageModal.jsx';
 import config from '../../../../../config.js';
+import ThemeContext from '../../ThemeContext.jsx';
 
 function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
+  const { theme } = useContext(ThemeContext);
   const [body, setBody] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -80,8 +82,8 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
   };
 
   return (
-    <div>
-      {errorMessage && <WarningMessageContainer>{errorMessage}</WarningMessageContainer >}
+    <AnswerFormContainer $theme={theme}>
+      {errorMessage && <WarningMessageContainer>{errorMessage}</WarningMessageContainer>}
       <h2>Submit your Answer</h2>
       <h4>
         {' '}
@@ -156,7 +158,7 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
       </ModalButtonContainer>
       {isImageModalOpen
         && <ImageModal imageUrl={currentImage} onClose={() => setIsImageModalOpen(false)} />}
-    </div>
+    </AnswerFormContainer>
   );
 };
 AnswerForm.propTypes = {

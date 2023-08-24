@@ -12,7 +12,7 @@ function styleEntry({
       <ProductInformationComponents.EntryContainer>
         {selectedStyleName === style.name ? (
           <ProductInformationComponents.ClickedStyleThumbnail>
-            <span>✔</span>
+            <span>✓</span>
           </ProductInformationComponents.ClickedStyleThumbnail>
         ) : (null)}
         <ProductInformationComponents.StyleEntryThumbnail

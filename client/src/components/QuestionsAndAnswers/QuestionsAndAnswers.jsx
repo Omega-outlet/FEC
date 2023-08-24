@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import QuestionsList from './QuestionsList/QuestionsList.jsx';
 import SearchBar from './Buttons/SearchBar.jsx';
-import { QAContainer, NoQuestionImage, ImageAndButtonContainer, ScrollableContainer } from './styled-components/QuestionsAndAnswers.styles.jsx';
+import { QAContainer, NoQuestionImage, ImageAndButtonContainer, ScrollableContainer, NoQuestionContainer } from './styled-components/QuestionsAndAnswers.styles.jsx';
 import AddNewQuestionButton from './Buttons/AddNewQuestionButton.jsx';
 import anyQuestion from '../../../dist/assets/anyQuestion.png';
+import ThemeContext from '../ThemeContext.jsx';
 
 function QuestionsAndAnswers({ currentProduct, currentProductID }) {
+  const { theme } = useContext(ThemeContext);
   const [questions, setQuestions] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -58,15 +60,16 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
       .catch((err) => console.log('Error adding question:', err));
   };
   return (
-    <QAContainer>
+    <QAContainer $theme={theme}>
       {questions.length === 0 && (
-        <>
+        <NoQuestionContainer>
           <h2>No Questions For This Product</h2>
+          <NoQuestionImage src={anyQuestion} alt="No results found" />
           <AddNewQuestionButton
             productName={currentProduct.name}
             onHandleAddQuestion={handleAddNewQuestion}
           />
-        </>
+        </NoQuestionContainer>
       )}
       {questions.length > 0 && (
         <ScrollableContainer>

@@ -26,14 +26,14 @@ function ImageGallery({
           expandedMainImage={expandedMainImage}
           setExpandedMainImage={setExpandedMainImage}
         />
-        <DefaultThumbnails
+        { !displayModal && <DefaultThumbnails
           selectedStyle={selectedStyle}
           mainImage={mainImage}
           setMainImage={setMainImage}
           displayModal={displayModal}
           expandedMainImage={expandedMainImage}
           setExpandedMainImage={setExpandedMainImage}
-        />
+        />}
       </ImageGalleryComponents.DefaultContainer>
     </OverviewContainer.Half>
   );

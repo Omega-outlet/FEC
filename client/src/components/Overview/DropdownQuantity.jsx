@@ -59,6 +59,7 @@ function DropdownQuantity({
   return (
     <div>
       Quantity:
+      <br/>
       {quantityArray.length === 0
         ? (
           <div className="dropdownQuantity">

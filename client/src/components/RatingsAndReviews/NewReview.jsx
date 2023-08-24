@@ -10,7 +10,8 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
   const { theme } = React.useContext(ThemeContext);
   const radioArray = [1, 2, 3, 4, 5];
   const [charArray, setCharArray] = React.useState([]);
-  // const [photoURL, setPhotoUrl] = React.useState('');
+  const [photoURL, setPhotoUrl] = React.useState('');
+
   const [formData, setFormData] = React.useState({
     product_id: currentProductID,
     rating: '',
@@ -82,13 +83,14 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     submitForm(formData);
     renderForm();
   };
+
   return (
     <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm" style={{ 'fontColor': 'black' }}>
       <label htmlFor="rating">
         {'Rating: '}
         <div>
           {radioArray.map((num) => {
-            if (num.toString() <= formData.rating) {
+            if (num <= formData.rating) {
               return <SelectedStar $theme={theme} key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">★</SelectedStar>;
             }
             return <SelectedStar $theme={theme} key={num} name="rating" value={num} onMouseOver={handleChange()} type="button">☆</SelectedStar>;
@@ -155,7 +157,9 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
               required
             />
             <br />
-            <InputDescription>For privacy reasons, do not use your full name or email address</InputDescription>
+            <InputDescription>
+              For privacy reasons, do not use your full name or email address\
+            </InputDescription>
           </label>
           <LineSkip />
           <label htmlFor="email">
@@ -173,13 +177,16 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             <InputDescription>For authentication reasons, you will not be emailed</InputDescription>
           </label>
           <LineSkip />
-          <StyledButton
-            type="submit"
-            data-testid="formSubmit"
-            $theme={theme}
-          >
-            Submit Review
-          </StyledButton>
+          <label htmlFor="photos">
+            Photos
+            <br />
+            <StyledInput type="text" onChange={(e) => setPhotoUrl(e.target.value)} placeholder="Example: cool-photo.jpg" />
+            <br />
+            <InputDescription>You can submit up to 5 photos</InputDescription>
+            <br />
+            {formData.photos.length < 5 && <StyledButton $theme={theme} type="button" value={photoURL} name="photos" onClick={handleChange()}>Add photo</StyledButton>}
+          </label>
+          <br />
         </div>
         <div className="rightside" style={{ 'width': '50%'}}>
           <label htmlFor="reviewBody">
@@ -190,6 +197,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
               placeholder="Why did you like the product or not?"
               name="body"
               onChange={handleChange()}
+              minLength={50}
               required
             />
             <br />
@@ -197,12 +205,19 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
           </label>
         </div>
       </div>
-      {/* <label htmlFor="photos">
-        {'Photos (up to 5): '}
-        <br />
-        <input type="text" name="photos" />
-      </label> */}
-      <br />
+      {formData.photos.length > 0 && (
+      <div>
+          {formData.photos.map((photo) => <img key={photo} src={photo} style={{'height': '50px'}} alt="review thumbnail" />)}
+      </div>
+      )}
+      <LineSkip />
+      <StyledButton
+        type="submit"
+        data-testid="formSubmit"
+        $theme={theme}
+      >
+        Submit Review
+      </StyledButton>
     </form>
 
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
@@ -7,25 +8,37 @@ import ProductInformationComponents from '../../styled-components/overviewcompon
 import { StarView } from '../../styled-components/common-elements.jsx';
 import { calculateAverage, calculateTotal } from '../RatingsAndReviews/arithmetic.js';
 import ThemeContext from '../ThemeContext.jsx';
+import Features from './Features.jsx';
 
 function ProductInformation({
-
   currentProduct, currentProductID, styles, selectedStyle,
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
   setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto, mainImage, setMainImage, reviewData,
 }) {
-  // const [stylesArray, setStylesArray] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
+
   const [selectedIsLoading, setSelectedIsLoading] = useState(true);
   const { theme } = useContext(ThemeContext);
-
+  const [features, setFeatures] = useState([]);
   // finish for style to load
   const loadStyles = () => {
     setSelectedIsLoading(true);
     setSelectedIsLoading(false);
   };
   useEffect(loadStyles, [currentProduct, selectedStyle]);
+
+  useEffect(() => {
+    axios.get('/api/product/features', {
+      params: {
+        currentProductID: currentProduct.id,
+      },
+      responseType: 'json',
+    })
+      .then((response) => {
+        setFeatures(response.data.features);
+      })
+      .catch((error) => error.message);
+  }, [currentProduct]);
 
   const currentURL = window.location.href;
   const message = `This%20${currentProduct.name}%20from%20Omega%20Mart%20is%20amazing!`;
@@ -74,22 +87,23 @@ function ProductInformation({
             : null}
           {reviewData ? (
             <span>
-              Read all
+              Read All
               {' '}
               <a href="#ratingsComponent">
                 {' '}
                 {calculateTotal(reviewData.recommended)}
               </a>
               {' '}
-              reviews
+              Reviews
             </span>
           ) : null}
         </ProductInformationComponents.Ratings>
         <ProductInformationComponents.Category>
-          /
-          { currentProduct.category }
+          <em>Category: </em>{ currentProduct.category }
         </ProductInformationComponents.Category>
+        <em>{currentProduct.slogan}</em>
         <ProductInformationComponents.Description>
+        <br/>
           { currentProduct.description }
         </ProductInformationComponents.Description>
         <ProductInformationComponents.Share>
@@ -130,6 +144,10 @@ function ProductInformation({
         </ProductInformationComponents.StyleSelectorContainer>
         <div>
           <AddToCart selectedStyle={selectedStyle} />
+        </div>
+        <div>
+          <br/>
+          <Features features={features.length > 0 ? features : [{ 'feature': 'Fit', 'value': 'One size fits all' }]} />
         </div>
       </div>
     </OverviewContainer.Half>

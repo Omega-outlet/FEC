@@ -42,24 +42,24 @@ function CharacteristicsGraph({ metaData }) {
 
 CharacteristicsGraph.propTypes = {
   // eslint-disable-next-line react/require-default-props
-  metaData: propTypes.oneOfType({
-    Comfort: propTypes.objectOf({
+  metaData: propTypes.shape({
+    Comfort: propTypes.shape({
       id: propTypes.number,
       value: propTypes.string,
     }),
-    Size: propTypes.objectOf({
+    Size: propTypes.shape({
       id: propTypes.number,
       value: propTypes.string,
     }),
-    Width: propTypes.objectOf({
+    Width: propTypes.shape({
       id: propTypes.number,
       value: propTypes.string,
     }),
-    Fit: propTypes.objectOf({
+    Fit: propTypes.shape({
       id: propTypes.number,
       value: propTypes.string,
     }),
-    Length: propTypes.objectOf({
+    Length: propTypes.shape({
       id: propTypes.number,
       value: propTypes.string,
     }),

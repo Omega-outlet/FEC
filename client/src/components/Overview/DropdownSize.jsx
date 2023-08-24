@@ -20,6 +20,7 @@ function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUVa
     <div>
       Size:
       {/* size selected */}
+      <br/>
       {size > -1 ? (
         <ProductInformationComponents.Dropdown>
           <ProductInformationComponents.StyledDropdownButton type="button" onClick={() => { dropdownMenuSizeHandler(); }}>{SKUValueArray[size].size}</ProductInformationComponents.StyledDropdownButton>

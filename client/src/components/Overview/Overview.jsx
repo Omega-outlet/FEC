@@ -43,7 +43,7 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
       .catch(() => { });
   };
 
-  useEffect(loadMainImageToExpanded, [mainImage]);
+  useEffect(loadMainImageToExpanded, [mainImage, displayModal]);
 
   // get the styles of the current product
   const loadProductStyles = () => {
