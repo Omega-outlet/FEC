@@ -80,6 +80,10 @@ footer {
   right: 15px;
   top: 5px;
   background-color: transparent;
+  opacity: 80%;
+  &:hover {
+    opacity: 100%;
+  }
 }
 
 .logo {
