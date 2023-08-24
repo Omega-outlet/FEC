@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Review from './Review.jsx';
 import {
@@ -11,7 +11,7 @@ function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
   const [displayModal, setDisplayModal] = React.useState(false);
   const [hiddenReviews, setHiddenReviews] = React.useState(0);
   const [displayedReviews, setDisplayedReviews] = React.useState(2);
-  const { theme } = React.useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   React.useEffect(() => setReviewsToRender(reviews), [reviews]);
   // eslint-disable-next-line func-names
   const handleClick = function () {
@@ -85,9 +85,9 @@ function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
         )}
       </div>
       <ModalWrapper $displaymodal={displayModal}>
-        <Modal $displaymodal={displayModal}>
+        <Modal $displaymodal={displayModal} $theme={theme}>
           <h1 data-testid="reviewList-modal">Reviews</h1>
-          <ModalContent $displaymodal={displayModal}>
+          <ModalContent $displaymodal={displayModal} $theme={theme}>
             {
             reviewsToRender.length
             && reviewsToRender.map((review) => <Review key={review.review_id} review={review} />)

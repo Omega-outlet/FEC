@@ -72,28 +72,31 @@ const App = function () {
   return (
     <ThemeContext.Provider value={{ theme }}>
       <div className="app">
-        <header>
+        <header $theme={theme}>
+          <img className="logo" src={theme === 'light' ? logo : darkmodeLogo} alt="logo" />
           <button className="darkMode" onClick={toggleDark}>Switch to {theme === 'dark' ? 'light theme 🌞' : 'dark theme 🌙'}</button>
         </header>
-        <img className="logo" src={theme === 'light' ? logo : darkmodeLogo} alt="logo" />
-        <Overview
-          currentProduct={currentProduct}
-          currentProductID={currentProductID}
-          reviewData={metaData}
-        />
-        <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
-        <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
-        <RatingsAndReviews
-          currentProductID={currentProductID}
-          metaData={metaData}
-          setMetaData={setMetaData}
-        />
-        <footer>
-          Meet the Omega Outlet engineering team: <a href="https://www.linkedin.com/in/brandonjgomez/">Brandon Gomez</a>, <a href="https://www.linkedin.com/in/eric-chang-840283237/">Eric Chang</a>, <a href="https://www.linkedin.com/in/kimberly-tom-478b2420b/">Kimberly Tom</a>, and <a href="https://www.linkedin.com/in/laurenlaxton/">Lauren Laxton</a>.
-          We are a dynamic group of engineers passionate about bringing our collective coding skills to life.
-          Our project showcases a meticulously crafted React-based product page for an online retail client.
-        </footer>
+        <div className="content" >
+          <Overview
+            currentProduct={currentProduct}
+            currentProductID={currentProductID}
+            reviewData={metaData}
+          />
+          <RelatedItems currentProduct={currentProduct} updateProduct={updateProduct} />
+          <QuestionsAndAnswers currentProduct={currentProduct} currentProductID={currentProductID} />
+          <RatingsAndReviews
+            currentProductID={currentProductID}
+            metaData={metaData}
+            setMetaData={setMetaData}
+          />
+          <footer>
+            Meet the Omega Outlet engineering team: <a href="https://www.linkedin.com/in/brandonjgomez/">Brandon Gomez</a>, <a href="https://www.linkedin.com/in/eric-chang-840283237/">Eric Chang</a>, <a href="https://www.linkedin.com/in/kimberly-tom-478b2420b/">Kimberly Tom</a>, and <a href="https://www.linkedin.com/in/laurenlaxton/">Lauren Laxton</a>.
+            We are a dynamic group of engineers passionate about bringing our collective coding skills to life.
+            Our project showcases a meticulously crafted React-based product page for an online retail client.
+          </footer>
+        </div>
       </div>
+
     </ThemeContext.Provider>
   );
 };

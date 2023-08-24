@@ -81,8 +81,8 @@ const RelatedItems = function ({ currentProduct, updateProduct }) {
           { relatedProducts.length === 0 ? <h2>No related items!</h2> : <h2>Related Items</h2>}
           { relatedProducts.length > 0 && <ItemList products={relatedProducts} updateProduct={updateProduct} listType="related" /> }
           <ModalWrapper $displaymodal={showTable}>
-            <Modal $displaymodal={showTable}>
-              <ModalContent $displaymodal={showTable}>
+            <Modal $displaymodal={showTable} style={{ 'backgroundColor': 'white' }}>
+              <ModalContent $displaymodal={showTable} style={{ 'backgroundColor': 'white' }}>
                 { showTable
                 &&
                 <ComparisonTable currentProduct={currentProduct} comparedProduct={comparedItem} /> }

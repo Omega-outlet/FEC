@@ -7,7 +7,7 @@ export const QAContainer = styled.div`
   justify-content: center;
   max-height: 100vh;
   border-bottom: var(--common-border-width,1px) solid var(--common-border-color,rgba(0,0,0,0.15));
-  padding-bottom: 20px;
+  padding: 20px 0;
 `;
 
 export const QuestionList = styled.ul`
