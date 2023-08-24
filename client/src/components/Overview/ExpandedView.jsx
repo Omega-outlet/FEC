@@ -129,6 +129,7 @@ function ExpandedView({
                 onMouseMove={(e) => { cursorPos(e); }}
               />
               {focalItem < thumbnails.length - 1 && !displayZoomed && <ScrollButton scroll={scrollRight} dir="right" />}
+              {focalItem >= thumbnails.length - 1 && !displayZoomed && <DummyButton />}
             </ImageGalleryComponents.ExpandedImageContainer>
             <ImageGalleryComponents.ExitExpanded>
               <CloseButton
