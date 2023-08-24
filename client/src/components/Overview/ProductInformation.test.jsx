@@ -440,7 +440,7 @@ describe('render style\s info', () => {
       selectedStyleName={styles.results[0].name}
       styles={styles}
     />));
-    const checkmark = screen.getByText('✔');
+    const checkmark = screen.getByText('✓');
     expect(checkmark).toBeTruthy();
   });
   it('should change style name after another style is clicked', async () => {
@@ -502,7 +502,7 @@ describe('size selector', () => {
       selectedStyle={styles}
     />));
     userEvent.click(screen.getByText('Add to Cart'));
-    await waitFor(() => expect(screen.getByText('Please select size')).toBeTruthy());
+    await waitFor(() => expect(screen.getByText('Please select size.')).toBeTruthy());
   });
 });
 describe('quantity selector', () => {
