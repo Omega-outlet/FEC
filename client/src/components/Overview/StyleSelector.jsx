@@ -90,7 +90,7 @@ function styleSelector({
 
     <div>
       <br />
-      <span>{selectedStyleName}</span>
+      {selectedStyleName}
       <br />
       {stylesArray ? stylesArray.map((style, index) => (
         <ProductInformationComponents.StyleEntry data-testid="styleEntry" key={index}>

@@ -93,6 +93,7 @@ const Menu = styled.ul`
 > li {
   margin: 0;
   background-color: white;
+  color:   ${({ $theme }) => ($theme === 'light' ? '' : 'black')};
 }
 
 li:hover {
@@ -153,6 +154,13 @@ cursor: pointer;
 white-space: nowrap;
 `;
 
+const SocialMediaIcon = styled.a`
+fill: ${({ $theme }) => ($theme === 'light' ? '' : '#c4c4c4')};
+margin: 5px;
+`;
+
+
+
 export default {
   StyleSelectorContainer,
   StyleEntryThumbnail,
@@ -170,4 +178,6 @@ export default {
   DropdownRow,
   StyledDropdownButton,
   StyledDropdownButtonDisabled,
+  SocialMediaIcon,
+  Menu,
 };
