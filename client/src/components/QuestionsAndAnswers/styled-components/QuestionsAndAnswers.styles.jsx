@@ -1,10 +1,13 @@
 import styled, { keyframes } from 'styled-components';
+import searchIcon from '../../../../dist/assets/searchIcon.svg';
 
 export const QAContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   max-height: 100vh;
+  border-bottom: var(--common-border-width,1px) solid var(--common-border-color,rgba(0,0,0,0.15));
+  padding-bottom: 20px;
 `;
 
 export const QuestionList = styled.ul`
@@ -16,14 +19,15 @@ export const QuestionList = styled.ul`
 export const QuestionDetailsList = styled.li`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: baseline;
   flex-shrink: 0;
   width: 100%;
-  margin-bottom: 15px;
-  border-bottom: var(--common-border-width,1px) solid var(--common-border-color,rgba(0,0,0,0.15));
-  padding-bottom: 40px;
-
+  margin-bottom: 5px;
+  &:not(:first-child) {
+    border-top: var(--common-border-width,1px) solid var(--common-border-color,rgba(0,0,0,0.15));
+  }
+  padding-bottom: 10px;
 `;
 
 export const AskerDetailsContainer = styled.div`
@@ -33,8 +37,8 @@ export const AskerDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-right: 40px;
-  padding-bottom: 100px;
+  padding-right: 30px;
+  padding-bottom: 20px;
   font-size: 16px;
 `;
 export const QuestionAndAnswersContainer = styled.div`
@@ -62,13 +66,19 @@ export const SearchBarContainer = styled.div`
   position: sticky;
   // makes it stick on top of the scrollable section
   top: 0;
-  background-color: transplant;
+  background-color: transparent;
   padding-bottom: 0;
 `;
 
 export const SearchInput = styled.input`
   width: 100%;
-  padding: 20px;
+  padding: 10px;
+  padding-left: 30px;
+  background-image: url(${searchIcon});
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: left 10px center;
+  border-radius: 10px;
 `;
 
 export const YesReportButtonContainer = styled.div`
@@ -87,6 +97,7 @@ export const LoadMoreAndAddNewButtonContainer = styled.div`
   flex-direction: row;
   gap: 0.5rem;
   padding-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const BodyAndQuestionContainer = styled.div`
@@ -113,6 +124,7 @@ export const ScrollSpinner = styled.div`
 `;
 export const Header = styled.h2`
   border-top: 0;
+  margin-bottom: 10px;
 `;
 
 export const ThumbnailImg = styled.img`
@@ -120,4 +132,38 @@ export const ThumbnailImg = styled.img`
   height: 50px;
   margin-right: 10px;
   cursor: pointer;
+`;
+
+export const HighlightTerm = styled.span`
+  background-color: yellow;
+`;
+export const AnswerBodyText = styled.p`
+  display: inline-block;
+  max-width: 80%;
+  font-size: 14px;
+  color: #0E1311;
+  text-align: left;
+  margin-top: 0;
+  overflow-wrap: break-word;
+`;
+
+export const NoQuestionImage = styled.img`
+  width: 30%;
+  max-width: 400px;
+  display: block;
+  margin: 20px auto;
+`;
+
+export const ImageAndButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  `;
+
+export const ScrollableContainer = styled.div`
+  max-height: 100vh;
+  overflow-y: auto;
+  position: relative;
 `;
