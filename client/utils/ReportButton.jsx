@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { YesAndReportButton } from '../src/styled-components/YesAndReportButton.styles.jsx';
+import { YesAndReportButton, YesReportSpan } from '../src/styled-components/YesAndReportButton.styles.jsx';
+import ThemeContext from '../src/components/ThemeContext.jsx';
 
 function ReportButton({ initialReported, onReportClick }) {
+  const { theme } = useContext(ThemeContext);
   const [isReported, setIsReported] = useState(initialReported);
   // State to check if the user has clicked "Yes" or not
   const [clicked, setClicked] = useState(false);
@@ -17,8 +19,9 @@ function ReportButton({ initialReported, onReportClick }) {
   };
   return (
     <p>
-      <YesAndReportButton type="button" onClick={handleReportClick} disabled={clicked}>
-        {isReported ? <span className="underline-text">Reported</span> : <span className="underline-text">Report</span>}
+      <YesAndReportButton type="button" onClick={handleReportClick} disabled={clicked} $theme={theme}>
+        {isReported ? <YesReportSpan>Reported</YesReportSpan>
+          : <YesReportSpan>Report</YesReportSpan>}
       </YesAndReportButton>
     </p>
   );
