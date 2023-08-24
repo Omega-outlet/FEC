@@ -11,6 +11,7 @@ body {
   }
   & header, footer {
     background-color: #f4f4f4;
+    opacity: 99%;
   }
   & button.darkMode {
     color: #353535;
