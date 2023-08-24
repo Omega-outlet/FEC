@@ -6,7 +6,7 @@ import LoadMoreQuestionsButton from '../Buttons/LoadMoreQuestionsButton.jsx';
 import AddNewQuestionButton from '../Buttons/AddNewQuestionButton.jsx';
 import { QuestionList, LoadMoreAndAddNewButtonContainer, ScrollSpinner } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 
-function QuestionsList({ productName, questions, onHandleAddQuestion }) {
+function QuestionsList({ productName, questions, onHandleAddQuestion, searchTerm }) {
   // console.log(questions);
   const sortedQuestions = sortByHelpQuestion(questions);
   // On page load, 2 questions will show up
@@ -57,6 +57,7 @@ function QuestionsList({ productName, questions, onHandleAddQuestion }) {
             key={question.question_id}
             productName={productName}
             question={question}
+            searchTerm={searchTerm}
           />
         ))}
       </QuestionList>

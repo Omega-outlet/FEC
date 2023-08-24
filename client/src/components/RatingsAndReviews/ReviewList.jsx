@@ -4,15 +4,17 @@ import Review from './Review.jsx';
 import {
   StyledButton, ModalWrapper, Modal, ModalContent,
 } from '../../styled-components/common-elements.jsx';
+import ThemeContext from '../ThemeContext.jsx';
 
-function ReviewList({ reviews, filters }) {
+function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
   const [reviewsToRender, setReviewsToRender] = React.useState([]);
   const [displayModal, setDisplayModal] = React.useState(false);
   const [hiddenReviews, setHiddenReviews] = React.useState(0);
   const [displayedReviews, setDisplayedReviews] = React.useState(2);
+  const { theme } = React.useContext(ThemeContext);
   React.useEffect(() => setReviewsToRender(reviews), [reviews]);
   // eslint-disable-next-line func-names
-  const handleClick = function (e) {
+  const handleClick = function () {
     if (displayedReviews === 4) {
       setDisplayModal(true);
     } else {
@@ -28,6 +30,7 @@ function ReviewList({ reviews, filters }) {
   }, [displayModal]);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react/prop-types
     if (filters.length === 0) {
       setReviewsToRender(reviews);
     } else {
@@ -47,28 +50,32 @@ function ReviewList({ reviews, filters }) {
       <div style={{ 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'space-between' }}>
         <label htmlFor="dropdown">
           {'Sort By: '}
-          <select id="dropdown">
+          <select id="dropdown" onChange={(e) => changeSortMethod(e.target.value)}>
             <option value="relevant">Relevant</option>
             <option value="helpful">Helpful</option>
             <option value="newest">Newest</option>
           </select>
         </label>
-        {filters && <h3>{`Filters: ${filters}`}</h3>}
+        {submitMessage && <h3 data-testid="confirmation">Thank you! Your review has been submitted</h3>}
+        <div>
+          <span>{'Filters: '}</span>
+          {filters && filters.map((filter) => (<span key={filter}><strong>{`${filter} stars `}</strong></span>))}
+        </div>
       </div>
       <div style={{ 'paddingTop': '20px' }}>
         {
-        // eslint-disable-next-line no-nested-ternary
-        reviewsToRender.length ?
-          reviewsToRender.slice(0, displayedReviews)
+
+        reviewsToRender.length
+          ? reviewsToRender.slice(0, displayedReviews)
             .map((review) => <Review key={review.review_id} review={review} />)
-          :
-          <h1>Be the first to write a review!</h1>
+          : <h1>Be the first to write a review!</h1>
         }
       </div>
 
       <div style={{ 'display': 'flex', 'justifyContent': 'center' }}>
         { hiddenReviews > 0 && (
         <StyledButton
+          $theme={theme}
           data-testid="reviewList-button"
           type="button"
           onClick={(e) => handleClick(e)}
@@ -82,10 +89,8 @@ function ReviewList({ reviews, filters }) {
           <h1 data-testid="reviewList-modal">Reviews</h1>
           <ModalContent $displaymodal={displayModal}>
             {
-            reviewsToRender.length ?
-              reviewsToRender.map((review) => <Review key={review.review_id} review={review} />)
-              :
-              <h1>Be the first to write a review!</h1>
+            reviewsToRender.length
+            && reviewsToRender.map((review) => <Review key={review.review_id} review={review} />)
             }
           </ModalContent>
           <StyledButton
@@ -105,6 +110,8 @@ ReviewList.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.shape({
     review_id: PropTypes.number.isRequired,
   })).isRequired,
+  filters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  submitMessage: PropTypes.bool.isRequired,
 };
 
 export default ReviewList;

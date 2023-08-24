@@ -1,14 +1,17 @@
-import React from 'react';
+import { React, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import ThemeContext from '../components/ThemeContext.jsx';
 // this component takes in the rating as well as a font size so each widget can choose size
 function StarView({ rating, fontSize }) {
   // BRD indicates that rating should be calculated to the nearest quarter star
   const ratingNearestFourth = (Math.round(rating * 4) / 4).toFixed(2);
+  const { theme } = useContext(ThemeContext);
+
   return (
     <div
       data-testid="starTest"
-      className="Stars"
+      className={theme === 'dark' ? 'stars-dark' : 'stars-light'}
       style={
       {
         '--rating': ratingNearestFourth,
@@ -32,11 +35,11 @@ StarView.propTypes = {
 const StyledButton = styled.button`
   padding: 10px;
   border: none;
-  color: white;
-  background: black;
-  cursor: pointer
+  color: ${({ $theme }) => ($theme === 'light' ? 'white' : 'black')};
+  background: ${({ $theme }) => ($theme === 'light' ? 'black' : 'white')};
+  cursor: pointer;
   border: 2px solid white;
-`
+`;
 
 // $displaymodal is the boolean prop passed into the modal components to determine visibility
 const ModalWrapper = styled.div`
@@ -57,15 +60,15 @@ const Modal = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #fefefe;
+  background-color: ${({ $theme }) => ($theme === 'light' ? 'white' : 'black')};
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
-  height: 85%;`;
+  height: min-content;`;
 
 const ModalContent = styled.div`
   display: ${({ $displaymodal }) => ($displaymodal ? 'block' : 'none')};
-  background-color: #fefefe;
+  background-color: ${({ $theme }) => ($theme === 'light' ? 'white' : 'black')};
   padding: 20px;
   border: 1px solid #888;
   width: 90%;

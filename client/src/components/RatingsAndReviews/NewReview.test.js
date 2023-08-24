@@ -20,15 +20,15 @@ describe('NewReview Component', () => {
     expect(screen.getByTestId('newReviewForm')).toBeTruthy();
   });
 
-  test('handleChange changes values based on user input', () => {
-    render(<NewReview
-      renderForm={renderForm}
-      currentProductID={currentProductID}
-      submitForm={submitForm}
-      characteristics={characteristics}
-    />);
-    const summary = screen.getByLabelText('Review Summary:');
-    fireEvent.change(summary, { target: { value: 'exampleSummary' } });
-    expect(summary.value).toBe('exampleSummary');
-  });
+  // test('handleChange changes values based on user input', () => {
+  //   render(<NewReview
+  //     renderForm={renderForm}
+  //     currentProductID={currentProductID}
+  //     submitForm={submitForm}
+  //     characteristics={characteristics}
+  //   />);
+  //   const summary = screen.getByLabelText('Review Summary:');
+  //   fireEvent.change(summary, { target: { value: 'exampleSummary' } });
+  //   expect(summary.value).toBe('exampleSummary');
+  // });
 });

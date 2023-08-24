@@ -18,23 +18,22 @@ export const Carousel = styled.div`
   left: 50%;
 `;
 
-export const Item = styled.table`
+export const Item = styled.div`
   width: 20vw;
   height: auto;
   max-height: min-height;
   align-items: center;
   position: relative;
-  margin: 0;
+  margin: .5rem;
   background-color: ${({ $theme }) => ($theme === 'dark' ? 'black' : '#f5f5f5')};
   border: 0;
   flex-shrink: 2;
 `;
-// rm background color if desired later, just putting it in for viz
 
 export const Image = styled.img`
   padding: 0;
   margin: 0;
   object-fit: cover;
-  height: 25em;
+  height: 28em;
   width: 20vw;
 `;

@@ -29,9 +29,9 @@ const ItemList = function({products, updateProduct, listType}) {
   return (
     <div className="horizontalList">
       <Carousel>
-        { focalItem > 0 && <ScrollButton scroll={scrollLeft} dir="left" className="shortButton" /> }
+        { focalItem > 0 && <ScrollButton scroll={scrollLeft} dir="left" /> }
         { renderedList }
-        { focalItem < products.length - 4 && <ScrollButton scroll={scrollRight} dir="right" className="shortButton" /> }
+        { focalItem < products.length - 4 && <ScrollButton scroll={scrollRight} dir="right" /> }
       </Carousel>
     </div>
   );

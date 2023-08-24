@@ -18,7 +18,7 @@ function ReportButton({ initialReported, onReportClick }) {
   return (
     <p>
       <YesAndReportButton type="button" onClick={handleReportClick} disabled={clicked}>
-        {isReported ? 'Reported' : 'Report'}
+        {isReported ? <span className="underline-text">Reported</span> : <span className="underline-text">Report</span>}
       </YesAndReportButton>
     </p>
   );

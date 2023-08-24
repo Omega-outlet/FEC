@@ -17,8 +17,9 @@ import HelpfulYesButton from '../../../../utils/HelpfulYesButton.jsx';
 import useHelpfulYes from '../../../../utils/useHelpfulYes.jsx';
 import ReportButton from '../../../../utils/ReportButton.jsx';
 import useReport from '../../../../utils/useReport.jsx';
+import getHighlightedSearchTerm from '../utils/getHighlightedSearchTerm.jsx';
 
-function Question({ productName, question }) {
+function Question({ productName, question, searchTerm }) {
   const registerHelpfulClick = useHelpfulYes();
   const registerReportClick = useReport();
   // On pageload, 2 answers show up per questions
@@ -73,13 +74,17 @@ function Question({ productName, question }) {
         <QuestionAskedByText>Question asked by</QuestionAskedByText>
         <p>{question.asker_name}</p>
         <p>{reFormatDate(question.question_date)}</p>
+        <ReportButton
+          initialReported={question.reported}
+          onReportClick={() => registerReportClick('questions', question.question_id)}
+        />
       </AskerDetailsContainer>
       <QuestionAndAnswersContainer>
         <QuestionBodyAndHelpfulContainer>
           <BodyAndQuestionContainer>
             <div data-testid="question-body">
               <strong>
-                {`Q: ${question.question_body}`}
+                Q: {getHighlightedSearchTerm(question.question_body, searchTerm)}
               </strong>
               {answers.length === 0
               && (
@@ -96,10 +101,6 @@ function Question({ productName, question }) {
             <HelpfulYesButton
               initialCount={question.question_helpfulness}
               onHelpfulClick={() => registerHelpfulClick('questions', question.question_id)}
-            />
-            <ReportButton
-              initialReported={question.reported}
-              onReportClick={() => registerReportClick('questions', question.question_id)}
             />
             {answers.length > 0
             && (
