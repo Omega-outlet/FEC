@@ -37,48 +37,17 @@ const SaleText = styled.span`
   color: red;
 `;
 
-const TwitterButton = styled.a`
-  display: inline-block;
-  width: 50px;
-  height: 20px;
-  background: #1DA1F2;
-  text-align: center;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  line-height: 25px;
+const SocialMediaIcon = styled.a`
+fill: ${({ $theme }) => ($theme === 'light' ? '' : '#c4c4c4')};
+margin: 5px;
 `;
 
-const FacebookButton = styled.a`
-  display: inline-block;
-  width: 50px;
-  height: 20px;
-  background: #4267B2;
-  text-align: center;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  line-height: 25px;
-`;
-
-const PinterestButton = styled.a`
-display: inline-block;
-  width: 50px;
-  height: 20px;
-  background: #E60023;
-  text-align: center;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  line-height: 25px;
-`;
-
-const ShareButton = styled.div`
-> * {
-padding: 1px;
-margin: 1px;
-}
-`;
+// const ShareButton = styled.div`
+// > * {
+// padding: 10px;
+// margin: 10px;
+// }
+// `;
 
 const Ratings = styled.div`
 position:relative;
@@ -93,6 +62,7 @@ const Menu = styled.ul`
 > li {
   margin: 0;
   background-color: white;
+  color:   ${({ $theme }) => ($theme === 'light' ? '' : 'black')};
 }
 
 li:hover {
@@ -152,16 +122,31 @@ background-color: lightgray;
 cursor: pointer;
 white-space: nowrap;
 `;
+const Title = styled.h1`
+font-weight: lighter;
+margin-bottom: 10px;
+`;
+const Description = styled.h3`
+font-weight: lighter;
+`;
+const Category = styled.p`
+font-weight: lighter;
+`;
+const Share = styled.div`
+font-weight: lighter;
+margin-top: 15px;
+`;
+
+const StyleName = styled.p`
+font-weight: lighter;
+`;
 
 export default {
   StyleSelectorContainer,
   StyleEntryThumbnail,
   StyleEntry,
   SaleText,
-  TwitterButton,
-  FacebookButton,
-  PinterestButton,
-  ShareButton,
+  SocialMediaIcon,
   ClickedStyleThumbnail,
   EntryContainer,
   Ratings,
@@ -170,4 +155,9 @@ export default {
   DropdownRow,
   StyledDropdownButton,
   StyledDropdownButtonDisabled,
+  Title,
+  Description,
+  Category,
+  Share,
+  StyleName
 };

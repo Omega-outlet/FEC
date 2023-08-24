@@ -10,6 +10,7 @@ export const Carousel = styled.div`
   overflow: hidden;
   flex: 0 0 auto;
   padding: 0;
+  margin-top: 1vh;
   justify-content: center;
   height: 35em;
   align-items: center;
@@ -25,8 +26,10 @@ export const Item = styled.div`
   align-items: center;
   position: relative;
   margin: .5rem;
-  background-color: ${({ $theme }) => ($theme === 'dark' ? 'black' : '#f5f5f5')};
+  padding-bottom: .6em;
+  background-color: ${({ $theme }) => ($theme === 'dark' ? '#2c2c2c' : '#f5f5f5')};
   border: 0;
+  line-height: 1.2em;
   flex-shrink: 2;
 `;
 

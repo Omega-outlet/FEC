@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
 import { StyledButton } from '../../../styled-components/common-elements.jsx';
-
+import ThemeContext from '../../ThemeContext.jsx';
 function LoadMoreQuestionsButton({ onClick, hasMoreQuestions }) {
+  const { theme } = useContext(ThemeContext)
   // if false, return null. Nothing will be rendered.
   if (!hasMoreQuestions) return null;
 
   return (
-    <StyledButton type="button" onClick={onClick}>MORE ANSWERED QUESTIONS</StyledButton>
+    <StyledButton type="button" onClick={onClick} $theme={theme}>MORE ANSWERED QUESTIONS</StyledButton>
   );
 }
 

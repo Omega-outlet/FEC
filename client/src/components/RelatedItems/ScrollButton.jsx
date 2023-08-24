@@ -5,7 +5,10 @@ import ThemeContext from '../ThemeContext.jsx';
 const ScrollButton = function ({ scroll, dir }) {
   const { theme } = useContext(ThemeContext);
 
-  return <StyledButton onClick={scroll} $theme={theme}>{dir === 'left' ? '<' : '>'}</StyledButton>;
+  return <StyledButton onClick={scroll} $theme={theme} style={{
+    'border-radius': '0',
+    'transparency': '0.8',
+  }}>{dir === 'left' ? '<' : '>'}</StyledButton>;
 };
 
 export default ScrollButton;
