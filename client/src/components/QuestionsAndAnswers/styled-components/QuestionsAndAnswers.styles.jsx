@@ -28,7 +28,7 @@ export const QuestionDetailsList = styled.li`
   &:not(:first-child) {
     border-top: var(--common-border-width,1px) solid ${({ $theme }) => ($theme === 'light' ? 'rgba(0,0,0,0.15)' : '#dfdfdf')};
   }
-  padding-bottom: 10px;
+  padding: 10px 0;
 
 `;
 
