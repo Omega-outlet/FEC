@@ -69,6 +69,7 @@ export const UrlButton = styled.button`
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 6px;
+  background-color: white;
   &:hover {
     background-color: #bbb;
   }
