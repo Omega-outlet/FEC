@@ -7,7 +7,10 @@ const RemoveItemButton = function ({ item }) {
   const { removeFromOutfit } = useContext(RelatedContext);
   const { theme } = useContext(ThemeContext);
 
-  return <StyledButton onClick={(event) => removeFromOutfit(item, event)} $theme={theme}>X</StyledButton>;
+  return <StyledButton onClick={(event) => removeFromOutfit(item, event)} $theme={theme} style={{
+    'opacity': '0.6',
+    'border-radius': '0',
+  }}>X</StyledButton>;
 };
 
 export default RemoveItemButton;

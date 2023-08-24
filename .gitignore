@@ -6,3 +6,6 @@ client/dist/bundle.js.map
 /coverage
 config.js
 
+client/dist/20fe24a895413048f5629dd260c76ee2.png
+.gitignore
+client/dist/54ff7732bb1a5ff166c6773909d49bd0.svg

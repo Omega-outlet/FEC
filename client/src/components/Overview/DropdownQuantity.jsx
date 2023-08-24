@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
+import ThemeContext from '../ThemeContext.jsx';
 
 function DropdownQuantity({
   size, quantity, setQuantity, openQuantity, setOpenQuantity,
   selectedStyle, SKUValueArray, setOneOutOfStock
 
 }) {
+  const { theme } = useContext(ThemeContext);
   const maxQuantity = 15;
   const [quantityArray, setQuantityArray] = useState([]);
   const loadMaxQuantity = () => {
@@ -71,7 +73,7 @@ function DropdownQuantity({
           {/* dropdown menu opened */}
           {quantityArray && openQuantity
             ? (
-              <ProductInformationComponents.Menu>
+              <ProductInformationComponents.Menu $theme={theme}>
                 {(quantityArray.map((i) => (
                   <li>
                     <button type="button" className="menuItem" key={i} value={i} onClick={(e) => { dropdownMenuQuantityHandler(); dropdownQuantityHandler(e); }}>{i}</button>
@@ -89,7 +91,7 @@ function DropdownQuantity({
           {/* dropdown menu opened */}
           {quantityArray && openQuantity
             ? (
-              <ProductInformationComponents.Menu>
+              <ProductInformationComponents.Menu $theme={theme}>
                 {(quantityArray.map((i) => (
                   <li>
                     <button type="button" className="menuItem" key={i} value={i} onClick={(e) => { dropdownQuantityHandler(e); }}>{i}</button>

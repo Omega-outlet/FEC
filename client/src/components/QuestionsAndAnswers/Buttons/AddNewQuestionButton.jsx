@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Forms/Modal.jsx';
 import QuestionForm from '../Forms/QuestionForm.jsx';
 import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
 import { StyledButton } from '../../../styled-components/common-elements.jsx';
+import ThemeContext from '../../ThemeContext.jsx';
 
 function AddNewQuestionButton({ productName, onHandleAddQuestion }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -32,7 +34,7 @@ function AddNewQuestionButton({ productName, onHandleAddQuestion }) {
   };
   return (
     <div>
-      <StyledButton type="button" onClick={handleOpenModal}>
+      <StyledButton type="button" onClick={handleOpenModal} $theme={theme}>
         ADD A QUESTION
       </StyledButton>
       <Modal isOpen={isOpen} onClose={handleCloseModal}>

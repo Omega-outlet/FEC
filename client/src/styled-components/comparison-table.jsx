@@ -4,6 +4,7 @@ const StyledTable = styled.table`
   width: 100%;
   table-layout: fixed;
   color: black;
+  background-color: white;
   td:nth-child(2) {
     text-align: center;
   };

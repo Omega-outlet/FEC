@@ -71,7 +71,7 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
   useEffect(loadProductStyles, [currentProductID]);
 
   return (
-    <div>
+    <div className="overview">
       <OverviewContainer.StyledOverviewContainer>
         <ImageGallery
           currentProduct={currentProduct}
