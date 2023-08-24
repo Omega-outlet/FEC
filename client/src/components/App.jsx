@@ -74,9 +74,9 @@ const App = function () {
       <div className="app">
         <header $theme={theme}>
           <img className="logo" src={theme === 'light' ? logo : darkmodeLogo} alt="logo" />
-          <button className="darkMode" onClick={toggleDark}>Switch to {theme === 'dark' ? 'light theme 🌞' : 'dark theme 🌙'}</button>
+          <button className="darkMode" onClick={toggleDark}>{theme === 'dark' ? '☀️ Light Theme ☀️' : '🌒 Dark Theme 🌘'}</button>
         </header>
-        <div className="content" >
+        <div className="content">
           <Overview
             currentProduct={currentProduct}
             currentProductID={currentProductID}

@@ -2,7 +2,7 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0 auto;
   padding: 0;
-  color: #121212;
+  color: #222222;
   & a {
     color: rgb(101, 37, 37);
   };
@@ -19,6 +19,9 @@ body[data-theme='dark'] {
   }
   & header, footer {
     background-color: #2c2c2c;
+  }
+  & button.darkMode {
+    color: #dfdfdf;
   }
 }
 
@@ -38,7 +41,7 @@ header, footer {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  z-index: 9999;
+  z-index: 998;
 }
 
 header {
@@ -60,13 +63,12 @@ footer {
   }
 }
 
-
 .darkMode {
-  background-color: white;
   border: 0;
   position: absolute;
   right: 15px;
   top: 5px;
+  background-color: transparent;
 }
 
 .logo {
@@ -77,8 +79,9 @@ footer {
 
 h1, h2, h3, h4, h5 {
   text-align: left;
-  margin: 0;
+  margin: 0 0 .4em 0;
   padding: 0;
+  font-weight: 200;
 }
 
 table, td, tr {
