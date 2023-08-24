@@ -124,11 +124,7 @@ function AddToCart({
               SKUValueArray={SKUValueArray}
               setOneOutOfStock={setOneOutOfStock}
             />
-
-
-            <div style={{ position: 'relative', marginTop: '0px'}}>
-              <StyledButton $theme={theme} type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
-            </div>
+            <StyledButton $theme={theme} type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
           </ProductInformationComponents.DropdownRow>
 
         </div>
