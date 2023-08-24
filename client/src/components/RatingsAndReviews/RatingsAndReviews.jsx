@@ -36,11 +36,6 @@ function RatingsAndReviews({ currentProductID, metaData }) {
       })
       .catch((err) => { console.log(err); });
   }, [currentProductID, submitMessage, sortBy]);
-  React.useEffect(() => {
-    setSubmitMessage(() => false);
-  });
-
-  console.log(currentProductID);
 
   // eslint-disable-next-line func-names
   const renderForm = function () {
