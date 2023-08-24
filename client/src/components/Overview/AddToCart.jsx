@@ -65,7 +65,7 @@ function AddToCart({
       setQuantity(-1);
       setOneOutOfStock(false);
     } else {
-      setMessage(`added ${quantity} of size ${SKUValueArray[size].size} to cart`);
+      setMessage(`Added ${quantity} of size ${SKUValueArray[size].size} to your cart.`);
       setSize(-1);
       setQuantity(-1);
     }
@@ -125,7 +125,10 @@ function AddToCart({
               setOneOutOfStock={setOneOutOfStock}
             />
 
-            <StyledButton $theme={theme} type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
+
+            <div style={{ position: 'relative', marginTop: '0px'}}>
+              <StyledButton $theme={theme} type="button" onClick={() => { cartHandle(); }}>Add to Cart</StyledButton>
+            </div>
           </ProductInformationComponents.DropdownRow>
 
         </div>
