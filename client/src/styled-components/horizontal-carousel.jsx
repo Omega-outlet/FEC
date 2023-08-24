@@ -24,7 +24,7 @@ export const Item = styled.div`
   max-height: min-height;
   align-items: center;
   position: relative;
-  margin: 0;
+  margin: .5rem;
   background-color: ${({ $theme }) => ($theme === 'dark' ? 'black' : '#f5f5f5')};
   border: 0;
   flex-shrink: 2;
@@ -34,6 +34,6 @@ export const Image = styled.img`
   padding: 0;
   margin: 0;
   object-fit: cover;
-  height: 25em;
+  height: 28em;
   width: 20vw;
 `;
