@@ -15,6 +15,9 @@ export const QuestionList = styled.ul`
   list-style-type: none;
   max-height: 80vh;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 `;
 
 export const QuestionDetailsList = styled.li`
@@ -64,6 +67,9 @@ export const AnswerListContainer = styled.ul`
   padding-left: 0;
   max-height: 50vh;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 `;
 
 
