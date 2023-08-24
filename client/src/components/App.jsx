@@ -89,9 +89,9 @@ const App = function () {
           setMetaData={setMetaData}
         />
         <footer>
-          <small>
-            About Us: Brandon Gomez, Eric Chang, Kimberly Tom, and Lauren Laxton... blurb
-          </small>
+          Meet the Omega Outlet engineering team: <a href="https://www.linkedin.com/in/brandonjgomez/">Brandon Gomez</a>, <a href="https://www.linkedin.com/in/eric-chang-840283237/">Eric Chang</a>, <a href="https://www.linkedin.com/in/kimberly-tom-478b2420b/">Kimberly Tom</a>, and <a href="https://www.linkedin.com/in/laurenlaxton/">Lauren Laxton</a>.
+          We are a dynamic group of engineers passionate about bringing our collective coding skills to life.
+          Our project showcases a meticulously crafted React-based product page for an online retail client.
         </footer>
       </div>
     </ThemeContext.Provider>
