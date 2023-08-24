@@ -89,7 +89,9 @@ const RelatedItems = function ({ currentProduct, updateProduct }) {
               </ModalContent>
             </Modal>
           </ModalWrapper>
-          { outfit.length === 0 ? <h2>No outfit yet!</h2> : <h2>Your Outfit</h2>}
+          { outfit.length === 0 ? <h2 style={{ 'paddingTop':
+          '40px'}}>No outfit yet!</h2> : <h2 style={{ 'paddingTop':
+          '40px'}}>Your Outfit</h2>}
           {!outfit.find((i) => i.id === currentProduct.id) && (
             <StyledButton onClick={() => addToOutfit(currentProduct)} $theme={theme}>
               Add {currentProduct.name} to Your Outfit

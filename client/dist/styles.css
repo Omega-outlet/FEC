@@ -56,7 +56,7 @@ table, td, tr {
   margin: 0;
   display: flex;
   margin-bottom: 3vh;
-  padding: 0;
+  padding: 40px;
 }
 
 .productInfo {
