@@ -63,11 +63,21 @@ table, td, tr {
   margin-left: 2vw;
 }
 
-.Stars {
+.stars-light {
   &::before {
     content: '★★★★★';
     letter-spacing: 1px;
     background: linear-gradient(90deg, black var(--percent), lightgray var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.stars-dark {
+  &::before {
+    content: '★★★★★';
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, white var(--percent), rgb(121, 121, 121) var(--percent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

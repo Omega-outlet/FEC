@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { YesAndReportButton, YesReportButtonContainer } from '../src/styled-components/YesAndReportButton.styles.jsx';
+import { YesAndReportButton, YesReportButtonContainer, HelpfulTextSpan } from '../src/styled-components/YesAndReportButton.styles.jsx';
 
 function HelpfulYesButton({ initialCount, onHelpfulClick }) {
   const [helpfulYesCount, setHelpfulYesCount] = useState(initialCount);
@@ -17,9 +17,11 @@ function HelpfulYesButton({ initialCount, onHelpfulClick }) {
   };
   return (
     <YesReportButtonContainer>
-      Helpful?
+      <HelpfulTextSpan>Helpful?</HelpfulTextSpan>
       <YesAndReportButton type="button" onClick={handleHelpfulYesClick}>
-        Yes(
+        <span className="underline-text">Yes</span>
+        {' '}
+        (
         {helpfulYesCount}
         )
       </YesAndReportButton>

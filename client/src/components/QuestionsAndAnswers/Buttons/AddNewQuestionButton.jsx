@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Forms/Modal.jsx';
 import QuestionForm from '../Forms/QuestionForm.jsx';
 import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
+import { StyledButton } from '../../../styled-components/common-elements.jsx';
 
 function AddNewQuestionButton({ productName, onHandleAddQuestion }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,9 +32,9 @@ function AddNewQuestionButton({ productName, onHandleAddQuestion }) {
   };
   return (
     <div>
-      <RoundedPulseButton type="button" onClick={handleOpenModal}>
+      <StyledButton type="button" onClick={handleOpenModal}>
         ADD A QUESTION
-      </RoundedPulseButton>
+      </StyledButton>
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <QuestionForm
           productName={productName}

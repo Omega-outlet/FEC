@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import QuestionsList from './QuestionsList/QuestionsList.jsx';
 import SearchBar from './Buttons/SearchBar.jsx';
-import { QAContainer } from './styled-components/QuestionsAndAnswers.styles.jsx';
+import { QAContainer, NoQuestionImage, ImageAndButtonContainer, ScrollableContainer } from './styled-components/QuestionsAndAnswers.styles.jsx';
 import AddNewQuestionButton from './Buttons/AddNewQuestionButton.jsx';
+import anyQuestion from '../../../dist/assets/anyQuestion.png';
 
 function QuestionsAndAnswers({ currentProduct, currentProductID }) {
   const [questions, setQuestions] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [hasSearchTerm, setHasSearchTerm] = useState(false);
   const fetchQuestions = () => {
     axios.get('/questions', {
       params: {
@@ -30,12 +33,15 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
   }, [currentProductID]);
 
   const handleSearch = (query) => {
+    setSearchTerm(query);
     if (query) {
       const filteredResults = questions.filter((question) => question.question_body.toLowerCase()
         .includes(query.toLowerCase()));
       setFilteredQuestions(filteredResults);
+      setHasSearchTerm(filteredResults.length === 0);
     } else {
       setFilteredQuestions(questions);
+      setHasSearchTerm(false);
     }
   };
   const handleAddNewQuestion = (questionFormData) => {
@@ -53,25 +59,36 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
   };
   return (
     <QAContainer>
-      {
-        questions.length === 0
-          ? (
-            <AddNewQuestionButton
-              productName={currentProduct.name}
-              onHandleAddQuestion={handleAddNewQuestion}
-            />
-          )
-          : (
-            <>
-              <SearchBar onSearch={handleSearch} />
-              <QuestionsList
+      {questions.length === 0 && (
+        <>
+          <h2>No Questions For This Product</h2>
+          <AddNewQuestionButton
+            productName={currentProduct.name}
+            onHandleAddQuestion={handleAddNewQuestion}
+          />
+        </>
+      )}
+      {questions.length > 0 && (
+        <ScrollableContainer>
+          <SearchBar onSearch={handleSearch} />
+          {hasSearchTerm ? (
+            <ImageAndButtonContainer>
+              <NoQuestionImage src={anyQuestion} alt="No results found" />
+              <AddNewQuestionButton
                 productName={currentProduct.name}
-                questions={filteredQuestions}
                 onHandleAddQuestion={handleAddNewQuestion}
               />
-            </>
-          )
-      }
+            </ImageAndButtonContainer>
+          ) : (
+            <QuestionsList
+              productName={currentProduct.name}
+              questions={filteredQuestions}
+              onHandleAddQuestion={handleAddNewQuestion}
+              searchTerm={searchTerm}
+            />
+          )}
+        </ScrollableContainer>
+      )}
     </QAContainer>
   );
 }
