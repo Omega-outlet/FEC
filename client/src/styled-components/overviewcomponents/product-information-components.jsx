@@ -13,10 +13,11 @@ const StyleEntryThumbnail = styled.img`
 
 const ClickedStyleThumbnail = styled.div`
 position: absolute;
-font-size:30px;
-top: 8px;
-right: 25px;
-color: black;
+font-size:25px;
+top: 0px;
+right: 23px;
+color: #ede19d;
+opacity: 80%;
 `;
 
 const EntryContainer = styled.div`
@@ -40,6 +41,9 @@ const SaleText = styled.span`
 const SocialMediaIcon = styled.a`
 fill: ${({ $theme }) => ($theme === 'light' ? '' : '#c4c4c4')};
 margin: 5px;
+&:hover {
+  opacity: 50%;
+}
 `;
 
 // const ShareButton = styled.div`

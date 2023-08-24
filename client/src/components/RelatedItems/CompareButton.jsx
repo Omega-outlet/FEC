@@ -10,7 +10,7 @@ const CompareButton = function ({ item }) {
 
   return <StyledButton onClick={(event) => compareItem(item, event)} $theme={theme} style={{
     'opacity': '0.6',
-    'border-radius': '0',
+    'borderRadius': '0',
   }}>★</StyledButton>;
 };
 
