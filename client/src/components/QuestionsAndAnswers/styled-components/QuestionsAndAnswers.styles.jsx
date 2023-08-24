@@ -60,6 +60,7 @@ export const AnswerListContainer = styled.ul`
   overflow-y: auto;
 `;
 
+
 export const SearchBarContainer = styled.div`
   width: 65%;
   padding: 20px;
@@ -138,13 +139,18 @@ export const HighlightTerm = styled.span`
   background-color: yellow;
 `;
 export const AnswerBodyText = styled.p`
-  display: inline-block;
-  max-width: 80%;
+  max-width: 30%;
   font-size: 14px;
   color: #0E1311;
   text-align: left;
-  margin-top: 0;
   overflow-wrap: break-word;
+  clear: both;
+  margin-left: 5px;
+`;
+
+export const AnswerContainer = styled.div`
+  display: flex;
+  align-Items: baseline;
 `;
 
 export const NoQuestionImage = styled.img`

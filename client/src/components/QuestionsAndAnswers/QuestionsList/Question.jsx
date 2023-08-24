@@ -116,7 +116,7 @@ function Question({ productName, question, searchTerm }) {
         <AnswerListContainer>
           {sortByHelpAnswer(answers)
             .slice(0, numAnswersShowed).map((answer) => (
-              <Answer key={answer.id} answer={answer} />
+              <Answer key={answer.answer_id} answer={answer} />
             ))}
         </AnswerListContainer>
         {answers.length > 2 && (
