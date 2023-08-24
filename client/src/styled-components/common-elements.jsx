@@ -34,7 +34,7 @@ StarView.propTypes = {
 
 const StyledButton = styled.button`
   padding: 15px;
-  border-radius: 20px;
+  border-radius: 25px;
   color: ${({ $theme }) => ($theme === 'light' ? 'white' : '#121212')};
   background: ${({ $theme }) => ($theme === 'light' ? '#212121' : '#dfdfdf')};
   cursor: pointer;

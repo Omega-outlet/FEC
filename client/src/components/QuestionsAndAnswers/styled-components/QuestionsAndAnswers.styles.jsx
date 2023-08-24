@@ -68,10 +68,14 @@ export const SearchBarContainer = styled.div`
   top: 0;
   background-color: transparent;
   padding-bottom: 0;
+  text-align: center;
+  margin: 0 auto;
 `;
 
 export const SearchInput = styled.input`
-  width: 100%;
+  width: 50%;
+  margin: 0 auto;
+  text-align: left;
   padding: 10px;
   padding-left: 30px;
   background-image: url(${searchIcon});
