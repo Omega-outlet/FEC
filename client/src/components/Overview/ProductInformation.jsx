@@ -66,6 +66,7 @@ function ProductInformation({
         <ProductInformationComponents.Ratings>
           {reviewData ? (
             <StarView
+              $theme={theme}
               rating={calculateAverage(reviewData?.ratings)}
               fontSize={20}
             />
