@@ -22,7 +22,6 @@ function ProductInformation({
 
   // finish for style to load
   const loadStyles = () => {
-    console.log('this is the theem', theme);
     setSelectedIsLoading(true);
     setSelectedIsLoading(false);
   };
