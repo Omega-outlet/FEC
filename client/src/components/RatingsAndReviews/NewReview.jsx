@@ -84,7 +84,6 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     renderForm();
   };
 
-
   return (
     <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm" style={{ 'fontColor': 'black' }}>
       <label htmlFor="rating">
@@ -208,7 +207,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
       </div>
       {formData.photos.length > 0 && (
       <div>
-          {formData.photos.map((photo) => <img src={photo} style={{'height': '50px'}} alt="review thumbnail" />)}
+          {formData.photos.map((photo) => <img key={photo} src={photo} style={{'height': '50px'}} alt="review thumbnail" />)}
       </div>
       )}
       <LineSkip />

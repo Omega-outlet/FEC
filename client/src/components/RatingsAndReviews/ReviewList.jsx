@@ -56,7 +56,7 @@ function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
             <option value="newest">Newest</option>
           </select>
         </label>
-        {submitMessage && <h3 data-testid="confirmation">Thank you! Your review has been submitted</h3>}
+        {submitMessage && <h3 data-testid="confirmation"><strong>Thank you! Your review has been submitted</strong></h3>}
         <div>
           <span>{'Filters: '}</span>
           {filters && filters.map((filter) => (<span key={filter}><strong>{`${filter} stars `}</strong></span>))}

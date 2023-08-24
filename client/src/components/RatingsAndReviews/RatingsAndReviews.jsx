@@ -53,9 +53,8 @@ function RatingsAndReviews({ currentProductID, metaData }) {
 
   const submitForm = (formObj) => {
     axios.post('/reviews', formObj)
-      .then((response) => console.log(response))
+      .then(() => setSubmitMessage((prev) => !prev))
       .catch((err) => {console.log(err)});
-    setSubmitMessage((prev) => !prev);
   };
 
   const changeSortMethod = function (value) {
