@@ -4,12 +4,14 @@ import Review from './Review.jsx';
 import {
   StyledButton, ModalWrapper, Modal, ModalContent,
 } from '../../styled-components/common-elements.jsx';
+import ThemeContext from '../ThemeContext.jsx';
 
-function ReviewList({ reviews, filters, submitMessage }) {
+function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
   const [reviewsToRender, setReviewsToRender] = React.useState([]);
   const [displayModal, setDisplayModal] = React.useState(false);
   const [hiddenReviews, setHiddenReviews] = React.useState(0);
   const [displayedReviews, setDisplayedReviews] = React.useState(2);
+  const { theme } = React.useContext(ThemeContext);
   React.useEffect(() => setReviewsToRender(reviews), [reviews]);
   // eslint-disable-next-line func-names
   const handleClick = function () {
@@ -48,7 +50,7 @@ function ReviewList({ reviews, filters, submitMessage }) {
       <div style={{ 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'space-between' }}>
         <label htmlFor="dropdown">
           {'Sort By: '}
-          <select id="dropdown">
+          <select id="dropdown" onChange={(e) => changeSortMethod(e.target.value)}>
             <option value="relevant">Relevant</option>
             <option value="helpful">Helpful</option>
             <option value="newest">Newest</option>
@@ -73,6 +75,7 @@ function ReviewList({ reviews, filters, submitMessage }) {
       <div style={{ 'display': 'flex', 'justifyContent': 'center' }}>
         { hiddenReviews > 0 && (
         <StyledButton
+          $theme={theme}
           data-testid="reviewList-button"
           type="button"
           onClick={(e) => handleClick(e)}

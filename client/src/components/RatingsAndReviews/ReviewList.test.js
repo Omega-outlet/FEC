@@ -9,13 +9,25 @@ describe('ReviewList Component', () => {
   const reviews = data.results;
   const mockFilters = ['3'];
   const mockSubmitMessage = false;
+  const mockChangeSortMethod = jest.fn();
+
   test('Component rendered', () => {
-    render(<ReviewList reviews={reviews} filters={mockFilters} submitMessage={mockSubmitMessage} />);
+    render(<ReviewList
+      reviews={reviews}
+      filters={mockFilters}
+      submitMessage={mockSubmitMessage}
+      changeSortMethod={mockChangeSortMethod}
+    />);
     const title = screen.getByTestId('reviewList-component');
     expect(title).toBeTruthy();
   });
   test('Modal rendered', () => {
-    render(<ReviewList reviews={reviews} filters={mockFilters} submitMessage={mockSubmitMessage} />);
+    render(<ReviewList
+      reviews={reviews}
+      filters={mockFilters}
+      submitMessage={mockSubmitMessage}
+      hangeSortMethod={mockChangeSortMethod}
+    />);
     const button = screen.getByTestId('reviewList-button');
     fireEvent.click(button);
     fireEvent.click(button);

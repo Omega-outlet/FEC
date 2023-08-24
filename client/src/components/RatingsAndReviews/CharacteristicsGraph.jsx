@@ -1,10 +1,12 @@
-import React from 'react';
+import { React, useContext, useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import descriptionArr from './descriptionArr.js';
+import ThemeContext from '../ThemeContext.jsx';
 
 function CharacteristicsGraph({ metaData }) {
-  const [characteristics, setCharacteristics] = React.useState([]);
-  React.useEffect(() => setCharacteristics(Object.keys(metaData)), [metaData]);
+  const [characteristics, setCharacteristics] = useState([]);
+  useEffect(() => setCharacteristics(Object.keys(metaData)), [metaData]);
+  const { theme } = useContext(ThemeContext);
 
   return (
     <div>
@@ -17,9 +19,19 @@ function CharacteristicsGraph({ metaData }) {
             </div>
             <div className="bar" style={{ 'display': 'flex', 'alignItems': 'center' }}>
               <span style={{ 'width': '100px', 'fontSize': '15px' }}>{char}</span>
-              <div style={{ 'height': '1px', 'width': `${100 - ((metaData[char]?.value - 1) / 5) * 100}%`, 'background': 'black' }} />
+              <div style={{
+                'height': '1px',
+                'width': `${100 - ((metaData[char]?.value - 1) / 5) * 100}%`,
+                'background': `${theme === 'light' ? 'black' : 'white'}`,
+              }}
+              />
               <span>x</span>
-              <div style={{ 'height': '1px', 'width': `${((metaData[char]?.value - 1) / 5) * 100}%`, 'background': 'black' }} />
+              <div style={{
+                'height': '1px',
+                'width': `${((metaData[char]?.value - 1) / 5) * 100}%`,
+                'background': `${theme === 'light' ? 'black' : 'white'}`,
+              }}
+              />
             </div>
           </div>
         ))}
