@@ -87,11 +87,11 @@ function styleSelector({
   useEffect(loadStyles, [selectedStyle]);
 
   return (
-
     <div>
       <br />
-      <span>{selectedStyleName}</span>
-      <br />
+      <ProductInformationComponents.StyleName>
+        {selectedStyleName}
+      </ProductInformationComponents.StyleName>
       {stylesArray ? stylesArray.map((style, index) => (
         <ProductInformationComponents.StyleEntry data-testid="styleEntry" key={index}>
           <StyleEntry

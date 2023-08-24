@@ -45,9 +45,9 @@ function ProductInformation({
   return (
     <OverviewContainer.Half>
       <div className="productInfo">
-        <ProductInformationComponents.H1>
+        <ProductInformationComponents.Title>
           { currentProduct.name }
-        </ProductInformationComponents.H1>
+        </ProductInformationComponents.Title>
 
         {selectedStyleSalePrice ? (
           <span>
@@ -84,13 +84,13 @@ function ProductInformation({
             </span>
           ) : null}
         </ProductInformationComponents.Ratings>
-        <ProductInformationComponents.P>
-            /
-            { currentProduct.category }
-        </ProductInformationComponents.P>
-        <ProductInformationComponents.H3>
+        <ProductInformationComponents.Category>
+          /
+          { currentProduct.category }
+        </ProductInformationComponents.Category>
+        <ProductInformationComponents.Description>
           { currentProduct.description }
-        </ProductInformationComponents.H3>
+        </ProductInformationComponents.Description>
         <ProductInformationComponents.Share>
           share this product:&nbsp;
           <ProductInformationComponents.SocialMediaIcon $theme={theme} href={twitterLink}>

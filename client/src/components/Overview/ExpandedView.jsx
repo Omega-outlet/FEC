@@ -7,6 +7,7 @@ import {
   StyledButton, ModalWrapper, Modal, ModalContent,
 } from '../../styled-components/common-elements.jsx';
 import ScrollButton from './DefaultScrollButton.jsx';
+import ThemeContext from '../ThemeContext.jsx';
 
 function ExpandedView({
   selectedStyle, displayModal, setDisplayModal, expandedMainImage, setExpandedMainImage,
@@ -19,6 +20,8 @@ function ExpandedView({
   const [displayZoomed, setDisplayZoomed] = useState(false);
   const [showMagnify, setShowMagnify] = useState(false);
   const [coordinates, setCoordinates] = useState([0, 0]);
+
+  const { theme } = useContext(ThemeContext);
 
   const loadImageDimensions = () => {
     // set width and height from the image as it displays on our browser
@@ -131,6 +134,7 @@ function ExpandedView({
             </ImageGalleryComponents.ExpandedImageContainer>
             <ImageGalleryComponents.ExitExpanded>
               <StyledButton
+                $theme={theme}
                 type="button"
                 onClick={() => {
                   setDisplayModal(false);
