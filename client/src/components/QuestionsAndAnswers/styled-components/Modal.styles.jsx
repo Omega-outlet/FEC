@@ -17,7 +17,7 @@ export const Overlay = styled.div`
 
 export const ModalContainer = styled.div`
   width: 50%;
-  background-color: white;
+  background-color: ${({ $theme }) => ($theme === 'light' ? 'white' : '#303030')};
   padding: 30px;
   border-radius: 10px;
 `;
@@ -69,6 +69,7 @@ export const UrlButton = styled.button`
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 6px;
+  background-color: white;
   &:hover {
     background-color: #bbb;
   }

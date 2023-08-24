@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Forms/Modal.jsx';
 import AnswerForm from '../Forms/AnswerForm.jsx';
 import { AnswerThisQuestionButton } from '../styled-components/Buttons.styles.jsx';
-import { YesAndReportButton, YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
+import { YesAndReportButton, YesReportSpan } from '../../../styled-components/YesAndReportButton.styles.jsx';
+import ThemeContext from '../../ThemeContext.jsx';
 
 function AddNewAnswerButton({productName, questionBody, length, onHandleAddAnswer }) {
+  const { theme } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -33,19 +35,17 @@ function AddNewAnswerButton({productName, questionBody, length, onHandleAddAnswe
 
   return (
     <div>
-      <YesReportButtonContainer>
-        {length === 0
-          ? (
-            <AnswerThisQuestionButton type="button" onClick={handleOpenModal}>
-              Answer This Question
-            </AnswerThisQuestionButton>
-          )
-          : (
-            <YesAndReportButton type="button" onClick={handleOpenModal}>
-              Add Answer
-            </YesAndReportButton>
-          )}
-      </YesReportButtonContainer>
+      {length === 0
+        ? (
+          <AnswerThisQuestionButton type="button" onClick={handleOpenModal} $theme={theme}>
+            Answer This Question
+          </AnswerThisQuestionButton>
+        )
+        : (
+          <YesAndReportButton type="button" onClick={handleOpenModal} $theme={theme}>
+            <YesReportSpan>Add Answer</YesReportSpan>
+          </YesAndReportButton>
+        )}
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <AnswerForm
           productName={productName}
