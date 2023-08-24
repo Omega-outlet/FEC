@@ -101,7 +101,7 @@ z-index: 1000
 
 const DropdownRow = styled.div`
 > * {
-  margin: 30px;
+  margin: 10px 60px 10px 0;
 }
 display:flex;
 flex-direction:row;

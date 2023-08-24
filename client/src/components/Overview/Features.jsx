@@ -3,7 +3,7 @@ import React from 'react';
 const Features = function ({ features }) {
   const featureList = features.map((feature) =>
     (
-      <li key={feature.feature}>
+      <li key={feature.feature} style={{ 'marginTop': '.2em' }}>
         <em>{feature.feature}</em>:
         {feature.value === null ? ' ✓' : <> {feature.value}</>}
       </li>
