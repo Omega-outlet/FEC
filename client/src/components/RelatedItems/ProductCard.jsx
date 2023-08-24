@@ -79,7 +79,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
         <strong>{product.name}</strong>
       </div>
       <div>
-        <em style={{ textOverflow: 'ellipsis', fontSize: 'small' }}>{product.slogan}</em>
+        <p><em>{product.slogan}</em></p>
       </div>
       <div>
         {salePrice
