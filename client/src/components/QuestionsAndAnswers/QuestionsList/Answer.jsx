@@ -6,7 +6,7 @@ import ReportButton from '../../../../utils/ReportButton.jsx';
 import useHelpfulYes from '../../../../utils/useHelpfulYes.jsx';
 import useReport from '../../../../utils/useReport.jsx';
 import { YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
-import { AnswerDetailsContainer, ThumbnailImg } from '../styled-components/QuestionsAndAnswers.styles.jsx';
+import { AnswerDetailsContainer, ThumbnailImg, AnswerBodyText  } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 import ImageModal from '../Forms/ImageModal.jsx'
 
 function Answer({ answer }) {
@@ -28,10 +28,10 @@ function Answer({ answer }) {
   };
   return (
     <li>
-      <p>
-        <strong>A: </strong>
+      <strong>A: </strong>
+      <AnswerBodyText>
         {answer.body}
-      </p>
+      </AnswerBodyText>
       <div>
         {answer.photos && answer.photos.map((photo) => (
           <ThumbnailImg key={photo.id} src={photo.url} alt={`Photo ${photo.id} `} onClick={() => handleImageClick(photo.url)}/>
