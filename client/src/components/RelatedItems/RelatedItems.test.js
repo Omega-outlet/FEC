@@ -170,7 +170,7 @@ describe('Related Items', () => {
     await waitFor(() => render(<RelatedItems currentProduct={dummy} />));
     await waitFor(() => expect(screen.queryByTestId('compareTableTest')).toBeNull());
     // click star button to show comparison modal
-    await waitFor(() => fireEvent.click(screen.getAllByText('☆')[0]));
+    await waitFor(() => fireEvent.click(screen.getAllByText('★')[0]));
     await waitFor(() => expect(screen.queryByTestId('compareTableTest')).toBeTruthy());
   });
 
