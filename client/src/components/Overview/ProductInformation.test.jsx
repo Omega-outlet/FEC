@@ -239,10 +239,14 @@ describe('Overview component', () => {
 });
 describe('product title', () => {
   it('renders first product title in products array', async () => {
+    const mockSize = jest.fn(() => false);
+    const mockQuantity = jest.fn(() => false);
     render(<ProductInformation
       currentProduct={products[0]}
       currentProductID={1}
       styles={styles}
+      setOpenSize={mockSize}
+      setOpenQuantity={mockQuantity}
     />);
     await waitFor(() => {
       const productName = screen.getByText('Camo Onesie');
@@ -262,11 +266,15 @@ describe('product title', () => {
   });
 });
 describe('product description', () => {
+  const mockSize = jest.fn(() => false);
+  const mockQuantity = jest.fn(() => false);
   it('renders first product description', async () => {
     render(<ProductInformation
       currentProduct={products[0]}
       currentProductID={1}
       styles={styles}
+      setOpenSize={mockSize}
+      setOpenQuantity={mockQuantity}
     />);
     await waitFor(() => {
       const productDescription = screen.getByText('The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.');
@@ -278,6 +286,8 @@ describe('product description', () => {
       currentProduct={products[1]}
       currentProductID={1}
       styles={styles}
+      setOpenSize={mockSize}
+      setOpenQuantity={mockQuantity}
     />);
     await waitFor(() => {
       const productDescription = screen.getByText('Where you\'re going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.');
@@ -307,10 +317,14 @@ describe('style thumbnails', () => {
     });
   });
   it('renders 2 style icons when product has 2 styles', async () => {
+    const mockSize = jest.fn(() => false);
+    const mockQuantity = jest.fn(() => false);
     render(<ProductInformation
       currentProduct={products[0]}
       currentProductID={1}
       styles={styles}
+      setOpenSize={mockSize}
+      setOpenQuantity={mockQuantity}
     />);
     await waitFor(() => {
       const element = screen.getAllByTestId('styleEntry');
@@ -318,10 +332,14 @@ describe('style thumbnails', () => {
     });
   });
   it('renders 3 style icons when product has 3 styles', async () => {
+    const mockSize = jest.fn(() => false);
+    const mockQuantity = jest.fn(() => false);
     render(<ProductInformation
       currentProduct={products[1]}
       currentProductID={2}
       styles={styles2}
+      setOpenSize={mockSize}
+      setOpenQuantity={mockQuantity}
     />);
     await waitFor(() => {
       const element = screen.getAllByTestId('styleEntry');
@@ -330,6 +348,8 @@ describe('style thumbnails', () => {
   });
 });
 describe('render price', () => {
+  const mockSize = jest.fn(() => false);
+  const mockQuantity = jest.fn(() => false);
   it('renders the original price of the style', async () => {
     await waitFor(() => render(<ProductInformation
       currentProduct={products[0]}
@@ -339,10 +359,14 @@ describe('render price', () => {
       selectedStyleSalePrice={styles.results[0].sale_price}
       selectedStyleName={styles.results[0].name}
       styles={styles}
+      setOpenSize={mockSize}
+      setOpenQuantity={mockQuantity}
     />));
     expect(screen.getByText('140')).toBeTruthy();
   });
   it('renders the sales price of the style', async () => {
+    const mockSize = jest.fn(() => false);
+    const mockQuantity = jest.fn(() => false);
     await waitFor(() => render(<ProductInformation
       currentProduct={products[0]}
       currentProductID={1}
@@ -351,6 +375,8 @@ describe('render price', () => {
       selectedStyleSalePrice={styles.results[0].sale_price}
       selectedStyleName={styles.results[0].name}
       styles={styles}
+      setOpenSize={mockSize}
+      setOpenQuantity={mockQuantity}
     />));
     const salePrice = screen.getByText('100');
     expect(salePrice).toBeTruthy();
@@ -483,8 +509,12 @@ describe('render style\s info', () => {
 });
 describe('size selector', () => {
   it('displays Please select size when user has not selected size from dropdown', async () => {
+    const mockSize = jest.fn(() => false);
+    const mockQuantity = jest.fn(() => false);
     await waitFor(() => render(<AddToCart
       selectedStyle={styles}
+      setOpenSize={mockSize}
+      setOpenQuantity={mockQuantity}
     />));
     userEvent.click(screen.getByText('Add to Cart'));
     await waitFor(() => expect(screen.getByText('Please select size.')).toBeTruthy());
