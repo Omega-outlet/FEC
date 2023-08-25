@@ -3,9 +3,9 @@ body {
   margin: 0 auto;
   padding: 0;
   color: #222222;
-  & a {
+  /* & a {
     color: rgb(101, 37, 37);
-  };
+  }; */
   & header {
     box-shadow: 0 4px 10px 0 #c2c2c22d, 0 3px 15px 0 rgba(0, 0, 0, 0.19);
   }
@@ -16,17 +16,14 @@ body {
   & button.darkMode {
     color: #353535;
   };
-  &::-webkit-scrollbar {
-    width: 0px;
-  };
 }
 
 body[data-theme='dark'] {
   color: #dfdfdf;
   background-color: #1e1e1e;
-  & a {
+  /* & a {
     color: #ff9292;
-  }
+  } */
   & header {
     box-shadow: 0 4px 10px 0 #0000002d, 0 3px 15px 0 #00000030;
   }

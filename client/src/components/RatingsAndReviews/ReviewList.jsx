@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, {useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Review from './Review.jsx';
 import {
   StyledButton, ModalWrapper, Modal, ModalContent,
@@ -7,29 +8,33 @@ import {
 import ThemeContext from '../ThemeContext.jsx';
 
 function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
-  const [reviewsToRender, setReviewsToRender] = React.useState([]);
-  const [displayModal, setDisplayModal] = React.useState(false);
-  const [hiddenReviews, setHiddenReviews] = React.useState(0);
-  const [displayedReviews, setDisplayedReviews] = React.useState(2);
+  const [reviewsToRender, setReviewsToRender] = useState([]);
+  const [hiddenReviews, setHiddenReviews] = useState(0);
+  const [displayedReviews, setDisplayedReviews] = useState(2);
+  const [displayButton, setDisplayButton] = useState(true);
+  const [displayedImage, setDisplayedImage] = useState('');
   const { theme } = useContext(ThemeContext);
-  React.useEffect(() => setReviewsToRender(reviews), [reviews]);
+
+  useEffect(() => setReviewsToRender(reviews), [reviews]);
   // eslint-disable-next-line func-names
   const handleClick = function () {
-    if (displayedReviews === 4) {
-      setDisplayModal(true);
+    if (displayedReviews === 4 && hiddenReviews > 1) {
+      setDisplayButton(false);
+      setDisplayedReviews(reviews.length);
     } else {
       setDisplayedReviews((prev) => prev + 2);
     }
   };
-  React.useEffect(() => {
-    if (displayModal) {
+
+  useEffect(() => {
+    if (displayedImage) {
       document.body.classList.add('overflow-y-hidden');
     } else {
       document.body.classList.remove('overflow-y-hidden');
     }
-  }, [displayModal]);
+  }, [displayedImage]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // eslint-disable-next-line react/prop-types
     if (filters.length === 0) {
       setReviewsToRender(reviews);
@@ -38,16 +43,17 @@ function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
     }
   }, [filters, reviews]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setHiddenReviews(reviewsToRender.length - displayedReviews);
   }, [reviewsToRender]);
 
+  const handleThumbnailClick = (photoUrl) => {
+    setDisplayedImage(photoUrl);
+  };
+
   return (
-    <div
-      style={{ 'paddingTop': '20px' }}
-      data-testid="reviewList-component"
-    >
-      <div style={{ 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'space-between' }}>
+    <Component data-testid="reviewList-component">
+      <Menu>
         <label htmlFor="dropdown">
           {'Sort By: '}
           <select id="dropdown" onChange={(e) => changeSortMethod(e.target.value)}>
@@ -61,19 +67,25 @@ function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
           <span>{'Filters: '}</span>
           {filters && filters.map((filter) => (<span key={filter}><strong>{`${filter} stars `}</strong></span>))}
         </div>
-      </div>
-      <div style={{ 'paddingTop': '20px' }}>
-        {
+      </Menu>
 
+      <List>
+        {
         reviewsToRender.length
           ? reviewsToRender.slice(0, displayedReviews)
-            .map((review) => <Review key={review.review_id} review={review} />)
+            .map((review) => (
+              <Review
+                key={review.review_id}
+                review={review}
+                handleThumbnailClick={handleThumbnailClick}
+              />
+            ))
           : <h1>Be the first to write a review!</h1>
         }
-      </div>
+      </List>
 
-      <div style={{ 'display': 'flex', 'justifyContent': 'center' }}>
-        { hiddenReviews > 0 && (
+      <ButtonContainer>
+        { displayButton && (
         <StyledButton
           $theme={theme}
           data-testid="reviewList-button"
@@ -83,28 +95,44 @@ function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
           Show More Reviews
         </StyledButton>
         )}
-      </div>
-      <ModalWrapper $displaymodal={displayModal}>
-        <Modal $displaymodal={displayModal} $theme={theme}>
-          <h1 data-testid="reviewList-modal">Reviews</h1>
-          <ModalContent $displaymodal={displayModal} $theme={theme}>
-            {
-            reviewsToRender.length
-            && reviewsToRender.map((review) => <Review key={review.review_id} review={review} />)
-            }
-          </ModalContent>
+      </ButtonContainer>
+
+      { displayedImage && (
+      <ModalWrapper $displaymodal={true}>
+        <Modal $theme={theme} $displaymodal={true}>
+          <img style={{'maxHeight': '500px', 'marginBottom': '20px'}} src={displayedImage} />
           <StyledButton
+            $theme={theme}
             style={{ 'width': '150px' }}
             type="button"
-            onClick={() => setDisplayModal(false)}
+            onClick={() => setDisplayedImage(false)}
           >
             Close
           </StyledButton>
         </Modal>
       </ModalWrapper>
-    </div>
+      )}
+    </Component>
   );
 }
+
+const Component = styled.div`
+  padding-top: 20px;`;
+
+const List = styled(Component)`
+  max-height: 900px;
+  overflow-y: scroll;`;
+
+const Menu = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid gray`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;`;
 
 ReviewList.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.shape({

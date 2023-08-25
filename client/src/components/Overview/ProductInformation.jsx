@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
@@ -82,10 +83,10 @@ function ProductInformation({
             <span>
               Read All
               {' '}
-              <a href="#ratingsComponent">
+              <StyledATag $theme={theme} href="#ratingsComponent">
                 {' '}
                 {calculateTotal(reviewData.recommended)}
-              </a>
+              </StyledATag>
               {' '}
               Reviews
             </span>
@@ -150,5 +151,11 @@ function ProductInformation({
     </OverviewContainer.Half>
   );
 }
+
+const StyledATag = styled.a`
+  color: ${({ $theme }) => ($theme === 'light' ? 'blue' : 'yellow')};
+  &:hover {
+    text-decoration: none;
+  }`;
 
 export default ProductInformation;

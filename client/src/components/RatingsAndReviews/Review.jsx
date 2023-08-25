@@ -1,16 +1,18 @@
 /* eslint-disable camelcase */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import useHelpfulYes from '../../../utils/useHelpfulYes.jsx';
 import useReport from '../../../utils/useReport.jsx';
-import { StarView } from '../../styled-components/common-elements.jsx';
 import { reFormatDate } from '../../../utils/reFormatDate.js';
 import HelpfulYesButton from '../../../utils/HelpfulYesButton.jsx';
 import ReportButton from '../../../utils/ReportButton.jsx';
+import { StarView } from '../../styled-components/common-elements.jsx';
 
-function Review({ review }) {
+function Review({ review, handleThumbnailClick }) {
   const registerHelpfulClick = useHelpfulYes();
   const registerReportClick = useReport();
+
   const {
     reported,
     response,
@@ -24,63 +26,88 @@ function Review({ review }) {
     reviewer_name,
     summary,
   } = review;
-  // console.log(photos)
+
+  // closing modal will set phototodisplay back to empty string
   return (
-    <div
-      data-testid="review-component"
-      style={
-      {
-        'display': 'flex',
-        'justifyContent': 'space-between',
-        'borderTop': '1px solid grey',
-        'minHeight': '200px',
-        'alignItems': 'center',
-      }
-    }
-    >
-      <div
-        className="first-column"
-        style={{ 'borderRight': '1px solid grey', 'paddingRight': '20px', 'width': '15%' }}
-      >
-        <p>{reviewer_name}</p>
-        <p><i>{recommend ? 'recommended' : 'not recommended'}</i></p>
+    <Component data-testid="review-component">
+      <LeftColumn>
+        <p>{`Name: ${reviewer_name}`}</p>
+        <p><i>{recommend ? 'recommended' : ''}</i></p>
         <ReportButton
           initialReported={reported}
           onReportClick={() => registerReportClick('review', review_id)}
         />
-      </div>
-      <div className="second-column" style={{ 'width': '50%' }}>
-        <div style={{ 'display': 'flex', 'justifyContent': 'center' }}>
+      </LeftColumn>
+
+      <MiddleColumn>
+        <ReviewHeader>
           <StarView rating={rating} fontSize={20} />
           :
-          <div style={{ 'paddingLeft': '10px', 'fontSize': '16px', 'wordBreak': 'break-word' }}>
+          <Summary>
             <strong>{summary}</strong>
-          </div>
-        </div>
+          </Summary>
+        </ReviewHeader>
         <div style={{ 'wordBreak': 'break-word' }}>
           <p>
             {body}
           </p>
         </div>
         {response && <p style={{ 'color': 'red' }}><strong>{response}</strong></p>}
-      </div>
-      <div
-        className="third-column"
-        style={{ 'borderLeft': '1px solid grey', 'paddingLeft': '20px', 'width': '15%', 'textAlign': 'center' }}
-      >
+      </MiddleColumn>
+
+      <RightColumn>
         {/* eslint-disable-next-line react/no-array-index-key */}
-        {!photos.length ? '' : photos.map((photo, index) => <img key={photo.url + index} style={{'width': '50px'}} src={photo.url} alt="uploaded by reviewer" />)}
+        {!photos.length ? ''
+          : photos.map((photo, index) => (
+            <img
+              key={photo.url + index}
+              style={{ 'width': '50px', 'cursor': 'pointer' }}
+              src={photo.url}
+              alt="uploaded by reviewer"
+              onClick={(e) => handleThumbnailClick(e.target.src)}
+            />
+          ))}
         <p>{reFormatDate(date)}</p>
-        <div style={{'display': 'flex', 'flexDirection': 'column'}}>
+        <div style={{ 'display': 'flex', 'flexDirection': 'column' }}>
           <HelpfulYesButton
             initialCount={helpfulness}
             onHelpfulClick={() => registerHelpfulClick('review', review_id)}
           />
         </div>
-      </div>
-    </div>
+      </RightColumn>
+    </Component>
   );
 }
+
+const Component = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid gray;
+  min-height: 12.5rem;
+  align-items: center`;
+
+const LeftColumn = styled.div`
+  border-right: 1px solid gray;
+  padding-right: 1.25rem;
+  width: 15%;`;
+
+const MiddleColumn = styled.div`
+  width: 50%;`;
+
+const RightColumn = styled.div`
+  border-left: 1px solid gray;
+  padding-left: 1.25rem;
+  width: 15%;
+  text-align: center;`;
+
+const Summary = styled.div`
+  padding-left: .625rem;
+  font-size: 1em;
+  word-break: break-word;`;
+
+const ReviewHeader = styled.div`
+  display: flex;
+  justify-content;`;
 
 Review.propTypes = {
   review: PropTypes.shape({

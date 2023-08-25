@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { InputLabel, TextInput, ImageInput, UrlButton, InputWithButtonContainer, ModalButtonContainer, WarningMessageContainer, CustomChooseFileInput, CustomFileInputLabel } from '../styled-components/Modal.styles.jsx';
+import { InputLabel, TextInput, ImageInput, UrlButton, InputWithButtonContainer, ModalButtonContainer, WarningMessageContainer, CustomChooseFileInput, CustomFileInputLabel, LargerTextarea, HighlightedH4 } from '../styled-components/Modal.styles.jsx';
 import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
 import { ThumbnailImg, AnswerFormContainer } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 import ImageModal from './ImageModal.jsx';
@@ -85,22 +85,26 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
     <AnswerFormContainer $theme={theme}>
       {errorMessage && <WarningMessageContainer>{errorMessage}</WarningMessageContainer>}
       <h2>Submit your Answer</h2>
-      <h4>
+      <HighlightedH4>
         {' '}
         {productName}
         :
         {' '}
         {questionBody}
-      </h4>
+      </HighlightedH4>
       <InputLabel>
         Your Answer (mandatory)
-        <TextInput
+        <LargerTextarea
           type="text"
           value={body}
           onChange={(e) => setBody(e.target.value)}
           maxLength={1000}
           placeholder="Please add a written answer"
         />
+        <span>
+          {body.length}
+          /1000 characters used
+        </span>
       </InputLabel>
       <InputLabel>
         What is your nickname (mandatory)
@@ -111,9 +115,13 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
           maxLength={60}
           placeholder="Example: jackson11!"
         />
-        <div>For privacy reasons, do not use your full name or email address</div>
+        <span>
+          {nickname.length}
+          /60 characters used
+        </span>
       </InputLabel>
       <InputLabel>
+        <div>For privacy reasons, do not use your full name or email address</div>
         Your email (mandatory)
         <TextInput
           type="email"
@@ -122,9 +130,13 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
           maxLength={60}
           placeholder="Example: jackson11@email.com"
         />
-        <div>For authentication reasons, you will not be emailed</div>
+        <span>
+          {email.length}
+          /60 characters used
+        </span>
       </InputLabel>
       <InputLabel>
+        <div>For authentication reasons, you will not be emailed</div>
         Add image url
         <InputWithButtonContainer>
           <ImageInput
