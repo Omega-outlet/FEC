@@ -1,10 +1,9 @@
-import axios from 'axios';
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 
+// display style thumbnail and check if this entry is the selected style
 function styleEntry({
-  style, selectedStyle, setSelectedStyle,
-  selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName, setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto
+  style, setSelectedStyle, selectedStyleName,
 }) {
   return (
 

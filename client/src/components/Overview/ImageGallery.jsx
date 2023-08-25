@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Promise from 'bluebird';
+import React from 'react';
 import OverviewContainer from '../../styled-components/overviewcomponents/overview-components.jsx';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 import DefaultView from './DefaultView.jsx';
@@ -13,6 +12,8 @@ function ImageGallery({
   setDisplayModal,
   expandedMainImage,
   setExpandedMainImage,
+  setOpenQuantity,
+  setOpenSize,
 }) {
   return (
     <OverviewContainer.Half>
@@ -25,15 +26,17 @@ function ImageGallery({
           setDisplayModal={setDisplayModal}
           expandedMainImage={expandedMainImage}
           setExpandedMainImage={setExpandedMainImage}
+          setOpenQuantity={setOpenQuantity}
+          setOpenSize={setOpenSize}
         />
-        { !displayModal && <DefaultThumbnails
+        <DefaultThumbnails
           selectedStyle={selectedStyle}
-          mainImage={mainImage}
           setMainImage={setMainImage}
-          displayModal={displayModal}
           expandedMainImage={expandedMainImage}
           setExpandedMainImage={setExpandedMainImage}
-        />}
+          setOpenQuantity={setOpenQuantity}
+          setOpenSize={setOpenSize}
+        />
       </ImageGalleryComponents.DefaultContainer>
     </OverviewContainer.Half>
   );

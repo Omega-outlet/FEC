@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 
+// displays the image icons of the selected style
 function ExpandedThumbnail({
   photoObj,
   selectedStyle,
   focalItem,
-  setFocalItem,
   selectedStyleArray,
   index,
-  displayModal,
-  mainImage,
-  setMainImage,
   handleImageClick,
-  expandedMainImage,
-  setExpandedMainImage,
 }) {
   let altName = '';
   altName += `${selectedStyle.name} ${index}`;

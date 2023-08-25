@@ -12,21 +12,14 @@ import ThemeContext from '../ThemeContext.jsx';
 import Features from './Features.jsx';
 
 function ProductInformation({
-  currentProduct, currentProductID, styles, selectedStyle,
+  currentProduct, styles, selectedStyle,
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
-  setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto, mainImage, setMainImage, reviewData,
+  setSelectedStyleName, setSelectedStylePhoto, mainImage, reviewData,
+  openQuantity, setOpenQuantity, openSize, setOpenSize,
 }) {
-
-  const [selectedIsLoading, setSelectedIsLoading] = useState(true);
   const { theme } = useContext(ThemeContext);
   const [features, setFeatures] = useState([]);
-  // finish for style to load
-  const loadStyles = () => {
-    setSelectedIsLoading(true);
-    setSelectedIsLoading(false);
-  };
-  useEffect(loadStyles, [currentProduct, selectedStyle]);
 
   useEffect(() => {
     axios.get('/api/product/features', {
@@ -42,7 +35,7 @@ function ProductInformation({
   }, [currentProduct]);
 
   const currentURL = window.location.href;
-  const message = `This%20${currentProduct.name}%20from%20Omega%20Mart%20is%20amazing!`;
+  const message = `This%20${currentProduct.name}%20from%20Omega%20Outlet%20is%20amazing!`;
   // hard coded image URL for now
   let imageURL = '';
   if (mainImage) {
@@ -100,11 +93,12 @@ function ProductInformation({
           ) : null}
         </ProductInformationComponents.Ratings>
         <ProductInformationComponents.Category>
-          <em>Category: </em>{ currentProduct.category }
+          <em>Category: </em>
+          { currentProduct.category }
         </ProductInformationComponents.Category>
         <em>{currentProduct.slogan}</em>
         <ProductInformationComponents.Description>
-        <br/>
+          <br />
           { currentProduct.description }
         </ProductInformationComponents.Description>
         <ProductInformationComponents.Share>
@@ -133,21 +127,24 @@ function ProductInformation({
             stylesArray={styles.results}
             selectedStyle={selectedStyle}
             setSelectedStyle={setSelectedStyle}
-            selectedStylePrice={selectedStylePrice}
             setSelectedStylePrice={setSelectedStylePrice}
-            selectedStyleSalePrice={selectedStyleSalePrice}
             setSelectedStyleSalePrice={setSelectedStyleSalePrice}
             selectedStyleName={selectedStyleName}
             setSelectedStyleName={setSelectedStyleName}
-            selectedStylePhoto={selectedStylePhoto}
             setSelectedStylePhoto={setSelectedStylePhoto}
           />
         </ProductInformationComponents.StyleSelectorContainer>
         <div>
-          <AddToCart selectedStyle={selectedStyle} />
+          <AddToCart
+            selectedStyle={selectedStyle}
+            openQuantity={openQuantity}
+            setOpenQuantity={setOpenQuantity}
+            openSize={openSize}
+            setOpenSize={setOpenSize}
+          />
         </div>
         <div>
-          <br/>
+          <br />
           <Features features={features.length > 0 ? features : [{ 'feature': 'Fit', 'value': 'One size fits all' }]} />
         </div>
       </div>
@@ -160,46 +157,5 @@ const StyledATag = styled.a`
   &:hover {
     text-decoration: none;
   }`;
-
-ProductInformation.propTypes = {
-  currentProduct: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    slogan: PropTypes.string,
-    description: PropTypes.string,
-    category: PropTypes.string,
-    default_price: PropTypes.string,
-  }),
-  currentProductID: PropTypes.number,
-  styles: PropTypes.shape({
-    product_id: PropTypes.string,
-    results: PropTypes.arrayOf(
-      PropTypes.shape({
-        'style_id': PropTypes.number,
-        'name': PropTypes.string,
-        'original_price': PropTypes.string,
-        'sale_price': PropTypes.string,
-        'default?': PropTypes.bool,
-      }),
-    ),
-    skus: PropTypes.shape(PropTypes.shape({
-      'quantity': PropTypes.number,
-      'size': PropTypes.string,
-    })),
-  }),
-};
-
-ProductInformation.defaultProps = {
-  currentProduct: {
-    id: '',
-    name: '',
-    slogan: '',
-    description: '',
-    category: '',
-    default_price: '',
-  },
-  currentProductID: '',
-  styles: {},
-};
 
 export default ProductInformation;

@@ -2,30 +2,15 @@
  * @jest-environment jsdom
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  render, screen, waitFor, fireEvent, cleanup, act,
+  render, screen, waitFor, fireEvent,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ProductInformation from './ProductInformation.jsx';
 import StyleEntry from './StyleEntry.jsx';
 import Overview from './Overview.jsx';
 import AddToCart from './AddToCart.jsx';
-
-// afterEach(cleanup);
-
-// setCurrentProduct(     {
-//   "id": 40348,
-//   "campus": "hr-rfp",
-//   "name": "Heir Force Ones",
-//   "slogan": "A sneaker dynasty",
-//   "description": "Now where da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
-//   "category": "Kicks",
-//   "default_price": "99.00",
-//   "created_at": "2021-08-13T14:38:44.509Z",
-//   "updated_at": "2021-08-13T14:38:44.509Z"
-// });
-// setCurrentProductID(40348);
 
 // 2 products in products array
 const products = [

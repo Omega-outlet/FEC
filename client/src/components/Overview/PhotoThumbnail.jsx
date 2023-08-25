@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 
+// render photo as a current thumbnail if it is the focalItem, else render as regular thumbnail
 function PhotoThumbnail({
   photoObj,
   selectedStyle,

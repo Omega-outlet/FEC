@@ -1,8 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Promise from 'bluebird';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 
-function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal }) {
+// default view for image gallery
+function DefaultView({
+  selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal,
+  setOpenQuantity, setOpenSize
+}) {
   const [isLoading, setIsLoading] = useState(true);
 
   const loadStyle = () => {
@@ -30,8 +34,10 @@ function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, set
 
   useEffect(loadStyle, [selectedStyle]);
 
-  const handleExpandedClick = function (e) {
+  const handleExpandedClick = () => {
     setDisplayModal(true);
+    setOpenQuantity(false);
+    setOpenSize(false);
   };
 
   React.useEffect(() => {
@@ -49,7 +55,7 @@ function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, set
           <ImageGalleryComponents.MainPhoto
             src={mainImage}
             alt={selectedStyle?.name}
-            onClick={(e) => handleExpandedClick(e)}
+            onClick={() => handleExpandedClick()}
           />
         )}
     </>
