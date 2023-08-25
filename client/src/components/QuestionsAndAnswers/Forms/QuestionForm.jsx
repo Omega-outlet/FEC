@@ -54,7 +54,7 @@ function QuestionForm({ productName, onSubmit, onCancel }) {
         />
         <span>
           {nickname.length}
-          /1000 characters used
+          /60 characters used
         </span>
       </InputLabel>
       <InputLabel>
@@ -69,13 +69,13 @@ function QuestionForm({ productName, onSubmit, onCancel }) {
         />
         <span>
           {email.length}
-          /1000 characters used
+          /60 characters used
         </span>
       </InputLabel>
       <div>For authentication reasons, you will not be emailed</div>
       <ModalButtonContainer>
-        <RoundedPulseButton type="button" onClick={handleSubmit}>SUBMIT QUESTION</RoundedPulseButton>
-        <RoundedPulseButton type="button" onClick={onCancel}>CANCEL</RoundedPulseButton>
+        <RoundedPulseButton type="button" onClick={handleSubmit}>Submit Question</RoundedPulseButton>
+        <RoundedPulseButton type="button" onClick={onCancel}>Cancel</RoundedPulseButton>
       </ModalButtonContainer>
     </div>
   );
