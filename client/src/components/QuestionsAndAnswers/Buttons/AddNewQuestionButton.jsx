@@ -35,7 +35,7 @@ function AddNewQuestionButton({ productName, onHandleAddQuestion }) {
   return (
     <div>
       <StyledButton type="button" onClick={handleOpenModal} $theme={theme}>
-        ADD A QUESTION
+        Add A Question
       </StyledButton>
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <QuestionForm

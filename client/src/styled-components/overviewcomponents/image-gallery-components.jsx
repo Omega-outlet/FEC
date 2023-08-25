@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 
 const MainPhoto = styled.img`
-  // display: block;
   width:700px;
   height:800px;
   object-fit: cover;
   cursor: zoom-in;
 `;
 const DefaultContainer = styled.div`
-// width: 100px;
-// height: 100px;
 position: relative;
 // min-height:700px;
 display: flex;
@@ -31,17 +28,14 @@ z-index: 997;
 `;
 
 const DefaultThumbnail = styled.img`
-// display: block;
 width:90px;
 height:100px;
 object-fit: cover;
-// padding: 2px;
 opacity: 0.5;
 z-index: 997;
 `;
 
 const CurrentThumbnail = styled.img`
-// display: block;
 width:90px;
 height:100px;
 object-fit: cover;
@@ -83,28 +77,20 @@ const ModalWrapper = styled.div`
 `;
 
 const Modal = styled.div`
-  // display: ${({ $displaymodal }) => ($displaymodal ? 'flex' : 'none')};
-  // flex-direction: column;
-  // justify-content: space-between;
   align-items: center;
-  // background-color: #fefefe;
   padding: 20px;
-  // border: 1px solid #888;
   width: 80%;
   height: 85%;
   `;
 
 const ExpandedThumbnail = styled.img`
-// display: block;
 width:70px;
 height:70px;
 object-fit: cover;
 opacity: 0.7;
-// padding: 2px;
 `;
 
 const CurExpandedThumbnail = styled.img`
-// display: block;
 width:70px;
 height:70px;
 object-fit: cover;
@@ -142,15 +128,6 @@ top:10px;
 right: 10px;
 `;
 
-// clear floats after the columns
-const ExpandedNormal = styled.div`
-&:after {
-  // content: "";
-  // display: table;
-  // clear: both;
-}
-`;
-
 export default {
   MainPhoto,
   DefaultContainer,
@@ -166,6 +143,4 @@ export default {
   Icons,
   ExpandedImageContainer,
   ExitExpanded,
-  ExpandedNormal,
-  // ZoomedArea,
 };

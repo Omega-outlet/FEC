@@ -3,9 +3,6 @@ import Promise from 'bluebird';
 import ExpandedThumbnail from './ExpandedThumbnail.jsx';
 import ExpandedZoom from './ExpandedZoom.jsx';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
-import {
-  StyledButton, ModalWrapper, Modal, ModalContent,
-} from '../../styled-components/common-elements.jsx';
 import { CloseButton } from '../QuestionsAndAnswers/styled-components/Modal.styles.jsx';
 import ScrollButton from './DefaultScrollButton.jsx';
 import DummyButton from './DummyScrollButton.jsx';
@@ -13,7 +10,6 @@ import DummyButton from './DummyScrollButton.jsx';
 function ExpandedView({
   selectedStyle, displayModal, setDisplayModal, expandedMainImage, setExpandedMainImage,
 }) {
-  const [isLoading, setIsLoading] = useState(true);
   const [thumbnails, setThumbnails] = useState([]);
   const [focalItem, setFocalItem] = useState(0);
   const [siteWidth, setSiteWidth] = useState(0);
@@ -74,7 +70,7 @@ function ExpandedView({
     setExpandedMainImage(thumbnails[focalItem + 1].url);
   };
 
-  const handleMouseEnter = (e) => {
+  const handleMouseEnter = () => {
     if (displayZoomed) {
       setShowMagnify(true);
     }
@@ -92,20 +88,16 @@ function ExpandedView({
     <div>
       <ImageGalleryComponents.ModalWrapper $displaymodal={displayModal}>
         <ImageGalleryComponents.Modal $displaymodal={displayModal}>
-          <ImageGalleryComponents.ExpandedNormal>
+          <div>
             <ImageGalleryComponents.Icons>
               {thumbnails && displayZoomed === false ? thumbnails.map((photoObj, index) => (
                 <ExpandedThumbnail
                   photoObj={photoObj}
                   focalItem={focalItem}
-                  setFocalItem={setFocalItem}
                   selectedStyleArray={thumbnails}
                   selectedStyle={selectedStyle}
                   key={index}
                   index={index}
-                  displayModal={displayModal}
-                  expandedMainImage={expandedMainImage}
-                  setExpandedMainImage={setExpandedMainImage}
                   handleImageClick={handleImageClick}
                 />
               )) : null}
@@ -114,6 +106,7 @@ function ExpandedView({
 
             <ImageGalleryComponents.ExpandedImageContainer>
               {focalItem > 0 && !displayZoomed && <ScrollButton scroll={scrollLeft} dir="left" /> }
+              {focalItem > 0 && displayZoomed && <DummyButton />}
               {focalItem === 0 && <DummyButton />}
               <ImageGalleryComponents.ExpandedMainPhoto
                 $displayZoomed={displayZoomed}
@@ -129,7 +122,8 @@ function ExpandedView({
                 onMouseMove={(e) => { cursorPos(e); }}
               />
               {focalItem < thumbnails.length - 1 && !displayZoomed && <ScrollButton scroll={scrollRight} dir="right" />}
-              {focalItem >= thumbnails.length - 1 && !displayZoomed && <DummyButton />}
+              {focalItem < thumbnails.length - 1 && displayZoomed && <DummyButton />}
+              {focalItem >= thumbnails.length - 1 && <DummyButton />}
             </ImageGalleryComponents.ExpandedImageContainer>
             <ImageGalleryComponents.ExitExpanded>
               <CloseButton
@@ -137,14 +131,14 @@ function ExpandedView({
                 onClick={() => {
                   setDisplayModal(false);
                   setDisplayZoomed(false);
-                  showMagnify(false);
+                  setShowMagnify(false);
                 }}
               >
                 X
               </CloseButton>
 
             </ImageGalleryComponents.ExitExpanded>
-          </ImageGalleryComponents.ExpandedNormal>
+          </div>
           <ExpandedZoom
             expandedMainImage={expandedMainImage}
             siteWidth={siteWidth}

@@ -1,4 +1,5 @@
-import { React, useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import styled from 'styled-components';
 import propTypes from 'prop-types';
 import descriptionArr from './descriptionArr.js';
 import ThemeContext from '../ThemeContext.jsx';
@@ -10,35 +11,58 @@ function CharacteristicsGraph({ metaData }) {
 
   return (
     <div>
-      <h5 data-testid="char-graph-component" style={{'marginTop': '0', 'textAlign': 'center'}}>Characteristics</h5>
-      <div style={{'marginTop': '10px'}}>
+      <Title data-testid="char-graph-component">Characteristics</Title>
+      <Container>
         {characteristics.length && characteristics.map((char) => (
-          <div key={char} style={{'marginTop': '10px'}}>
+          <BarGraphContainer key={char}>
             <div className="descriptions">
-              {descriptionArr.filter((descObj) => (descObj.attribute === char.toLowerCase()))[0].descArr.filter((desc, index) => !(index % 2)).map((feedback) => <span key={feedback} style={{ 'fontSize': '10px', 'width': '33.3%' }}>{feedback}</span>)}
+              {descriptionArr
+                .filter((descObj) => (descObj.attribute === char.toLowerCase()))[0]
+                .descArr.filter((desc, index) => !(index % 2))
+                .map((feedback) => <Description key={feedback}>{feedback}</Description>)}
             </div>
-            <div className="bar" style={{ 'display': 'flex', 'alignItems': 'center' }}>
-              <span style={{ 'width': '100px', 'fontSize': '15px' }}>{char}</span>
-              <div style={{
-                'height': '1px',
-                'width': `${100 - ((metaData[char]?.value - 1) / 5) * 100}%`,
-                'background': `${theme === 'light' ? 'black' : 'white'}`,
-              }}
-              />
-              <span>x</span>
-              <div style={{
-                'height': '1px',
-                'width': `${((metaData[char]?.value - 1) / 5) * 100}%`,
-                'background': `${theme === 'light' ? 'black' : 'white'}`,
-              }}
-              />
-            </div>
-          </div>
+            <BarGraph>
+              <Characteristic>{char}</Characteristic>
+              <LeftBar $theme={theme} $metaData={metaData} $char={char} />
+              <span>X</span>
+              <RightBar $theme={theme} $metaData={metaData} $char={char} />
+            </BarGraph>
+          </BarGraphContainer>
         ))}
-      </div>
+      </Container>
     </div>
   );
 }
+
+const Title = styled.h5`
+  margin-top: 0;
+  text-align: center`;
+
+const Container = styled.div`
+  margin-top: 0.625rem;`;
+
+const Description = styled.span`
+  font-size: 0.625em;
+  width: 33%;`;
+
+const BarGraphContainer = styled.div`
+  margin-top: 0.325rem`;
+
+const BarGraph = styled.div`
+  display: flex;
+  align-items: center;`;
+
+const Characteristic = styled.span`
+  width: 6.25rem;
+  font-size: 0.938em;`;
+
+const LeftBar = styled.div`
+  height: 1px;
+  width: ${({ $metaData, $char }) => (100 - (($metaData[$char]?.value - 1) / 5) * 100)}%;
+  background: ${({ $theme }) => ($theme === 'light' ? '#303030' : 'white')};`;
+
+const RightBar = styled(LeftBar)`
+  width: ${({ $metaData, $char }) => ((($metaData[$char]?.value - 1) / 5) * 100)}%;`;
 
 CharacteristicsGraph.propTypes = {
   // eslint-disable-next-line react/require-default-props

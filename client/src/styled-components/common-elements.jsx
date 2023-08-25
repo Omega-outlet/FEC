@@ -75,6 +75,7 @@ const ModalContent = styled.div`
   display: ${({ $displaymodal }) => ($displaymodal ? 'block' : 'none')};
   background-color: ${({ $theme }) => ($theme === 'light' ? 'white' : '#303030')};
   padding: 20px;
+  margin: 20px 0;
   border: 1px solid #888;
   width: 90%;
   max-height: calc(80vh - 20vh);

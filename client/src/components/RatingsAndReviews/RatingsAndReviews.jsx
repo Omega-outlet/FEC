@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import styled from 'styled-components';
 import {
-  StarView, StyledButton, ModalWrapper, Modal, ModalContent
+  StarView, StyledButton, ModalWrapper, Modal, ModalContent,
 } from '../../styled-components/common-elements.jsx';
 import RatingsGraph from './RatingsGraph.jsx';
 import ReviewList from './ReviewList.jsx';
@@ -10,15 +11,16 @@ import NewReview from './NewReview.jsx';
 import { calculateAverage, calculateTotal, calculatePercentage } from './arithmetic.js';
 import CharacteristicsGraph from './CharacteristicsGraph.jsx';
 import ThemeContext from '../ThemeContext.jsx';
-function RatingsAndReviews({ currentProductID, metaData }) {
-  const [reviews, setReviews] = React.useState([]);
-  const [showForm, setShowForm] = React.useState(false);
-  const [filters, setFilters] = React.useState([]);
-  const [submitMessage, setSubmitMessage] = React.useState(false);
-  const [sortBy, setSortBy] = React.useState('relevant');
-  const { theme } = React.useContext(ThemeContext);
 
-  React.useEffect(() => {
+function RatingsAndReviews({ currentProductID, metaData }) {
+  const [reviews, setReviews] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [filters, setFilters] = useState([]);
+  const [submitMessage, setSubmitMessage] = useState(false);
+  const [sortBy, setSortBy] = useState('relevant');
+  const { theme } = useContext(ThemeContext);
+
+  useEffect(() => {
     axios.get('/reviews', {
       params: {
         product_id: currentProductID,
@@ -62,39 +64,30 @@ function RatingsAndReviews({ currentProductID, metaData }) {
   };
 
   return (
-    <div className="ratingsComponent" id="ratingsComponent" style={{ 'padding': '40px 0' }} data-testid="testing">
+    <Component className="ratingsComponent" id="ratingsComponent" data-testid="testing">
       <h2 data-testid="title">Reviews</h2>
-      <div style={
-        {
-          'display': 'flex',
-          'justifyContent': 'space-between',
-          'alignItems': 'center',
-          'borderBottom': '1px solid grey',
-          'height': '250px',
-        }
-      }
-      >
+      <Container>
         {metaData && (
-        <div style={{ 'width': '33%' }}>
+        <LeftColumn>
           <div>
-            <div style={{ 'display': 'flex', 'alignItems': 'flex-start' }}>
-              <span style={{ 'fontSize': '25px', 'paddingRight': '10px' }}>{`${calculateAverage(metaData.ratings)} `}</span>
+            <RatingContainer>
+              <Rating>{`${calculateAverage(metaData.ratings)} `}</Rating>
               <StarView rating={calculateAverage(metaData.ratings)} fontSize={20} />
-            </div>
-            <h3 style={{ 'marginTop': '0', 'fontWeight': 'lighter' }}>
+            </RatingContainer>
+            <NumOfReviews>
               <i>{`Based on ${calculateTotal(metaData.recommended)} reviews`}</i>
-            </h3>
+            </NumOfReviews>
             <RatingsGraph metaData={metaData.ratings} changeFilter={changeFilter} />
-            <h5>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</h5>
+            <Recommended>{`${calculatePercentage(metaData.recommended, 'true')}% of users recommend this product`}</Recommended>
           </div>
-        </div>
+        </LeftColumn>
         )}
         {metaData.characteristics && (
-          <div style={{ 'width': '33%', 'marginTop': '-25px' }}>
+          <MiddleColumn>
             <CharacteristicsGraph metaData={metaData.characteristics} />
-          </div>
+          </MiddleColumn>
         )}
-        <div style={{ 'width': '33%', 'display': 'flex', 'justifyContent': 'flex-end' }}>
+        <RightColumn>
           <StyledButton
             $theme={theme}
             onClick={() => setShowForm((prev) => !prev)}
@@ -105,8 +98,8 @@ function RatingsAndReviews({ currentProductID, metaData }) {
             Write Review
           </StyledButton>
 
-        </div>
-      </div>
+        </RightColumn>
+      </Container>
       {showForm
         &&
       (
@@ -121,7 +114,14 @@ function RatingsAndReviews({ currentProductID, metaData }) {
                 characteristics={metaData.characteristics}
               />
             </ModalContent>
-            <StyledButton $theme={theme} data-testid="closeModal" type="button" onClick={() => setShowForm((prev) => !prev)}>Close</StyledButton>
+            <StyledButton
+              $theme={theme}
+              data-testid="closeModal"
+              type="button"
+              onClick={() => setShowForm((prev) => !prev)}
+            >
+              Close
+            </StyledButton>
           </Modal>
         </ModalWrapper>
       )}
@@ -133,14 +133,51 @@ function RatingsAndReviews({ currentProductID, metaData }) {
         submitMessage={submitMessage}
         changeSortMethod={changeSortMethod}
       />
-    </div>
+    </Component>
   );
 }
+
+const Component = styled.div`
+  padding: 2.5rem 0;`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gray;
+  height: 15.625rem;`;
+
+const LeftColumn = styled.div`
+  width: 33%;`;
+
+const MiddleColumn = styled.div`
+  width: 33%;
+  margin-top: -1.563em;`;
+
+const RightColumn = styled.div`
+  width: 33%;
+  display: flex;
+  justify-content: flex-end;`;
+
+const RatingContainer = styled.div`
+  display: flex;
+  align-items: flex-start`;
+
+const Rating = styled.span`
+  font-size: 1.563em;
+  padding-right: 0.625rem;`;
+
+const NumOfReviews = styled.h3`
+  margin-top: 0;
+  font-weight: lighter`;
+
+const Recommended = styled.h5`
+  margin-top: 5px;`;
 
 RatingsAndReviews.propTypes = {
   currentProductID: PropTypes.number.isRequired,
   // eslint-disable-next-line react/require-default-props
-  metaData: PropTypes.oneOfType([ PropTypes.shape({
+  metaData: PropTypes.oneOfType([PropTypes.shape({
     characteristics: PropTypes.shape({
       Fit: PropTypes.shape({}),
       Length: PropTypes.shape({}),

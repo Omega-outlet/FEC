@@ -9,7 +9,7 @@ function LoadMoreQuestionsButton({ onClick, hasMoreQuestions }) {
   if (!hasMoreQuestions) return null;
 
   return (
-    <StyledButton type="button" onClick={onClick} $theme={theme}>MORE ANSWERED QUESTIONS</StyledButton>
+    <StyledButton type="button" onClick={onClick} $theme={theme}>More Answered Questions</StyledButton>
   );
 }
 

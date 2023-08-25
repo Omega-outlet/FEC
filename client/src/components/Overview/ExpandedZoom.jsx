@@ -1,10 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Promise from 'bluebird';
-import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
-import {
-  StyledButton, ModalWrapper, Modal, ModalContent,
-} from '../../styled-components/common-elements.jsx';
+import React from 'react';
 
+// displays a a magnified portion of the image in 2.5 zoom
 function ExpandedZoom({
   expandedMainImage, siteWidth, siteHeight, showMagnify, coordinates,
 }) {
@@ -13,24 +9,13 @@ function ExpandedZoom({
   const zoomHeight = 300;
 
   return (
-  // tried passing parameters to styled components but it isn't working. Using CSS for now
-  // <ImageGalleryComponents.ZoomedArea
-  //   $showMagnify={showMagnify}
-  //   $zoomStrength={zoomStrength}
-  //   $zoomWidth={zoomWidth}
-  //   $zoomHeight={zoomHeight}
-  //   $siteWidth={siteWidth}
-  //   $siteHeight={siteHeight}
-  //   $coordinatesX={coordinates[0]}
-  //   $coordinatesY={coordinates[1]}
-  //   $expandedMainImage={expandedMainImage}
-  // />
+
     <div style={{
       display: showMagnify ? '' : 'none',
-      position: 'absolute',
+      position: 'relative',
       pointerEvents: 'none',
       // magnifer position
-      top: `${coordinates[1] - zoomHeight / 2.5}px`,
+      top: `${coordinates[1] - zoomHeight / 2}px`,
       left: `${coordinates[0] + zoomWidth / 1.5}px`,
       backgroundImage: `url('${expandedMainImage}')`,
       backgroundRepeat: 'no-repeat',
@@ -42,7 +27,7 @@ function ExpandedZoom({
       // magnifer dimensions
       height: `${zoomHeight}px`,
       width: `${zoomWidth}px`,
-
+      zIndex: 3000,
     }}
     />
 

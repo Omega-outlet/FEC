@@ -25,12 +25,11 @@ const EntryContainer = styled.div`
   text-align: center;
 }
 `;
-/* https://stackoverflow.com/questions/29546550/flexbox-4-items-per-row */
+
 const StyleEntry = styled.div`
   display: inline-block;
   margin:10px 0 0 10px;
   flex-grow: 1;
-  /* height:100px; */
   width: 20%;
 `;
 
@@ -46,13 +45,6 @@ margin: 5px;
 }
 `;
 
-// const ShareButton = styled.div`
-// > * {
-// padding: 10px;
-// margin: 10px;
-// }
-// `;
-
 const Ratings = styled.div`
 position:relative;
 float: right;
@@ -64,7 +56,6 @@ position: absolute
 
 const Menu = styled.ul`
 > li {
-  margin: 0;
   background-color: white;
   color:   ${({ $theme }) => ($theme === 'light' ? '' : 'black')};
 }
@@ -82,7 +73,6 @@ li:hover {
   color: inherit;
   border: none;
   padding: 5px;
-  margin: 0;
   font: inherit;
   cursor: pointer;
 }
@@ -92,6 +82,7 @@ position: absolute;
 list-style-type: none;
 margin: 5px 0;
 padding: 0;
+
 
 border: 1px solid grey;
 width: 150px;
@@ -108,20 +99,22 @@ flex-direction:row;
 `;
 
 const StyledDropdownButton = styled.button`
+width: 75px;
 display: inline-block;
 border: 1px solid gray;
 border-radius: 4px;
-padding: 10px 10px 10px 10px;
+padding: 4px 4px 4px 4px;
 background-color: #ffffff;
 cursor: pointer;
 white-space: nowrap;
 `;
 
 const StyledDropdownButtonDisabled = styled.button`
+width: 75px;
 display: inline-block;
 border: 1px solid gray;
 border-radius: 4px;
-padding: 10px 10px 10px 10px;
+padding: 4px 4px 4px 4px;
 background-color: lightgray;
 cursor: pointer;
 white-space: nowrap;
@@ -163,5 +156,5 @@ export default {
   Description,
   Category,
   Share,
-  StyleName
+  StyleName,
 };

@@ -5,11 +5,11 @@ import PhotoThumbnail from './PhotoThumbnail.jsx';
 import ScrollButton from './DefaultScrollButton.jsx';
 import DummyButton from './DummyScrollButton.jsx';
 
+// displays a scrollable carousel of image thumbnails of the particular style
 function DefaultThumbnails({
-  selectedStyle, mainImage, setMainImage, displayModal,
+  selectedStyle, setMainImage, setOpenQuantity, setOpenSize
 }) {
   const [focalItem, setFocalItem] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
   const [photosArrayLength, setPhotosArrayLength] = useState(0);
   const [selectedStyleArray, setSelectedStyleArray] = useState([]);
   const [sevenStylesArray, setSevenStylesArray] = useState([]);
@@ -74,8 +74,16 @@ function DefaultThumbnails({
 
   useEffect(loadNewMainImage, [selectedStyleArray, focalItem]);
 
-  const scrollLeft = () => setFocalItem(focalItem - 1);
-  const scrollRight = () => setFocalItem(focalItem + 1);
+  const scrollLeft = () => {
+    setFocalItem(focalItem - 1);
+    setOpenQuantity(false);
+    setOpenSize(false);
+  };
+  const scrollRight = () => {
+    setFocalItem(focalItem + 1);
+    setOpenQuantity(false);
+    setOpenSize(false);
+  };
 
   return (
     <ImageGalleryComponents.DefaultThumbnails>
