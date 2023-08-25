@@ -137,7 +137,7 @@ function ExpandedView({
                 onClick={() => {
                   setDisplayModal(false);
                   setDisplayZoomed(false);
-                  showMagnify(false);
+                  setShowMagnify(false);
                 }}
               >
                 X

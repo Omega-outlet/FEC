@@ -111,7 +111,6 @@ function AddToCart({
               setQuantity={setQuantity}
               openSize={openSize}
               setOpenSize={setOpenSize}
-              selectedStyle={selectedStyle}
               SKUValueArray={SKUValueArray}
             />
             <DropdownQuantity

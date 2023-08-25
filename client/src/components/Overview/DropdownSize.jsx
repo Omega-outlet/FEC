@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 import ThemeContext from '../ThemeContext.jsx';
 
-function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUValueArray
+function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUValueArray,
 }) {
   const { theme } = useContext(ThemeContext);
   const dropdownMenuSizeHandler = () => {
@@ -15,12 +15,11 @@ function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUVa
     setQuantity(1);
     setOpenSize(!openSize);
   };
-
   return (
     <div>
       Size:
       {/* size selected */}
-      <br/>
+      <br />
       {size > -1 ? (
         <ProductInformationComponents.Dropdown>
           <ProductInformationComponents.StyledDropdownButton type="button" onClick={() => { dropdownMenuSizeHandler(); }}>{SKUValueArray[size].size}</ProductInformationComponents.StyledDropdownButton>
@@ -28,7 +27,8 @@ function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUVa
             ? (
               <ProductInformationComponents.Menu $theme={theme}>
                 {(SKUValueArray.map((info, index) => (
-                  <li key={info.id}>
+                  <li key={info + index}>
+
                     <button type="button" className="menuItem" value={index} onClick={(e) => { dropdownSizeHandler(e); }}>{info.size}</button>
                   </li>
                 )))}
@@ -44,7 +44,7 @@ function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUVa
 
               <ProductInformationComponents.Menu $theme={theme}>
                 {(SKUValueArray.map((info, index) => (
-                  <li key={info.id}>
+                  <li key={info + index}>
                     <button type="button" className="menuItem" value={index} onClick={(e) => { dropdownSizeHandler(e); }}>{info.size}</button>
                   </li>
                 )))}

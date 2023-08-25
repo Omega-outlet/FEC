@@ -59,7 +59,7 @@ function DropdownQuantity({
   return (
     <div>
       Quantity:
-      <br/>
+      <br />
       {quantityArray.length === 0
         ? (
           <div className="dropdownQuantity">
@@ -76,7 +76,7 @@ function DropdownQuantity({
             ? (
               <ProductInformationComponents.Menu $theme={theme}>
                 {(quantityArray.map((i) => (
-                  <li>
+                  <li key={i}>
                     <button type="button" className="menuItem" key={i} value={i} onClick={(e) => { dropdownMenuQuantityHandler(); dropdownQuantityHandler(e); }}>{i}</button>
                   </li>
                 )))}
@@ -94,7 +94,7 @@ function DropdownQuantity({
             ? (
               <ProductInformationComponents.Menu $theme={theme}>
                 {(quantityArray.map((i) => (
-                  <li>
+                  <li key={i}>
                     <button type="button" className="menuItem" key={i} value={i} onClick={(e) => { dropdownQuantityHandler(e); }}>{i}</button>
 
                   </li>
