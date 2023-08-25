@@ -85,7 +85,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm" style={{ 'fontColor': 'black', 'fontSize': '12px' }}>
+    <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm" style={{ 'fontColor': 'black' }}>
       <label htmlFor="rating">
         {'Rating: '}
         <div>
@@ -278,9 +278,7 @@ const StyledTextArea = styled.textarea`
   width: 90%;
   height: 80%;
   border: 1px solid lightgray;
-  outline: none;
-  font-family: inherit;
-  font-size: inherit;`;
+  outline: none;`;
 
 const InputDescription = styled.span`
   font-size: 0.75em;`;
