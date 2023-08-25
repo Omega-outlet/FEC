@@ -36,9 +36,9 @@ const StyledButton = styled.button`
   padding: 15px;
   border-radius: 25px;
   color: ${({ $theme }) => ($theme === 'light' ? 'white' : '#121212')};
-  background: ${({ $theme }) => ($theme === 'light' ? '#212121' : '#dfdfdf')};
+  background: ${({ $theme }) => ($theme === 'light' ? '#303030' : '#dfdfdf')};
   cursor: pointer;
-  border: ${({ $theme }) => ($theme === 'light' ? '#dfdfdf' : '#212121')};
+  border: ${({ $theme }) => ($theme === 'light' ? '#dfdfdf' : '#303030')};
   &:hover {
     opacity: 0.5;
   }
