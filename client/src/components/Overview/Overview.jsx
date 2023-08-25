@@ -9,7 +9,6 @@ import OverviewContainer from '../../styled-components/overviewcomponents/overvi
 
 function Overview({ currentProduct, currentProductID, reviewData }) {
   const [styles, setStyles] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedStyle, setSelectedStyle] = useState({});
   const [selectedStylePrice, setSelectedStylePrice] = useState('');
   const [selectedStyleSalePrice, setSelectedStyleSalePrice] = useState('');
@@ -21,7 +20,7 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
   const [expandedMainImage, setExpandedMainImage] = useState('');
 
   const loadMainImageToExpanded = () => {
-    // get the thumbnails
+    // change expanded view main image when in expanded view
     function getExpandedImage() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
@@ -47,7 +46,6 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
 
   // get the styles of the current product
   const loadProductStyles = () => {
-    setIsLoading(true);
     const options = {
       url: '/api/product/styles',
       params: {
@@ -63,7 +61,6 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
       .then((response) => {
         setStyles(response.data);
         setSelectedStyle(response.data.results[0]);
-        setIsLoading(false);
       })
       .catch((error) => console.log('Error', error.message));
   };
@@ -91,7 +88,6 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
         />
         <ProductInformation
           currentProduct={currentProduct}
-          currentProductID={currentProductID}
           selectedStyle={selectedStyle}
           setSelectedStyle={setSelectedStyle}
           selectedStylePrice={selectedStylePrice}
@@ -100,10 +96,8 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
           setSelectedStyleSalePrice={setSelectedStyleSalePrice}
           selectedStyleName={selectedStyleName}
           setSelectedStyleName={setSelectedStyleName}
-          selectedStylePhoto={selectedStylePhoto}
           setSelectedStylePhoto={setSelectedStylePhoto}
           mainImage={mainImage}
-          setMainImage={setMainImage}
           styles={styles}
           reviewData={reviewData}
         />

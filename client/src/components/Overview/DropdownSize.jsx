@@ -1,8 +1,8 @@
-import axios from 'axios';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 import ThemeContext from '../ThemeContext.jsx';
 
+// size dropdown menu for the selected style
 function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUValueArray,
 }) {
   const { theme } = useContext(ThemeContext);
@@ -41,7 +41,6 @@ function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUVa
           <ProductInformationComponents.StyledDropdownButton type="button" onClick={() => { dropdownMenuSizeHandler(); }}>Select Size</ProductInformationComponents.StyledDropdownButton>
           {SKUValueArray && openSize
             ? (
-
               <ProductInformationComponents.Menu $theme={theme}>
                 {(SKUValueArray.map((info, index) => (
                   <li key={info + index}>
@@ -49,7 +48,6 @@ function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUVa
                   </li>
                 )))}
               </ProductInformationComponents.Menu>
-
             )
             : null}
         </ProductInformationComponents.Dropdown>

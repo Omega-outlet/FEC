@@ -11,12 +11,11 @@ import ThemeContext from '../ThemeContext.jsx';
 import Features from './Features.jsx';
 
 function ProductInformation({
-  currentProduct, currentProductID, styles, selectedStyle,
+  currentProduct, styles, selectedStyle,
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
-  setSelectedStyleName, selectedStylePhoto, setSelectedStylePhoto, mainImage, setMainImage, reviewData,
+  setSelectedStyleName, setSelectedStylePhoto, mainImage, reviewData,
 }) {
-
   const [selectedIsLoading, setSelectedIsLoading] = useState(true);
   const { theme } = useContext(ThemeContext);
   const [features, setFeatures] = useState([]);
@@ -99,11 +98,12 @@ function ProductInformation({
           ) : null}
         </ProductInformationComponents.Ratings>
         <ProductInformationComponents.Category>
-          <em>Category: </em>{ currentProduct.category }
+          <em>Category: </em>
+          { currentProduct.category }
         </ProductInformationComponents.Category>
         <em>{currentProduct.slogan}</em>
         <ProductInformationComponents.Description>
-        <br/>
+          <br />
           { currentProduct.description }
         </ProductInformationComponents.Description>
         <ProductInformationComponents.Share>
@@ -132,13 +132,10 @@ function ProductInformation({
             stylesArray={styles.results}
             selectedStyle={selectedStyle}
             setSelectedStyle={setSelectedStyle}
-            selectedStylePrice={selectedStylePrice}
             setSelectedStylePrice={setSelectedStylePrice}
-            selectedStyleSalePrice={selectedStyleSalePrice}
             setSelectedStyleSalePrice={setSelectedStyleSalePrice}
             selectedStyleName={selectedStyleName}
             setSelectedStyleName={setSelectedStyleName}
-            selectedStylePhoto={selectedStylePhoto}
             setSelectedStylePhoto={setSelectedStylePhoto}
           />
         </ProductInformationComponents.StyleSelectorContainer>
@@ -146,7 +143,7 @@ function ProductInformation({
           <AddToCart selectedStyle={selectedStyle} />
         </div>
         <div>
-          <br/>
+          <br />
           <Features features={features.length > 0 ? features : [{ 'feature': 'Fit', 'value': 'One size fits all' }]} />
         </div>
       </div>

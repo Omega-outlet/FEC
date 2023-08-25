@@ -8,11 +8,11 @@ import {
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 import ThemeContext from '../ThemeContext.jsx';
 
+// handles the add to cart logic
 function AddToCart({
   selectedStyle,
 }) {
   const { theme } = useContext(ThemeContext);
-  const [SKUArray, setSKUArray] = useState([]);
   const [SKUValueArray, setSKUValueArray] = useState([]);
   const [message, setMessage] = useState('');
   const [openSize, setOpenSize] = useState(false);
@@ -40,7 +40,6 @@ function AddToCart({
 
     getStyleSkus()
       .then((data) => {
-        setSKUArray(Object.keys(data));
         setSKUValueArray(Object.values(data));
         setSize(-1);
         setQuantity(-1);

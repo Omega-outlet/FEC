@@ -1,10 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Promise from 'bluebird';
-import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
-import {
-  StyledButton, ModalWrapper, Modal, ModalContent,
-} from '../../styled-components/common-elements.jsx';
+import React from 'react';
 
+// displays a a magnified portion of the image in 2.5 zoom
 function ExpandedZoom({
   expandedMainImage, siteWidth, siteHeight, showMagnify, coordinates,
 }) {

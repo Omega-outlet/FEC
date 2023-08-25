@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Promise from 'bluebird';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 
+// default view for image gallery
 function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal }) {
   const [isLoading, setIsLoading] = useState(true);
 

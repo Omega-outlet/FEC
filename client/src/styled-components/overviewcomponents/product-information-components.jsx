@@ -25,12 +25,11 @@ const EntryContainer = styled.div`
   text-align: center;
 }
 `;
-/* https://stackoverflow.com/questions/29546550/flexbox-4-items-per-row */
+
 const StyleEntry = styled.div`
   display: inline-block;
   margin:10px 0 0 10px;
   flex-grow: 1;
-  /* height:100px; */
   width: 20%;
 `;
 
@@ -45,13 +44,6 @@ margin: 5px;
   opacity: 50%;
 }
 `;
-
-// const ShareButton = styled.div`
-// > * {
-// padding: 10px;
-// margin: 10px;
-// }
-// `;
 
 const Ratings = styled.div`
 position:relative;
@@ -163,5 +155,5 @@ export default {
   Description,
   Category,
   Share,
-  StyleName
+  StyleName,
 };

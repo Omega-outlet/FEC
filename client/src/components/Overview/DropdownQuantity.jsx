@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import ProductInformationComponents from '../../styled-components/overviewcomponents/product-information-components.jsx';
 import ThemeContext from '../ThemeContext.jsx';
 
+// quantity of a size of the selected style
 function DropdownQuantity({
   size, quantity, setQuantity, openQuantity, setOpenQuantity,
   selectedStyle, SKUValueArray, setOneOutOfStock
@@ -11,8 +11,10 @@ function DropdownQuantity({
   const { theme } = useContext(ThemeContext);
   const maxQuantity = 15;
   const [quantityArray, setQuantityArray] = useState([]);
+
   const loadMaxQuantity = () => {
     setOneOutOfStock(false);
+    // get the max quantity of the SKU, either 15 or the SKU's quantity if below 15
     function getQuantity() {
       let didSucceed = false;
       return new Promise((resolve, reject) => {
