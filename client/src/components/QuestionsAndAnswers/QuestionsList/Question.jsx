@@ -10,7 +10,7 @@ import {
   QuestionDetailsList, AskerDetailsContainer,
   QuestionAndAnswersContainer,
   QuestionBodyAndHelpfulContainer, AnswerListContainer,
-  BodyAndQuestionContainer, QuestionAskedByText, QuestionIcon, QuestionIconContainer,
+  BodyAndQuestionContainer, QuestionAskedByText, QuestionIcon, QuestionIconContainer, ProfileIcon, DateIcon, ReportIcon,
 } from '../styled-components/QuestionsAndAnswers.styles.jsx';
 import { YesReportButtonContainer } from '../../../styled-components/YesAndReportButton.styles.jsx';
 import HelpfulYesButton from '../../../../utils/HelpfulYesButton.jsx';
@@ -77,12 +77,21 @@ function Question({ productName, question, searchTerm }) {
           <QuestionIcon $theme={theme} />
           <QuestionAskedByText $theme={theme}>Question asked by</QuestionAskedByText>
         </QuestionIconContainer>
-        <p>{question.asker_name}</p>
-        <p>{reFormatDate(question.question_date)}</p>
-        <ReportButton
-          initialReported={question.reported}
-          onReportClick={() => registerReportClick('questions', question.question_id)}
-        />
+        <QuestionIconContainer>
+          <ProfileIcon $theme={theme} />
+          <p>{question.asker_name}</p>
+        </QuestionIconContainer>
+        <QuestionIconContainer>
+          <DateIcon $theme={theme} />
+          <p>{reFormatDate(question.question_date)}</p>
+        </QuestionIconContainer>
+        <QuestionIconContainer>
+          <ReportIcon $theme={theme} />
+          <ReportButton
+            initialReported={question.reported}
+            onReportClick={() => registerReportClick('questions', question.question_id)}
+          />
+        </QuestionIconContainer>
       </AskerDetailsContainer>
       <QuestionAndAnswersContainer>
         <QuestionBodyAndHelpfulContainer>

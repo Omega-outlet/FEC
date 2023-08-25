@@ -46,6 +46,27 @@ export const TextInput = styled.input`
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  }
+`;
+
+export const LargerTextarea = styled.textarea`
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  }
 `;
 export const ImageInput = styled.input`
   width: 100%;
@@ -53,6 +74,12 @@ export const ImageInput = styled.input`
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  }
 `;
 
 export const InputWithButtonContainer = styled.div`
@@ -73,6 +100,7 @@ export const UrlButton = styled.button`
   &:hover {
     background-color: #bbb;
   }
+  transition: background-color 0.3s;
 `;
 
 export const ModalButtonContainer = styled.div`
@@ -90,6 +118,7 @@ export const WarningMessageContainer = styled.div`
   border-radius: 6px;
   color: #f44336;
   font-weight: bold;
+  border-radius: 6px;
 `;
 
 export const CustomChooseFileInput = styled.input`
@@ -105,6 +134,12 @@ export const CustomFileInputLabel = styled.label`
   border-radius: 10x;
   cursor: pointer;
   text-align: center;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #1a5bd8;
+  }
 `;
 
 export const ImageModalContainer = styled.div`
@@ -123,4 +158,12 @@ export const ImageModalContainer = styled.div`
 export const ModalImage = styled.img`
   max-width: 80%;
   max-height: 80%;
+`;
+
+export const HighlightedH4 = styled.h4`
+  font-size: 18px;
+  margin: 20px 0;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
 `;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { InputLabel, TextInput, ModalButtonContainer } from '../styled-components/Modal.styles.jsx';
+import { InputLabel, TextInput, ModalButtonContainer, LargerTextarea, HighlightedH4 } from '../styled-components/Modal.styles.jsx';
 import { RoundedPulseButton } from '../styled-components/Buttons.styles.jsx';
 
 function QuestionForm({ productName, onSubmit, onCancel }) {
@@ -24,20 +24,24 @@ function QuestionForm({ productName, onSubmit, onCancel }) {
       {/* if errormessage is true show it */}
       {errorMessage && <div>{errorMessage}</div>}
       <h2>Ask Your Question</h2>
-      <h4>
+      <HighlightedH4>
         About the
         {' '}
         {productName}
-      </h4>
+      </HighlightedH4>
       <InputLabel>
         Your Question (mandatory)
-        <TextInput
+        <LargerTextarea
           type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           maxLength={1000}
           placeholder="Example: Why did you like the product or not?"
         />
+        <span>
+          {question.length}
+          /1000 characters used
+        </span>
       </InputLabel>
       <InputLabel>
         What is your nickname (mandatory)
@@ -48,9 +52,13 @@ function QuestionForm({ productName, onSubmit, onCancel }) {
           maxLength={60}
           placeholder="Example: jackson11!"
         />
-        <div>For privacy reasons, do not use your full name or email address</div>
+        <span>
+          {nickname.length}
+          /1000 characters used
+        </span>
       </InputLabel>
       <InputLabel>
+        <div>For privacy reasons, do not use your full name or email address</div>
         Your email (mandatory)
         <TextInput
           type="email"
@@ -59,8 +67,12 @@ function QuestionForm({ productName, onSubmit, onCancel }) {
           maxLength={60}
           placeholder="Example: jackson11@email.com"
         />
-        <div>For authentication reasons, you will not be emailed</div>
+        <span>
+          {email.length}
+          /1000 characters used
+        </span>
       </InputLabel>
+      <div>For authentication reasons, you will not be emailed</div>
       <ModalButtonContainer>
         <RoundedPulseButton type="button" onClick={handleSubmit}>SUBMIT QUESTION</RoundedPulseButton>
         <RoundedPulseButton type="button" onClick={onCancel}>CANCEL</RoundedPulseButton>

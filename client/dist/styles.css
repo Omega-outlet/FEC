@@ -16,9 +16,6 @@ body {
   & button.darkMode {
     color: #353535;
   };
-  &::-webkit-scrollbar {
-    width: 0px;
-  };
 }
 
 body[data-theme='dark'] {
