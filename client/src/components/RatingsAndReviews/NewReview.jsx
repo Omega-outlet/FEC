@@ -158,7 +158,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             />
             <br />
             <InputDescription>
-              For privacy reasons, do not use your full name or email address\
+              For privacy reasons, do not use your full name or email address
             </InputDescription>
           </label>
           <LineSkip />
@@ -183,7 +183,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             <PhotoInput
               type="text"
               onChange={(e) => setPhotoUrl(e.target.value)}
-              placeholder="Example: cool-photo.jpg"
+              placeholder="Example: images.unsplash.com/photo/123"
             />
             {formData.photos.length < 5
             && (
@@ -211,7 +211,8 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
               placeholder="Why did you like the product or not?"
               name="body"
               onChange={handleChange()}
-              minLength={50}
+              minLength="50"
+              maxLength="1000"
               required
             />
             <br />
