@@ -19,7 +19,6 @@ const moveInBottom = keyframes`
 `;
 
 export const RoundedPulseButton = styled.button`
-    text-transform: uppercase;
     text-decoration: none;
     padding: 15px 40px;
     display: inline-block;

@@ -146,7 +146,7 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
             placeholder="Enter the direct link to your image"
           />
           <UrlButton type="button" onClick={handleImageUrlSubmit}>
-            Add URL
+            Add Url
           </UrlButton>
         </InputWithButtonContainer>
       </InputLabel>
@@ -162,11 +162,11 @@ function AnswerForm({ productName, questionBody, onSubmit, onCancel }) {
       </div>
       <InputLabel>
         <CustomChooseFileInput type="file" onChange={handleLocalImageChange} id="uploadInput" />
-        <CustomFileInputLabel htmlFor="uploadInput">Upload images</CustomFileInputLabel>
+        <CustomFileInputLabel htmlFor="uploadInput">Upload Images</CustomFileInputLabel>
       </InputLabel>
       <ModalButtonContainer>
-        <RoundedPulseButton type="button" onClick={handleSubmit}>SUBMIT ANSWER</RoundedPulseButton>
-        <RoundedPulseButton type="button" onClick={onCancel}>CANCEL</RoundedPulseButton>
+        <RoundedPulseButton type="button" onClick={handleSubmit}>Submit Answer</RoundedPulseButton>
+        <RoundedPulseButton type="button" onClick={onCancel}>Cancel</RoundedPulseButton>
       </ModalButtonContainer>
       {isImageModalOpen
         && <ImageModal imageUrl={currentImage} onClose={() => setIsImageModalOpen(false)} />}

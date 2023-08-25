@@ -17,6 +17,7 @@ export const QAContainer = styled.div`
 export const QuestionList = styled.ul`
   list-style-type: none;
   max-height: 80vh;
+  padding-left: 0;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 0px;
@@ -249,6 +250,7 @@ export const QuestionIconContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  word-wrap: break-word;
 `;
 
 export const AnswerFormContainer = styled.div`
