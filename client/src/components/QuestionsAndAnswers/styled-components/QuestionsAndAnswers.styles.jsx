@@ -1,6 +1,9 @@
 import styled, { keyframes, css } from 'styled-components';
 import searchIcon from '../../../../dist/assets/searchIcon.svg';
 import questionIcon from '../../../../dist/assets/questionIcon1.svg';
+import profileIcon from '../../../../dist/assets/profileIcon.svg';
+import dateIcon from '../../../../dist/assets/dateIcon.svg';
+import reportIcon from '../../../../dist/assets/reportIcon.svg';
 
 export const QAContainer = styled.div`
   display: flex;
@@ -205,6 +208,36 @@ export const QuestionIcon = styled.div`
   width: 24px;
   height: 24px;
   background-image: url(${questionIcon});
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: ${({ $theme }) => ($theme === 'light' ? 'invert(0%)' : 'invert(100%)')};
+  margin-right: 5px;
+  align-self: center;
+`;
+export const ProfileIcon = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url(${profileIcon});
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: ${({ $theme }) => ($theme === 'light' ? 'invert(0%)' : 'invert(100%)')};
+  margin-right: 5px;
+  align-self: center;
+`;
+export const DateIcon = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url(${dateIcon});
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: ${({ $theme }) => ($theme === 'light' ? 'invert(0%)' : 'invert(100%)')};
+  margin-right: 5px;
+  align-self: center;
+`;
+export const ReportIcon = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url(${reportIcon});
   background-repeat: no-repeat;
   background-size: contain;
   filter: ${({ $theme }) => ($theme === 'light' ? 'invert(0%)' : 'invert(100%)')};
