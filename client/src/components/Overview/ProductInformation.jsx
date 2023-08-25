@@ -15,6 +15,7 @@ function ProductInformation({
   setSelectedStyle, selectedStylePrice, setSelectedStylePrice,
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
   setSelectedStyleName, setSelectedStylePhoto, mainImage, reviewData,
+  openQuantity, setOpenQuantity, openSize, setOpenSize,
 }) {
   const { theme } = useContext(ThemeContext);
   const [features, setFeatures] = useState([]);
@@ -133,7 +134,13 @@ function ProductInformation({
           />
         </ProductInformationComponents.StyleSelectorContainer>
         <div>
-          <AddToCart selectedStyle={selectedStyle} />
+          <AddToCart
+            selectedStyle={selectedStyle}
+            openQuantity={openQuantity}
+            setOpenQuantity={setOpenQuantity}
+            openSize={openSize}
+            setOpenSize={setOpenSize}
+          />
         </div>
         <div>
           <br />

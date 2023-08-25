@@ -16,6 +16,8 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
   const [selectedStylePhoto, setSelectedStylePhoto] = useState([]);
   const [mainImage, setMainImage] = useState('');
   const [displayModal, setDisplayModal] = React.useState(false);
+  const [openQuantity, setOpenQuantity] = useState(false);
+  const [openSize, setOpenSize] = useState(false);
 
   const [expandedMainImage, setExpandedMainImage] = useState('');
 
@@ -77,6 +79,8 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
           setMainImage={setMainImage}
           displayModal={displayModal}
           setDisplayModal={setDisplayModal}
+          setOpenQuantity={setOpenQuantity}
+          setOpenSize={setOpenSize}
         />
         <ExpandedView
           currentProduct={currentProduct}
@@ -100,6 +104,10 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
           mainImage={mainImage}
           styles={styles}
           reviewData={reviewData}
+          openQuantity={openQuantity}
+          setOpenQuantity={setOpenQuantity}
+          openSize={openSize}
+          setOpenSize={setOpenSize}
         />
       </OverviewContainer.StyledOverviewContainer>
     </div>

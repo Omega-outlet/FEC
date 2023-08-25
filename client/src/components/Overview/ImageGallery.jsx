@@ -12,6 +12,8 @@ function ImageGallery({
   setDisplayModal,
   expandedMainImage,
   setExpandedMainImage,
+  setOpenQuantity,
+  setOpenSize,
 }) {
   return (
     <OverviewContainer.Half>
@@ -24,12 +26,16 @@ function ImageGallery({
           setDisplayModal={setDisplayModal}
           expandedMainImage={expandedMainImage}
           setExpandedMainImage={setExpandedMainImage}
+          setOpenQuantity={setOpenQuantity}
+          setOpenSize={setOpenSize}
         />
         <DefaultThumbnails
           selectedStyle={selectedStyle}
           setMainImage={setMainImage}
           expandedMainImage={expandedMainImage}
           setExpandedMainImage={setExpandedMainImage}
+          setOpenQuantity={setOpenQuantity}
+          setOpenSize={setOpenSize}
         />
       </ImageGalleryComponents.DefaultContainer>
     </OverviewContainer.Half>

@@ -5,6 +5,7 @@ import ImageGalleryComponents from '../../styled-components/overviewcomponents/i
 // default view for image gallery
 function DefaultView({
   selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal,
+  setOpenQuantity, setOpenSize
 }) {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,6 +36,8 @@ function DefaultView({
 
   const handleExpandedClick = () => {
     setDisplayModal(true);
+    setOpenQuantity(false);
+    setOpenSize(false);
   };
 
   React.useEffect(() => {

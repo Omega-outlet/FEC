@@ -10,13 +10,11 @@ import ThemeContext from '../ThemeContext.jsx';
 
 // handles the add to cart logic
 function AddToCart({
-  selectedStyle,
+  selectedStyle, openQuantity, setOpenQuantity, openSize, setOpenSize
 }) {
   const { theme } = useContext(ThemeContext);
   const [SKUValueArray, setSKUValueArray] = useState([]);
   const [message, setMessage] = useState('');
-  const [openSize, setOpenSize] = useState(false);
-  const [openQuantity, setOpenQuantity] = useState(false);
   const [size, setSize] = useState(-1);
   const [quantity, setQuantity] = useState(-1);
   const [oneOutOfStock, setOneOutOfStock] = useState(false);
@@ -73,7 +71,7 @@ function AddToCart({
   return (
     <div>
       <span>{message}</span>
-      <br></br>
+      <br />
       {oneOutOfStock === true ? (
         <div>
           <ProductInformationComponents.DropdownRow>
@@ -83,8 +81,8 @@ function AddToCart({
               setQuantity={setQuantity}
               openSize={openSize}
               setOpenSize={setOpenSize}
-              selectedStyle={selectedStyle}
               SKUValueArray={SKUValueArray}
+
             />
             <DropdownQuantity
               size={size}

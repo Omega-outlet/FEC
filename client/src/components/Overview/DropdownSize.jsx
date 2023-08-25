@@ -3,7 +3,8 @@ import ProductInformationComponents from '../../styled-components/overviewcompon
 import ThemeContext from '../ThemeContext.jsx';
 
 // size dropdown menu for the selected style
-function DropdownSize({ size, setSize, setQuantity, openSize, setOpenSize, SKUValueArray,
+function DropdownSize({ size, setSize, setQuantity, openSize,
+  setOpenSize, SKUValueArray,
 }) {
   const { theme } = useContext(ThemeContext);
   const dropdownMenuSizeHandler = () => {
