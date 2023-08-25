@@ -7,14 +7,12 @@ import useReport from '../../../utils/useReport.jsx';
 import { reFormatDate } from '../../../utils/reFormatDate.js';
 import HelpfulYesButton from '../../../utils/HelpfulYesButton.jsx';
 import ReportButton from '../../../utils/ReportButton.jsx';
-import {
-  StarView, StyledButton, ModalWrapper, Modal,
-} from '../../styled-components/common-elements.jsx';
+import { StarView } from '../../styled-components/common-elements.jsx';
 
-function Review({ review }) {
+function Review({ review, handleThumbnailClick }) {
   const registerHelpfulClick = useHelpfulYes();
   const registerReportClick = useReport();
-  const [photoToDisplay, setPhotoToDisplay] = useState('');
+
   const {
     reported,
     response,
@@ -29,9 +27,6 @@ function Review({ review }) {
     summary,
   } = review;
 
-  const handleThumbnailClick = (photo) => {
-    setPhotoToDisplay(photo);
-  };
   // closing modal will set phototodisplay back to empty string
   return (
     <Component data-testid="review-component">
@@ -80,11 +75,6 @@ function Review({ review }) {
           />
         </div>
       </RightColumn>
-      <ModalWrapper>
-        <Modal>
-
-        </Modal>
-      </ModalWrapper>
     </Component>
   );
 }
