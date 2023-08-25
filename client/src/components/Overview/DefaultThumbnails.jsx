@@ -5,7 +5,9 @@ import PhotoThumbnail from './PhotoThumbnail.jsx';
 import ScrollButton from './DefaultScrollButton.jsx';
 import DummyButton from './DummyScrollButton.jsx';
 
-function DefaultThumbnails({ selectedStyle, mainImage, setMainImage, displayModal }) {
+function DefaultThumbnails({
+  selectedStyle, mainImage, setMainImage, displayModal,
+}) {
   const [focalItem, setFocalItem] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [photosArrayLength, setPhotosArrayLength] = useState(0);
@@ -76,24 +78,22 @@ function DefaultThumbnails({ selectedStyle, mainImage, setMainImage, displayModa
   const scrollRight = () => setFocalItem(focalItem + 1);
 
   return (
-    <>
-      <ImageGalleryComponents.DefaultThumbnails>
-        { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : <DummyButton/> }
-        {sevenStylesArray
-          ? sevenStylesArray
-            .map((photoObj, index) => (
-              <PhotoThumbnail
-                photoObj={photoObj}
-                focalItem={focalItem}
-                selectedStyleArray={selectedStyleArray}
-                selectedStyle={selectedStyle}
-                key={index}
-                index={index}
-              />
-            )) : null}
-        { focalItem < photosArrayLength - 1 && <ScrollButton scroll={scrollRight} dir="right" />}
-      </ImageGalleryComponents.DefaultThumbnails>
-    </>
+    <ImageGalleryComponents.DefaultThumbnails>
+      { focalItem > 0 ? <ScrollButton scroll={scrollLeft} dir="left" /> : <DummyButton /> }
+      {sevenStylesArray
+        ? sevenStylesArray
+          .map((photoObj, index) => (
+            <PhotoThumbnail
+              photoObj={photoObj}
+              focalItem={focalItem}
+              selectedStyleArray={selectedStyleArray}
+              selectedStyle={selectedStyle}
+              key={index}
+              index={index}
+            />
+          )) : null}
+      { focalItem < photosArrayLength - 1 ? <ScrollButton scroll={scrollRight} dir="right" /> : <DummyButton />}
+    </ImageGalleryComponents.DefaultThumbnails>
   );
 }
 
