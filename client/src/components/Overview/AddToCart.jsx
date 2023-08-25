@@ -72,8 +72,8 @@ function AddToCart({
 
   return (
     <div>
-      <br />
       <span>{message}</span>
+      <br></br>
       {oneOutOfStock === true ? (
         <div>
           <ProductInformationComponents.DropdownRow>

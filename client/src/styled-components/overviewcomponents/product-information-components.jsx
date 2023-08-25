@@ -83,6 +83,7 @@ list-style-type: none;
 margin: 5px 0;
 padding: 0;
 
+
 border: 1px solid grey;
 width: 150px;
 z-index: 1000
@@ -98,20 +99,22 @@ flex-direction:row;
 `;
 
 const StyledDropdownButton = styled.button`
+width: 75px;
 display: inline-block;
 border: 1px solid gray;
 border-radius: 4px;
-padding: 10px 10px 10px 10px;
+padding: 4px 4px 4px 4px;
 background-color: #ffffff;
 cursor: pointer;
 white-space: nowrap;
 `;
 
 const StyledDropdownButtonDisabled = styled.button`
+width: 75px;
 display: inline-block;
 border: 1px solid gray;
 border-radius: 4px;
-padding: 10px 10px 10px 10px;
+padding: 4px 4px 4px 4px;
 background-color: lightgray;
 cursor: pointer;
 white-space: nowrap;
