@@ -85,7 +85,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm" style={{ 'fontColor': 'black' }}>
+    <form onSubmit={(e) => handleSubmit(e)} data-testid="newReviewForm" style={{ 'fontColor': 'black', 'fontSize': '12px' }}>
       <label htmlFor="rating">
         {'Rating: '}
         <div>
@@ -158,7 +158,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             />
             <br />
             <InputDescription>
-              For privacy reasons, do not use your full name or email address\
+              For privacy reasons, do not use your full name or email address
             </InputDescription>
           </label>
           <LineSkip />
@@ -183,7 +183,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             <PhotoInput
               type="text"
               onChange={(e) => setPhotoUrl(e.target.value)}
-              placeholder="Example: cool-photo.jpg"
+              placeholder="Example: images.unsplash.com/photo/123"
             />
             {formData.photos.length < 5
             && (
@@ -211,7 +211,8 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
               placeholder="Why did you like the product or not?"
               name="body"
               onChange={handleChange()}
-              minLength={50}
+              minLength="50"
+              maxLength="1000"
               required
             />
             <br />
@@ -277,7 +278,9 @@ const StyledTextArea = styled.textarea`
   width: 90%;
   height: 80%;
   border: 1px solid lightgray;
-  outline: none;`;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;`;
 
 const InputDescription = styled.span`
   font-size: 0.75em;`;
