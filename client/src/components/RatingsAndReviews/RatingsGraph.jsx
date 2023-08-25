@@ -78,6 +78,6 @@ const ReviewSpan = styled.span`
   font-size: 10px;
   text-decoration: underline;
   &:hover {
-    color: ${({ $theme }) => ($theme === 'light' ? 'blue' : 'yellow')};
+    color: ${({ $theme }) => ($theme === 'light' ? '#5a5a5a' : '#ADD8E6')};
     text-decoration: none;
   }`;
