@@ -16,15 +16,8 @@ function ProductInformation({
   selectedStyleSalePrice, setSelectedStyleSalePrice, selectedStyleName,
   setSelectedStyleName, setSelectedStylePhoto, mainImage, reviewData,
 }) {
-  const [selectedIsLoading, setSelectedIsLoading] = useState(true);
   const { theme } = useContext(ThemeContext);
   const [features, setFeatures] = useState([]);
-  // finish for style to load
-  const loadStyles = () => {
-    setSelectedIsLoading(true);
-    setSelectedIsLoading(false);
-  };
-  useEffect(loadStyles, [currentProduct, selectedStyle]);
 
   useEffect(() => {
     axios.get('/api/product/features', {
@@ -150,46 +143,5 @@ function ProductInformation({
     </OverviewContainer.Half>
   );
 }
-
-ProductInformation.propTypes = {
-  currentProduct: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    slogan: PropTypes.string,
-    description: PropTypes.string,
-    category: PropTypes.string,
-    default_price: PropTypes.string,
-  }),
-  currentProductID: PropTypes.number,
-  styles: PropTypes.shape({
-    product_id: PropTypes.string,
-    results: PropTypes.arrayOf(
-      PropTypes.shape({
-        'style_id': PropTypes.number,
-        'name': PropTypes.string,
-        'original_price': PropTypes.string,
-        'sale_price': PropTypes.string,
-        'default?': PropTypes.bool,
-      }),
-    ),
-    skus: PropTypes.shape(PropTypes.shape({
-      'quantity': PropTypes.number,
-      'size': PropTypes.string,
-    })),
-  }),
-};
-
-ProductInformation.defaultProps = {
-  currentProduct: {
-    id: '',
-    name: '',
-    slogan: '',
-    description: '',
-    category: '',
-    default_price: '',
-  },
-  currentProductID: '',
-  styles: {},
-};
 
 export default ProductInformation;

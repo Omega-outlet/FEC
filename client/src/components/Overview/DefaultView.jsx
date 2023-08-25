@@ -3,7 +3,9 @@ import Promise from 'bluebird';
 import ImageGalleryComponents from '../../styled-components/overviewcomponents/image-gallery-components.jsx';
 
 // default view for image gallery
-function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal }) {
+function DefaultView({
+  selectedStyle, mainImage, setMainImage, displayModal, setDisplayModal,
+}) {
   const [isLoading, setIsLoading] = useState(true);
 
   const loadStyle = () => {
@@ -31,7 +33,7 @@ function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, set
 
   useEffect(loadStyle, [selectedStyle]);
 
-  const handleExpandedClick = function (e) {
+  const handleExpandedClick = () => {
     setDisplayModal(true);
   };
 
@@ -50,7 +52,7 @@ function DefaultView({ selectedStyle, mainImage, setMainImage, displayModal, set
           <ImageGalleryComponents.MainPhoto
             src={mainImage}
             alt={selectedStyle?.name}
-            onClick={(e) => handleExpandedClick(e)}
+            onClick={() => handleExpandedClick()}
           />
         )}
     </>

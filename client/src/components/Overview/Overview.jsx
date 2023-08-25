@@ -106,28 +106,4 @@ function Overview({ currentProduct, currentProductID, reviewData }) {
   );
 }
 
-Overview.propTypes = {
-  currentProduct: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    slogan: PropTypes.string,
-    description: PropTypes.string,
-    category: PropTypes.string,
-    default_price: PropTypes.string,
-  }),
-  currentProductID: PropTypes.number,
-};
-
-Overview.defaultProps = {
-  currentProduct: {
-    id: '',
-    name: '',
-    slogan: '',
-    description: '',
-    category: '',
-    default_price: '',
-  },
-  currentProductID: '',
-};
-
 export default Overview;
