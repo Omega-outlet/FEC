@@ -106,6 +106,7 @@ function ExpandedView({
 
             <ImageGalleryComponents.ExpandedImageContainer>
               {focalItem > 0 && !displayZoomed && <ScrollButton scroll={scrollLeft} dir="left" /> }
+              {focalItem > 0 && displayZoomed && <DummyButton />}
               {focalItem === 0 && <DummyButton />}
               <ImageGalleryComponents.ExpandedMainPhoto
                 $displayZoomed={displayZoomed}
@@ -121,7 +122,8 @@ function ExpandedView({
                 onMouseMove={(e) => { cursorPos(e); }}
               />
               {focalItem < thumbnails.length - 1 && !displayZoomed && <ScrollButton scroll={scrollRight} dir="right" />}
-              {focalItem >= thumbnails.length - 1 && !displayZoomed && <DummyButton />}
+              {focalItem < thumbnails.length - 1 && displayZoomed && <DummyButton />}
+              {focalItem >= thumbnails.length - 1 && <DummyButton />}
             </ImageGalleryComponents.ExpandedImageContainer>
             <ImageGalleryComponents.ExitExpanded>
               <CloseButton

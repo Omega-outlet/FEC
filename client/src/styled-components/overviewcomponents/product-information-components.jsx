@@ -56,7 +56,6 @@ position: absolute
 
 const Menu = styled.ul`
 > li {
-  margin: 0;
   background-color: white;
   color:   ${({ $theme }) => ($theme === 'light' ? '' : 'black')};
 }
@@ -74,7 +73,6 @@ li:hover {
   color: inherit;
   border: none;
   padding: 5px;
-  margin: 0;
   font: inherit;
   cursor: pointer;
 }
