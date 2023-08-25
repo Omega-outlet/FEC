@@ -1,6 +1,6 @@
 import styled, { keyframes, css } from 'styled-components';
 import searchIcon from '../../../../dist/assets/searchIcon.svg';
-import questionIcon from '../../../../dist/assets/questionIcon.svg';
+import questionIcon from '../../../../dist/assets/questionIcon1.svg';
 
 export const QAContainer = styled.div`
   display: flex;
@@ -165,7 +165,7 @@ export const HighlightTerm = styled.span`
 `;
 export const AnswerBodyText = styled.p`
   font-family: AktivGrotesk-Light, Helvetica, sans-serif;
-  max-width: 30%;
+  max-width: 50%;
   font-size: 14px;
   color: ${({ $theme }) => ($theme === 'light' ? '#222222' : '#DFDFDF')}
   text-align: left;
@@ -185,6 +185,7 @@ export const NoQuestionImage = styled.img`
   max-width: 400px;
   display: block;
   margin: 20px auto;
+  filter: ${({ $theme }) => ($theme === 'light' ? 'invert(0%)' : 'invert(100%)')};
 `;
 
 export const ImageAndButtonContainer = styled.div`
@@ -218,7 +219,8 @@ export const QuestionIconContainer = styled.div`
 `;
 
 export const AnswerFormContainer = styled.div`
-  color: ${({ $theme }) => ($theme === 'light' ? '#222222' : '#DFDFDF')}
+  color: ${({ $theme }) => ($theme === 'light' ? '#222222' : '#DFDFDF')};
+  line-height: 1.4;
 `;
 export const NoQuestionContainer = styled.div`
   display: flex;

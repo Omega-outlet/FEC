@@ -18,7 +18,7 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
     axios.get('/questions', {
       params: {
         product_id: currentProductID,
-        count: 100,
+        count: 1000,
       },
     })
       .then((res) => {
@@ -64,7 +64,6 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
       {questions.length === 0 && (
         <NoQuestionContainer>
           <h2>No Questions For This Product</h2>
-          <NoQuestionImage src={anyQuestion} alt="No results found" />
           <AddNewQuestionButton
             productName={currentProduct.name}
             onHandleAddQuestion={handleAddNewQuestion}
@@ -76,7 +75,7 @@ function QuestionsAndAnswers({ currentProduct, currentProductID }) {
           <SearchBar onSearch={handleSearch} />
           {hasSearchTerm ? (
             <ImageAndButtonContainer>
-              <NoQuestionImage src={anyQuestion} alt="No results found" />
+              <NoQuestionImage src={anyQuestion} alt="No results found" $theme={theme}/>
               <AddNewQuestionButton
                 productName={currentProduct.name}
                 onHandleAddQuestion={handleAddNewQuestion}
