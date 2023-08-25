@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import { StyledButton } from '../../styled-components/common-elements.jsx';
@@ -7,12 +7,12 @@ import ThemeContext from '../ThemeContext.jsx';
 
 // eslint-disable-next-line object-curly-newline
 function NewReview({ renderForm, currentProductID, submitForm, characteristics }) {
-  const { theme } = React.useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const radioArray = [1, 2, 3, 4, 5];
-  const [charArray, setCharArray] = React.useState([]);
-  const [photoURL, setPhotoUrl] = React.useState('');
+  const [charArray, setCharArray] = useState([]);
+  const [photoURL, setPhotoUrl] = useState('');
 
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     product_id: currentProductID,
     rating: '',
     summary: '',
@@ -25,7 +25,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     setCharArray(Object.entries(characteristics));
   }, [characteristics]);
 
@@ -114,15 +114,15 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
         <legend>Characteristics</legend>
         {charArray.map((characteristic) => (
           <RadioStyle key={characteristic[0]}>
-            <legend style={{ 'width': '70px' }}>{characteristic[0]}</legend>
-            <div style={{ 'width': '100%' }}>
-              <div style={{ 'display': 'flex', 'justifyContent': 'space-between'}}>
+            <LegendContainer>{characteristic[0]}</LegendContainer>
+            <CharContainer>
+              <RadioContainer style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
                 {descriptionArr.filter((descObj) => (descObj.attribute === characteristic[0].toLowerCase()))[0].descArr.map((feedback) => <span key={feedback} style={{ 'fontSize': '10px', 'width': '20%', 'textAlign': 'center' }}>{feedback}</span>)}
-              </div>
-              <div style={{ 'display': 'flex', 'justifyContent': 'space-between'}}>
+              </RadioContainer>
+              <RadioContainer style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
                 {renderRadios(radioArray, characteristic[1].id)}
-              </div>
-            </div>
+              </RadioContainer>
+            </CharContainer>
           </RadioStyle>
         ))}
       </fieldset>
@@ -180,11 +180,25 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
           <label htmlFor="photos">
             Photos
             <br />
-            <StyledInput type="text" onChange={(e) => setPhotoUrl(e.target.value)} placeholder="Example: cool-photo.jpg" />
+            <PhotoInput
+              type="text"
+              onChange={(e) => setPhotoUrl(e.target.value)}
+              placeholder="Example: cool-photo.jpg"
+            />
+            {formData.photos.length < 5
+            && (
+            <PhotoButton
+              $theme={theme}
+              type="button"
+              value={photoURL}
+              name="photos"
+              onClick={handleChange()}
+            >
+              Add photo
+            </PhotoButton>
+            )}
             <br />
             <InputDescription>You can submit up to 5 photos</InputDescription>
-            <br />
-            {formData.photos.length < 5 && <StyledButton $theme={theme} type="button" value={photoURL} name="photos" onClick={handleChange()}>Add photo</StyledButton>}
           </label>
           <br />
         </div>
@@ -223,39 +237,39 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
   );
 }
 
-NewReview.propTypes = {
-  renderForm: propTypes.func.isRequired,
-  currentProductID: propTypes.number.isRequired,
-  submitForm: propTypes.func.isRequired,
-  characteristics: propTypes.shape({}),
-};
-
-NewReview.defaultProps = {
-  characteristics: {},
-};
-
 const RadioStyle = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 35px;
-  padding: 0 25px;`;
+  height: 2.188rem;
+  padding: 0 1.563rem;`;
 
 const SelectedStar = styled.button`
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 1.875em;
   color: ${({ $theme }) => ($theme === 'light' ? 'black' : 'white')};`;
 
 const LineSkip = styled.div`
-  height: 10px`;
+  height: 0.625rem`;
 
 const StyledInput = styled.input`
   background-color: #f8f8f8;
   padding: 5px;
   border: 1px solid lightgray;
   outline: none;
-  width: 75%`;
+  width: 75%;`;
+
+const PhotoInput = styled(StyledInput)`
+  width: 60%;
+  display: inline-block
+  `;
+
+const PhotoButton = styled.button`
+  width: 15%;
+  padding: 4px;
+  display: inline-block;
+  `;
 
 const StyledTextArea = styled.textarea`
   resize: none;
@@ -266,6 +280,27 @@ const StyledTextArea = styled.textarea`
   outline: none;`;
 
 const InputDescription = styled.span`
-  font-size: 12px;`;
+  font-size: 0.75em;`;
+
+const LegendContainer = styled.legend`
+  width: 4.375rem;`;
+
+const CharContainer = styled.div`
+  width: 100%;`;
+
+const RadioContainer = styled.div`
+  display: flex;
+  justifyContent: space-between`;
+
+NewReview.propTypes = {
+  renderForm: propTypes.func.isRequired,
+  currentProductID: propTypes.number.isRequired,
+  submitForm: propTypes.func.isRequired,
+  characteristics: propTypes.shape({}),
+};
+
+NewReview.defaultProps = {
+  characteristics: {},
+};
 
 export default NewReview;
