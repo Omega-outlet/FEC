@@ -34,7 +34,7 @@ function ProductInformation({
   }, [currentProduct]);
 
   const currentURL = window.location.href;
-  const message = `This%20${currentProduct.name}%20from%20Omega%20Mart%20is%20amazing!`;
+  const message = `This%20${currentProduct.name}%20from%20Omega%20Outlet%20is%20amazing!`;
   // hard coded image URL for now
   let imageURL = '';
   if (mainImage) {
