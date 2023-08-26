@@ -21,6 +21,7 @@ function SearchBar({ onSearch }) {
         type="text"
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
         onChange={handleChange}
+        aria-label="Search"
       />
     </SearchBarContainer>
   );

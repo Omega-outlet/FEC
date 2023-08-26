@@ -69,7 +69,7 @@ const ProductCard = function ({ product, updateProduct, listType }) {
           {listType === 'outfit' && <Remove item={product} />}
         </span>
         {img1 && (
-          <Image src={hover ? img2 : img1} alt="product image" onMouseEnter={onHover} onMouseLeave={onHover} />
+          <Image src={hover ? img2 : img1} alt={product.name} onMouseEnter={onHover} onMouseLeave={onHover} />
         )}
       </div>
       <div>
