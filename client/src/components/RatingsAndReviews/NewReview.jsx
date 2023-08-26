@@ -68,6 +68,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
   const renderRadios = (arr, characteristicId) => (
     arr.map((number) => (
       <input
+        aria-label={number}
         style={{ 'width': '20%' }}
         type="radio"
         value={number}
@@ -117,7 +118,7 @@ function NewReview({ renderForm, currentProductID, submitForm, characteristics }
             <LegendContainer>{characteristic[0]}</LegendContainer>
             <CharContainer>
               <RadioContainer style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
-                {descriptionArr.filter((descObj) => (descObj.attribute === characteristic[0].toLowerCase()))[0].descArr.map((feedback) => <span key={feedback} style={{ 'fontSize': '10px', 'width': '20%', 'textAlign': 'center' }}>{feedback}</span>)}
+                {descriptionArr.filter((descObj) => (descObj.attribute === characteristic[0].toLowerCase()))[0].descArr.map((feedback) => <span key={feedback} aria-label={feedback} style={{ 'fontSize': '10px', 'width': '20%', 'textAlign': 'center' }}>{feedback}</span>)}
               </RadioContainer>
               <RadioContainer style={{ 'display': 'flex', 'justifyContent': 'space-between' }}>
                 {renderRadios(radioArray, characteristic[1].id)}

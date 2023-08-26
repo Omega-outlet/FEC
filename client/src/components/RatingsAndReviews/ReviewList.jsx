@@ -23,8 +23,17 @@ function ReviewList({ reviews, filters, submitMessage, changeSortMethod }) {
       setDisplayedReviews(reviews.length);
     } else {
       setDisplayedReviews((prev) => prev + 2);
+      setHiddenReviews((prev) => prev - 2);
     }
   };
+
+  useEffect(() => {
+    if (hiddenReviews <= 0) {
+      setDisplayButton(false);
+    } else {
+      setDisplayButton(true);
+    }
+  }, [hiddenReviews]);
 
   useEffect(() => {
     if (displayedImage) {
