@@ -73,7 +73,7 @@ const App = function () {
     <ThemeContext.Provider value={{ theme }}>
       <div className="app">
         <header>
-          <img className="logo" src={theme === 'light' ? logo : darkmodeLogo} alt="logo" />
+          <img className="logo" src={theme === 'light' ? logo : darkmodeLogo} alt="Omega Outlet logo" />
           <button className="darkMode" onClick={toggleDark}>{theme === 'dark' ? '☀️ Light Theme ☀️' : '🌒 Dark Theme 🌘'}</button>
         </header>
         <div className="content">
