@@ -1,55 +1,41 @@
-# GIT Workflow
+# Omega Outlet
 
-# (Don't fork; just clone the repo from the org)
+Our Project description here.
 
-# Setup:
+## Authors
 
-1. git checkout main
+- [**Lauren Laxton**](https://github.com/LLaxt)
+- [**Kimberly Tom**](https://github.com/tomki1)
+- [**Eric Chang**](https://github.com/ESC8504)
+- [**Brandon Gomez**](https://github.com/bgomez9212)
 
-   git pull origin
+## Built With
 
-   (make regular updates to keep local copy up to date).
-  (After that you can also merge the changes from your local main branch into the feature branch:
-  git checkout feature/xxx to make sure or switch to the feature branch
-  git merge main  this will merge the changes from the local main branch into the currently checked-out feature branch.)
+- ![](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+- ![](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=white)
+- ![](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+- ![](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3&logoColor=white) 
+- ![](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+- ![](https://img.shields.io/badge/-Express-black?style=flat-square&logo=express&logoColor=white)
+- ![](https://img.shields.io/badge/-Amazon_AWS-232F3E?style=flat-square&logo=amazon-aws&logoColor=white)
+- ![](https://img.shields.io/badge/-Jest-C21325?style=flat-square&logo=jest&logoColor=white)
+- ![](https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white)
+- ![](https://img.shields.io/badge/-ESLint-4B32C3?style=flat-square&logo=eslint&logoColor=white)
 
-3. git checkout -b feature/XXX
-to create a "feature" branch to keep it away from the main branch, which keeps the work isolated and organized.
+## Getting Started
 
-4. Coding, update, commit
+1. **Clone the repo**  
+   `git clone https://github.com/Omega-outlet/FEC.git`
 
-5. git push -u origin feature/XXX
+2. **Navigate to project directory**  
+   `cd your-project-name`
 
-This pushes new-feature to the central repo, and the -u flag adds it as a remote tracking branch. After setting up the tracking branch, git push can be invoked without any parameters to automatically push the new-feature branch to the central repository.
+3. **Install necessary dependencies**  
+   `npm install`
 
-# Request a new branch and pull request :
-1. git checkout -b eric-feature main
+4. **Update example.config.js and example.env**
 
-This checks out a branch called eric-feature based on main, and the -b flag tells Git to create the branch if it doesn’t already exist.
+5. **Run the application**  
+   `npm run server-dev`
+   `npm run server-dev`
 
-2. coding, commit, update
-
-3. git push -u origin eric-feature
-
-This pushes eric-feature to the central repository (origin), and the -u flag adds it as a remote tracking branch.
-
-4. Create a Pull Request
-
-5. git checkout main
-
-   git pull
-
-   git pull origin eric-feature
-
-   git push
-
-If the team member wanted, they could pull eric-feature into their local repository and work on it on his own. Any commits he added would also show up in the pull request.
-This process will results in a merge commit. Once the team member is ready to accept the pull request, they needs to merge the feature into the stable project (this can be done by any one on the team)
-
-   They can also do: 
-   
-   git fetch origin
-   
-   git checkout eric-feature
-   
-6. ***Review and Merge: Before every merge, at least one group member other than the one who made the pull request should review the pull request, possibly requesting changes. Once approved, the changes can be merged into the main branch of the organization repository.
